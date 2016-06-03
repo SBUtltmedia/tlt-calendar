@@ -1,7 +1,7 @@
 import ReactDom  from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Calendar from '../components/Calendar';
+import VisibleCalendar from '../components/VisibleCalendar';
 
 class App extends React.Component {
 
@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     const {  } = this.props;
     return <div>
-      <Calendar />
+      <VisibleCalendar />
     </div>;
   }
 }

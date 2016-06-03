@@ -6,12 +6,10 @@ require('react-big-calendar/lib/css/react-big-calendar.css');
 // to the correct localizer.
 BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 
-const myEventsList = [];
-
-export default props => (
+export default ({ events }) => (
   <div>
     <BigCalendar
-      events={myEventsList}
+      events={events}
       startAccessor='startDate'
       endAccessor='endDate'
     />
