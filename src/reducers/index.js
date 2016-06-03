@@ -1,74 +1,14 @@
+import moment from 'moment';
+
 const initialState = {
-  events: [
-  {
-    'title': 'All Day Event',
-    'allDay': true,
-    'start': new Date(2016, 6, 0),
-    'end': new Date(2016, 6, 0)
-  },
-  {
-    'title': 'Long Event',
-    'start': new Date(2016, 6, 7),
-    'end': new Date(2016, 6, 10)
-  },
-
-  {
-    'title': 'DTS STARTS',
-    'start': new Date(2017, 2, 13, 0, 0, 0),
-    'end': new Date(2017, 2, 20, 0, 0, 0)
-  },
-
-  {
-    'title': 'DTS ENDS',
-    'start': new Date(2017, 10, 6, 0, 0, 0),
-    'end': new Date(2017, 10, 13, 0, 0, 0)
-  },
-
-  {
-    'title': 'Some Event',
-    'start': new Date(2016, 6, 9, 0, 0, 0),
-    'end': new Date(2016, 6, 9, 0, 0, 0)
-  },
-  {
-    'title': 'Conference',
-    'start': new Date(2016, 6, 11),
-    'end': new Date(2016, 6, 13),
-    desc: 'Big conference for important people'
-  },
-  {
-    'title': 'Meeting',
-    'start': new Date(2016, 6, 12, 10, 30, 0, 0),
-    'end': new Date(2016, 6, 12, 12, 30, 0, 0),
-    desc: 'Pre-meeting meeting, to prepare for the meeting'
-  },
-  {
-    'title': 'Lunch',
-    'start':new Date(2016, 6, 12, 12, 0, 0, 0),
-    'end': new Date(2016, 6, 12, 13, 0, 0, 0),
-    desc: 'Power lunch'
-  },
-  {
-    'title': 'Meeting',
-    'start':new Date(2016, 6, 12,14, 0, 0, 0),
-    'end': new Date(2016, 6, 12,15, 0, 0, 0)
-  },
-  {
-    'title': 'Happy Hour',
-    'start':new Date(2016, 6, 12, 17, 0, 0, 0),
-    'end': new Date(2016, 6, 12, 17, 30, 0, 0),
-    desc: 'Most important meal of the day'
-  },
-  {
-    'title': 'Dinner',
-    'start':new Date(2016, 6, 12, 20, 0, 0, 0),
-    'end': new Date(2016, 6, 12, 21, 0, 0, 0)
-  },
-  {
-    'title': 'Birthday Party',
-    'start':new Date(2016, 6, 13, 7, 0, 0),
-    'end': new Date(2016, 6, 13, 10, 30, 0)
-  }
-]
+  groups: [
+    {id: 1, title: 'group 1'},
+    {id: 2, title: 'group 2'}
+  ], items: [
+    {id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour')},
+    {id: 2, group: 2, title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour')},
+    {id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour')}
+  ]
 };
 
 export default function app(state=initialState, action) {
