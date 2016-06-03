@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/SBUtltmedia/tlt-calendar#readme",
   "dependencies": {
+    "interact.js": "^1.2.6",
     "moment": "^2.13.0",
     "react": "^15.1.0",
-    "react-big-calendar": "^0.9.12",
+    "react-calendar-timeline": "^0.8.1",
+    "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0"

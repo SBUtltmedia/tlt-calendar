@@ -2,6 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
      entry: './src/index.js',
+     devtool: 'cheap-source-map',
      output: {
          path: './',
          filename: 'bundle.js'
