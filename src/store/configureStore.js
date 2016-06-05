@@ -5,7 +5,8 @@ import thunk from 'redux-thunk';
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
   );
 
   if (module.hot) {
