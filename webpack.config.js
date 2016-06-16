@@ -14,13 +14,16 @@ module.exports = {
          loaders: [{
              test: /\.js$/,
              exclude: /node_modules/,
-             loader: 'babel-loader',
+             loader: 'babel-loader'
          }, {
             test: /\.scss$/,
             loader: 'style!css!sass'
         }, {
            test: /\.css$/,
            loader: 'style!css'
-       }]
+        }, {
+            test: /\.png?$/,
+            loader: "url-loader?limit=10000"
+        }]
      }
  };
