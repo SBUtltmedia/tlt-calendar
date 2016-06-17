@@ -1,8 +1,10 @@
 table.calendar {
   width: 100%;
   table-layout: fixed;
+  border-spacing: 0;
+  border: thin solid #999;
   td {
-    border: thin solid black;
+    border: thin solid #999;
     height: 50px;
   }
 }
