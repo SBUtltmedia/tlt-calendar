@@ -4,15 +4,15 @@ import {dayHourMinutesPlus30Minutes} from '../utils/time';
 
 const GREATEST_INDEX = getIndex(6, 23, 30);
 
-function getIndex(day, hour, minutes) {
-  return day * 24 + hour * 2 + !!minutes;
+export function getIndex(day, hour, minutes) {
+  return day * 48 + hour * 2 + !!minutes;
 }
 
-function nextIndex(index) {
+export function nextIndex(index) {
   return index === GREATEST_INDEX ? 0 : index + 1;
 }
 
-function clearIndex(chips, day, index) {
+export function clearIndex(chips, day, index) {
   return [...chips.slice(0, index), ...chips.slice(nextIndex(index))];
 }
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A calendar for TLT employee hours",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
     "start": "webpack-dev-server --progress --colors --content-base ./"
   },
   "repository": {
@@ -34,8 +34,10 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
+    "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
     "react-dom": "^15.1.0",
     "sass-loader": "^3.2.0",
