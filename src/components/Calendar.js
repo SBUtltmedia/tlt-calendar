@@ -11,7 +11,7 @@ export default () => (
     <tbody>
       { _.map(_.range(7), day => (<tr key={`day_${day}`}>
           { _.map(_.range(24), hour =>
-            <VisibleCalendarCell key={`hour_${hour}`} day={day} hour={hour} />) }
+            <td key={`hour_${hour}`}><VisibleCalendarCell day={day} hour={hour} /></td>) }
         </tr>)) }
     </tbody>
   </table>

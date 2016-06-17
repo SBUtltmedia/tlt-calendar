@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend, { NativeTypes } from 'react-dnd-html5-backend';
+import HTML5Backend from 'react-dnd-html5-backend';
 import VisibleCalendar from '../components/VisibleCalendar';
 import ChipBank from '../components/ChipBank';
 
