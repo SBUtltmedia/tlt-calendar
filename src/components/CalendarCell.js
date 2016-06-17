@@ -41,9 +41,9 @@ class FullCell extends Component {
   };
   render() {
     const { isOver, canDrop, connectDropTarget, chipsPlaced, day, hour } = this.props;
-    const chip = utils.getChipInSlot(chipsPlaced, day, hour);
+    const chips = utils.getChipsInSlot(chipsPlaced, day, hour);
     return connectDropTarget(<div style={getCellStyle(isOver)}className="full-cell">
-      { chip ? <Chip {...chip} /> : '' }
+      { _.map(chips, chip => <Chip {...chip} />) }
     </div>);
   }
 }
