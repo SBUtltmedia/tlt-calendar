@@ -16,12 +16,12 @@ export function hourPlus1(hour) {
   return hour === 23 ? 0 : hour + 1;
 }
 
-export function minutesMinus30Minutes(minutes) {
-  return minutes === 30 ? 0 : 30;
+export function minuteMinus30Minutes(minute) {
+  return minute === 30 ? 0 : 30;
 }
 
-export function minutesPlus30Minutes(minutes) {
-  return minutesMinus30Minutes(minutes);
+export function minutePlus30Minutes(minute) {
+  return minuteMinus30Minutes(minute);
 }
 
 export function dayHourPlus1Hour(day, hour) {
@@ -41,15 +41,15 @@ export function dayHourMinus1(day, hour) {
 }
 
 /*
-export function dayHourMinutesPlus30Minutes(day, hour, minutes) {
-  const newMinutes = minutesPlus30Minutes(minutes);
+export function dayHourMinutesPlus30Minutes(day, hour, minute) {
+  const newMinutes = minutePlus30Minutes(minute);
   const dayHour = newMinutes === 30 ? { day, hour } : dayHourPlus1Hour(day, hour);
-  return _.assign({}, dayHour, { minutes: newMinutes });
+  return _.assign({}, dayHour, { minute: newMinutes });
 }
 
-export function dayHourMinutesMinus30Minutes(day, hour, minutes) {
-  const newMinutes = minutesMinus30Minutes(minutes);
+export function dayHourMinutesMinus30Minutes(day, hour, minute) {
+  const newMinutes = minuteMinus30Minutes(minute);
   const dayHour = newMinutes === 30 ? { day, hour } : dayHourMinus1Hour(day, hour);
-  return _.assign({}, dayHour, { minutes: newMinutes });
+  return _.assign({}, dayHour, { minute: newMinutes });
 }
 */
