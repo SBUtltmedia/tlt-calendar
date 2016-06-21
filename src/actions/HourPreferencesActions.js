@@ -11,3 +11,7 @@ export function placeChip(value, day, hour, minute) {
     duration: HOUR
   };
 }
+
+export function reorderGlobalLocations(order) {
+  
+}

@@ -2,6 +2,7 @@ import ReactDom  from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import HourPreferences from './HourPreferences';
+import styles from './App.scss';
 
 class App extends React.Component {
 
@@ -12,7 +13,7 @@ class App extends React.Component {
 
   render() {
     const {  } = this.props;
-    return <div>
+    return <div className={styles.container}>
       <HourPreferences />
     </div>;
   }
