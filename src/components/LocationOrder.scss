@@ -5,8 +5,10 @@
   .list-item {
     border-radius: 5px;
     background-color: #E6E7E8;
-    margin: 5px 0;
+    margin: 10px 0;
     cursor: pointer;
     padding: 5px 10px;
+    -webkit-user-drag: element;
+    -webkit-user-select: none;
   }
 }
