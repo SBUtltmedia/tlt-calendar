@@ -5,7 +5,7 @@ import * as utils from '../utils/hourPreferences';
 import Chip from './Chip';
 import _ from 'lodash';
 import { dayMinus1, hourMinus1 } from '../utils/time';
-import './CalendarCell.scss';
+import styles from './CalendarCell.scss';
 
 function getCellStyle(isOver) {
   const backgroundColor = isOver ? 'blue' : null;
@@ -77,7 +77,7 @@ export default class CalendarCell extends Component {
 
   render() {
     const { day, hour } = this.props;
-    return <div className="container">
+    return <div className={styles.container}>
       { hour === 0 ?
         <HalfCell side="left" {..._.assign({}, this.props, {day: dayMinus1(day), hour: hourMinus1(hour)})} />
         : '' }

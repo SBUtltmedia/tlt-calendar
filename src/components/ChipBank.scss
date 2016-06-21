@@ -1,7 +1,7 @@
-.container {
+:local(.container) {
   display: flex;
 
-  .chip-container {
+  .chip {
     margin: 3px;
   }
 }

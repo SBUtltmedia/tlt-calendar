@@ -1,0 +1,20 @@
+:local(.container) {
+
+  .controls {
+    display: flex;
+    margin-top: 10px;
+
+    .hours-settings {
+      width: 33%;
+    }
+
+    .chip-bank {
+      margin: auto;
+    }
+
+    .location-order {
+      width: 33%;
+    }
+  }
+
+}

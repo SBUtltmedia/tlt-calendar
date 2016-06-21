@@ -1,10 +1,10 @@
 import moment from 'moment';
 import _ from 'lodash';
-import './Calendar.scss';
+import styles from './Calendar.scss';
 import VisibleCalendarCell from './VisibleCalendarCell';
 
 export default () => (
-  <table className="calendar">
+  <table className={styles.calendar}>
     <thead>
 
     </thead>
