@@ -15,7 +15,7 @@ export default ({reorderGlobalLocations}) => (
       // Lock horizontal to have a vertical list
       lock='horizontal'
       // The milliseconds to hold an item for before dragging begins
-      holdTime='0'
+      holdTime='10'
       // The list to display
       list={LOCATIONS}
       // A template to display for each list item
