@@ -1,7 +1,10 @@
 :local(.container) {
-  display: flex;
 
-  .chip {
-    margin: 3px;
+  .row {
+    display: flex;
+    
+    .chip {
+      margin: 3px;
+    }
   }
 }
