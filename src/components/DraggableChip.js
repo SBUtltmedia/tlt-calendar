@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
 import ItemTypes from '../constants/ItemTypes';
-import Chip, { getFullChipImage } from './Chip';
+import Chip, { getChipImage } from './Chip';
 
 const boxSource = {
     beginDrag(props) {
@@ -27,14 +27,12 @@ export default class DraggableChip extends Component {
 
     componentDidMount() {
         const { connectDragPreview, value } = this.props;
-        const image = new Image();
-        image.src = getFullChipImage(value);
-        image.onload = () => connectDragPreview(image);
+        getChipImage(value, connectDragPreview);
     }
 
     render() {
         const { connectDragSource, isDragging, disabled, value } = this.props;
-        const opacity = isDragging || disabled ? 0.2 : 1;
+        const opacity = isDragging || disabled ? 0.1 : 1;
         const chip = <div style={{opacity}}><Chip value={value} /></div>;
         return disabled ? chip : connectDragSource(chip);
     }
