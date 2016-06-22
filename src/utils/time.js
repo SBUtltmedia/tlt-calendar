@@ -1,4 +1,15 @@
-import _ from 'lodash';
+
+export function getHourLabel(hour) {
+  if (hour === 0) {
+    return 12;
+  }
+  else if (hour > 12) {
+    return hour - 12;
+  }
+  else {
+    return hour;
+  }
+}
 
 export function dayMinus1(day) {
   return day === 0 ? 6 : day - 1;
