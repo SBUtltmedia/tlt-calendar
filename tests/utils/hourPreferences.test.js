@@ -13,9 +13,9 @@ describe('getIndex', () => {
 
   it('clears a slot', () => {
     const chip1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
-    expect([undefined]).to.deep.equal(utils.clearSlot([chip1], 0, 0, 0, HOUR));
-    expect([undefined]).to.deep.equal(utils.clearSlot([chip1], 0, 0, 0, HALF_HOUR));
-    expect([undefined]).to.deep.equal(utils.clearSlot([chip1], 0, 0, 30, HALF_HOUR));
+    expect(utils.clearSlot([chip1], 0, 0, 0, HOUR)).to.deep.equal([undefined]);
+    expect(utils.clearSlot([chip1], 0, 0, 0, HALF_HOUR)).to.deep.equal([undefined]);
+    expect(utils.clearSlot([chip1], 0, 0, 30, HALF_HOUR)).to.deep.equal([undefined]);
   });
 
   it('places a chip', () => {

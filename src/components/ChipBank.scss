@@ -1,8 +1,11 @@
-:local(.container) {
+:local(.scrollArea) {
+  width: 320px;
+}
 
+:local(.container) {
   .row {
     display: flex;
-    
+
     .chip {
       margin: 3px;
     }
