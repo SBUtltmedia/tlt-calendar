@@ -7,20 +7,26 @@ import styles from './ChipBank.scss';
 import { isValueAvailable } from '../utils/hourPreferences';
 import { Motion, spring } from 'react-motion';
 
+const CONVEYOR_BELT_START_COL = 3;
+const CONVEYOR_BELT_STIFFNESS = 80;
+const CHIP_MARGIN = 3;
+
 var chipWidth;
 getChipSize(({width}) => chipWidth = width);
 
-const CONVEYOR_BELT_START_COL = 3;
-const CHIP_MARGIN = 3;
-
 function getConveyorBeltX(currentSetNumber) {
-  return (chipWidth + CHIP_MARGIN + (currentSetNumber > 1 ? CHIP_MARGIN : 0)) *
-         (Math.max(0, (currentSetNumber - CONVEYOR_BELT_START_COL)))
+  if (chipWidth) {
+    const col = (Math.max(0, (currentSetNumber - CONVEYOR_BELT_START_COL)));
+    return col * (chipWidth + CHIP_MARGIN + (currentSetNumber > 1 ? CHIP_MARGIN : 0));
+  }
+  else {  // chipWidth has not loaded yet
+    return 0;
+  }
 }
 
 export default ({chipsPlaced, numOpenSets}) => (
   <div className={styles.scrollArea}>
-    <Motion style={{x: chipWidth ? spring(getConveyorBeltX(numOpenSets)) : 0}}>
+    <Motion style={{x: spring(getConveyorBeltX(numOpenSets), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
       {({x}) =>
         <div className="bank" style={{marginLeft: -x}}>
           {_.map(RANKS, rank =>
