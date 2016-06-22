@@ -1,13 +1,10 @@
 :local(.scrollArea) {
   width: 320px;
-}
+  overflow: hidden;
 
-:local(.container) {
-  .row {
-    display: flex;
-
-    .chip {
-      margin: 3px;
+  .bank {
+    .row {
+      display: flex;
     }
   }
 }
