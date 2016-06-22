@@ -34,7 +34,7 @@ export default class DraggableChip extends Component {
 
     render() {
         const { connectDragSource, isDragging, disabled, value } = this.props;
-        const opacity = isDragging || disabled ? 0.4 : 1;
+        const opacity = isDragging || disabled ? 0.2 : 1;
         const chip = <div style={{opacity}}><Chip value={value} /></div>;
         return disabled ? chip : connectDragSource(chip);
     }

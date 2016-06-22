@@ -25,4 +25,20 @@ describe('getIndex', () => {
     expect([1, 2, 2]).to.deep.equal(utils.placeChip([1, 1], chip2));
     expect([1, 2, 2, 3]).to.deep.equal(utils.placeChip([1, 1, 3, 3], chip2));
   });
+
+  it('gets chip counts', () => {
+    expect([0, 0, 0, 0]).to.deep.equal(utils.getChipCounts([]));
+    expect([0, 0, 0, 0]).to.deep.equal(utils.getChipCounts([undefined]));
+    expect([1, 0, 0, 0]).to.deep.equal(utils.getChipCounts([1]));
+    expect([1, 0, 0, 0]).to.deep.equal(utils.getChipCounts([1, 1]));
+    expect([1, 1, 1, 1]).to.deep.equal(utils.getChipCounts([1, 1, 2, 2, 3, 3, 4, 4]));
+    expect([2, 1, 1, 1]).to.deep.equal(utils.getChipCounts([1, 1, 2, 2, 3, 3, 4, 4, 1]));
+  });
+
+  it('gets number of open chip sets', () => {
+    expect(1).to.equal(utils.getNumOpenChipSets([]));
+    expect(1).to.equal(utils.getNumOpenChipSets([undefined]));
+    expect(1).to.equal(utils.getNumOpenChipSets([1]));
+    expect(2).to.equal(utils.getNumOpenChipSets([1, 1, 2, 2, 3, 3, 4, 4]));
+  });
 });

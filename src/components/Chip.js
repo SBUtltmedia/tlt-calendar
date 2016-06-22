@@ -1,4 +1,4 @@
-import {HOUR} from '../constants/Constants';
+import { HOUR } from '../constants/Constants';
 
 export function getFullChipImage(value) {
   return require(`../../img/chips/${value}.png`);

@@ -1,6 +1,8 @@
 import _ from 'lodash';
-import {HOUR, HALF_HOUR} from '../constants/Constants';
-import {dayHourMinutesPlus30Minutes, dayHourPlus1Hour} from '../utils/time';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
+import { RANKS } from '../constants/Settings';
+import { dayHourMinutesPlus30Minutes, dayHourPlus1Hour } from '../utils/time';
+import '../utils/array';
 
 const GREATEST_INDEX = getIndex(6, 23, 30);
 
@@ -67,4 +69,18 @@ export function placeChip(chipsPlaced, {value, day, hour, minute, duration=HOUR}
     case HOUR: return setValue(setValue(chipsPlaced, index, value), nextIndex(index), value);
     default: throw new Error(`Invalid duration ${duration}`);
   }
+}
+
+export function getChipCounts(chipsPlaced) {
+  const chips = _.filter(chipsPlaced, c => c);
+  return _.map(RANKS, rank => Math.ceil(_.size(_.filter(chips, c => c === rank)) / 2));
+}
+
+export function getNumOpenChipSets(chipsPlaced) {
+  return getChipCounts(chipsPlaced).min() + 1;
+}
+
+export function isValueAvailable(chipsPlaced, value) {
+  const counts = getChipCounts(chipsPlaced);
+  return counts[value - 1] <= counts.min();
 }
