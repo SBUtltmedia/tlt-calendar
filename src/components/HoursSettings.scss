@@ -1,3 +1,32 @@
 :local(.container) {
+  margin-left: 20px;
 
+  .value {
+    font-weight: bold;
+  }
+
+  .hours-desired {
+    font-size: inherit;
+    width: 36px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 4px;
+    text-align: center;
+  }
+
+  .star, .notes {
+    color: #F00;
+  }
+
+  .star {
+    font-weight: bold;
+    font-size: 28px;
+    margin-left: 4px;
+  }
+
+  .notes {
+    margin-top: 20px;
+    font-size: small;
+    width: 320px;
+  }
 }
