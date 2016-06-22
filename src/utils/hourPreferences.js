@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS } from '../constants/Settings';
 import { dayHourMinutesPlus30Minutes, dayHourPlus1Hour } from '../utils/time';
-import '../utils/array';
+import './array';
 
 const GREATEST_INDEX = getIndex(6, 23, 30);
 
