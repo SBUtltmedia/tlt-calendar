@@ -56,8 +56,8 @@ export function getChipsInSlot(chipsPlaced, day, hour) {
 export function clearSlot(chipsPlaced, day, hour, minute, duration) {
   const index = getIndex(day, hour, minute);
   switch (duration) {
-    case HOUR: return clearIndex(clearIndex(chipsPlaced, day, index), day, nextIndex(index));
-    case HALF_HOUR: return clearIndex(chipsPlaced, day, index);
+    case HALF_HOUR: return clearIndex(chipsPlaced, index);
+    case HOUR: return clearIndex(clearIndex(chipsPlaced, index), nextIndex(index));
     default: throw new Error(`Invalid duration ${duration}`);
   }
 }
