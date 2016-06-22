@@ -4,35 +4,26 @@ import { RANKS } from '../constants/Settings';
 import _ from 'lodash';
 import styles from './ChipBank.scss';
 import { isValueAvailable } from '../utils/hourPreferences';
-import ScrollArea from 'react-scrollbar';
+import {Motion, spring} from 'react-motion';
 
-class ChipBank extends Component {
-  render() {
-    return <ScrollArea className={styles.scrollArea} speed={0.8} horizontal={true} >
-      <Content {...this.props} />
-    </ScrollArea>;
-  }
-}
+const CHIP_WIDTH = 58;  // TODO: Make dynamic
+const CONVEYOR_BELT_START_COL = 3;
 
-class Content extends Component {
-  render() {
-    this.context.scrollArea.scrollXTo(50);
-    const {chipsPlaced, numOpenSets} = this.props;
-    return <div className={styles.container}>
-      {_.map(RANKS, rank =>
-        <div className="row" key={rank}>
-         {_.map(_.range(numOpenSets + 5), col =>
-           <div className="chip" key={col}>
-              <DraggableChip disabled={col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} value={rank} />
-           </div>)}
+export default ({chipsPlaced, numOpenSets}) => (
+  <div className={styles.scrollArea}>
+    <Motion style={{x: spring(CHIP_WIDTH * (Math.max(0, (numOpenSets - CONVEYOR_BELT_START_COL))))}}>
+      {({x}) =>
+        <div className="bank" style={{marginLeft: -x}}>
+          {_.map(RANKS, rank =>
+            <div className="row" key={rank}>
+             {_.map(_.range(numOpenSets + 5), col =>
+               <div className="chip" key={col}>
+                  <DraggableChip disabled={col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} value={rank} />
+               </div>)}
+            </div>
+          )}
         </div>
-      )}
-    </div>;
-  }
-}
-
-Content.contextTypes = {
-  scrollArea: React.PropTypes.object
-};
-
-export default ChipBank;
+      }
+    </Motion>
+  </div>
+);
