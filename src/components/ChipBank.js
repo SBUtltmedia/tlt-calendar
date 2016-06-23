@@ -25,20 +25,25 @@ function getConveyorBeltX(currentSetNumber) {
 }
 
 export default ({chipsPlaced, numOpenSets}) => (
-  <div className={styles.scrollArea}>
-    <Motion style={{x: spring(getConveyorBeltX(numOpenSets), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
-      {({x}) =>
-        <div className="bank" style={{marginLeft: -x}}>
-          {_.map(RANKS, rank =>
-            <div className="row" key={rank}>
-             {_.map(_.range(numOpenSets + 5), col =>
-               <div key={col} style={{margin: CHIP_MARGIN}}>
-                  <DraggableChip disabled={col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} value={rank} />
-               </div>)}
-            </div>
-          )}
-        </div>
-      }
-    </Motion>
+  <div className={styles.container}>
+    <div className="scroll-area">
+      <Motion style={{x: spring(getConveyorBeltX(numOpenSets), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
+        {({x}) =>
+          <div className="bank" style={{marginLeft: -x}}>
+            {_.map(RANKS, rank =>
+              <div className="row" key={rank}>
+               {_.map(_.range(numOpenSets + 5), col =>
+                 <div key={col} style={{margin: CHIP_MARGIN}}>
+                    <DraggableChip disabled={col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} value={rank} />
+                 </div>)}
+              </div>
+            )}
+          </div>
+        }
+      </Motion>
+    </div>
+    <p className="notes">
+      Drag and drop on schedule to indicate preferences
+    </p>
   </div>
 );
