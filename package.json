@@ -4,7 +4,7 @@
   "description": "A calendar for TLT employee hours",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
-    "start": "webpack-dev-server --progress --colors --content-base ./"
+    "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,12 @@
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "react-reorder": "^2.0.0",
+    "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.0.11",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
