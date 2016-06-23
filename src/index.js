@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
 import AdminDashboard from './containers/AdminDashboard';
+import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 const reducer = combineReducers({
   ...reducers,
@@ -18,7 +19,7 @@ const reducer = combineReducers({
 });
 
 const DevTools = createDevTools(
-  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q" defaultIsVisible={false}>
+  <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q" defaultIsVisible={SHOW_DEV_TOOLS}>
     <LogMonitor theme="tomorrow" preserveScrollTop={false} />
   </DockMonitor>
 );
