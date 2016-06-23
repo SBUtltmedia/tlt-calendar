@@ -1,6 +1,6 @@
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid/dist/styles/ag-grid.css';
-import 'ag-grid/dist/styles/theme-fresh.css';
+import 'ag-grid-root/dist/styles/ag-grid.css';
+import 'ag-grid-root/dist/styles/theme-fresh.css';
 import styles from './AdminDashboard.scss';
 import ColDefFactory from '../components/admin/ColDefFactory';
 import RowDataFactory from '../components/admin/RowDataFactory';
@@ -22,13 +22,9 @@ const rowData = new RowDataFactory().createRowData();
 export default () => (
   <div className={`${styles.container} ag-fresh`}>
     <AgGridReact
-        // listen for events with React callbacks
-        onRowSelected={() => {}}
-        onCellClicked={() => {}}
 
         // binding to properties within React State or Props
         showToolPanel={false}
-        quickFilterText={null}
         icons={icons}
 
         // column definitions and row data are immutable, the grid

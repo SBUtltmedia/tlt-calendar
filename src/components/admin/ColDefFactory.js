@@ -1,9 +1,7 @@
-import SkillsCellRenderer from './SkillsCellRenderer';
 import ProficiencyCellRenderer from './ProficiencyCellRenderer';
 import RefData from './RefData';
 import { reactCellRendererFactory } from 'ag-grid-react';
 import { reactFilterFactory } from 'ag-grid-react';
-import SkillsFilter from './SkillsFilter';
 import ProficiencyFilter from './ProficiencyFilter';
 
 export default class ColDefFactory {
@@ -22,22 +20,6 @@ export default class ColDefFactory {
                         // not bothering with React for country, as it's a simple HTML string
                         cellRenderer: countryCellRenderer, pinned: true,
                         filterParams: {cellRenderer: countryCellRenderer, cellHeight: 20}},
-                ]
-            },
-            {
-                headerName: 'IT Skills',
-                children: [
-                    {headerName: "Skills", width: 125, suppressSorting: true, field: 'skills',
-                        // using ag-Grid's React cellRenderer factory
-                        cellRenderer: reactCellRendererFactory(SkillsCellRenderer),
-                        // using ag-Grid's React filter factory
-                        filter: reactFilterFactory(SkillsFilter)
-                    },
-                    {headerName: "Proficiency", field: "proficiency", filter: 'number', width: 120,
-                        // using ag-Grid's React cellRenderer factory
-                        cellRenderer: reactCellRendererFactory(ProficiencyCellRenderer),
-                        // using ag-Grid's React filter factory
-                        filter: reactFilterFactory(ProficiencyFilter)}
                 ]
             },
             {

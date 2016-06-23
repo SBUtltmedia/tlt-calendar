@@ -27,5 +27,10 @@ module.exports = {
             exclude: /node_modules/,
             loader: "url-loader?limit=10000"
         }]
-     }
+     },
+     resolve: {
+        alias: {
+            "ag-grid-root" : __dirname + "/node_modules/ag-grid"
+        }
+    }
  };
