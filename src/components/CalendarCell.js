@@ -19,6 +19,10 @@ const halfCellTarget = {
   }
 };
 
+function getCellClass(isOver, canDrop) {
+  return isOver ? 'over ' + (canDrop ? 'accept' : 'reject') : '';
+}
+
 @DropTarget(props => [ItemTypes.CHIP], fullCellTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
@@ -36,7 +40,7 @@ class FullCell extends Component {
   render() {
     const { isOver, canDrop, connectDropTarget, chipsPlaced, day, hour } = this.props;
     const chips = utils.getChipsInSlot(chipsPlaced, day, hour);
-    return connectDropTarget(<div className={`cell full ${isOver ? 'over' : ''}`}>
+    return connectDropTarget(<div className={`cell full ${getCellClass(isOver, canDrop)}`}>
       { _.map(chips, (chip, i) => <Chip {...chip} key={i} />) }
     </div>);
   }
@@ -57,7 +61,7 @@ class HalfCell extends Component {
   };
   render () {
     const { isOver, canDrop, connectDropTarget, chipsPlaced, side } = this.props;
-    return connectDropTarget(<div className={`cell half ${side} ${isOver ? 'over' : ''}`}></div>);
+    return connectDropTarget(<div className={`cell half ${side} ${getCellClass(isOver, canDrop)}`}></div>);
   }
 }
 
