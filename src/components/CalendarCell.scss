@@ -5,23 +5,31 @@
   z-index: 1;
   display: flex;
 
-  .full-cell {
-    width: 100%;
+  .cell {
     height: 100%;
   }
 
-  .half-cell {
+  .cell.full {
+      width: 100%;
+  }
+
+  .cell.half {
     width: 40%;
     height: 100%;
     position: absolute;
     z-index: 2;
   }
 
-  .half-cell.left {
+  .cell.half.left {
     left: -20%;
   }
 
-  .half-cell.right {
+  .cell.half.right {
     right: -20%;
+  }
+
+  .cell.over {
+    background-color: #39F;
+    opacity: 0.4;
   }
 }
