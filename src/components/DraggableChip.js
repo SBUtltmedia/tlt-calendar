@@ -6,7 +6,8 @@ import Chip, { getChipImage } from './Chip';
 const boxSource = {
     beginDrag(props) {
         return {
-            value: props.value
+            value: props.value,
+            disabled: props.disabled
         };
     }
 };
@@ -33,7 +34,6 @@ export default class DraggableChip extends Component {
     render() {
         const { connectDragSource, isDragging, disabled, value } = this.props;
         const opacity = isDragging || disabled ? 0.1 : 1;
-        const chip = <div style={{opacity}}><Chip value={value} /></div>;
-        return disabled ? chip : connectDragSource(chip);
+        return connectDragSource(<div style={{opacity}}><Chip value={value} /></div>);
     }
 }

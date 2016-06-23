@@ -11,7 +11,6 @@
 
   .cell.full {
       width: 100%;
-      display: flex;
   }
 
   .cell.half {
@@ -33,11 +32,11 @@
     opacity: 0.4;
   }
 
-  .cell.over.accept {
+  .cell.over {
     background-color: #39F;
   }
 
-  .cell.over.reject {
+  .cell.reject {
     background-color: #F00;
   }
 }
