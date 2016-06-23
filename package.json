@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/SBUtltmedia/tlt-calendar#readme",
   "dependencies": {
+    "ag-grid": "^5.0.0-alpha.2",
+    "ag-grid-react": "^5.0.0-alpha.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "lodash": "^4.13.1",
     "moment": "^2.13.0",

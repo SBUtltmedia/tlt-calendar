@@ -17,12 +17,14 @@ module.exports = {
              loader: 'babel-loader'
          }, {
             test: /\.scss$/,
+            exclude: /node_modules/,
             loader: 'style!css!sass'
         }, {
            test: /\.css$/,
            loader: 'style!css'
         }, {
             test: /\.png?$/,
+            exclude: /node_modules/,
             loader: "url-loader?limit=10000"
         }]
      }
