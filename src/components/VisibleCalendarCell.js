@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 
 const mapStateToProps = state => {
+  console.log(state);
   return state.hourPreferences;
 };
 
