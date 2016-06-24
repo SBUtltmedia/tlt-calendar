@@ -38,5 +38,6 @@ export default () => (
         enableFilter="true"
         rowHeight="22"
     />
+    <button className="download-btn" onClick={() => {}}>Download as CSV</button>
   </div>
 );
