@@ -1,6 +1,6 @@
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-root/dist/styles/ag-grid.css';
-import 'ag-grid-root/dist/styles/theme-fresh.css';
+import 'ag-grid/dist/styles/ag-grid.css';
+import 'ag-grid/dist/styles/theme-fresh.css';
 import styles from './AdminDashboard.scss';
 import ColDefFactory from '../components/admin/ColDefFactory';
 import RowDataFactory from '../components/admin/RowDataFactory';
