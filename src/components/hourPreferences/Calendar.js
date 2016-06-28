@@ -1,4 +1,3 @@
-import moment from 'moment';
 import _ from 'lodash';
 import styles from './Calendar.scss';
 import VisibleCalendarCell from './VisibleCalendarCell';
