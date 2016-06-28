@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import styles from './Calendar.scss';
 import VisibleCalendarCell from './VisibleCalendarCell';
-import { getHourLabel } from '../../utils/time';
+import { getHourLabel } from '../utils/time';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-export default () => (
+export default props => (
   <div className={styles.container}>
     <div>
 
@@ -19,7 +19,7 @@ export default () => (
       <tbody>
         { _.map(DAYS, (day, i) => (<tr key={i}>
           <td>{day}</td>
-          { _.map(_.range(24), hour => <td key={hour}><VisibleCalendarCell day={i} hour={hour} /></td>) }
+          { _.map(_.range(24), hour => <td key={hour}><VisibleCalendarCell {...props} day={i} hour={hour} /></td>) }
           <td>{day}</td>
         </tr>)) }
       </tbody>
