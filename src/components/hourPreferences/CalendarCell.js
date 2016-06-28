@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../constants/ItemTypes';
-import * as utils from '../utils/hourPreferences';
+import ItemTypes from '../../constants/ItemTypes';
+import * as utils from '../../utils/hourPreferences';
 import Chip from './Chip';
 import _ from 'lodash';
-import { dayMinus1, hourMinus1 } from '../utils/time';
+import { dayMinus1, hourMinus1 } from '../../utils/time';
 import styles from './CalendarCell.scss';
 
 function canDrop(props, monitor) {

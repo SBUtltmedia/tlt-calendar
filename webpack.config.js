@@ -25,7 +25,7 @@ module.exports = {
         }, {
             test: /\.png?$/,
             exclude: /node_modules/,
-            loader: "url-loader?limit=10000"
+            loader: "url-loader?limit=100000"
         }]
      }
  };

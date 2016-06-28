@@ -1,4 +1,4 @@
-import {getNumOpenChipSets} from '../utils/hourPreferences';
+import {getNumOpenChipSets} from '../../utils/hourPreferences';
 import ChipBank from './ChipBank';
 import { connect } from 'react-redux';
 

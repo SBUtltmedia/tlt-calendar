@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { DragSource } from 'react-dnd';
-import ItemTypes from '../constants/ItemTypes';
+import ItemTypes from '../../constants/ItemTypes';
 import Chip, { getChipImage } from './Chip';
 
 const boxSource = {

@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import VisibleCalendar from '../components/VisibleCalendar';
-import HoursSettings from '../components/HoursSettings';
-import VisibleChipBank from '../components/VisibleChipBank';
-import LocationOrder from '../components/LocationOrder';
+import VisibleCalendar from '../components/hourPreferences/VisibleCalendar';
+import HoursSettings from '../components/hourPreferences/HoursSettings';
+import VisibleChipBank from '../components/hourPreferences/VisibleChipBank';
+import LocationOrder from '../components/hourPreferences/LocationOrder';
 import styles from './HourPreferences.scss';
 
 @DragDropContext(HTML5Backend)

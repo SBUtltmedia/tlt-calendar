@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import DraggableChip from './DraggableChip';
 import { getSize as getChipSize } from './Chip';
-import { RANKS } from '../constants/Settings';
+import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
 import styles from './ChipBank.scss';
-import { isValueAvailable } from '../utils/hourPreferences';
+import { isValueAvailable } from '../../utils/hourPreferences';
 import { Motion, spring } from 'react-motion';
 
 const CONVEYOR_BELT_START_COL = 3;

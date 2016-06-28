@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import styles from './Calendar.scss';
 import VisibleCalendarCell from './VisibleCalendarCell';
-import { getHourLabel } from '../utils/time';
+import { getHourLabel } from '../../utils/time';
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

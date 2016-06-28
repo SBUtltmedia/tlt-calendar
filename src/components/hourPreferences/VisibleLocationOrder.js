@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import CalendarCell from './CalendarCell';
+import LocationOrder from './LocationOrder';
 import { bindActionCreators } from 'redux';
-import * as HourPreferencesActions from '../actions/HourPreferencesActions';
+import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 const mapStateToProps = state => {
   return state.hourPreferences;
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CalendarCell);
+)(LocationOrder);

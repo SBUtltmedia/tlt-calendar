@@ -1,7 +1,8 @@
-import { HOUR } from '../constants/Constants';
+import { HOUR } from '../../constants/Constants';
+const FORMAT = 'png';
 
 export function getFullChipImage(value) {
-  return require(`../../img/chips/${value}.png`);
+  return require(`../../../img/chips/${value}.${FORMAT}`);
 }
 
 export function getChipImage(value, callback) {
@@ -21,5 +22,5 @@ export function getSize(callback) {
 
 export default ({value, minute, duration=HOUR}) => (
   <img style={{float: minute === 30 ? 'right' : 'left'}}
-  src={require(`../../img/chips/${value + (duration === HOUR ? '' : ('half' + (minute === 30 ? '1' : '2' )))}.png`)} />
+  src={require(`../../../img/chips/${value + (duration === HOUR ? '' : ('half' + (minute === 30 ? '1' : '2' )))}.${FORMAT}`)} />
 );

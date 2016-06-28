@@ -1,6 +1,6 @@
 import styles from './LocationOrder.scss';
 import Reorder from 'react-reorder';
-import {LOCATIONS} from '../constants/Settings';
+import {LOCATIONS} from '../../constants/Settings';
 
 const ListItem = ({item}) => (
   <div className="list-item">{item.name}</div>
