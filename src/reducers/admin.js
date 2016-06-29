@@ -3,13 +3,13 @@ import _ from 'lodash';
 import * as utils from '../utils/admin';
 
 const initialState = {
-  reserves: []  // Array of bools
+  calendarItems: []  // TODO: Eventually this needs to have one for each location
 };
 
 export default function admin(state=initialState, action) {
   switch (action.type) {
-    case PLACE_RESERVE: return _.assign({}, state, {reserves: utils.placeReserve(state.reserves, action)});
-    case REMOVE_RESERVE: return _.assign({}, state, {reserves: utils.removeReserve(state.reserves, action)});
+    case PLACE_RESERVE: return _.assign({}, state, {calendarItems: utils.placeReserve(state.calendarItems, action)});
+    case REMOVE_RESERVE: return _.assign({}, state, {calendarItems: utils.removeItem(state.calendarItems, action)});
     default: return state;
   }
 }

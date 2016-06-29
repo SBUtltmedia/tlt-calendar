@@ -1,0 +1,36 @@
+@import '../style/colors';
+@import '../style/dimens';
+
+$border: thin solid $border-color;
+
+:local(.container) {
+	border: $border;
+	border-radius: $border-radius;
+	padding: 16px;
+	height: 100%;
+
+	.cell {
+
+	}
+
+	.employee {
+
+	}
+
+	.title {
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	.action {
+		.description {
+			font-size: small;
+		}
+	}
+
+	.label {
+		font-weight: bold;
+		margin-right: 5px;
+	}
+}

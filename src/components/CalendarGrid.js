@@ -2,8 +2,7 @@ import _ from 'lodash';
 import styles from './CalendarGrid.scss';
 import CalendarCell from './CalendarCell';
 import { getHourLabel } from '../utils/time';
-
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+import { DAYS } from '../constants/Settings';
 
 export default props => (
   <div className={styles.container}>

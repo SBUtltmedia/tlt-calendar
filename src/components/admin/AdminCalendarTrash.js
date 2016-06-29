@@ -5,7 +5,7 @@ import DraggableTypes from '../../constants/DraggableTypes';
 import * as AdminActions from '../../actions/AdminActions';
 
 const mapStateToProps = state => ({
-  items: state.admin.reserves,
+  items: state.admin.calendarItems,
   itemTypes: DraggableTypes.RESERVE
 });
 
@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators(AdminActions, dispatch);
   return {
     placeItem: actions.placeReserve,
-    removeItem: actions.removeReserve
+    removeItem: actions.removeItem
   }
 };
 

@@ -4,7 +4,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import AdminCalendarGrid from '../components/admin/AdminCalendarGrid';
 import AdminBank from '../components/admin/AdminBank';
 import AdminCalendarTrash from '../components/admin/AdminCalendarTrash';
-import AdminCalendarInfoBox from '../components/admin/AdminCalendarInfoBox';
+import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './AdminCalendarPage.scss';
 
 @DragDropContext(HTML5Backend)
@@ -15,7 +15,7 @@ export default class AdminCalendarPage extends Component {
       <div className="controls">
         <div className="bank"><AdminBank /></div>
         <div className="trash"><AdminCalendarTrash /></div>
-        <div className="info"><AdminCalendarInfoBox /></div>
+        <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;
 	}

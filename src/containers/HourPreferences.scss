@@ -4,21 +4,30 @@
     display: flex;
     margin: auto 12px;
 
+    >div {
+      margin: 0 auto;
+    }
+
     .hours-settings {
-      width: 30%;
+      width: 300px;
     }
 
     .chip-bank {
-      margin: 0 auto;
       width: 320px;
     }
 
     .trash {
-      margin: 50px auto;
+      margin-top: 50px;
     }
 
     .location-order {
-      width: 20%;
+      width: 240px;
+    }
+
+    .info {
+      margin-top: 8px;
+      width: 200px;
+      height: 240px;
     }
   }
 

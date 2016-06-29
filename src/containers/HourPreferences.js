@@ -6,6 +6,7 @@ import HoursSettings from '../components/hourPreferences/HoursSettings';
 import VisibleChipBank from '../components/hourPreferences/VisibleChipBank';
 import StudentCalendarTrash from '../components/hourPreferences/StudentCalendarTrash';
 import LocationOrder from '../components/hourPreferences/LocationOrder';
+import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './HourPreferences.scss';
 
 @DragDropContext(HTML5Backend)
@@ -18,6 +19,7 @@ export default class HourPreferences extends Component {
         <div className="chip-bank"><VisibleChipBank /></div>
         <div className="trash"><StudentCalendarTrash /></div>
         <div className="location-order"><LocationOrder /></div>
+        <div className="info"><CalendarInfoBox /></div>
       </div>
     </div>;
   }
