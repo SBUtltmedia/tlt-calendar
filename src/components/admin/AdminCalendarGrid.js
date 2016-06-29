@@ -9,7 +9,7 @@ import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
 import { ADMIN_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
-  items: state.admin.reserves,
+  items: state.admin.calendarItems,
   itemTypes: DraggableTypes.RESERVE,
   cellComponent: ReserveIcon
 });
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
     placeItem: adminActions.placeReserve,
-    removeItem: adminActions.removeReserve,
+    removeItem: adminActions.removeItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

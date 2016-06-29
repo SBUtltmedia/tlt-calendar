@@ -47,17 +47,17 @@ class FullCell extends Component {
     items: PropTypes.array.isRequired
   };
 
-  fillInfoBox(itemsInSlot) {
-    this.props.fillInfoBox(this.props);
+  fillInfoBox(cellItems) {
+    this.props.fillInfoBox({...this.props, cellItems});
   }
 
   render() {
     const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox } = this.props;
-    const itemsInSlot = getItemsInSlot(items, day, hour);
+    const cellItems = getItemsInSlot(items, day, hour);
     return connectDropTarget(
       <div className={`cell full ${getCellClass(this.props)}`}
-      onMouseEnter={this.fillInfoBox.bind(this, itemsInSlot)} onMouseLeave={clearInfoBox}>
-        {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
+      onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
+        {_.map(cellItems, (item, i) => cellComponent({...item, key: i}))}
       </div>
     );
   }

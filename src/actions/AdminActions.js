@@ -12,6 +12,6 @@ export function placeReserve({day, hour, minute, duration=HOUR}) {
   };
 }
 
-export function removeReserve(reserve) {
+export function removeItem(reserve) {
   return _.assign({}, reserve, {type: REMOVE_RESERVE});
 }

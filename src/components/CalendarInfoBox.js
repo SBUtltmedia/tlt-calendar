@@ -3,32 +3,46 @@ import styles from './CalendarInfoBox.scss';
 import { STUDENT_CELL, ADMIN_CELL, EMPLOYEE, ACTION } from '../constants/InfoBoxTypes';
 import { DAYS } from '../constants/Settings';
 import { getHourLabel, hourPlus1 } from '../utils/time';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
+import _ from 'lodash';
 
-const StudentCell = ({day, hour}) => (
-	<div className="cell">
-		<div>
-			<span className="label">Time slot:</span>
-			{DAYS[day]} {getHourLabel(hour)}-{getHourLabel(hourPlus1(hour))}
-		</div>
-		<div>
-			<span className="label">Preference rank:</span>
-			-
-		</div>
-	</div>
-);
+function renderCellItemsSection(items, heading, renderFn, alwaysRender=false) {
+	if (_.isEmpty(items) && !alwaysRender) {
+		return '';
+	} else {
+		return <div>
+	 		{heading}
+	 		<ul>
+	 			{_.map(items, (item, i) => <li key={i}>{renderFn(item)}</li>)}
+	 		</ul>
+	 	</div>
+	}
+}
 
-const AdminCell = ({day, hour}) => (
-	<div className="cell">
-		<div>
-			<span className="label">Time slot:</span>
-			{DAYS[day]} {getHourLabel(hour)}-{getHourLabel(hourPlus1(hour))}
-		</div>
-		<div>
-			<span className="label">Employee:</span>
-			-
-		</div>
-	</div>
-);
+function renderCellItems(day, hour, items, renderFn) {
+	const dayName = DAYS[day];
+	const startHourString = getHourLabel(hour);
+	const endHourString = getHourLabel(hourPlus1(hour));
+	const fullItems = _.filter(items, item => item.duration === HOUR);
+	const halfItems1 = _.filter(items, item => item.duration === HALF_HOUR && item.minute === 0);
+ 	const halfItems2 = _.filter(items, item => item.duration === HALF_HOUR && item.minute === 30);
+ 	const alwaysRender = _.isEmpty(fullItems) && _.isEmpty(halfItems1) && _.isEmpty(halfItems2);
+ 	return <div>
+ 		{renderCellItemsSection(fullItems, dayName + ' ' + startHourString + ' - ' + endHourString, renderFn, alwaysRender)}
+ 		{renderCellItemsSection(halfItems1, dayName + ' ' + startHourString + ' - ' + startHourString + ":30", renderFn)}
+ 		{renderCellItemsSection(halfItems2, dayName + ' ' + startHourString + ':30 - ' + endHourString, renderFn)}
+ 	</div>;
+}
+
+function renderCell(day, hour, items, itemRenderFn) {
+	return <div className="cell">
+		{ renderCellItems(day, hour, items, itemRenderFn) }
+	</div>;
+}
+
+const StudentCell = ({day, hour, cellItems}) => renderCell(day, hour, cellItems, item => `Rank: ${item.value}`);
+
+const AdminCell = ({day, hour, cellItems}) => renderCell(day, hour, cellItems, item => item.value.name);
 
 const Employee = data => (
 	<div className="employee">

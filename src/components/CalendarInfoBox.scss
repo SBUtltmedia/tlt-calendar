@@ -10,21 +10,20 @@ $border: thin solid $border-color;
 	height: 100%;
 
 	.cell {
-		> div {
-			margin-bottom: 10px;
-		}
+
 	}
 
 	.employee {
 
 	}
 
+	.title {
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
 	.action {
-		.title {
-			font-weight: bold;
-			text-align: center;
-			margin-bottom: 10px;
-		}
 		.description {
 			font-size: small;
 		}
