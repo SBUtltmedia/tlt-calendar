@@ -2,6 +2,8 @@ import { HOUR } from '../constants/Constants';
 import { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import _ from 'lodash';
+import styles from './CalendarIcon.scss';
+
 const FORMAT = 'png';
 const req = require.context('img', true, /^\.\/.*\.png$/);
 
@@ -54,7 +56,7 @@ export default class CalendarIcon extends Component {
   render() {
     const {minute, disabled, connectDragSource, isDragging, size} = this.props;
     const opacity = isDragging || disabled ? 0.1 : 1;
-    return connectDragSource(<img src={req(this.getFilePath())}
+    return connectDragSource(<img className={styles.icon} src={req(this.getFilePath())}
       style={{opacity, width: size, height: size, float: minute === 30 ? 'right' : 'left'}} />);
   }
 }
