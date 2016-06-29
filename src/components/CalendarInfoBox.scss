@@ -6,11 +6,13 @@ $border: thin solid $border-color;
 :local(.container) {
 	border: $border;
 	border-radius: $border-radius;
-	padding: 12px 10px;
+	padding: 16px;
 	height: 100%;
 
 	.cell {
-
+		> div {
+			margin-bottom: 10px;
+		}
 	}
 
 	.employee {
@@ -23,9 +25,13 @@ $border: thin solid $border-color;
 			text-align: center;
 			margin-bottom: 10px;
 		}
+		.description {
+			font-size: small;
+		}
 	}
 
-	.chip {
-
+	.label {
+		font-weight: bold;
+		margin-right: 5px;
 	}
 }

@@ -4,10 +4,6 @@ import CalendarIcon from './CalendarIcon';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
 
-const mapStateToProps = state => ({
-
-});
-
 const mapDispatchToProps = dispatch => {
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
@@ -17,6 +13,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  state => ({}),
   mapDispatchToProps
 )(CalendarIcon);
