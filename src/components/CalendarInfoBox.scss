@@ -1,7 +1,8 @@
-@import '../../style/colors';
+@import '../style/colors';
 
 $border: thin solid $border-color;
 
 :local(.container) {
 	border: $border;
+	padding: 10px;
 }

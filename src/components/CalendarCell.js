@@ -5,6 +5,7 @@ import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 
+
 function createTarget(minute) {
   return {
     drop(props, monitor) {
@@ -39,15 +40,21 @@ class FullCell extends Component {
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired,
     placeItem: PropTypes.func.isRequired,
+    fillInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     itemTypes: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
+
+  fillInfoBox(itemsInSlot) {
+    this.props.fillInfoBox(_.pick(this.props, ['day', 'hour']));
+  }
+
   render() {
     const { connectDropTarget, cellComponent, day, hour, items } = this.props;
     const itemsInSlot = getItemsInSlot(items, day, hour);
     return connectDropTarget(
-      <div className={`cell full ${getCellClass(this.props)}`}>
+      <div className={`cell full ${getCellClass(this.props)}`} onMouseEnter={this.fillInfoBox.bind(this, itemsInSlot)}>
         {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
       </div>
     );

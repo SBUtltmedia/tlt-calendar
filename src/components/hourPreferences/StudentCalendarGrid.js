@@ -5,6 +5,8 @@ import _ from 'lodash';
 import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
+import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
+import { CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
@@ -13,10 +15,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators(HourPreferencesActions, dispatch);
+  const HourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
+  const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
-    placeItem: actions.placeChip,
-    removeItem: actions.removeChip
+    placeItem: HourPreferencesActions.placeChip,
+    removeItem: HourPreferencesActions.removeChip,
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, CELL)
   }
 };
 
