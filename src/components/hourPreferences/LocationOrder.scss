@@ -1,13 +1,18 @@
+@import '../../style/colors';
+@import '../../style/dimens';
+
 :local(.container) {
-  h3 {
+  .title {
     text-align: center;
+    font-weight: bold;
   }
   .list-item {
-    border-radius: 5px;
-    background-color: #E6E7E8;
-    margin: 10px 0;
+    font-size: small;
+    border-radius: $border-radius;
+    background-color: $lighter-gray;
+    margin: 6px 0;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 4px 8px;
     -webkit-user-drag: element;
     -webkit-user-select: none;
   }

@@ -1,17 +1,17 @@
+@import '../../style/colors';
+
 :local(.container) {
   .scroll-area {
     overflow: hidden;
 
-    .bank {
-      .row {
-        display: flex;
-      }
+    .row {
+      display: flex;
     }
   }
 
   .notes {
     font-size: small;
-    color: #999;
+    color: $medium-gray;
     text-align: center;
     padding-left: 10px;
   }

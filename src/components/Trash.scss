@@ -1,0 +1,25 @@
+@import '../style/colors';
+@import '../style/dimens';
+
+:local(.container) {
+
+	i {
+		font-size: 7em;
+		color: $lighter-gray;
+		padding: 10px;
+		background-color: $lightest-gray;
+		border-radius: $border-radius;
+	}
+
+	i.enabled {
+		color: $medium-gray;
+	}
+
+	i.over {
+		color: $hover-color;
+	}
+
+	i.reject {
+		color: $reject-color;
+	}
+}

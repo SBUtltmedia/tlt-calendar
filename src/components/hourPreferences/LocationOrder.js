@@ -8,7 +8,7 @@ const ListItem = ({item}) => (
 
 export default ({reorderGlobalLocations}) => (
   <div className={styles.container}>
-    <h3>Location Preference Order</h3>
+    <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key
       itemKey='name'

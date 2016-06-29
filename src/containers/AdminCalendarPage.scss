@@ -4,8 +4,19 @@
     display: flex;
     margin-top: 10px;
 
+    .bank {
+      margin: auto;
+      width: 400px;
+      text-align: center;
+    }
 
+    .trash {
+      margin: 50px auto;
+    }
 
+    .info {
+    	width: 25%;
+    }
   }
 
 }

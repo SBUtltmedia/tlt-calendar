@@ -2,19 +2,23 @@
 
   .controls {
     display: flex;
-    margin-top: 10px;
+    margin: auto 12px;
 
     .hours-settings {
-      width: 25%;
+      width: 30%;
     }
 
     .chip-bank {
-      margin: auto;
+      margin: 0 auto;
       width: 320px;
     }
 
+    .trash {
+      margin: 50px auto;
+    }
+
     .location-order {
-      width: 25%;
+      width: 20%;
     }
   }
 

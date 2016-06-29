@@ -1,15 +1,12 @@
-import ReserveIcon from './ReserveIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash';
+import Trash from '../Trash';
 import ItemTypes from '../../constants/ItemTypes';
-import CalendarGrid from '../CalendarGrid';
 import * as AdminActions from '../../actions/AdminActions';
 
 const mapStateToProps = state => ({
   items: state.admin.reserves,
-  itemTypes: ItemTypes.RESERVE,
-  cellComponent: ReserveIcon
+  itemTypes: ItemTypes.RESERVE
 });
 
 const mapDispatchToProps = dispatch => {
@@ -23,4 +20,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CalendarGrid);
+)(Trash);

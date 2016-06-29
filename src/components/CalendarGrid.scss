@@ -1,6 +1,9 @@
-$border: thin solid #BBB;
+@import '../style/colors';
+
+$border: thin solid $border-color;
 
 :local(.container) {
+  margin-bottom: 25px;
   table.calendar {
     width: 100%;
     table-layout: fixed;
@@ -8,7 +11,8 @@ $border: thin solid #BBB;
     thead {
       td {  /* column labels */
         position: relative;
-        height: 40px;
+        height: 20px;
+        line-height: 3px;
 
         div.hour-label {
           position: absolute;
@@ -17,6 +21,11 @@ $border: thin solid #BBB;
           width: 20px;
         }
       }
+
+      td:nth-child(n+14):not(:last-child) {
+        background-color: $lighter-gray;
+        border-top: $border;
+      }
     }
     tbody {
       td {
@@ -24,7 +33,7 @@ $border: thin solid #BBB;
         padding: 0;
       }
       td:not(:last-child) {
-          border-right: $border;
+        border-right: $border;
       }
       td:not(:first-child):not(:last-child) {
         border-bottom: $border;

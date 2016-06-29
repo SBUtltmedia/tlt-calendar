@@ -5,7 +5,7 @@ import _ from 'lodash';
 import styles from './ChipBank.scss';
 import { isValueAvailable } from '../../utils/hourPreferences';
 import { Motion, spring } from 'react-motion';
-import Dimensions from 'react-dimensions'
+import Dimensions from 'react-dimensions';
 
 const CONVEYOR_BELT_START_COL = 3;
 const CONVEYOR_BELT_STIFFNESS = 80;
@@ -14,7 +14,7 @@ const WHOLE_COLS = 5;
 const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
 class ChipBank extends Component {
-  render () {
+  render() {
     const {chipsPlaced, numOpenSets, containerWidth} = this.props;
     const chipSize = Math.round((containerWidth - ((COLS - 1) * CHIP_MARGIN * 2)) / COLS);
 
@@ -27,7 +27,7 @@ class ChipBank extends Component {
       <div className="scroll-area">
         <Motion style={{x: spring(getConveyorBeltX(numOpenSets), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
           {({x}) =>
-            <div className="bank" style={{marginLeft: -x}}>
+            <div style={{marginLeft: -x}}>
               {_.map(RANKS, rank =>
                 <div className="row" key={rank}>
                  {_.map(_.range(numOpenSets + WHOLE_COLS), col =>
