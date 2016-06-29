@@ -1,4 +1,4 @@
-import DraggableChip from './DraggableChip';
+import Chip from './Chip';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import ItemTypes from '../../constants/ItemTypes';
@@ -7,7 +7,7 @@ import VisibleCalendar from '../VisibleCalendar';
 
 function renderCellContents(chipsPlaced, day, hour) {
 	const chips = utils.getChipsInSlot(chipsPlaced, day, hour);
-	return _.map(chips, (chip, i) => <DraggableChip {...chip} key={i} />);
+	return _.map(chips, (chip, i) => <Chip {...chip} key={i} />);
 }
 
 function onDrop(props, monitor, minute) {
@@ -15,7 +15,7 @@ function onDrop(props, monitor, minute) {
   if (chip.day) {
     props.removeChip(chip);
   }
-  props.placeChip(chip.value, props.day, props.hour, minute);
+  props.placeChip(chip.value, props.day, props.hour, minute, chip.duration);
 }
 
 const SutdentCalendar = ({chipsPlaced}) => (
