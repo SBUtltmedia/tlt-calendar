@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Trash from '../Trash';
-import ItemTypes from '../../constants/ItemTypes';
+import DraggableTypes from '../../constants/DraggableTypes';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
-  itemTypes: ItemTypes.CHIP
+  itemTypes: DraggableTypes.CHIP
 });
 
 const mapDispatchToProps = dispatch => {

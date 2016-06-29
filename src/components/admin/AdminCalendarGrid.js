@@ -2,13 +2,13 @@ import ReserveIcon from './ReserveIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import ItemTypes from '../../constants/ItemTypes';
+import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as AdminActions from '../../actions/AdminActions';
 
 const mapStateToProps = state => ({
   items: state.admin.reserves,
-  itemTypes: ItemTypes.RESERVE,
+  itemTypes: DraggableTypes.RESERVE,
   cellComponent: ReserveIcon
 });
 
