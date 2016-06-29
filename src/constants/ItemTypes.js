@@ -1,3 +1,4 @@
 export default {
-  CHIP: 'chip'
+  CHIP: 'chip',
+  RESERVE: 'reserve'
 };

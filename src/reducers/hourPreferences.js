@@ -1,7 +1,6 @@
 import { PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
 import _ from 'lodash';
 import * as utils from '../utils/hourPreferences';
-import { HOUR, HALF_HOUR } from '../constants/Constants';
 
 const initialState = {
   chipsPlaced: []  // Array of integers (values)

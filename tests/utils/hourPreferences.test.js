@@ -2,14 +2,7 @@ import { expect } from 'chai';
 import * as utils from '../../src/utils/hourPreferences';
 import { HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
-describe('getIndex', () => {
-  it('gets the index of a cell from day, hour, minute', () => {
-    expect(utils.getIndex(0, 0, 0)).to.equal(0);
-    expect(utils.getIndex(0, 0, 30)).to.equal(1);
-    expect(utils.getIndex(0, 1, 30)).to.equal(3);
-    expect(utils.getIndex(0, 23, 30)).to.equal(47);
-    expect(utils.getIndex(1, 0, 0)).to.equal(48);
-  });
+describe('hourPreferences', () => {
 
   it('removes a chip', () => {
     expect(utils.removeChip([1, 1], {day: 0, hour: 0, minute: 0, duration: HOUR})).to.deep.equal([undefined, undefined]);
