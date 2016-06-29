@@ -1,3 +1,5 @@
+@import '../../style/colors';
+
 :local(.container) {
   .scroll-area {
     overflow: hidden;
@@ -9,7 +11,7 @@
 
   .notes {
     font-size: small;
-    color: #999;
+    color: $medium-gray;
     text-align: center;
     padding-left: 10px;
   }
