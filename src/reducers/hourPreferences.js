@@ -1,4 +1,4 @@
-import { PLACE_CHIP } from '../constants/ActionTypes';
+import { PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
 import _ from 'lodash';
 import * as utils from '../utils/hourPreferences';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
@@ -8,12 +8,9 @@ const initialState = {
 };
 
 export default function hourPreferences(state=initialState, action) {
-  const {type, day, hour, minute} = action;
-  switch (type) {
-    case PLACE_CHIP:
-      const chip = _.omit(action, 'type');
-      return _.assign({}, state, {chipsPlaced: utils.placeChip(state.chipsPlaced, chip)});
-    default:
-      return state;
+  switch (action.type) {
+    case PLACE_CHIP: return _.assign({}, state, {chipsPlaced: utils.placeChip(state.chipsPlaced, action)});
+    case REMOVE_CHIP: return _.assign({}, state, {chipsPlaced: utils.removeChip(state.chipsPlaced, action)});
+    default: return state;
   }
 }

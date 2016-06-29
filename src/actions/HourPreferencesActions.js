@@ -1,5 +1,6 @@
-import { PLACE_CHIP } from '../constants/ActionTypes';
+import { PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
 import { HOUR } from '../constants/Constants';
+import _ from 'lodash';
 
 export function placeChip(value, day, hour, minute) {
   return {
@@ -7,11 +8,14 @@ export function placeChip(value, day, hour, minute) {
     value: value,
     day: day,
     hour: hour,
-    minute: minute,
-    duration: HOUR
+    minute: minute
   };
 }
 
+export function removeChip(chip) {
+  return _.assign({}, chip, {type: REMOVE_CHIP});
+}
+
 export function reorderGlobalLocations(order) {
-  
+
 }
