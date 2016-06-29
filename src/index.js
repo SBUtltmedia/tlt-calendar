@@ -11,6 +11,8 @@ import thunk from 'redux-thunk';
 import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
 import AdminDashboard from './containers/AdminDashboard';
+import AdminCalendarPage from './containers/AdminCalendarPage';
+import AdminTable from './containers/AdminTable';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 const reducer = combineReducers({
@@ -50,6 +52,8 @@ render((
           <IndexRoute component={HourPreferences} />
           <Route path="student" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
+          <Route path="admin/calendar" component={AdminCalendarPage} />
+          <Route path="admin/table" component={AdminTable} />
         </Route>
       </Router>
       <DevTools />

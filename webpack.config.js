@@ -32,7 +32,7 @@ module.exports = {
             loader: "url-loader?mimetype=image/png"
         },{
             test: /\.jpg?$/,
-            loader: "url-loader?limit=10000"
+            loader: "url-loader?limit=100000"
         }, {
             test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "url-loader?limit=10000&minetype=application/font-woff"

@@ -1,13 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
+import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 
 function createTarget(minute) {
   return {
     drop(props, monitor) {
-      props.onDrop(props, monitor, minute);
+      props.onItemDrop(props, monitor, minute);
     },
     canDrop(props, monitor) {
       return !monitor.getItem().disabled;
@@ -39,14 +40,18 @@ class FullCell extends Component {
     canDrop: PropTypes.bool.isRequired,
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired,
-    placeChip: PropTypes.func.isRequired,
-    renderCellContents: PropTypes.func.isRequired,
+    placeItem: PropTypes.func.isRequired,
+    cellComponent: PropTypes.func.isRequired,
     itemType: PropTypes.string.isRequired,
-    onDrop: PropTypes.func.isRequired
+    onItemDrop: PropTypes.func.isRequired,
+    items: PropTypes.array.isRequired
   };
   render() {
-    const { connectDropTarget, renderCellContents, day, hour } = this.props;
-    return connectDropTarget(<div className={`cell full ${getCellClass(this.props)}`}>{renderCellContents(day, hour)}</div>);
+    const { connectDropTarget, cellComponent, day, hour, items } = this.props;
+    const itemsInSlot = getItemsInSlot(items, day, hour);
+    return connectDropTarget(<div className={`cell full ${getCellClass(this.props)}`}>
+      {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
+    </div>);
   }
 }
 
@@ -61,21 +66,19 @@ class HalfCell extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
-    placeChip: PropTypes.func.isRequired,
-    onDrop: PropTypes.func.isRequired
+    placeItem: PropTypes.func.isRequired,
+    onItemDrop: PropTypes.func.isRequired
   };
   render () {
-    const { isOver, canDrop, connectDropTarget, chipsPlaced, side } = this.props;
+    const { isOver, canDrop, connectDropTarget, side } = this.props;
     return connectDropTarget(<div className={`cell half ${side} ${getCellClass(this.props)}`}></div>);
   }
 }
 
 export default class CalendarCell extends Component {
   static propTypes = {
-    chipsPlaced: PropTypes.array.isRequired,
     day: PropTypes.number.isRequired,
-    hour: PropTypes.number.isRequired,
-    placeChip: PropTypes.func.isRequired
+    hour: PropTypes.number.isRequired
   };
 
   render() {
