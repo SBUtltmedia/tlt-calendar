@@ -15,15 +15,6 @@ function getImage(path, file, callback) {
   getImageByPath('./' + path + '/' + file + '.' + FORMAT, callback);
 }
 
-export function getSize(path, file, callback) {
-  getImage(path, file, image => {
-    callback({
-      width: image.width,
-      height: image.height
-    });
-  });
-}
-
 const dragSource = {
     beginDrag(props) {
       // TODO: The 'value' field is only for chips, so should it be removed?
@@ -46,7 +37,8 @@ export default class CalendarIcon extends Component {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    itemType: PropTypes.string.isRequired
+    itemType: PropTypes.string.isRequired,
+    size: PropTypes.number
   };
 
   getFilePath() {
@@ -60,8 +52,9 @@ export default class CalendarIcon extends Component {
   }
 
   render() {
-    const {minute, disabled, connectDragSource, isDragging} = this.props;
+    const {minute, disabled, connectDragSource, isDragging, size} = this.props;
     const opacity = isDragging || disabled ? 0.1 : 1;
-    return connectDragSource(<img style={{opacity, float: minute === 30 ? 'right' : 'left'}} src={req(this.getFilePath())} />);
+    return connectDragSource(<img src={req(this.getFilePath())}
+      style={{opacity, width: size, height: size, float: minute === 30 ? 'right' : 'left'}} />);
   }
 }
