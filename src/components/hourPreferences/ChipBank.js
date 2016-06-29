@@ -14,7 +14,7 @@ const WHOLE_COLS = 5;
 const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
 class ChipBank extends Component {
-  render () {
+  render() {
     const {chipsPlaced, numOpenSets, containerWidth} = this.props;
     const chipSize = Math.round((containerWidth - ((COLS - 1) * CHIP_MARGIN * 2)) / COLS);
 

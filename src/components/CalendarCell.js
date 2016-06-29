@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
@@ -52,9 +52,11 @@ class FullCell extends Component {
   render() {
     const { connectDropTarget, cellComponent, day, hour, items } = this.props;
     const itemsInSlot = getItemsInSlot(items, day, hour);
-    return connectDropTarget(<div className={`cell full ${getCellClass(this.props)}`}>
-      {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
-    </div>);
+    return connectDropTarget(
+      <div className={`cell full ${getCellClass(this.props)}`}>
+        {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
+      </div>
+    );
   }
 }
 

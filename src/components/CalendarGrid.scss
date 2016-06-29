@@ -4,6 +4,7 @@ $border-color: $light-gray;
 $border: thin solid $border-color;
 
 :local(.container) {
+  margin-bottom: 25px;
   table.calendar {
     width: 100%;
     table-layout: fixed;

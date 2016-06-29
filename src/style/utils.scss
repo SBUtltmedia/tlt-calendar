@@ -1,11 +1,3 @@
-@mixin horizontal-gradient($color1, $color2) {
-	background: mix($color1, $color2); /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, $color1, $color2); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, $color1, $color2); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, $color1, $color2); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, $color1, $color2); /* Standard syntax */
-}
-
 @mixin no-select() {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,4 +5,12 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@mixin horizontal-gradient($color1, $color2) {
+	background: mix($color1, $color2); /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, $color1, $color2); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, $color1, $color2); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, $color1, $color2); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, $color1, $color2); /* Standard syntax */
 }
