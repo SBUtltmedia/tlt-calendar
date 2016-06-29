@@ -6,7 +6,7 @@ import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as AdminActions from '../../actions/AdminActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
-import { CELL } from '../../constants/InfoBoxTypes';
+import { ADMIN_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.admin.reserves,
@@ -20,9 +20,9 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: adminActions.placeReserve,
     removeItem: adminActions.removeReserve,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, CELL),
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
-  }
+  };
 };
 
 export default connect(

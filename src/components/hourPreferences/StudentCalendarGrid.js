@@ -6,7 +6,7 @@ import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
-import { CELL } from '../../constants/InfoBoxTypes';
+import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
@@ -20,9 +20,9 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: hourPreferencesActions.placeChip,
     removeItem: hourPreferencesActions.removeChip,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, CELL),
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, STUDENT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
-  }
+  };
 };
 
 export default connect(

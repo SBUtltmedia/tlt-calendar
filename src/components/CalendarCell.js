@@ -48,8 +48,7 @@ class FullCell extends Component {
   };
 
   fillInfoBox(itemsInSlot) {
-    const { fillInfoBox, day, hour } = this.props;
-    fillInfoBox({day, hour});
+    this.props.fillInfoBox(this.props);
   }
 
   render() {
