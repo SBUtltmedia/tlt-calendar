@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
      entry: './src/index.js',
@@ -39,5 +40,9 @@ module.exports = {
             test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "file-loader?name=[name].[ext]"
         }]
+     },
+     resolve: {
+        root: path.resolve(__dirname),
+        img: 'img'
      }
  };
