@@ -8,7 +8,11 @@ import styles from './CalendarCell.scss';
 function createTarget(minute) {
   return {
     drop(props, monitor) {
-      props.onItemDrop(props, monitor, minute);
+      const item = monitor.getItem();
+      if (item.day) {  // If it's already placed somewhere on the calendar grid
+        props.removeItem(item);
+      }
+      props.placeItem(_.assign({}, item, props, {minute}));
     },
     canDrop(props, monitor) {
       return !monitor.getItem().disabled;
@@ -43,7 +47,6 @@ class FullCell extends Component {
     placeItem: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     itemType: PropTypes.string.isRequired,
-    onItemDrop: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired
   };
   render() {
@@ -66,8 +69,7 @@ class HalfCell extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
-    placeItem: PropTypes.func.isRequired,
-    onItemDrop: PropTypes.func.isRequired
+    placeItem: PropTypes.func.isRequired
   };
   render () {
     const { isOver, canDrop, connectDropTarget, side } = this.props;

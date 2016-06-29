@@ -6,19 +6,10 @@ import ItemTypes from '../../constants/ItemTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as AdminActions from '../../actions/AdminActions';
 
-function onItemDrop(props, monitor, minute) {
-  const reserve = monitor.getItem();
-  if (reserve.day) {
-    props.removeItem(reserve);
-  }
-  props.placeItem(props.day, props.hour, minute, reserve.duration);
-}
-
 const mapStateToProps = state => ({
   items: state.admin.reserves,
   itemType: ItemTypes.RESERVE,
-  cellComponent: ReserveIcon,
-  onItemDrop: onItemDrop  // TODO: Refactor
+  cellComponent: ReserveIcon
 });
 
 const mapDispatchToProps = dispatch => {

@@ -6,19 +6,10 @@ import ItemTypes from '../../constants/ItemTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
-function onItemDrop(props, monitor, minute) {
-  const chip = monitor.getItem();
-  if (chip.day) {
-    props.removeItem(chip);
-  }
-  props.placeItem(chip.value, props.day, props.hour, minute, chip.duration);
-}
-
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
   itemType: ItemTypes.CHIP,
-  cellComponent: Chip,
-  onItemDrop: onItemDrop  // TODO: Refactor
+  cellComponent: Chip
 });
 
 const mapDispatchToProps = dispatch => {
