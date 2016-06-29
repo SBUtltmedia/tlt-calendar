@@ -20,7 +20,8 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: adminActions.placeReserve,
     removeItem: adminActions.removeReserve,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, CELL)
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, CELL),
+    clearInfoBox: infoBoxActions.clearInfoBox
   }
 };
 

@@ -5,25 +5,26 @@ import { DAYS } from '../constants/Settings';
 import { getHourLabel, hourPlus1 } from '../utils/time';
 
 const Cell = ({day, hour}) => (
-	<div>
+	<div className="cell">
 		<div>{DAYS[day]} {getHourLabel(hour)}-{getHourLabel(hourPlus1(hour))}</div>
 	</div>
 );
 
 const Employee = data => (
-	<div>
+	<div className="employee">
 		Employee
 	</div>
 );
 
-const Action = data => (
-	<div>
-		Action
+const Action = ({name, description}) => (
+	<div className="action">
+		<div className="title">{name}</div>
+		<div className="description">{description}</div>
 	</div>
 );
 
 const Chip = data => (
-	<div>
+	<div className="chip">
 		Chip
 	</div>
 );

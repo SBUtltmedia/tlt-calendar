@@ -40,6 +40,10 @@ export default class CalendarIcon extends Component {
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     itemTypes: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    fillInfoBox: PropTypes.func.isRequired,
+    clearInfoBox: PropTypes.func.isRequired,
     size: PropTypes.number
   };
 
@@ -53,10 +57,17 @@ export default class CalendarIcon extends Component {
     getImageByPath(this.getFilePath(), connectDragPreview);
   }
 
+  fillInfoBox(icon) {
+    const { fillInfoBox, name, description } = this.props;
+    fillInfoBox({name, description, icon});
+  }
+
   render() {
-    const {minute, disabled, connectDragSource, isDragging, size} = this.props;
+    const {minute, disabled, connectDragSource, isDragging, size, clearInfoBox} = this.props;
     const opacity = isDragging || disabled ? 0.1 : 1;
-    return connectDragSource(<img className={styles.icon} src={req(this.getFilePath())}
+    const icon = req(this.getFilePath());
+    return connectDragSource(<img className={styles.icon} src={icon}
+      onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}
       style={{opacity, width: size, height: size, float: minute === 30 ? 'right' : 'left'}} />);
   }
 }

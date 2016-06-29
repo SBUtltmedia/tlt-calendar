@@ -7,3 +7,9 @@ export function fillInfoBox(type, data) {
 		data: data
 	}
 }
+
+export function clearInfoBox() {
+	return {
+		type: CLEAR_INFO_BOX
+	}
+}

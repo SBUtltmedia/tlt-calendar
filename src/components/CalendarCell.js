@@ -41,20 +41,23 @@ class FullCell extends Component {
     hour: PropTypes.number.isRequired,
     placeItem: PropTypes.func.isRequired,
     fillInfoBox: PropTypes.func.isRequired,
+    clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     itemTypes: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
 
   fillInfoBox(itemsInSlot) {
-    this.props.fillInfoBox(_.pick(this.props, ['day', 'hour']));
+    const { fillInfoBox, day, hour } = this.props;
+    fillInfoBox({day, hour});
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox } = this.props;
     const itemsInSlot = getItemsInSlot(items, day, hour);
     return connectDropTarget(
-      <div className={`cell full ${getCellClass(this.props)}`} onMouseEnter={this.fillInfoBox.bind(this, itemsInSlot)}>
+      <div className={`cell full ${getCellClass(this.props)}`}
+      onMouseEnter={this.fillInfoBox.bind(this, itemsInSlot)} onMouseLeave={clearInfoBox}>
         {_.map(itemsInSlot, (item, i) => cellComponent({...item, key: i}))}
       </div>
     );
