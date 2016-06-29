@@ -4,23 +4,16 @@ import _ from 'lodash';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 
-function canDrop(props, monitor) {
-  return !monitor.getItem().disabled;
+function createTarget(minute) {
+  return {
+    drop(props, monitor) {
+      props.onDrop(props, monitor, minute);
+    },
+    canDrop(props, monitor) {
+      return !monitor.getItem().disabled;
+    }
+  };
 }
-
-const fullCellTarget = {
-  drop(props, monitor) {
-    props.onFullCellDrop(props, monitor);
-  },
-  canDrop
-};
-
-const halfCellTarget = {
-  drop(props, monitor) {
-    props.onHalfCellDrop(props, monitor);
-  },
-  canDrop
-};
 
 function getCellClass({isOver, canDrop}) {
   if (isOver) {
@@ -34,7 +27,7 @@ function getCellClass({isOver, canDrop}) {
   return '';
 }
 
-@DropTarget(props => props.itemType, fullCellTarget, (connect, monitor) => ({
+@DropTarget(props => props.itemType, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -49,7 +42,7 @@ class FullCell extends Component {
     placeChip: PropTypes.func.isRequired,
     renderCellContents: PropTypes.func.isRequired,
     itemType: PropTypes.string.isRequired,
-    onFullCellDrop: PropTypes.func.isRequired
+    onDrop: PropTypes.func.isRequired
   };
   render() {
     const { connectDropTarget, renderCellContents, day, hour } = this.props;
@@ -57,7 +50,7 @@ class FullCell extends Component {
   }
 }
 
-@DropTarget(props => props.itemType, halfCellTarget, (connect, monitor) => ({
+@DropTarget(props => props.itemType, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -69,7 +62,7 @@ class HalfCell extends Component {
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
     placeChip: PropTypes.func.isRequired,
-    onHalfCellDrop: PropTypes.func.isRequired
+    onDrop: PropTypes.func.isRequired
   };
   render () {
     const { isOver, canDrop, connectDropTarget, chipsPlaced, side } = this.props;

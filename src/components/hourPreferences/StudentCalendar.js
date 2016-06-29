@@ -10,17 +10,17 @@ function renderCellContents(chipsPlaced, day, hour) {
 	return _.map(chips, (chip, i) => <DraggableChip {...chip} key={i} />);
 }
 
-function onFullCellDrop(props, monitor) {
-	props.placeChip(monitor.getItem().value, props.day, props.hour, 0);
-}
-
-function onHalfCellDrop(props, monitor) {
-	props.placeChip(monitor.getItem().value, props.day, props.hour, 30);
+function onDrop(props, monitor, minute) {
+  const chip = monitor.getItem();
+  if (chip.day) {
+    props.removeChip(chip);
+  }
+  props.placeChip(chip.value, props.day, props.hour, minute);
 }
 
 const SutdentCalendar = ({chipsPlaced}) => (
-	<VisibleCalendar itemType={ItemTypes.CHIP} renderCellContents={_.bind(renderCellContents, {}, chipsPlaced)}
-		onFullCellDrop={onFullCellDrop} onHalfCellDrop={onHalfCellDrop} />
+	<VisibleCalendar itemType={ItemTypes.CHIP}
+	renderCellContents={_.bind(renderCellContents, {}, chipsPlaced)} onDrop={onDrop} />
 );
 
 const mapStateToProps = state => {
