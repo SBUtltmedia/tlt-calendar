@@ -1,7 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import StudentCalendar from '../components/hourPreferences/StudentCalendar';
+import StudentCalendarGrid from '../components/hourPreferences/StudentCalendarGrid';
 import HoursSettings from '../components/hourPreferences/HoursSettings';
 import VisibleChipBank from '../components/hourPreferences/VisibleChipBank';
 import LocationOrder from '../components/hourPreferences/LocationOrder';
@@ -11,7 +11,7 @@ import styles from './HourPreferences.scss';
 export default class HourPreferences extends Component {
   render() {
     return <div className={styles.container}>
-      <StudentCalendar />
+      <StudentCalendarGrid />
       <div className="controls">
         <div className="hours-settings"><HoursSettings /></div>
         <div className="chip-bank"><VisibleChipBank /></div>

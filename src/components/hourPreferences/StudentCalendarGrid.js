@@ -3,20 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import ItemTypes from '../../constants/ItemTypes';
-import Calendar from '../Calendar';
+import CalendarGrid from '../CalendarGrid';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 function onItemDrop(props, monitor, minute) {
   const chip = monitor.getItem();
   if (chip.day) {
-    props.removeChip(chip);
+    props.removeItem(chip);
   }
-  props.placeChip(chip.value, props.day, props.hour, minute, chip.duration);
+  props.placeItem(chip.value, props.day, props.hour, minute, chip.duration);
 }
-
-const SutdentCalendar = () => (
-	<Calendar />
-);
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
@@ -26,10 +22,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(HourPreferencesActions, dispatch);
+  const actions = bindActionCreators(HourPreferencesActions, dispatch);
+  return {
+    placeItem: actions.placeChip,
+    removeItem: actions.removeChip
+  }
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Calendar);
+)(CalendarGrid);

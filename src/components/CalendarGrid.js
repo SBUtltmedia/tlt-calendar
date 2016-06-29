@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import styles from './Calendar.scss';
+import styles from './CalendarGrid.scss';
 import CalendarCell from './CalendarCell';
 import { getHourLabel } from '../utils/time';
 
@@ -22,4 +22,4 @@ export default props => (
       </tbody>
     </table>
   </div>
-);
+)

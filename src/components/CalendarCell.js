@@ -40,7 +40,7 @@ class FullCell extends Component {
     canDrop: PropTypes.bool.isRequired,
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired,
-    placeChip: PropTypes.func.isRequired,
+    placeItem: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     itemType: PropTypes.string.isRequired,
     onItemDrop: PropTypes.func.isRequired,
@@ -66,7 +66,7 @@ class HalfCell extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
-    placeChip: PropTypes.func.isRequired,
+    placeItem: PropTypes.func.isRequired,
     onItemDrop: PropTypes.func.isRequired
   };
   render () {
