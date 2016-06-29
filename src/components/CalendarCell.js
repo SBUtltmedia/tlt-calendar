@@ -31,6 +31,7 @@ function getCellClass({isOver, canDrop}) {
       return 'reject'
     }
   }
+  return '';
 }
 
 @DropTarget(props => props.itemType, fullCellTarget, (connect, monitor) => ({
