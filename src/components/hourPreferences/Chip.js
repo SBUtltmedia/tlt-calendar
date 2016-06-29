@@ -3,5 +3,5 @@ import ItemTypes from '../../constants/ItemTypes';
 import CalendarIcon from '../CalendarIcon';
 
 export default props => (
-  <CalendarIcon path='chips' file={props.value} itemType={ItemTypes.CHIP} {...props} />
+  <CalendarIcon path='chips' file={props.value} itemTypes={ItemTypes.CHIP} {...props} />
 );

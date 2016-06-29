@@ -7,5 +7,5 @@ export function getReserveIconSize(callback) {
 }
 
 export default props => (
-  <CalendarIcon path='admin' file='X' itemType={ItemTypes.RESERVE} {...props} />
+  <CalendarIcon path='admin' file='X' itemTypes={ItemTypes.RESERVE} {...props} />
 );

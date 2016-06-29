@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import LocationOrder from './LocationOrder';
 import { bindActionCreators } from 'redux';
+import LocationOrder from './LocationOrder';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 const mapStateToProps = state => {

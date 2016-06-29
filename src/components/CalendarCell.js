@@ -21,18 +21,12 @@ function createTarget(minute) {
 }
 
 function getCellClass({isOver, canDrop}) {
-  if (isOver) {
-    if (canDrop) {
-      return 'over';
-    }
-    else {
-      return 'reject'
-    }
-  }
+  if (isOver && canDrop) { return 'over'; }
+  if (isOver && !canDrop) { return 'reject'; }
   return '';
 }
 
-@DropTarget(props => props.itemType, createTarget(0), (connect, monitor) => ({
+@DropTarget(props => props.itemTypes, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -46,7 +40,7 @@ class FullCell extends Component {
     hour: PropTypes.number.isRequired,
     placeItem: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
-    itemType: PropTypes.string.isRequired,
+    itemTypes: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
   render() {
@@ -60,7 +54,7 @@ class FullCell extends Component {
   }
 }
 
-@DropTarget(props => props.itemType, createTarget(30), (connect, monitor) => ({
+@DropTarget(props => props.itemTypes, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()

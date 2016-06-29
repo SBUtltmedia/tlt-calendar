@@ -22,7 +22,7 @@ const dragSource = {
     }
 };
 
-@DragSource(props => props.itemType, dragSource, (connect, monitor) => ({
+@DragSource(props => props.itemTypes, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
@@ -37,7 +37,7 @@ export default class CalendarIcon extends Component {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    itemType: PropTypes.string.isRequired,
+    itemTypes: PropTypes.string.isRequired,
     size: PropTypes.number
   };
 

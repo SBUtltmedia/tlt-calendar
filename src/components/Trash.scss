@@ -5,14 +5,14 @@
 
 	i {
 		font-size: 7em;
-		color: $lightest-gray;
+		color: $lighter-gray;
 		padding: 10px;
-		background-color: $lighter-gray;
+		background-color: $lightest-gray;
 		border-radius: $border-radius;
 	}
 
 	i.enabled {
-		color: $light-gray;
+		color: $medium-gray;
 	}
 
 	i.over {
@@ -20,6 +20,6 @@
 	}
 
 	i.reject {
-		color: #reject-color;
+		color: $reject-color;
 	}
 }
