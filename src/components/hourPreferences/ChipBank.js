@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import DraggableChip from './DraggableChip';
-import { getSize as getChipSize } from './Chip';
+import { getChipSize } from './Chip';
 import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
 import styles from './ChipBank.scss';
