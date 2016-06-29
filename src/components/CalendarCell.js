@@ -1,29 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from '../../constants/ItemTypes';
-import * as utils from '../../utils/hourPreferences';
-import Chip from './Chip';
 import _ from 'lodash';
-import { dayMinus1, hourMinus1 } from '../../utils/time';
+import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 
-function canDrop(props, monitor) {
-  return !monitor.getItem().disabled;
+function createTarget(minute) {
+  return {
+    drop(props, monitor) {
+      props.onDrop(props, monitor, minute);
+    },
+    canDrop(props, monitor) {
+      return !monitor.getItem().disabled;
+    }
+  };
 }
-
-const fullCellTarget = {
-  drop(props, monitor) {
-    props.placeChip(monitor.getItem().value, props.day, props.hour, 0);
-  },
-  canDrop
-};
-
-const halfCellTarget = {
-  drop(props, monitor) {
-    props.placeChip(monitor.getItem().value, props.day, props.hour, 30);
-  },
-  canDrop
-};
 
 function getCellClass({isOver, canDrop}) {
   if (isOver) {
@@ -34,9 +24,10 @@ function getCellClass({isOver, canDrop}) {
       return 'reject'
     }
   }
+  return '';
 }
 
-@DropTarget(ItemTypes.CHIP, fullCellTarget, (connect, monitor) => ({
+@DropTarget(props => props.itemType, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -48,18 +39,18 @@ class FullCell extends Component {
     canDrop: PropTypes.bool.isRequired,
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired,
-    placeChip: PropTypes.func.isRequired
+    placeChip: PropTypes.func.isRequired,
+    renderCellContents: PropTypes.func.isRequired,
+    itemType: PropTypes.string.isRequired,
+    onDrop: PropTypes.func.isRequired
   };
   render() {
-    const { isOver, canDrop, connectDropTarget, chipsPlaced, day, hour } = this.props;
-    const chips = utils.getChipsInSlot(chipsPlaced, day, hour);
-    return connectDropTarget(<div className={`cell full ${getCellClass(this.props)}`}>
-      { _.map(chips, (chip, i) => <Chip {...chip} key={i} />) }
-    </div>);
+    const { connectDropTarget, renderCellContents, day, hour } = this.props;
+    return connectDropTarget(<div className={`cell full ${getCellClass(this.props)}`}>{renderCellContents(day, hour)}</div>);
   }
 }
 
-@DropTarget(ItemTypes.CHIP, halfCellTarget, (connect, monitor) => ({
+@DropTarget(props => props.itemType, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -70,7 +61,8 @@ class HalfCell extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
-    placeChip: PropTypes.func.isRequired
+    placeChip: PropTypes.func.isRequired,
+    onDrop: PropTypes.func.isRequired
   };
   render () {
     const { isOver, canDrop, connectDropTarget, chipsPlaced, side } = this.props;

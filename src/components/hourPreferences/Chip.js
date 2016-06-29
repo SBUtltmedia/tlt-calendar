@@ -1,26 +1,17 @@
 import { HOUR } from '../../constants/Constants';
+import CalendarImage, { getSize, getImage } from '../CalendarImage';
 const FORMAT = 'png';
-
-export function getFullChipImage(value) {
-  return require(`../../../img/chips/${value}.${FORMAT}`);
-}
 
 export function getChipImage(value, callback) {
   const image = new Image();
-  image.src = getFullChipImage(value);
+  image.src = getImage('chips', value, callback);
   image.onload = () => callback(image);
 }
 
-export function getSize(callback) {
-  getChipImage(1, image => {
-    callback({
-      width: image.width,
-      height: image.height
-    });
-  });
+export function getChipSize(callback) {
+  getSize('chips', 1, callback);
 }
 
 export default ({value, minute, duration=HOUR}) => (
-  <img style={{float: minute === 30 ? 'right' : 'left'}}
-  src={require(`../../../img/chips/${value + (duration === HOUR ? '' : ('half' + (minute === 30 ? '1' : '2' )))}.${FORMAT}`)} />
+  <CalendarImage path='chips' file={value} minute={minute} duration={duration} />
 );
