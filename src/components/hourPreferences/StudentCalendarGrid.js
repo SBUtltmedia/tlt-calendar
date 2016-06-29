@@ -2,13 +2,13 @@ import Chip from './Chip';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import ItemTypes from '../../constants/ItemTypes';
+import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
-  itemTypes: ItemTypes.CHIP,
+  itemTypes: DraggableTypes.CHIP,
   cellComponent: Chip
 });
 

@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Trash from '../Trash';
-import ItemTypes from '../../constants/ItemTypes';
+import DraggableTypes from '../../constants/DraggableTypes';
 import * as AdminActions from '../../actions/AdminActions';
 
 const mapStateToProps = state => ({
   items: state.admin.reserves,
-  itemTypes: ItemTypes.RESERVE
+  itemTypes: DraggableTypes.RESERVE
 });
 
 const mapDispatchToProps = dispatch => {

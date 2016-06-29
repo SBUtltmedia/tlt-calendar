@@ -1,5 +1,5 @@
 import { HOUR } from '../../constants/Constants';
-import ItemTypes from '../../constants/ItemTypes';
+import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarIcon, { getSize, getImage } from '../CalendarIcon';
 
 export function getReserveIconSize(callback) {
@@ -7,5 +7,5 @@ export function getReserveIconSize(callback) {
 }
 
 export default props => (
-  <CalendarIcon path='admin' file='X' itemTypes={ItemTypes.RESERVE} {...props} />
+  <CalendarIcon path='admin' file='X' itemTypes={DraggableTypes.RESERVE} {...props} />
 );
