@@ -11,18 +11,19 @@ describe('getIndex', () => {
     expect(utils.getIndex(1, 0, 0)).to.equal(48);
   });
 
-  it('clears a slot', () => {
-    expect(utils.clearSlot([1, 1], 0, 0, 0, HOUR)).to.deep.equal([undefined, undefined]);
-    expect(utils.clearSlot([1, 1], 0, 0, 0, HALF_HOUR)).to.deep.equal([undefined, 1]);
-    expect(utils.clearSlot([1, 1], 0, 0, 30, HALF_HOUR)).to.deep.equal([1, undefined]);
+  it('removes a chip', () => {
+    expect(utils.removeChip([1, 1], {day: 0, hour: 0, minute: 0, duration: HOUR})).to.deep.equal([undefined, undefined]);
+    expect(utils.removeChip([1, 1], {day: 0, hour: 0, minute: 0, duration: HALF_HOUR})).to.deep.equal([undefined, 1]);
+    expect(utils.removeChip([1, 1], {day: 0, hour: 0, minute: 30, duration: HALF_HOUR})).to.deep.equal([1, undefined]);
   });
 
   it('places a chip', () => {
     const chip1 = {value: 1, day: 0, hour: 0, minute: 0};
     const chip2 = {value: 2, day: 0, hour: 0, minute: 30};
     const chip3 = {value: 3, day: 0, hour: 0, minute: 60};
-    expect([1, 2, 2]).to.deep.equal(utils.placeChip([1, 1], chip2));
-    expect([1, 2, 2, 3]).to.deep.equal(utils.placeChip([1, 1, 3, 3], chip2));
+    expect(utils.placeChip([], chip2)).to.deep.equal([undefined, 2, 2]);
+    expect(utils.placeChip([1, 1], chip2)).to.deep.equal([1, 2, 2]);
+    expect(utils.placeChip([1, 1, 3, 3], chip2)).to.deep.equal([1, 2, 2, 3]);
   });
 
   it('gets chip counts', () => {

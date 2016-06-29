@@ -53,7 +53,7 @@ export function getChipsInSlot(chipsPlaced, day, hour) {
   }
 }
 
-export function clearSlot(chipsPlaced, day, hour, minute, duration) {
+export function removeChip(chipsPlaced, {day, hour, minute, duration}) {
   return placeChip(chipsPlaced, {value: undefined, day, hour, minute, duration});
 }
 
