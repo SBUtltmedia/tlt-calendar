@@ -1,4 +1,4 @@
-import Chip from './Chip';
+import DraggableChip from './DraggableChip';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import ItemTypes from '../../constants/ItemTypes';
@@ -7,7 +7,7 @@ import VisibleCalendar from '../VisibleCalendar';
 
 function renderCellContents(chipsPlaced, day, hour) {
 	const chips = utils.getChipsInSlot(chipsPlaced, day, hour);
-	return _.map(chips, (chip, i) => <Chip {...chip} key={i} />);
+	return _.map(chips, (chip, i) => <DraggableChip {...chip} key={i} />);
 }
 
 function onFullCellDrop(props, monitor) {
