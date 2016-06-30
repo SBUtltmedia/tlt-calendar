@@ -3,7 +3,7 @@ import * as calendar from './calendar';
 import { RESERVED } from '../constants/Constants';
 
 export function removeItem(calendarItems, reserve) {
-  return calendar.placeItem(calendarItems, {...reserve, value: undefined});
+  return calendar.removeItem(calendarItems, reserve);
 }
 
 export function placeReserve(calendarItems, reserve) {
