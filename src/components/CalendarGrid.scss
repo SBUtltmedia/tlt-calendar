@@ -50,12 +50,16 @@ $border: thin solid $border-color;
       }
     }
   }
-  @for $i from 1024px through 2048px {
-    @media (min-width: $i) {
-      table.calendar {
-        width: $i;
-        height: $i / (26 / 7)
-      }
+}
+
+@for $i from 1024px through 2048px {
+  @media (min-width: $i) {
+    table.calendar {
+      width: $i;
+      height: $i / (26 / 7);
+    }
+    body {
+      font-size: $i/100
     }
   }
 }
