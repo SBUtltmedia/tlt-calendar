@@ -1,7 +1,7 @@
-import { PLACE_RESERVE, REMOVE_RESERVE } from '../constants/ActionTypes';
+import { PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 //import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
-import * as utils from '../utils/admin';
+import * as calendar from '../utils/calendar';
 
 const initialState = {
   calendarItems: [  // TODO: Eventually this needs to have one for each location
@@ -11,8 +11,8 @@ const initialState = {
 
 export default function admin(state=initialState, action) {
   switch (action.type) {
-    case PLACE_RESERVE: return _.assign({}, state, {calendarItems: utils.placeReserve(state.calendarItems, action)});
-    case REMOVE_RESERVE: return _.assign({}, state, {calendarItems: utils.removeItem(state.calendarItems, action)});
+    case PLACE_ITEM: return _.assign({}, state, {calendarItems: calendar.placeItem(state.calendarItems, action)});
+    case REMOVE_ITEM: return _.assign({}, state, {calendarItems: calendar.removeItem(state.calendarItems, action)});
     default: return state;
   }
 }

@@ -21,7 +21,7 @@ class AdminBank extends Component {
 				</div>
 				{_.map(STUDENTS, (student, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<StudentCalendarIcon size={iconSize} {...student} />
+						<StudentCalendarIcon size={iconSize} value={student} />
 					</div>)}
 			</div>
 		</div>;

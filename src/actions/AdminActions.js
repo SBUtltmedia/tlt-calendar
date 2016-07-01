@@ -1,10 +1,11 @@
-import { PLACE_RESERVE, REMOVE_RESERVE } from '../constants/ActionTypes';
+import { PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import { HOUR } from '../constants/Constants';
 import _ from 'lodash';
 
-export function placeReserve({day, hour, minute, duration=HOUR}) {
+export function placeItem({value, day, hour, minute, duration=HOUR}) {
   return {
-    type: PLACE_RESERVE,
+    type: PLACE_ITEM,
+    value: value,
     day: day,
     hour: hour,
     minute: minute,
@@ -12,6 +13,6 @@ export function placeReserve({day, hour, minute, duration=HOUR}) {
   };
 }
 
-export function removeItem(reserve) {
-  return _.assign({}, reserve, {type: REMOVE_RESERVE});
+export function removeItem(item) {
+  return _.assign({}, item, {type: REMOVE_ITEM});
 }

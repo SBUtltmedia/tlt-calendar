@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators(AdminActions, dispatch);
   return {
-    placeItem: actions.placeReserve,
+    placeItem: actions.placeItem,
     removeItem: actions.removeItem
   }
 };

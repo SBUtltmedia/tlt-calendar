@@ -5,7 +5,6 @@ import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 
-
 function createTarget(minute) {
   return {
     drop(props, monitor) {
