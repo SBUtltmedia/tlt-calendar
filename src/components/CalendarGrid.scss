@@ -50,11 +50,11 @@ $border: thin solid $border-color;
       }
     }
   }
-  @for $i from 600px through 3200px {
+  @for $i from 1024px through 2048px {
     @media (min-width: $i) {
       table.calendar {
         width: $i;
-        height: $i / 3.3;
+        height: $i / (26 / 7)
       }
     }
   }
