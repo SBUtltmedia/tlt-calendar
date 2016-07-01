@@ -57,7 +57,7 @@ export default class CalendarIcon extends Component {
     const { connectDragPreview, path, file, size } = this.props;
     getImageByPath(this.getFilePath(), {width: size, height: size}, image => {
       //connectDragPreview(image);
-      connectDragPreview(<div style="width:50px; height: 50px"></div>);
+      connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
     });
   }
 
