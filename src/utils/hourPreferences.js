@@ -1,14 +1,5 @@
 import _ from 'lodash';
 import { RANKS } from '../constants/Settings';
-import * as calendar from './calendar';
-
-export function removeChip(chipsPlaced, chip) {
-  return calendar.removeItem(chipsPlaced, chip);
-}
-
-export function placeChip(chipsPlaced, chip) {
-  return calendar.placeItem(chipsPlaced, chip);
-}
 
 export function getChipCounts(chipsPlaced) {
   const chips = _.filter(chipsPlaced, c => c);

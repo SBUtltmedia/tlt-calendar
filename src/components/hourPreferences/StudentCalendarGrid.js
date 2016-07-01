@@ -18,8 +18,8 @@ const mapDispatchToProps = dispatch => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
-    placeItem: hourPreferencesActions.placeChip,
-    removeItem: hourPreferencesActions.removeChip,
+    placeItem: hourPreferencesActions.placeItem,
+    removeItem: hourPreferencesActions.removeItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, STUDENT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

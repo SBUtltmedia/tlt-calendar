@@ -1,6 +1,5 @@
 import { FILL_INFO_BOX, CLEAR_INFO_BOX } from '../constants/ActionTypes';
 import _ from 'lodash';
-import * as utils from '../utils/hourPreferences';
 
 const initialState = {
   infoType: null,

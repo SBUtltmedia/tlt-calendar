@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators(HourPreferencesActions, dispatch);
   return {
-    placeItem: actions.placeChip,
-    removeItem: actions.removeChip
+    placeItem: actions.placeItem,
+    removeItem: actions.removeItem
   }
 };
 
