@@ -57,7 +57,7 @@ class FullCell extends Component {
     return connectDropTarget(
       <div className={`cell full ${getCellClass(this.props)}`}
       onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-        {_.map(cellItems, (item, i) => cellComponent({...item, key: i}))}
+        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, size: '100%'}))}
       </div>
     );
   }

@@ -1,10 +1,11 @@
 import { PLACE_RESERVE, REMOVE_RESERVE } from '../constants/ActionTypes';
+//import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
 import * as utils from '../utils/admin';
 
 const initialState = {
   calendarItems: [  // TODO: Eventually this needs to have one for each location
-  	{ hour: 6, minute: 0, duration: 60, value: { name: 'Mario Mario', icon: 'mario.png' }}
+  	//{ day: 3, hour: 6, minute: 0, duration: HOUR, value: { name: 'Mario Mario', icon: 'mario.png' }}
   ]
 };
 
