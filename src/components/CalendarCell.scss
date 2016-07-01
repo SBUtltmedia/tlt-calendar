@@ -7,14 +7,6 @@
   z-index: 1;
   display: flex;
 
-  .cell {
-    height: 100%;
-  }
-
-  .cell.full {
-      width: 100%;
-  }
-
   .cell.half {
     width: 40%;
     height: 100%;

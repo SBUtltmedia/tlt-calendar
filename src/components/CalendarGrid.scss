@@ -5,9 +5,9 @@ $border: thin solid $border-color;
 :local(.container) {
   margin-bottom: 25px;
   table.calendar {
-    width: 100%;
     table-layout: fixed;
     border-spacing: 0;
+    margin: auto;
     thead {
       td {  /* column labels */
         position: relative;
@@ -29,7 +29,6 @@ $border: thin solid $border-color;
     }
     tbody {
       td {
-        height: 52px;
         padding: 0;
       }
       td:not(:last-child) {
@@ -48,6 +47,14 @@ $border: thin solid $border-color;
       td:last-child {  /* row labels (right) */
         text-align: left;
         padding-left: 10px;
+      }
+    }
+  }
+  @for $i from 600px through 3200px {
+    @media (min-width: $i) {
+      table.calendar {
+        width: $i;
+        height: $i / 3.3;
       }
     }
   }

@@ -1,8 +1,13 @@
 @import '../style/utils';
 
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
 :local(.container) {
   font-family: sans-serif;
-  box-sizing: border-box;
-  padding: 10px;
+  padding-top: 10px;
+
   @include no-select();
 }

@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
+import Dimensions from 'react-dimensions';
 
 function createTarget(minute) {
   return {
@@ -51,16 +52,18 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, containerWidth, containerHeight } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
     return connectDropTarget(
-      <div className={`cell full ${getCellClass(this.props)}`}
+      <div className={`cell full ${getCellClass(this.props)}`} style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
       onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, size: '100%'}))}
+        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, size: Math.min(containerWidth, containerHeight)}))}
       </div>
     );
   }
 }
+
+const DimensionedFullCell = Dimensions()(FullCell);
 
 @DropTarget(props => props.itemTypes, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
@@ -92,8 +95,8 @@ export default class CalendarCell extends Component {
     return <div className={styles.container}>
       { hour === 0 ?
         <HalfCell side="left" {..._.assign({}, this.props, {day: dayMinus1(day), hour: hourMinus1(hour)})} />
-        : '' }
-      <FullCell {...this.props} />
+      : ''}
+      <DimensionedFullCell {...this.props} />
       <HalfCell side="right" {...this.props} />
     </div>;
   }
