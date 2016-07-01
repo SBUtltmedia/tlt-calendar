@@ -1,4 +1,4 @@
-import ReserveIcon from './ReserveIcon';
+import ReserveIcon from '../ReserveIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -10,7 +10,7 @@ import { ADMIN_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.admin.calendarItems,
-  itemTypes: DraggableTypes.RESERVE,
+  itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE],
   cellComponent: ReserveIcon
 });
 

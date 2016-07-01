@@ -10,7 +10,7 @@ import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
-  itemTypes: DraggableTypes.CHIP,
+  itemTypes: [DraggableTypes.CHIP],
   cellComponent: Chip
 });
 

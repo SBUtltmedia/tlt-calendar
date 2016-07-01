@@ -6,7 +6,7 @@ import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
 const mapStateToProps = state => ({
   items: state.hourPreferences.chipsPlaced,
-  itemTypes: DraggableTypes.CHIP
+  itemTypes: [DraggableTypes.CHIP]
 });
 
 const mapDispatchToProps = dispatch => {

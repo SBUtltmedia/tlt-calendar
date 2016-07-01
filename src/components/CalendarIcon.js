@@ -8,14 +8,14 @@ import { halfCssSize } from '../utils/style.js';
 const FORMAT = 'png';
 const req = require.context('img', true, /^\.\/.*\.png$/);
 
-function getImageByPath(path, callback) {
-  const image = new Image();
+function getImageByPath(path, options, callback) {
+  const image = new Image(options.width, options.height);
   image.src = req(path);
   image.onload = () => callback(image);
 }
 
-function getImage(path, file, callback) {
-  getImageByPath('./' + path + '/' + file + '.' + FORMAT, callback);
+function getImage(path, file, options, callback) {
+  getImageByPath('./' + path + '/' + file + '.' + FORMAT, options, callback);
 }
 
 const dragSource = {
@@ -25,7 +25,7 @@ const dragSource = {
     }
 };
 
-@DragSource(props => props.itemTypes, dragSource, (connect, monitor) => ({
+@DragSource(props => props.itemType, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
@@ -40,7 +40,7 @@ export default class CalendarIcon extends Component {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    itemTypes: PropTypes.string.isRequired,
+    itemType: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     fillInfoBox: PropTypes.func.isRequired,
@@ -54,8 +54,11 @@ export default class CalendarIcon extends Component {
   }
 
   componentDidMount() {
-    const { connectDragPreview, path, file } = this.props;
-    getImageByPath(this.getFilePath(), connectDragPreview);
+    const { connectDragPreview, path, file, size } = this.props;
+    getImageByPath(this.getFilePath(), {width: size, height: size}, image => {
+      //connectDragPreview(image);
+      connectDragPreview(<div style="width:50px; height: 50px"></div>);
+    });
   }
 
   fillInfoBox(icon) {

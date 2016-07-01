@@ -33,7 +33,7 @@ class Trash extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     removeItem: PropTypes.func.isRequired,
-    itemTypes: PropTypes.string.isRequired,
+    itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     items: PropTypes.array.isRequired,
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,

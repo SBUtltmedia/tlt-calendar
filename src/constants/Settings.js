@@ -14,3 +14,7 @@ export const LOCATIONS = [
   { name: 'SBS (6th Floor)' },
   { name: 'Sports Center' },
 ];
+
+export const STUDENTS = [
+  { name: 'Mario Mario', icon: 'mario' }
+];

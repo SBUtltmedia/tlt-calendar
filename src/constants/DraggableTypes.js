@@ -1,4 +1,5 @@
 export default {
   CHIP: 'chip',
-  RESERVE: 'reserve'
+  RESERVE: 'reserve',
+  EMPLOYEE: 'employee'
 };
