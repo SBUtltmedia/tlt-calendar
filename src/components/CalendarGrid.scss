@@ -1,4 +1,5 @@
 @import '../style/colors';
+@import '../style/dimens';
 
 $border: thin solid $border-color;
 
@@ -52,14 +53,15 @@ $border: thin solid $border-color;
   }
 }
 
-@for $i from 1024px through 2048px {
-  @media (min-width: $i) {
+@for $i from 0 through ($max-width - $min-width) / $granularity {
+  $width: $min-width + $i * $granularity;
+  @media (min-width: $width) {
     table.calendar {
-      width: $i;
-      height: $i / (26 / 7);
+      width: $width;
+      height: $width / (26 / 7);
     }
     body {
-      font-size: $i/100
+      font-size: $width / 100
     }
   }
 }
