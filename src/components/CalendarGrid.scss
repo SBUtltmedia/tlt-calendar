@@ -22,7 +22,6 @@ $border: thin solid $border-color;
           width: 20px;
         }
       }
-
       td:nth-child(n+14):not(:last-child) {
         background-color: $lighter-gray;
         border-top: $border;
@@ -49,19 +48,6 @@ $border: thin solid $border-color;
         text-align: left;
         padding-left: 10px;
       }
-    }
-  }
-}
-
-@for $i from 0 through ($max-width - $min-width) / $granularity {
-  $width: $min-width + $i * $granularity;
-  @media (min-width: $width) {
-    table.calendar {
-      width: $width;
-      height: $width / (26 / 7);
-    }
-    body {
-      font-size: $width / 100
     }
   }
 }

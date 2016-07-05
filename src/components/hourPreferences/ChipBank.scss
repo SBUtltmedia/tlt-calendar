@@ -1,4 +1,5 @@
 @import '../../style/colors';
+@import '../../style/dimens';
 
 :local(.container) {
   .scroll-area {
@@ -10,7 +11,7 @@
   }
 
   .notes {
-    font-size: small;
+    font-size: $small-font;
     color: $medium-gray;
     text-align: center;
     padding-left: 10px;

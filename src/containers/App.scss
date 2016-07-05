@@ -1,8 +1,22 @@
 @import '../style/utils';
+@import '../style/dimens';
 
 html, body {
   padding: 0;
   margin: 0;
+}
+
+@for $i from 0 through ($max-width - $min-width) / $granularity {
+  $width: $min-width + $i * $granularity;
+  @media (min-width: $width) {
+    table.calendar {
+      width: $width;
+      height: round($width / (26 / 7));
+    }
+    body {
+      font-size: round($width / 100);
+    }
+  }
 }
 
 :local(.container) {
