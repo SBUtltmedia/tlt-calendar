@@ -21,7 +21,7 @@ html, body {
 
 :local(.container) {
   font-family: sans-serif;
-  padding-top: 10px;
+  padding-top: 1em;
 
   @include no-select();
 }

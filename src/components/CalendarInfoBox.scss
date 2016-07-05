@@ -18,19 +18,15 @@ $border: thin solid $border-color;
 	}
 
 	.title {
+		font-size: $large-font;
 		font-weight: bold;
 		text-align: center;
-		margin-bottom: 10px;
+		margin-bottom: 1em;
 	}
 
 	.action {
 		.description {
 
 		}
-	}
-
-	.label {
-		font-weight: bold;
-		margin-right: 5px;
 	}
 }
