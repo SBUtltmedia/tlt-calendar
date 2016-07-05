@@ -6,7 +6,7 @@ $border: thin solid $border-color;
 :local(.container) {
 	border: $border;
 	border-radius: $border-radius;
-	padding: 16px;
+	padding: 1.5em;
 	height: 100%;
 
 	.cell {
