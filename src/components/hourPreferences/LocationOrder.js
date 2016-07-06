@@ -6,8 +6,9 @@ const ListItem = ({item}) => (
   <div className="list-item">{item.name}</div>
 );
 
-export default ({reorderGlobalLocations}) => (
-  <div className={styles.container}>
+export default ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
+  <div className={styles.container} onMouseLeave={clearInfoBox}
+  onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
     <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key

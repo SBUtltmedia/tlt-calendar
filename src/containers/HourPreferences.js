@@ -5,7 +5,7 @@ import StudentCalendarGrid from '../components/hourPreferences/StudentCalendarGr
 import HoursSettings from '../components/hourPreferences/HoursSettings';
 import VisibleChipBank from '../components/hourPreferences/VisibleChipBank';
 import StudentCalendarTrash from '../components/hourPreferences/StudentCalendarTrash';
-import LocationOrder from '../components/hourPreferences/LocationOrder';
+import VisibleLocationOrder from '../components/hourPreferences/VisibleLocationOrder';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './HourPreferences.scss';
 
@@ -18,7 +18,7 @@ export default class HourPreferences extends Component {
         <div className="hours-settings"><HoursSettings /></div>
         <div className="chip-bank"><VisibleChipBank /></div>
         <div className="trash"><StudentCalendarTrash /></div>
-        <div className="location-order"><LocationOrder /></div>
+        <div className="location-order"><VisibleLocationOrder /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
     </div>;
