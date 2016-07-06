@@ -2,32 +2,32 @@
 
   .controls {
     display: flex;
-    margin: auto 12px;
+    margin: auto 1em;
 
     >div {
       margin: 0 auto;
     }
 
     .hours-settings {
-      width: 300px;
+      width: 22em;
     }
 
     .chip-bank {
-      width: 320px;
+      width: 24em;
     }
 
     .trash {
-      margin-top: 50px;
+      margin-top: 5em;
     }
 
     .location-order {
-      width: 240px;
+      width: 20em;
     }
 
     .info {
-      margin-top: 8px;
-      width: 200px;
-      height: 240px;
+      margin-top: 0.6em;
+      width: 20em;
+      height: 18em;
     }
   }
 

@@ -5,14 +5,15 @@
   .title {
     text-align: center;
     font-weight: bold;
+    font-size: $large-font;
   }
   .list-item {
-    font-size: small;
+    font-size: 1em;
     border-radius: $border-radius;
     background-color: $lighter-gray;
-    margin: 6px 0;
+    margin: 0.5em 0;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 0.3em 0.6em;
     -webkit-user-drag: element;
     -webkit-user-select: none;
   }

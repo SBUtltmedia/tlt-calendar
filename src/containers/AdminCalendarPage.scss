@@ -2,21 +2,21 @@
 
   .controls {
     display: flex;
-    margin: auto 12px;
+    margin: auto 1em;
 
     .bank {
       margin: auto;
-      width: 400px;
+      width: 36em;
       text-align: center;
     }
 
     .trash {
-      margin: 50px auto;
+      margin-top: 5em;
     }
 
     .info {
-    	width: 25%;
-      height: 200px;
+      width: 20em;
+      height: 18em;
     }
   }
 
