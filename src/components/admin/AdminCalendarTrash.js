@@ -6,7 +6,7 @@ import * as AdminActions from '../../actions/AdminActions';
 
 const mapStateToProps = state => ({
   items: state.admin.calendarItems,
-  itemTypes: [DraggableTypes.RESERVE]
+  itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE]
 });
 
 const mapDispatchToProps = dispatch => {
