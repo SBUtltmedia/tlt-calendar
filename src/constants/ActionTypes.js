@@ -5,3 +5,6 @@ export const REMOVE_ITEM = 'remove-reserve';
 export const FILL_INFO_BOX = 'set-box-info';
 export const CLEAR_INFO_BOX = 'clear-box-info';
 export const RECEIVE_SCHEDULES = 'receive-schedules';
+export const RECEIVE_SCHEDULE = 'receive-schedule';
+export const RECEIVE_PREFERENCES = 'receive-preferences';
+export const RECEIVE_PREFERENCE = 'receive-preference';

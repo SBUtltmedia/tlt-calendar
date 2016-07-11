@@ -1,4 +1,4 @@
-import { RECEIVE_SCHEDULES, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
+import { RECEIVE_SCHEDULES, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import _ from 'lodash';
 import * as calendar from '../utils/calendar';
 
@@ -13,6 +13,7 @@ function updateSchedule(schedules, location, fn) {
 export default function schedules(state=initialState, action) {
   switch (action.type) {
     case RECEIVE_SCHEDULES: return action.schedules;
+    case RECEIVE_SCHEDULE: return [action.schedule];
     case PLACE_ITEM: return updateSchedule(state, action.location, _.bind(calendar.placeItem, {}, action));
     case REMOVE_ITEM: return updateSchedule(state, action.location, _.bind(calendar.removeItem, {}, action));
     default: return state;

@@ -1,0 +1,10 @@
+{
+  "location": "Main Library",
+  "shifts": [
+    {
+        "id": 123456789,
+        "name": "Rong Zou",
+        "icon": "rong.jpg"
+    }
+  ]
+}
