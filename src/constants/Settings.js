@@ -19,3 +19,5 @@ export const STUDENTS = [
   { name: 'Mario Mario', icon: 'mario.png' },
   { name: 'Rong Zou', icon: 'rong.jpg' }
 ];
+
+export const DATA_PATH = '/public/data';

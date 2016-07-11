@@ -14,8 +14,13 @@ function getComponentClass(item) {
   return item.value === RESERVED ? ReserveIcon : StudentCalendarIcon;
 }
 
+function getShifts(state, location) {
+  const schedule = _.find(state.schedules, s => s.location === location);
+  return schedule ? schedule.shifts : [];
+}
+
 const mapStateToProps = state => ({
-  items: state.admin.calendarItems,
+  items: getShifts(state, 'Main Library'),
   itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE],
   cellComponent: item => getComponentClass(item)(item)
 });

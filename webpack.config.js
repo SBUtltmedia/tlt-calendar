@@ -5,8 +5,9 @@ module.exports = {
      entry: './src/index.js',
      devtool: '#eval-cheap-module-source-map',
      output: {
-         path: './',
-         filename: 'bundle.js'
+         path: './public',
+         filename: 'bundle.js',
+         publicPath: '/public/'
      },
      plugins: [
          new webpack.ProvidePlugin({ 'React': 'react'})
