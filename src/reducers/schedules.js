@@ -6,7 +6,8 @@ const initialState = [];
 
 function updateSchedule(schedules, location, fn) {
   const index = _.findIndex(schedules, s => s.location === location);
-  return [...schedules.slice(0, index), fn(schedules[index]), ...schedules.slice(index + 1)];
+  const s = schedules[index];
+  return [...schedules.slice(0, index), {...s, shifts: fn(s.shifts)}, ...schedules.slice(index + 1)];
 }
 
 export default function schedules(state=initialState, action) {

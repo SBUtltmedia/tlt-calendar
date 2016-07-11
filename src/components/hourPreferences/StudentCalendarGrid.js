@@ -14,12 +14,12 @@ const mapStateToProps = state => ({
   cellComponent: Chip
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
-    placeItem: hourPreferencesActions.placeItem,
-    removeItem: hourPreferencesActions.removeItem,
+    placeItem: _.bind(hourPreferencesActions.placeItem, {}, ownProps.location),
+    removeItem: _.bind(hourPreferencesActions.removeItem, {}, ownProps.location),
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, STUDENT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };
