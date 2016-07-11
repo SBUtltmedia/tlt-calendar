@@ -8,3 +8,4 @@ export const RECEIVE_SCHEDULES = 'receive-schedules';
 export const RECEIVE_SCHEDULE = 'receive-schedule';
 export const RECEIVE_PREFERENCES = 'receive-preferences';
 export const RECEIVE_PREFERENCE = 'receive-preference';
+export const SET_LOCATION = 'set-location';

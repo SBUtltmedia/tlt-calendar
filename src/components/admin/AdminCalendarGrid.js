@@ -14,23 +14,18 @@ function getComponentClass(item) {
   return item.value === RESERVED ? ReserveIcon : StudentCalendarIcon;
 }
 
-function getShifts(state, location) {
-  const schedule = _.find(state.schedules, s => s.location === location);
-  return schedule ? schedule.shifts : [];
-}
-
-const mapStateToProps = (state, ownProps) => ({
-  items: getShifts(state, ownProps.location),
+const mapStateToProps = state => ({
+  items: state.schedule.shifts || [],
   itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE],
   cellComponent: item => getComponentClass(item)(item)
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   const scheduleActions = bindActionCreators(ScheduleActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
-    placeItem: _.bind(scheduleActions.placeItem, {}, ownProps.location),
-    removeItem: _.bind(scheduleActions.removeItem, {}, ownProps.location),
+    placeItem: scheduleActions.placeItem,
+    removeItem:scheduleActions.removeItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

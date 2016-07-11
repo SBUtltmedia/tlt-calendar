@@ -9,10 +9,10 @@ const mapStateToProps = state => ({
   itemTypes: [DraggableTypes.CHIP]
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators(HourPreferencesActions, dispatch);
   return {
-    removeItem: _.bind(actions.removeItem, {}, ownProps.location)
+    removeItem: actions.removeItem
   }
 };
 

@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   cellComponent: Chip
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
