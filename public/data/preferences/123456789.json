@@ -1,0 +1,19 @@
+{
+  "employee": {
+    "id": 123456789,
+    "name": "Rong Zou",
+    "icon": "rong.jpg"
+  },
+  "locations": [
+    "Engineering",
+    "Math/Physics",
+    "SBS (6th Floor)",
+    "Sports Center",
+    "Student Union",
+    "North Reading Room - 1st Floor",
+    "North Reading Room - 2nd Floor",
+    "Central Reading Room",
+    "Main Library"
+  ],
+  "chips": [1,1,2,2,3,3,4,4]
+}
