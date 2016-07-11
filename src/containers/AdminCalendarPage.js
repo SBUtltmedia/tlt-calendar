@@ -11,7 +11,7 @@ import styles from './AdminCalendarPage.scss';
 export default class AdminCalendarPage extends Component {
 	render () {
 		return <div className={styles.container}>
-			<AdminCalendarGrid />
+			<AdminCalendarGrid location="Main Library" />
       <div className="controls">
         <div className="bank"><AdminBank /></div>
         <div className="trash"><AdminCalendarTrash /></div>

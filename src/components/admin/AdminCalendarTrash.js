@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Trash from '../Trash';
+import _ from 'lodash';
 import DraggableTypes from '../../constants/DraggableTypes';
-import * as AdminActions from '../../actions/AdminActions';
+import * as ScheduleActions from '../../actions/ScheduleActions';
+
 
 const mapStateToProps = state => ({
-  items: state.admin.calendarItems,
   itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE]
 });
 
-const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators(AdminActions, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const scheduleActions = bindActionCreators(ScheduleActions, dispatch);
   return {
-    placeItem: actions.placeItem,
-    removeItem: actions.removeItem
+    removeItem: _.bind(scheduleActions.removeItem, {}, ownProps.location)
   }
 };
 

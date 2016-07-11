@@ -53,11 +53,16 @@ export function getItemsInSlot(items, day, hour) {
   }
 }
 
-export function removeItem(items, {day, hour, minute, duration}) {
+export function removeItem({day, hour, minute, duration}, items) {
   return placeItem(items, {value: undefined, day, hour, minute, duration});
 }
 
-export function placeItem(items, {value, day, hour, minute, duration=HOUR}) {
+export function placeItem({value, day, hour, minute, duration=HOUR}, items) {
+
+
+  console.log(items);
+
+
   const index = getIndex(day, hour, minute);
   switch (duration) {
     case HALF_HOUR: return setValue(items, index, value);

@@ -8,8 +8,8 @@ const initialState = {
 
 export default function hourPreferences(state=initialState, action) {
   switch (action.type) {
-    case PLACE_CHIP: return _.assign({}, state, {chipsPlaced: calendar.placeItem(state.chipsPlaced, action)});
-    case REMOVE_CHIP: return _.assign({}, state, {chipsPlaced: calendar.removeItem(state.chipsPlaced, action)});
+    case PLACE_CHIP: return _.assign({}, state, {chipsPlaced: calendar.placeItem(action, state.chipsPlaced)});
+    case REMOVE_CHIP: return _.assign({}, state, {chipsPlaced: calendar.removeItem(action, state.chipsPlaced)});
     default: return state;
   }
 }

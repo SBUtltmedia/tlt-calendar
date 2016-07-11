@@ -4,16 +4,15 @@ import Trash from '../Trash';
 import DraggableTypes from '../../constants/DraggableTypes';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
+
 const mapStateToProps = state => ({
-  items: state.hourPreferences.chipsPlaced,
   itemTypes: [DraggableTypes.CHIP]
 });
 
 const mapDispatchToProps = dispatch => {
   const actions = bindActionCreators(HourPreferencesActions, dispatch);
   return {
-    placeItem: actions.placeItem,
-    removeItem: actions.removeItem
+    removeItem: _.bind(actions.removeItem, {}, ownProps.location)
   }
 };
 
