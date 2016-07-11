@@ -5,8 +5,7 @@ import _ from 'lodash';
 import styles from './CalendarIcon.scss';
 import { halfCssSize } from '../utils/style.js';
 
-const FORMAT = 'png';
-const req = require.context('img', true, /^\.\/.*\.png$/);
+const req = require.context('img', true, /^\.\/.*$/);
 
 function getImageByPath(path, options, callback) {
   const image = new Image(options.width, options.height);
@@ -15,7 +14,7 @@ function getImageByPath(path, options, callback) {
 }
 
 function getImage(path, file, options, callback) {
-  getImageByPath('./' + path + '/' + file + '.' + FORMAT, options, callback);
+  getImageByPath('./' + path + '/' + file, options, callback);
 }
 
 const dragSource = {
@@ -50,7 +49,7 @@ export default class CalendarIcon extends Component {
 
   getFilePath() {
     const {path, file, minute, duration=HOUR} = this.props;
-    return './' + path + '/' + file + '.' + FORMAT;
+    return './' + path + '/' + file;
   }
 
   componentDidMount() {

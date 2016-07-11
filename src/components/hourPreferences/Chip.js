@@ -5,6 +5,6 @@ import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
 
 export default props => (
-  <VisibleCalendarIcon path='chips' file={props.value} itemType={DraggableTypes.CHIP} {...props} name={`Rank ${props.value}`}
+  <VisibleCalendarIcon path='chips' file={`${props.value}.png`} itemType={DraggableTypes.CHIP} {...props} name={`Rank ${props.value}`}
   description={`Ranking your available slots from highest to lowest (1 to ${_.last(RANKS)}) communicates your preferred shifts.`} />
 );

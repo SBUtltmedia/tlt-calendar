@@ -16,5 +16,6 @@ export const LOCATIONS = [
 ];
 
 export const STUDENTS = [
-  { name: 'Mario Mario', icon: 'mario' }
+  { name: 'Mario Mario', icon: 'mario.png' },
+  { name: 'Rong Zou', icon: 'rong.jpg' }
 ];
