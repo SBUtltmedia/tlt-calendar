@@ -58,9 +58,6 @@ export function removeItem({day, hour, minute, duration}, items) {
 }
 
 export function placeItem({value, day, hour, minute, duration=HOUR}, items) {
-
-  console.log(items);
-
   const index = getIndex(day, hour, minute);
   switch (duration) {
     case HALF_HOUR: return setValue(items, index, value);
