@@ -50,7 +50,7 @@ export default class CalendarIcon extends Component {
 
   getFilePath() {
     const {path, file, minute, duration=HOUR} = this.props;
-    return './' + path + '/' + file + (duration === HOUR ? '' : ('half' + (minute === 30 ? '1' : '2' ))) + '.' + FORMAT;
+    return './' + path + '/' + file + '.' + FORMAT;
   }
 
   componentDidMount() {
@@ -73,8 +73,15 @@ export default class CalendarIcon extends Component {
     const opacity = isDragging || disabled ? 0.1 : 1;
     const icon = req(this.getFilePath());
     const width = day && duration === HALF_HOUR ? halfCssSize(size) : size;
-    return connectDragSource(<img className={styles.icon} src={icon}
-      onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}
-      style={{opacity, width: width, height: size, float: minute === 30 ? 'right' : 'left'}} />);
+    const maxWidth = duration === HALF_HOUR ? width : '';
+    const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
+    const overflow = duration === HALF_HOUR ? 'hidden' : '';
+    const position = duration === HALF_HOUR ? 'absolute' : '';
+    return connectDragSource(
+      <div style={{maxWidth, marginLeft, overflow, position}}>
+        <img className={styles.icon} src={icon} onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}
+        style={{opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}} />
+      </div>
+    );
   }
 }
