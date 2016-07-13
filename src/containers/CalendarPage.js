@@ -7,11 +7,11 @@ import AdminCalendarGrid from '../components/admin/AdminCalendarGrid';
 import AdminBank from '../components/admin/AdminBank';
 import AdminCalendarTrash from '../components/admin/AdminCalendarTrash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
-import styles from './AdminCalendarPage.scss';
+import styles from './CalendarPage.scss';
 import * as ScheduleActions from '../actions/ScheduleActions';
 
 @DragDropContext(HTML5Backend)
-class AdminCalendarPage extends Component {
+class CalendarPage extends Component {
 	componentWillMount() {
 		this.props.fetchSchedule();
 		this.props.setLocation();
@@ -47,4 +47,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AdminCalendarPage);
+)(CalendarPage);
