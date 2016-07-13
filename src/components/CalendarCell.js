@@ -10,7 +10,7 @@ function createTarget(minute) {
   return {
     drop(props, monitor) {
       const item = monitor.getItem();
-      if (item.day) {  // If it's already placed somewhere on the calendar grid
+      if (item.day !== null && item.day !== undefined) {  // If it's already placed somewhere on the calendar grid
         props.removeItem(item);
       }
       props.placeItem(_.assign({}, item, props, {minute}));
@@ -54,8 +54,12 @@ class FullCell extends Component {
   render() {
     const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, containerWidth, containerHeight } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
+    //if (_.size(cellItems) !== 0) {
+    //    console.log(cellItems);
+    //}
     return connectDropTarget(
-      <div className={`cell full ${getCellClass(this.props)}`} style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
+      <div className={`cell full ${getCellClass(this.props)}`}
+      style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
       onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
         {_.map(cellItems, (item, i) => cellComponent({...item, key: i, size: containerWidth}))}
       </div>

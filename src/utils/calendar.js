@@ -32,7 +32,7 @@ export function getItemsInSlot(items, day, hour) {
   const value1 = items[getIndex(day, hour, 0)];
   const value2 = items[getIndex(day, hour, 30)];
   if (value1 && value2) {
-    if (value1 === value2) {
+    if (_.isEqual(value1, value2)) {
         return [{value: value1, day, hour, minute: 0, duration: HOUR}];
     }
     else {
