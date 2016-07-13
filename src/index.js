@@ -11,8 +11,9 @@ import thunk from 'redux-thunk';
 import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
 import AdminDashboard from './containers/AdminDashboard';
-import SchedulePage from './containers/SchedulePage';
 import AdminTable from './containers/AdminTable';
+import LoginPage from './containers/LoginPage';
+import SchedulePage from './containers/SchedulePage';
 import SchedulesPage from './containers/SchedulesPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
@@ -50,7 +51,7 @@ render((
     <div>
       <Router history={history}>
         <Route path="/" component={App}>
-          <IndexRoute component={HourPreferences} />
+          <IndexRoute component={LoginPage} />
           <Route path="student" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
           <Route path="schedules" component={SchedulesPage} />
