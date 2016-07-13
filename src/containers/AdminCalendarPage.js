@@ -45,6 +45,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 export default connect(
-  state => mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps
 )(AdminCalendarPage);

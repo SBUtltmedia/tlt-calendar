@@ -1,4 +1,5 @@
 import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
+import { DATA_PATH } from '../constants/Settings';
 import _ from 'lodash';
 
 function receivePreferences(json) {
@@ -10,7 +11,7 @@ function receivePreferences(json) {
 
 export function fetchPreferences(student_id) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/preferencess/${student_id}.json`)
+    return fetch(`${DATA_PATH}/preferences/${student_id}.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }

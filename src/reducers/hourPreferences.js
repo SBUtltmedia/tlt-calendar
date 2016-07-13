@@ -1,4 +1,4 @@
-import { PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
+import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
 import * as calendar from '../utils/calendar';
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
 
 export default function hourPreferences(state=initialState, action) {
   switch (action.type) {
+    case RECEIVE_PREFERENCES: return {...state, chipsPlaced: action.preferences.chips };
     case PLACE_CHIP: return {...state, chipsPlaced: calendar.placeItem(action, state.chipsPlaced)};
     case REMOVE_CHIP: return {...state, chipsPlaced: calendar.removeItem(action, state.chipsPlaced)};
     default: return state;
