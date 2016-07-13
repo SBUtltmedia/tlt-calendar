@@ -31,12 +31,12 @@ class AdminCalendarPage extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		location: ownProps.location.query.location
+		location: ownProps.params.location
 	}
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	const location = ownProps.location.query.location;
+	const location = ownProps.params.location;
   const scheduleActions = bindActionCreators(ScheduleActions, dispatch);
   return {
     setLocation: _.bind(scheduleActions.setLocation, {}, location),

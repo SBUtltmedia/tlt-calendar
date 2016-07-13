@@ -52,7 +52,7 @@ render((
           <IndexRoute component={HourPreferences} />
           <Route path="student" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
-          <Route path="admin/calendar" component={AdminCalendarPage} />
+          <Route path="admin/calendar/:location" component={AdminCalendarPage} />
           <Route path="admin/table" component={AdminTable} />
         </Route>
       </Router>

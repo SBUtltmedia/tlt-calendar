@@ -3,14 +3,14 @@ import _ from 'lodash';
 
 function receivePreferences(json) {
   return {
-    type: RECEIVE_SCHEDULE,
+    type: RECEIVE_PREFERENCES,
     preferences: json
   }
 }
 
-export function fetchPreferences(location) {
+export function fetchPreferences(student_id) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/preferencess/${location}.json`)
+    return fetch(`${DATA_PATH}/preferencess/${student_id}.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }
