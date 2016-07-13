@@ -54,7 +54,7 @@ export function getItemsInSlot(items, day, hour) {
 }
 
 export function removeItem({day, hour, minute, duration}, items) {
-  return placeItem(items, {value: undefined, day, hour, minute, duration});
+  return placeItem({value: undefined, day, hour, minute, duration}, items);
 }
 
 export function placeItem({value, day, hour, minute, duration=HOUR}, items) {
