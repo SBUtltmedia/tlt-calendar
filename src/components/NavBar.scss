@@ -1,0 +1,26 @@
+@import '../style/colors';
+@import '../style/dimens';
+
+.navbar {
+  height: $navbar-height;
+  background-image: linear-gradient(to bottom, lighten($nav-bg-color, 15%) 0, darken($nav-bg-color, 15%) 100%);
+  border-bottom: thin solid darken($nav-bg-color, 30%);
+  margin-bottom: 1em;
+
+  .navbar-header, .nav>li {
+    font-size: 14px;
+
+    >a {
+      color: $nav-text-color;
+      text-shadow: 0 1px 0 lighten($nav-text-color, 50%);
+    }
+
+    >a:hover {
+      color: $nav-text-hover-color;
+    }
+  }
+
+  .nav {
+    font-size: 14px;
+  }
+}

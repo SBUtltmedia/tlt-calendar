@@ -21,7 +21,9 @@ html, body {
 
 :local(.container) {
   font-family: sans-serif;
-  padding-top: 1em;
-
   @include no-select();
+
+  .children {
+    margin-top: $navbar-height;
+  }
 }

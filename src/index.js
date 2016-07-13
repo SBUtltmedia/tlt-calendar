@@ -5,14 +5,17 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { createDevTools } from 'redux-devtools'
 import LogMonitor from 'redux-devtools-log-monitor'
 import DockMonitor from 'redux-devtools-dock-monitor'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import * as reducers from './reducers';
 import thunk from 'redux-thunk';
 import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
 import AdminDashboard from './containers/AdminDashboard';
-import AdminCalendarPage from './containers/AdminCalendarPage';
 import AdminTable from './containers/AdminTable';
+import LoginPage from './containers/LoginPage';
+import StudentDashboard from './containers/StudentDashboard';
+import SchedulePage from './containers/SchedulePage';
+import SchedulesPage from './containers/SchedulesPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 const reducer = combineReducers({
@@ -42,17 +45,19 @@ if (module.hot) {
   });
 }
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 render((
   <Provider store={store}>
     <div>
       <Router history={history}>
         <Route path="/" component={App}>
-          <IndexRoute component={HourPreferences} />
-          <Route path="student" component={HourPreferences} />
+          <IndexRoute component={LoginPage} />
+          <Route path="student" component={StudentDashboard} />
+          <Route path="preferences" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
-          <Route path="admin/calendar/:location" component={AdminCalendarPage} />
+          <Route path="schedules" component={SchedulesPage} />
+          <Route path="schedules/:location" component={SchedulePage} />
           <Route path="admin/table" component={AdminTable} />
         </Route>
       </Router>

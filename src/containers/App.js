@@ -1,7 +1,9 @@
 import styles from './App.scss';
+import NavBar from '../components/NavBar';
 
 export default ({children}) => (
   <div className={styles.container}>
-    {children}
+    <NavBar />
+    <div className='children'>{children}</div>
   </div>
 );
