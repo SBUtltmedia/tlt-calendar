@@ -9,10 +9,10 @@ import _ from 'lodash';
 import { ACTION } from '../../constants/InfoBoxTypes';
 
 const ListItem = ({item}) => (
-  <div className="list-item">{item.name}</div>
+  <div className="list-item">{item}</div>
 );
 
-const LocationOrder = ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
+const LocationOrder = ({locationOrder, reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
   <div className={styles.container} onMouseLeave={clearInfoBox}
   onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
     <div className="title">Location Preference Order</div>
@@ -24,7 +24,7 @@ const LocationOrder = ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
       // The milliseconds to hold an item for before dragging begins
       holdTime='10'
       // The list to display
-      list={LOCATIONS}
+      list={locationOrder}
       // A template to display for each list item
       template={ListItem}
       // Function that is called once a reorder has been performed
@@ -36,15 +36,18 @@ const LocationOrder = ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
   </div>
 )
 
-const mapStateToProps = state => {
-  return state.hourPreferences;
-};
+const mapStateToProps = state => ({
+  locationOrder: state.hourPreferences.locationOrder
+});
 
 const mapDispatchToProps = dispatch => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
+  function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex, itemsNewIndex, reorderedArray) {
+    hourPreferencesActions.reorderGlobalLocations(reorderedArray);
+  }
   return {
-    reorderGlobalLocations: hourPreferencesActions.reorderGlobalLocations,
+    reorderGlobalLocations: reorderFn,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ACTION),
     clearInfoBox: infoBoxActions.clearInfoBox
   }

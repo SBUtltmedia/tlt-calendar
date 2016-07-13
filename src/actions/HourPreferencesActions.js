@@ -1,4 +1,4 @@
-import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP } from '../constants/ActionTypes';
+import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS } from '../constants/ActionTypes';
 import { DATA_PATH } from '../constants/Settings';
 import _ from 'lodash';
 
@@ -26,5 +26,8 @@ export function removeItem(chip) {
 }
 
 export function reorderGlobalLocations(order) {
-
+  return {
+    type: REORDER_GLOBAL_LOCATIONS,
+    order: order
+  };
 }

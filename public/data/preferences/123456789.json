@@ -4,7 +4,7 @@
     "name": "Rong Zou",
     "icon": "rong.jpg"
   },
-  "locations": [
+  "locationOrder": [
     "Engineering",
     "Math/Physics",
     "SBS (6th Floor)",
@@ -15,5 +15,5 @@
     "Central Reading Room",
     "Main Library"
   ],
-  "chips": [1,1]
+  "chipsPlaced": [1,1]
 }
