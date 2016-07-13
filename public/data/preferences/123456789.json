@@ -15,5 +15,6 @@
     "Central Reading Room",
     "Main Library"
   ],
-  "chipsPlaced": [1,1]
+  "chipsPlaced": [1,1],
+  "desiredWeeklyHours": 12
 }

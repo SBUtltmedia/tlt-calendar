@@ -8,3 +8,4 @@ export const RECEIVE_SCHEDULE = 'receive-schedule';
 export const RECEIVE_PREFERENCES = 'receive-preferences';
 export const SET_LOCATION = 'set-location';
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations';
+export const CHANGE_DESIRED_WEEKLY_HOURS = 'change-desired_weekly-hours';
