@@ -1,9 +1,13 @@
-import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { DragSource } from 'react-dnd';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
 import styles from './CalendarIcon.scss';
 import { halfCssSize } from '../utils/style.js';
+import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
+import { ACTION } from '../constants/InfoBoxTypes';
 
 const req = require.context('img', true, /^\.\/.*$/);
 
@@ -29,7 +33,7 @@ const dragSource = {
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
 }))
-export default class CalendarIcon extends Component {
+class CalendarIcon extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     day: PropTypes.number,
@@ -84,3 +88,16 @@ export default class CalendarIcon extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
+  return {
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ACTION),
+    clearInfoBox: infoBoxActions.clearInfoBox
+  }
+};
+
+export default connect(
+  state => ({}),
+  mapDispatchToProps
+)(CalendarIcon);

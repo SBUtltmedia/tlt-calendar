@@ -5,9 +5,9 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import StudentCalendarGrid from '../components/hourPreferences/StudentCalendarGrid';
 import HoursSettings from '../components/hourPreferences/HoursSettings';
-import VisibleChipBank from '../components/hourPreferences/VisibleChipBank';
+import ChipBank from '../components/hourPreferences/ChipBank';
 import StudentCalendarTrash from '../components/hourPreferences/StudentCalendarTrash';
-import VisibleLocationOrder from '../components/hourPreferences/VisibleLocationOrder';
+import LocationOrder from '../components/hourPreferences/LocationOrder';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
@@ -22,9 +22,9 @@ class HourPreferences extends Component {
       <StudentCalendarGrid />
       <div className="controls">
         <div className="hours-settings"><HoursSettings /></div>
-        <div className="chip-bank"><VisibleChipBank /></div>
+        <div className="chip-bank"><ChipBank /></div>
         <div className="trash"><StudentCalendarTrash /></div>
-        <div className="location-order"><VisibleLocationOrder /></div>
+        <div className="location-order"><LocationOrder /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
     </div>;

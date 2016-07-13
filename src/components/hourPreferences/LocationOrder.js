@@ -1,12 +1,18 @@
-import styles from './LocationOrder.scss';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Reorder from 'react-reorder';
+import styles from './LocationOrder.scss';
 import {LOCATIONS} from '../../constants/Settings';
+import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
+import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
+import _ from 'lodash';
+import { ACTION } from '../../constants/InfoBoxTypes';
 
 const ListItem = ({item}) => (
   <div className="list-item">{item.name}</div>
 );
 
-export default ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
+const LocationOrder = ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
   <div className={styles.container} onMouseLeave={clearInfoBox}
   onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
     <div className="title">Location Preference Order</div>
@@ -29,3 +35,22 @@ export default ({reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
       disableReorder={false}/>
   </div>
 )
+
+const mapStateToProps = state => {
+  return state.hourPreferences;
+};
+
+const mapDispatchToProps = dispatch => {
+  const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
+  const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
+  return {
+    reorderGlobalLocations: hourPreferencesActions.reorderGlobalLocations,
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ACTION),
+    clearInfoBox: infoBoxActions.clearInfoBox
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LocationOrder);

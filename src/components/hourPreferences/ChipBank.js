@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import {getNumOpenChipSets} from '../../utils/hourPreferences';
 import Chip from './Chip';
 import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
@@ -48,5 +50,15 @@ class ChipBank extends Component {
   }
 }
 
-export default Dimensions()(ChipBank);
+const mapStateToProps = state => {
+  const {chipsPlaced} = state.hourPreferences;
+  return {
+    chipsPlaced: chipsPlaced,
+    numOpenSets: getNumOpenChipSets(chipsPlaced)
+  };
+};
 
+export default connect(
+  mapStateToProps,
+  {}
+)(Dimensions()(ChipBank));
