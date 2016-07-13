@@ -13,6 +13,7 @@ import HourPreferences from './containers/HourPreferences';
 import AdminDashboard from './containers/AdminDashboard';
 import CalendarPage from './containers/CalendarPage';
 import AdminTable from './containers/AdminTable';
+import SchedulesPage from './containers/SchedulesPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 const reducer = combineReducers({
@@ -52,6 +53,7 @@ render((
           <IndexRoute component={HourPreferences} />
           <Route path="student" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
+          <Route path="schedules" component={SchedulesPage} />
           <Route path="schedules/:location" component={CalendarPage} />
           <Route path="admin/table" component={AdminTable} />
         </Route>
