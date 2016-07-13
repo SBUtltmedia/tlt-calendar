@@ -62,7 +62,7 @@ export default class CalendarIcon extends Component {
 
   fillInfoBox(icon) {
     const { fillInfoBox, name, description, day } = this.props;
-    if (!day) {  // If this isn't on the calendar (because if it is, we want the underlying cell's info)
+    if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
       fillInfoBox({name, description, icon});
     }
   }

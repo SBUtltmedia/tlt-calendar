@@ -52,11 +52,8 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, containerWidth, containerHeight } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, containerWidth } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
-    //if (_.size(cellItems) !== 0) {
-    //    console.log(cellItems);
-    //}
     return connectDropTarget(
       <div className={`cell full ${getCellClass(this.props)}`}
       style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}

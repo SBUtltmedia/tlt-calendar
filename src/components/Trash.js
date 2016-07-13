@@ -11,7 +11,8 @@ const trashTarget = {
     props.removeItem(monitor.getItem());
   },
   canDrop(props, monitor) {
-    return !!monitor.getItem().day;  // If it's placed on the calendar grid
+    const day = monitor.getItem().day;
+    return day !== null && day !== undefined;  // If it's placed on the calendar grid
   }
 };
 
