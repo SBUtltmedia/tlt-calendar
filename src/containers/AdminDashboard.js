@@ -1,4 +1,5 @@
 import { Link } from 'react-router';
+import styles from './AdminDashboard';
 
 export default () => (
   <ul>
