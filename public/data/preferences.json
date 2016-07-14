@@ -3,7 +3,8 @@
     "employee": {
       "id": 123456789,
       "name": "Rong Zou",
-      "icon": "rong.jpg"
+      "icon": "rong.jpg",
+      "email": "rong.zou@stonybrook.edu"
     },
     "locationOrder": [
       "Engineering",
@@ -23,7 +24,8 @@
     "employee": {
       "id": 987654321,
       "name": "Mario Mario",
-      "icon": "mario.png"
+      "icon": "mario.png",
+      "email": "mario.mario@stonybrook.edu"
     },
     "locationOrder": [
       "Engineering",

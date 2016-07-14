@@ -5,12 +5,14 @@
       {
           "id": 123456789,
           "name": "Rong Zou",
-          "icon": "rong.jpg"
+          "icon": "rong.jpg",
+          "email": "rong.zou@stonybrook.edu"
       },
       {
           "id": 123456789,
           "name": "Rong Zou",
-          "icon": "rong.jpg"
+          "icon": "rong.jpg",
+          "email": "rong.zou@stonybrook.edu"
       },
       "RESERVED"
     ]
@@ -21,12 +23,14 @@
       {
           "id": 123456789,
           "name": "Rong Zou",
-          "icon": "rong.jpg"
+          "icon": "rong.jpg",
+          "email": "rong.zou@stonybrook.edu"
       },
       {
           "id": 123456789,
           "name": "Rong Zou",
-          "icon": "rong.jpg"
+          "icon": "rong.jpg",
+          "email": "rong.zou@stonybrook.edu"
       },
       "RESERVED"
     ]
