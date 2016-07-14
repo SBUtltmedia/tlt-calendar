@@ -1,4 +1,4 @@
 [
-  { "name": "Mario Mario", "id": 987654321 },
-  { "name": "Rong Zou", "id": 123456789 }
+  { "name": "Mario Mario", "id": 987654321, "icon": "mario.png" },
+  { "name": "Rong Zou", "id": 123456789, "icon": "rong.jpg" }
 ]

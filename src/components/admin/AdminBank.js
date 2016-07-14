@@ -14,15 +14,14 @@ class AdminBank extends Component {
 	render() {
 		const {containerWidth, employees} = this.props;
     const iconSize = Math.round((containerWidth - ((COLS - 1) * ICON_MARGIN * 2)) / COLS);
-
 		return <div className={styles.container}>
 			<div className="bank-row">
 				<div style={{margin: ICON_MARGIN}}>
 					<ReserveIcon size={iconSize} />
 				</div>
-				{_.map(employees, (student, i) =>
+				{_.map(employees, (emp, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<StudentCalendarIcon size={iconSize} value={student} />
+						<StudentCalendarIcon size={iconSize} value={emp} />
 					</div>)}
 			</div>
 		</div>;
