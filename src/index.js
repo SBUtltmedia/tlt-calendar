@@ -10,6 +10,7 @@ import * as reducers from './reducers';
 import thunk from 'redux-thunk';
 import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
+import HourPreferencesList from './containers/HourPreferencesList';
 import AdminDashboard from './containers/AdminDashboard';
 import AdminTable from './containers/AdminTable';
 import LoginPage from './containers/LoginPage';
@@ -54,8 +55,9 @@ render((
         <Route path="/" component={App}>
           <IndexRoute component={LoginPage} />
           <Route path="student" component={StudentDashboard} />
-          <Route path="preferences" component={HourPreferences} />
           <Route path="admin" component={AdminDashboard} />
+          <Route path="preferences" component={HourPreferencesList} />
+          <Route path="preferences/:id" component={HourPreferences} />
           <Route path="schedules" component={SchedulesPage} />
           <Route path="schedules/:location" component={SchedulePage} />
           <Route path="admin/table" component={AdminTable} />

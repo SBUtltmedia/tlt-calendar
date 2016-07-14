@@ -24,6 +24,6 @@ html, body {
   @include no-select();
 
   .children {
-    margin-top: $navbar-height;
+    margin-top: $navbar-height + 10px;
   }
 }

@@ -1,8 +1,8 @@
 {
   "employee": {
-    "id": 123456789,
-    "name": "Rong Zou",
-    "icon": "rong.jpg"
+    "id": 987654321,
+    "name": "Mario Mario",
+    "icon": "mario.png"
   },
   "locationOrder": [
     "Engineering",
@@ -15,6 +15,6 @@
     "Central Reading Room",
     "Main Library"
   ],
-  "chipsPlaced": [1,1,2,2,3,3,4,4],
-  "desiredWeeklyHours": 12
+  "chipsPlaced": [1,3,3,2],
+  "desiredWeeklyHours": 11
 }

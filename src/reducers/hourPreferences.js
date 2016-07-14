@@ -6,7 +6,8 @@ import _ from 'lodash';
 const initialState = {
   chipsPlaced: [],  // Array of integers (values)
   locationOrder: _.map(LOCATIONS, loc => loc.name),
-  desiredWeeklyHours: DEFAULT_WEEKLY_HOURS
+  desiredWeeklyHours: DEFAULT_WEEKLY_HOURS,
+  employee: null
 };
 
 export default function hourPreferences(state=initialState, action) {

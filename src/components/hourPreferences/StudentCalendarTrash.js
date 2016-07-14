@@ -4,7 +4,6 @@ import Trash from '../Trash';
 import DraggableTypes from '../../constants/DraggableTypes';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 
-
 const mapStateToProps = state => ({
   itemTypes: [DraggableTypes.CHIP]
 });

@@ -12,13 +12,20 @@ import CalendarInfoBox from '../components/CalendarInfoBox';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
 
+const req = require.context('img/users', true, /^\.\/.*$/);
+
 @DragDropContext(HTML5Backend)
 class HourPreferences extends Component {
   componentWillMount() {
     this.props.fetchPreferences();
   }
   render() {
+    const {employee} = this.props;
     return <div className={styles.container}>
+      <div className="header">
+        <img src={employee ? req(`./${employee.icon}`) : ''} />
+        <h1>{employee ? employee.name : ''}</h1>
+      </div>
       <StudentCalendarGrid />
       <div className="controls">
         <div className="hours-settings"><HoursSettings /></div>
@@ -31,18 +38,21 @@ class HourPreferences extends Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+	return {
+		employee: state.hourPreferences.employee
+	}
+};
+
 const mapDispatchToProps = (dispatch, ownProps) => {
-
-  // TODO: Implement Login
-	const student_id = 123456789;
-
+  const id = ownProps.params.id;
   const actions = bindActionCreators(HourPreferencesActions, dispatch);
   return {
-		fetchPreferences: _.bind(actions.fetchPreferences, {}, student_id)
+		fetchPreferences: _.bind(actions.fetchPreferences, {}, id)
   };
 };
 
 export default connect(
-  state => ({}),
+  mapStateToProps,
   mapDispatchToProps
 )(HourPreferences);

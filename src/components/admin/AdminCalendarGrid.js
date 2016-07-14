@@ -1,7 +1,7 @@
-import ReserveIcon from '../ReserveIcon';
-import StudentCalendarIcon from '../StudentCalendarIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReserveIcon from '../ReserveIcon';
+import StudentCalendarIcon from '../StudentCalendarIcon';
 import _ from 'lodash';
 import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';

@@ -1,5 +1,4 @@
 import { SET_LOCATION, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
-import _ from 'lodash';
 import * as calendar from '../utils/calendar';
 
 const initialState = {};
