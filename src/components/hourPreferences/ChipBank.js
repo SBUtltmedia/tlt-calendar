@@ -31,7 +31,7 @@ class ChipBank extends Component {
           {({x}) =>
             <div style={{marginLeft: -x}}>
               {_.map(RANKS, rank =>
-                <div className="row" key={rank}>
+                <div className="bank-row" key={rank}>
                  {_.map(_.range(numOpenSets + WHOLE_COLS), col =>
                    <div key={col} style={{margin: CHIP_MARGIN}}>
                       <Chip size={chipSize} value={rank}

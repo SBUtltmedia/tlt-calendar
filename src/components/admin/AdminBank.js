@@ -16,7 +16,7 @@ class AdminBank extends Component {
     const iconSize = Math.round((containerWidth - ((COLS - 1) * ICON_MARGIN * 2)) / COLS);
 
 		return <div className={styles.container}>
-			<div className="row">
+			<div className="bank-row">
 				<div style={{margin: ICON_MARGIN}}>
 					<ReserveIcon size={iconSize} />
 				</div>
