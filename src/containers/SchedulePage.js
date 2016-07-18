@@ -19,9 +19,8 @@ class SchedulePage extends Component {
 		setLocation();
 	}
 	render () {
-		console.log(this.props);
 		return <div className={styles.container}>
-			<h1>{this.props.loc.name}</h1>
+			<h1>{this.props.loc ? this.props.loc.name : ''}</h1>
 			<AdminCalendarGrid />
       <div className="controls">
         <div className="bank"><AdminBank /></div>
@@ -33,7 +32,6 @@ class SchedulePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state.locations);
 	return {
 		loc: _.find(state.locations, loc => loc.id === parseInt(ownProps.params.location))
 	}
