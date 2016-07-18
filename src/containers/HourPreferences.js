@@ -26,7 +26,7 @@ class HourPreferences extends Component {
         <img src={employee ? req(`./${employee.icon}`) : ''} />
         <h1>{employee ? employee.name : ''}</h1>
       </div>
-      <StudentCalendarGrid />
+      <StudentCalendarGrid disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="chip-bank"><ChipBank disabled={isAdmin} /></div>

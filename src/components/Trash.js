@@ -37,6 +37,7 @@ class Trash extends Component {
     itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
+    disabled: PropTypes.bool
   };
 
   fillInfoBox(icon) {
@@ -47,16 +48,15 @@ class Trash extends Component {
 
 	render() {
 
-    // TODO: There's no icon for this? It's a font. Eventually it'll be an image though....
+    // TODO: There's no icon for this? It's a font. Eventually it'll be an SVG image though....
     const icon = null;
 
-    const {connectDropTarget, clearInfoBox} = this.props;
-		return connectDropTarget(
-			<div className={styles.container}
-      onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}>
-				<i className={`fa fa-trash fa-4 ${getClassName(this.props)}`}></i>
-			</div>
-		);
+    const {connectDropTarget, clearInfoBox, disabled} = this.props;
+    const html = <div className={styles.container}
+    onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}>
+      <i className={`fa fa-trash fa-4 ${getClassName(this.props)}`}></i>
+    </div>;
+		return disabled ? html : connectDropTarget(html);
 	}
 }
 

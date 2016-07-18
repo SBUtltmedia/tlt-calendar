@@ -44,7 +44,8 @@ class FullCell extends Component {
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    disabled: PropTypes.bool
   };
 
   fillInfoBox(cellItems) {
@@ -52,13 +53,13 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, containerWidth } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
     return connectDropTarget(
       <div className={`cell full ${getCellClass(this.props)}`}
       style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
       onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, size: containerWidth}))}
+        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, disabled: disabled, size: containerWidth}))}
       </div>
     );
   }
