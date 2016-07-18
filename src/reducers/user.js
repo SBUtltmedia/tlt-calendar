@@ -1,6 +1,6 @@
 import { RECEIVE_USER, CHANGE_SETTINGS } from '../constants/ActionTypes';
 
-const initialState = {};
+const initialState = null;
 
 export default function user(state=initialState, action) {
   switch (action.type) {

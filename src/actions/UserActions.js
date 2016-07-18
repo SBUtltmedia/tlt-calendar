@@ -12,7 +12,7 @@ function receiveUser(json) {
 
 export function fetchUser(netid) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/${netid}.json`)
+    return fetch(`${DATA_PATH}/users/${netid}.json`)
       .then(response => response.json())
       .then(json => dispatch(receiveUser(json)))
   }

@@ -13,7 +13,6 @@ import HourPreferences from './containers/HourPreferences';
 import HourPreferencesList from './containers/HourPreferencesList';
 import Dashboard from './containers/Dashboard';
 import AdminTable from './containers/AdminTable';
-import LoginPage from './containers/LoginPage';
 import SchedulePage from './containers/SchedulePage';
 import SchedulesPage from './containers/SchedulesPage';
 import SettingsPage from './containers/SettingsPage';
@@ -53,9 +52,7 @@ render((
     <div>
       <Router history={history}>
         <Route path="/" component={App}>
-          <IndexRoute component={LoginPage} />
-          <Route path="student" component={Dashboard} />
-          <Route path="admin" component={Dashboard} />
+          <IndexRoute component={Dashboard} />
           <Route path="preferences" component={HourPreferencesList} />
           <Route path="preferences/:id" component={HourPreferences} />
           <Route path="schedules" component={SchedulesPage} />
