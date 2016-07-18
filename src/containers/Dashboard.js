@@ -15,7 +15,7 @@ const DevelopmentOnlyLogin = ({onSelectUser}) => (
 
 function renderAdmin(user) {
   return <ul>
-    <li><Link to={`/schedules`}>Calendar</Link></li>
+    <li><Link to={`/schedules`}>Schedules</Link></li>
     <li><Link to={`/preferences`}>Student preferences</Link></li>
     <li><Link to={`/admin/table`}>Table (experimental)</Link></li>
   </ul>;

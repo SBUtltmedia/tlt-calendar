@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { ACTION } from '../../constants/InfoBoxTypes';
 
 const ListItem = ({item}) => (
-  <div className="list-item">{item}</div>
+  <div className="list-item">{item.name}</div>
 );
 
 const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
