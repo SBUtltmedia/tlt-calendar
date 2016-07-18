@@ -12,9 +12,13 @@
     border-radius: $border-radius;
     background-color: $lighter-gray;
     margin: 0.5em 0;
-    cursor: pointer;
     padding: 0.3em 0.6em;
     -webkit-user-drag: element;
     -webkit-user-select: none;
   }
+  cursor: pointer;
+}
+
+:local(.container).disabled {
+  cursor: default;
 }

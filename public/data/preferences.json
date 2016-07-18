@@ -8,7 +8,7 @@
     },
     "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
     "chipsPlaced": [1,1,2,2,3,3,4,4],
-    "desiredWeeklyHours": 12
+    "numDesiredHours": 12
   },
   {
     "employee": {
@@ -19,6 +19,6 @@
     },
     "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
     "chipsPlaced": [1,3,3,2],
-    "desiredWeeklyHours": 11
+    "numDesiredHours": 11
   }
 ]

@@ -20,7 +20,7 @@ class HourPreferences extends Component {
     this.props.fetchPreferences();
   }
   render() {
-    const {employee} = this.props;
+    const {employee, isAdmin} = this.props;
     return <div className={styles.container}>
       <div className="header">
         <img src={employee ? req(`./${employee.icon}`) : ''} />
@@ -28,10 +28,10 @@ class HourPreferences extends Component {
       </div>
       <StudentCalendarGrid />
       <div className="controls">
-        <div className="hours-settings"><HoursSettings /></div>
-        <div className="chip-bank"><ChipBank /></div>
-        <div className="trash"><StudentCalendarTrash /></div>
-        <div className="location-order"><LocationOrder /></div>
+        <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
+        <div className="chip-bank"><ChipBank disabled={isAdmin} /></div>
+        <div className="trash"><StudentCalendarTrash disabled={isAdmin} /></div>
+        <div className="location-order"><LocationOrder disabled={isAdmin} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
     </div>;
@@ -40,7 +40,8 @@ class HourPreferences extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		employee: state.hourPreferences.employee
+		employee: state.hourPreferences.employee,
+    isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
 	}
 };
 

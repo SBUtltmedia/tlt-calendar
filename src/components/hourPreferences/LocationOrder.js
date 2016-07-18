@@ -11,8 +11,8 @@ const ListItem = ({item}) => (
   <div className="list-item">{item.name}</div>
 );
 
-const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
-  <div className={styles.container} onMouseLeave={clearInfoBox}
+const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox, disabled}) => (
+  <div className={`${styles.container}${disabled ? ' disabled' : ''}`} onMouseLeave={clearInfoBox}
   onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
     <div className="title">Location Preference Order</div>
     <Reorder
@@ -31,7 +31,7 @@ const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInf
       // The key to compare from the selected item object with each item object
       selectedKey='uuid'
       // Allows reordering to be disabled
-      disableReorder={false} />
+      disableReorder={disabled} />
   </div>
 )
 

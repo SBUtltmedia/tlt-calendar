@@ -1,4 +1,4 @@
-import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_DESIRED_WEEKLY_HOURS } from '../constants/ActionTypes';
+import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { DATA_PATH } from '../constants/Settings';
 import _ from 'lodash';
 
@@ -32,9 +32,9 @@ export function reorderGlobalLocations(order) {
   };
 }
 
-export function changeDesiredWeeklyHours(hours) {
+export function changeNumDesiredHours(hours) {
   return {
-    type: CHANGE_DESIRED_WEEKLY_HOURS,
+    type: CHANGE_NUM_DESIRED_HOURS,
     hours: hours
   };
 }

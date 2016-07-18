@@ -17,7 +17,7 @@ const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
 class ChipBank extends Component {
   render() {
-    const {chipsPlaced, numOpenSets, containerWidth} = this.props;
+    const {chipsPlaced, numOpenSets, disabled, containerWidth} = this.props;
     const chipSize = Math.round((containerWidth - ((COLS - 1) * CHIP_MARGIN * 2)) / COLS);
 
     function getConveyorBeltX() {
@@ -35,7 +35,7 @@ class ChipBank extends Component {
                  {_.map(_.range(numOpenSets + WHOLE_COLS), col =>
                    <div key={col} style={{margin: CHIP_MARGIN}}>
                       <Chip size={chipSize} value={rank}
-                      disabled={col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} />
+                      disabled={disabled || col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} />
                    </div>)}
                 </div>
               )}
