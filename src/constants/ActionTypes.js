@@ -10,4 +10,5 @@ export const SET_LOCATION = 'set-location';
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations';
 export const CHANGE_DESIRED_WEEKLY_HOURS = 'change-desired_weekly-hours';
 export const RECEIVE_EMPLOYEES = 'receive-employees';
+export const RECEIVE_LOCATIONS = 'receive-locations';
 export const CHANGE_SETTINGS = 'change-settings';

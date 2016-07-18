@@ -8,17 +8,20 @@ import AdminBank from '../components/admin/AdminBank';
 import AdminCalendarTrash from '../components/admin/AdminCalendarTrash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './SchedulePage.scss';
-import * as ScheduleActions from '../actions/ScheduleActions';
+import _ from 'lodash';
+import { setLocation, fetchSchedule } from '../actions/ScheduleActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
-	componentWillMount() {
-		this.props.fetchSchedule();
-		this.props.setLocation();
+	componentDidMount() {
+		const {fetchSchedule, setLocation} = this.props;
+		fetchSchedule();
+		setLocation();
 	}
 	render () {
+		console.log(this.props);
 		return <div className={styles.container}>
-			<h1>{this.props.location}</h1>
+			<h1>{this.props.loc.name}</h1>
 			<AdminCalendarGrid />
       <div className="controls">
         <div className="bank"><AdminBank /></div>
@@ -30,19 +33,16 @@ class SchedulePage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+	console.log(state.locations);
 	return {
-		location: ownProps.params.location
+		loc: _.find(state.locations, loc => loc.id === parseInt(ownProps.params.location))
 	}
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	const location = ownProps.params.location;
-  const scheduleActions = bindActionCreators(ScheduleActions, dispatch);
-  return {
-    setLocation: _.bind(scheduleActions.setLocation, {}, location),
-		fetchSchedule: _.bind(scheduleActions.fetchSchedule, {}, location)
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  setLocation: () => dispatch(setLocation(parseInt(ownProps.params.location))),
+	fetchSchedule: () => dispatch(fetchSchedule(parseInt(ownProps.params.location)))
+});
 
 export default connect(
   mapStateToProps,

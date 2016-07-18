@@ -1,9 +1,14 @@
-import { LOCATIONS } from '../constants/Settings';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-export default () => (
+const SchedulesPage = ({locations}) => (
   <ul>
-    {_.map(LOCATIONS, (loc, i) => <li key={i}><Link to={`/schedules/${loc.name}`}>{loc.name}</Link></li>)}
+    {_.map(locations, (loc, i) => <li key={i}><Link to={`/schedules/${loc.id}`}>{loc.name}</Link></li>)}
   </ul>
 );
+
+export default connect(
+  state => ({locations: state.locations}),
+  {}
+)(SchedulesPage);

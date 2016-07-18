@@ -1,12 +1,12 @@
 import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_DESIRED_WEEKLY_HOURS } from '../constants/ActionTypes';
-import { LOCATIONS, DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
+import { DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
 import * as calendar from '../utils/calendar';
 import _ from 'lodash';
 
 const initialState = {
   chipsPlaced: [],  // Array of integers (values)
-  locationOrder: _.map(LOCATIONS, loc => loc.name),
   desiredWeeklyHours: DEFAULT_WEEKLY_HOURS,
+  locationOrder: null,  // default
   employee: null
 };
 

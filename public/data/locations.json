@@ -1,11 +1,11 @@
 [
-  { name: 'Main Library' },
-  { name: 'Central Reading Room' },
-  { name: 'North Reading Room - 1st Floor' },
-  { name: 'North Reading Room - 2nd Floor' },
-  { name: 'Student Union' },
-  { name: 'Engineering' },
-  { name: 'Math/Physics' },
-  { name: 'SBS (6th Floor)' },
-  { name: 'Sports Center' },
+  { "id": 1, "name": "Main Library" },
+  { "id": 2, "name": "Central Reading Room" },
+  { "id": 3, "name": "North Reading Room - 1st Floor" },
+  { "id": 4, "name": "North Reading Room - 2nd Floor" },
+  { "id": 5, "name": "Student Union" },
+  { "id": 6, "name": "Engineering" },
+  { "id": 7, "name": "Math/Physics" },
+  { "id": 8, "name": "SBS (6th Floor)" },
+  { "id": 9, "name": "Sports Center" }
 ]

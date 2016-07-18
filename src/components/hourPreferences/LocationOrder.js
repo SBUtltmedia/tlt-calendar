@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Reorder from 'react-reorder';
 import styles from './LocationOrder.scss';
-import {LOCATIONS} from '../../constants/Settings';
 import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
 import _ from 'lodash';
@@ -12,7 +11,7 @@ const ListItem = ({item}) => (
   <div className="list-item">{item}</div>
 );
 
-const LocationOrder = ({locationOrder, reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
+const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox}) => (
   <div className={styles.container} onMouseLeave={clearInfoBox}
   onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
     <div className="title">Location Preference Order</div>
@@ -24,7 +23,7 @@ const LocationOrder = ({locationOrder, reorderGlobalLocations, fillInfoBox, clea
       // The milliseconds to hold an item for before dragging begins
       holdTime='10'
       // The list to display
-      list={locationOrder}
+      list={locations}
       // A template to display for each list item
       template={ListItem}
       // Function that is called once a reorder has been performed
@@ -32,19 +31,19 @@ const LocationOrder = ({locationOrder, reorderGlobalLocations, fillInfoBox, clea
       // The key to compare from the selected item object with each item object
       selectedKey='uuid'
       // Allows reordering to be disabled
-      disableReorder={false}/>
+      disableReorder={false} />
   </div>
 )
 
 const mapStateToProps = state => ({
-  locationOrder: state.hourPreferences.locationOrder
+  locations: _.orderBy(state.locations, loc => loc.id, state.hourPreferences.locationOrder)
 });
 
 const mapDispatchToProps = dispatch => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex, itemsNewIndex, reorderedArray) {
-    hourPreferencesActions.reorderGlobalLocations(reorderedArray);
+    hourPreferencesActions.reorderGlobalLocations(_.pick(reorderedArray, 'id'));
   }
   return {
     reorderGlobalLocations: reorderFn,
