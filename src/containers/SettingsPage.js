@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import styles from './SettingsPage.scss';
-import { changeSettings } from '../actions/SettingsActions';
+import { changeSettings } from '../actions/UserActions';
 
 const SettingsPage = () => (
   <div className={styles.container}>

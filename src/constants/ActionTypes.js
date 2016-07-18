@@ -1,3 +1,4 @@
+export const RECEIVE_USER = 'receive-user';
 export const PLACE_CHIP = 'place-chip';
 export const REMOVE_CHIP = 'remove-chip';
 export const PLACE_ITEM = 'place-employee';
