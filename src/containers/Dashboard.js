@@ -5,11 +5,10 @@ import { Link } from 'react-router';
 import styles from './Dashboard';
 import { fetchUser } from '../actions/UserActions';
 
-import { Button } from 'react-bootstrap';
 const DevelopmentOnlyLogin = ({onSelectUser}) => (
   <div style={{textAlign:'center'}}>
-    <Button onClick={() => onSelectUser('rzou')} style={{margin:10}}>Student login</Button>
-    <Button onClick={() => onSelectUser('admin')} style={{margin:10}}>Admin login</Button>
+    <button type="button" className="btn btn-default" onClick={() => onSelectUser('rzou')} style={{margin:10}}>Student login</button>
+    <button type="button" className="btn btn-default" onClick={() => onSelectUser('admin')} style={{margin:10}}>Admin login</button>
   </div>
 );
 
