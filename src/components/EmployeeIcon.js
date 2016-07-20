@@ -15,13 +15,13 @@ function getInitials(employee) {
 }
 
 const DefaultEmployeeIcon = props => (
-  <div {..._.without(props, 'employee')}>
+  <div {..._.omit(props, 'employee')}>
     {getInitials(props.employee)}
   </div>
 );
 
 const GravatarEmployeeIcon = props => (
-  <img src={props.employee ? getGravatarIconUrl(props.employee.email) : ''} {..._.without(props, 'employee')} />
+  <img src={props.employee ? getGravatarIconUrl(props.employee.email) : ''} {..._.omit(props, 'employee')} />
 );
 
 export default props => (
