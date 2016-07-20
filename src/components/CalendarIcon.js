@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes, Children, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragSource } from 'react-dnd';
@@ -8,12 +8,6 @@ import styles from './CalendarIcon.scss';
 import { halfCssSize } from '../utils/style.js';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
-
-function getImage(imageSrc, options, callback) {
-  const image = new Image(options.width, options.height);
-  image.src = imageSrc;
-  image.onload = () => callback(image);
-}
 
 const dragSource = {
     beginDrag(props) {
@@ -29,7 +23,7 @@ const dragSource = {
 }))
 class CalendarIcon extends Component {
   static propTypes = {
-    imageSrc: PropTypes.string.isRequired,
+    children: PropTypes.any.isRequired,
     disabled: PropTypes.bool,
     day: PropTypes.number,
     hour: PropTypes.number,
@@ -47,11 +41,8 @@ class CalendarIcon extends Component {
   };
 
   componentDidMount() {
-    const { connectDragPreview, imageSrc, size } = this.props;
-    getImage(imageSrc, {width: size, height: size}, image => {
-      //connectDragPreview(image);
-      connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
-    });
+    const { size, connectDragPreview } = this.props;
+    connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
   }
 
   fillInfoBox() {
@@ -62,17 +53,24 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {imageSrc, minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox} = this.props;
+    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox, children} = this.props;
     const opacity = isDragging || (disabled && (day === null || day === undefined)) ? 0.1 : 1;
     const width = duration === HALF_HOUR ? halfCssSize(size) : size;
     const maxWidth = duration === HALF_HOUR ? width : '';
     const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
     const overflow = duration === HALF_HOUR ? 'hidden' : '';
     const position = duration === HALF_HOUR ? 'absolute' : '';
+    const childrenWithProps = Children.map(children,
+      child => cloneElement(child, {
+        className: styles.icon,
+        onMouseEnter: () => this.fillInfoBox,
+        onMouseLeave: clearInfoBox,
+        style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}
+      })
+    );
     return connectDragSource(
       <div style={{maxWidth, marginLeft, overflow, position}}>
-        <img className={styles.icon} onMouseEnter={() => this.fillInfoBox} onMouseLeave={clearInfoBox}
-        src={imageSrc} style={{opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}} />
+        {childrenWithProps}
       </div>
     );
   }

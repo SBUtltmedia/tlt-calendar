@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReserveIcon from '../ReserveIcon';
-import CalendarEmployeeIcon from '../CalendarEmployeeIcon';
+import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
 import styles from './AdminBank.scss';
 import Dimensions from 'react-dimensions';
 
@@ -21,7 +21,7 @@ class AdminBank extends Component {
 				</div>
 				{_.map(employees, (emp, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<CalendarEmployeeIcon size={iconSize} value={emp} disabled={disabled} />
+						<EmployeeCalendarIcon size={iconSize} value={emp} disabled={disabled} />
 					</div>)}
 			</div>
 		</div>;
