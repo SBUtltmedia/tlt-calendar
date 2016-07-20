@@ -9,16 +9,10 @@ import { halfCssSize } from '../utils/style.js';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
 
-const req = require.context('img', true, /^\.\/.*$/);
-
-function getImageByPath(path, options, callback) {
+function getImage(imageSrc, options, callback) {
   const image = new Image(options.width, options.height);
-  image.src = req(path);
+  image.src = imageSrc;
   image.onload = () => callback(image);
-}
-
-function getImage(path, file, options, callback) {
-  getImageByPath('./' + path + '/' + file, options, callback);
 }
 
 const dragSource = {
@@ -35,6 +29,7 @@ const dragSource = {
 }))
 class CalendarIcon extends Component {
   static propTypes = {
+    imageSrc: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     day: PropTypes.number,
     hour: PropTypes.number,
@@ -51,30 +46,24 @@ class CalendarIcon extends Component {
     size: PropTypes.any
   };
 
-  getFilePath() {
-    const {path, file, minute, duration=HOUR} = this.props;
-    return './' + path + '/' + file;
-  }
-
   componentDidMount() {
-    const { connectDragPreview, path, file, size } = this.props;
-    getImageByPath(this.getFilePath(), {width: size, height: size}, image => {
+    const { connectDragPreview, imageSrc, size } = this.props;
+    getImage(imageSrc, {width: size, height: size}, image => {
       //connectDragPreview(image);
       connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
     });
   }
 
-  fillInfoBox(icon) {
-    const { fillInfoBox, name, description, day } = this.props;
+  fillInfoBox() {
+    const { imageSrc, fillInfoBox, name, description, day } = this.props;
     if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
-      fillInfoBox({name, description, icon});
+      fillInfoBox({name, description, imageSrc});
     }
   }
 
   render() {
-    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox} = this.props;
+    const {imageSrc, minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox} = this.props;
     const opacity = isDragging || (disabled && (day === null || day === undefined)) ? 0.1 : 1;
-    const icon = req(this.getFilePath());
     const width = duration === HALF_HOUR ? halfCssSize(size) : size;
     const maxWidth = duration === HALF_HOUR ? width : '';
     const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
@@ -82,8 +71,8 @@ class CalendarIcon extends Component {
     const position = duration === HALF_HOUR ? 'absolute' : '';
     return connectDragSource(
       <div style={{maxWidth, marginLeft, overflow, position}}>
-        <img className={styles.icon} src={icon} onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}
-        style={{opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}} />
+        <img className={styles.icon} onMouseEnter={() => this.fillInfoBox} onMouseLeave={clearInfoBox}
+        src={imageSrc} style={{opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}} />
       </div>
     );
   }
