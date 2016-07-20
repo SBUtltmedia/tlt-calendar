@@ -1,3 +1,8 @@
+@import '../style/dimens';
+
 :local(.container) {
-  
+  text-align: center;
+  .user-icon {
+    border-radius: $border-radius;
+  }
 }
