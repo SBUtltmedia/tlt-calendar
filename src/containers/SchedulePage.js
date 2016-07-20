@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
@@ -13,18 +13,24 @@ import { setLocation, fetchSchedule } from '../actions/ScheduleActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
+	static propTypes = {
+		isAdmin: PropTypes.bool
+	}
+
 	componentDidMount() {
 		const {fetchSchedule, setLocation} = this.props;
 		fetchSchedule();
 		setLocation();
 	}
+
 	render () {
+		const {loc, isAdmin} = this.props;
 		return <div className={styles.container}>
-			<h1>{this.props.loc ? this.props.loc.name : ''}</h1>
-			<AdminCalendarGrid />
+			<h1>{loc ? loc.name : ''}</h1>
+			<AdminCalendarGrid disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><AdminBank /></div>
-        <div className="trash"><AdminCalendarTrash /></div>
+        <div className="bank"><AdminBank disabled={!isAdmin} /></div>
+        <div className="trash"><AdminCalendarTrash disabled={!isAdmin} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;
@@ -33,7 +39,8 @@ class SchedulePage extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		loc: _.find(state.locations, loc => loc.id === parseInt(ownProps.params.location))
+		loc: _.find(state.locations, loc => loc.id === parseInt(ownProps.params.location)),
+		isAdmin: state.user.isAdmin
 	}
 };
 

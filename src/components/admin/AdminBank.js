@@ -12,16 +12,16 @@ const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
 class AdminBank extends Component {
 	render() {
-		const {containerWidth, employees} = this.props;
+		const {containerWidth, employees, disabled} = this.props;
     const iconSize = Math.round((containerWidth - ((COLS - 1) * ICON_MARGIN * 2)) / COLS);
 		return <div className={styles.container}>
 			<div className="bank-row">
 				<div style={{margin: ICON_MARGIN}}>
-					<ReserveIcon size={iconSize} />
+					<ReserveIcon size={iconSize} disabled={disabled} />
 				</div>
 				{_.map(employees, (emp, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<StudentCalendarIcon size={iconSize} value={emp} />
+						<StudentCalendarIcon size={iconSize} value={emp} disabled={disabled} />
 					</div>)}
 			</div>
 		</div>;
