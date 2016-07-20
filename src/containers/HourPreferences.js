@@ -13,8 +13,6 @@ import EmployeeIcon from '../components/EmployeeIcon';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
 
-const req = require.context('img/users', true, /^\.\/.*$/);
-
 @DragDropContext(HTML5Backend)
 class HourPreferences extends Component {
   static propTypes = {
