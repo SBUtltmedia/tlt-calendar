@@ -29,8 +29,13 @@ function getInitials(employee) {
 }
 
 const DefaultEmployeeIcon = props => (
-  <svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'>
-    <circle cx='50' cy='50' r='40' stroke='green' strokeWidth='4' fill='yellow' />
+  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>
+    <g>
+      <rect width='100%' height='100%' style={{fill:"#CCC"}} />
+      <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#444" fontFamily="sans-serif" fontSize="1.5em">
+        {getInitials(props.employee)}
+      </text>
+    </g>
   </svg>
 );
 
