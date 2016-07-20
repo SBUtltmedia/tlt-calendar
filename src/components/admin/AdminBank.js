@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import ReserveIcon from '../ReserveIcon';
 import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
 import styles from './AdminBank.scss';

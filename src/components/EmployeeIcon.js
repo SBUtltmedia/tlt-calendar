@@ -1,7 +1,9 @@
-import { Component } from 'react';
+import { PropTypes } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { connect } from 'react-redux';
 import md5 from 'js-md5';
 import _ from 'lodash';
+import { gravatarLoadFailed } from '../actions/EmployeesActions';
 
 const DOMProperty = require('react/lib/ReactInjection').DOMProperty;
 DOMProperty.injectDOMPropertyConfig({
@@ -26,24 +28,38 @@ function getInitials(employee) {
   return '';
 }
 
-function getSvgString(props) {
-  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
-}
-
 const DefaultEmployeeIcon = props => (
   <svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'>
     <circle cx='50' cy='50' r='40' stroke='green' strokeWidth='4' fill='yellow' />
   </svg>
 );
 
-export default class extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { imageSrc: props.employee ? getGravatarIconUrl(props.employee.email) : '' }
-  }
-
-  render() {
-    return <img src={this.state.imageSrc} {..._.omit(this.props, 'employee')}
-            onError={() => this.setState({imageSrc: getSvgString(this.props)})} />
-  }
+function getSvgString(props) {
+  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
 }
+
+function getImageSrc(props) {
+  const { employee } = props;
+  if (employee) {
+    return employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email);
+  }
+  return '';
+}
+
+const EmployeeIcon = props => (
+  <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
+    {..._.omit(props, ['employee', 'onImageError'])} />
+);
+
+EmployeeIcon.propTypes = {
+  employee: PropTypes.object.isRequired
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	onImageError: () => dispatch(gravatarLoadFailed(ownProps.employee))
+});
+
+export default connect(
+  state => ({}),
+  mapDispatchToProps
+)(EmployeeIcon);
