@@ -43,12 +43,10 @@ class HourPreferences extends Component {
   }
 }
 
-const mapStateToProps = state => {
-	return {
-		employee: state.hourPreferences.employee,
-    isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
-	}
-};
+const mapStateToProps = state => ({
+	employee: state.hourPreferences.employee,
+  isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const id = ownProps.params.id;
