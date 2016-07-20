@@ -11,6 +11,7 @@ import LocationOrder from '../components/hourPreferences/LocationOrder';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
+import {getIconUrl} from '../utils/gravatar';
 
 const req = require.context('img/users', true, /^\.\/.*$/);
 
@@ -29,7 +30,7 @@ class HourPreferences extends Component {
     const {employee, isAdmin} = this.props;
     return <div className={styles.container}>
       <div className="header">
-        <img src={employee ? req(`./${employee.icon}`) : ''} />
+        <img src={employee ? getIconUrl(employee.email) : ''} />
         <h1>{employee ? employee.name : ''}</h1>
       </div>
       <StudentCalendarGrid disabled={isAdmin} />
