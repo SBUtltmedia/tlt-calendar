@@ -1,5 +1,5 @@
 [
-  { "name": "Mario Mario", "id": 987654321, "icon": "mario.png", "email": "mario.mario@stonybrook.edu" },
-  { "name": "Rong Zou", "id": 123456789, "icon": "rong.jpg", "email": "rong.zou@stonybrook.edu" },
-  { "name": "Ken Fehling", "id": 123123123, "icon": "ken.jpg", "email": "kenfehling@gmail.com" }
+  { "name": "Mario Mario", "id": 987654321, "email": "mario.mario@stonybrook.edu" },
+  { "name": "Rong Zou", "id": 123456789, "email": "rong.zou@stonybrook.edu" },
+  { "name": "Ken Fehling", "id": 123123123, "email": "kenfehling@gmail.com" }
 ]

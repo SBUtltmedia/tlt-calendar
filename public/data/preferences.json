@@ -3,7 +3,6 @@
     "employee": {
       "id": 123456789,
       "name": "Rong Zou",
-      "icon": "rong.jpg",
       "email": "rong.zou@stonybrook.edu"
     },
     "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
@@ -14,7 +13,6 @@
     "employee": {
       "id": 987654321,
       "name": "Mario Mario",
-      "icon": "mario.png",
       "email": "mario.mario@stonybrook.edu"
     },
     "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],

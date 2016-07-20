@@ -47,5 +47,3 @@ export default class extends Component {
             onError={() => this.setState({imageSrc: getSvgString(this.props)})} />
   }
 }
-
-console.log(getSvgString({}));
