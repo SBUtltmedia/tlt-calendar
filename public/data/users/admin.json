@@ -1,1 +1,1 @@
-{ "name": "Admin", "isAdmin": "true" }
+{ "name": "Admin", "isAdmin": true }

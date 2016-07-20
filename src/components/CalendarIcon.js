@@ -73,7 +73,7 @@ class CalendarIcon extends Component {
 
   render() {
     const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox} = this.props;
-    const opacity = isDragging || (disabled && day === null && day === undefined) ? 0.1 : 1;
+    const opacity = isDragging || disabled ? 0.1 : 1;
     const icon = req(this.getFilePath());
     const width = duration === HALF_HOUR ? halfCssSize(size) : size;
     const maxWidth = duration === HALF_HOUR ? width : '';

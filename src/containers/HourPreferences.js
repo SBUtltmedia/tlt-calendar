@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
@@ -16,9 +16,15 @@ const req = require.context('img/users', true, /^\.\/.*$/);
 
 @DragDropContext(HTML5Backend)
 class HourPreferences extends Component {
+  static propTypes = {
+    params: PropTypes.object.isRequired,  // Params from URL
+    isAdmin: PropTypes.bool
+  }
+
   componentWillMount() {
     this.props.fetchPreferences();
   }
+
   render() {
     const {employee, isAdmin} = this.props;
     return <div className={styles.container}>
@@ -38,7 +44,7 @@ class HourPreferences extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
 	return {
 		employee: state.hourPreferences.employee,
     isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway

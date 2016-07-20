@@ -29,7 +29,7 @@ function getClassName({isOver, canDrop}) {
   canDrop: monitor.canDrop()
 }))
 class Trash extends Component {
-    static propTypes = {
+  static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,

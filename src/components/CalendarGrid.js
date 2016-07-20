@@ -1,10 +1,11 @@
+import { PropTypes } from 'react';
 import _ from 'lodash';
 import styles from './CalendarGrid.scss';
 import CalendarCell from './CalendarCell';
 import { getHourLabel } from '../utils/time';
 import { DAYS } from '../constants/Settings';
 
-export default props => (
+const CalendarGrid = props => (
   <div className={styles.container}>
     <table className="calendar">
       <thead>
@@ -22,3 +23,15 @@ export default props => (
     </table>
   </div>
 )
+
+CalendarGrid.propTypes = {
+  placeItem: PropTypes.func.isRequired,
+  fillInfoBox: PropTypes.func.isRequired,
+  clearInfoBox: PropTypes.func.isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  items: PropTypes.array.isRequired,
+  disabled: PropTypes.bool
+};
+
+export default CalendarGrid;
