@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReserveIcon from '../ReserveIcon';
-import StudentCalendarIcon from '../StudentCalendarIcon';
+import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
 import _ from 'lodash';
 import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
@@ -11,7 +11,7 @@ import { ADMIN_CELL } from '../../constants/InfoBoxTypes';
 import { RESERVED } from '../../constants/Constants';
 
 function getComponentClass(item) {
-  return item.value === RESERVED ? ReserveIcon : StudentCalendarIcon;
+  return item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 }
 
 const mapStateToProps = state => ({

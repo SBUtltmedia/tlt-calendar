@@ -13,3 +13,4 @@ export const CHANGE_NUM_DESIRED_HOURS = 'change-desired_weekly-hours';
 export const RECEIVE_EMPLOYEES = 'receive-employees';
 export const RECEIVE_LOCATIONS = 'receive-locations';
 export const CHANGE_SETTINGS = 'change-settings';
+export const GRAVATAR_LOAD_FAILED = 'gravatar-load-failed';

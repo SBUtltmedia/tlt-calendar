@@ -2,7 +2,6 @@
   "employee": {
     "id": 987654321,
     "name": "Mario Mario",
-    "icon": "mario.png",
     "email": "mario.mario@stonybrook.edu"
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],

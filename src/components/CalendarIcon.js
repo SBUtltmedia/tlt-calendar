@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes, Children, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragSource } from 'react-dnd';
@@ -8,18 +8,6 @@ import styles from './CalendarIcon.scss';
 import { halfCssSize } from '../utils/style.js';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
-
-const req = require.context('img', true, /^\.\/.*$/);
-
-function getImageByPath(path, options, callback) {
-  const image = new Image(options.width, options.height);
-  image.src = req(path);
-  image.onload = () => callback(image);
-}
-
-function getImage(path, file, options, callback) {
-  getImageByPath('./' + path + '/' + file, options, callback);
-}
 
 const dragSource = {
     beginDrag(props) {
@@ -35,6 +23,7 @@ const dragSource = {
 }))
 class CalendarIcon extends Component {
   static propTypes = {
+    children: PropTypes.any.isRequired,
     disabled: PropTypes.bool,
     day: PropTypes.number,
     hour: PropTypes.number,
@@ -51,39 +40,37 @@ class CalendarIcon extends Component {
     size: PropTypes.any
   };
 
-  getFilePath() {
-    const {path, file, minute, duration=HOUR} = this.props;
-    return './' + path + '/' + file;
-  }
-
   componentDidMount() {
-    const { connectDragPreview, path, file, size } = this.props;
-    getImageByPath(this.getFilePath(), {width: size, height: size}, image => {
-      //connectDragPreview(image);
-      connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
-    });
+    const { size, connectDragPreview } = this.props;
+    connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
   }
 
-  fillInfoBox(icon) {
-    const { fillInfoBox, name, description, day } = this.props;
+  fillInfoBox() {
+    const { imageSrc, fillInfoBox, name, description, day } = this.props;
     if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
-      fillInfoBox({name, description, icon});
+      fillInfoBox({name, description, imageSrc});
     }
   }
 
   render() {
-    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox} = this.props;
+    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox, children} = this.props;
     const opacity = isDragging || (disabled && (day === null || day === undefined)) ? 0.1 : 1;
-    const icon = req(this.getFilePath());
     const width = duration === HALF_HOUR ? halfCssSize(size) : size;
     const maxWidth = duration === HALF_HOUR ? width : '';
     const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
     const overflow = duration === HALF_HOUR ? 'hidden' : '';
     const position = duration === HALF_HOUR ? 'absolute' : '';
+    const childrenWithProps = Children.map(children,
+      child => cloneElement(child, {
+        className: styles.icon,
+        onMouseEnter: () => this.fillInfoBox,
+        onMouseLeave: clearInfoBox,
+        style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}
+      })
+    );
     return connectDragSource(
       <div style={{maxWidth, marginLeft, overflow, position}}>
-        <img className={styles.icon} src={icon} onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}
-        style={{opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}} />
+        {childrenWithProps}
       </div>
     );
   }

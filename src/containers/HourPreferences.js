@@ -9,11 +9,9 @@ import ChipBank from '../components/hourPreferences/ChipBank';
 import StudentCalendarTrash from '../components/hourPreferences/StudentCalendarTrash';
 import LocationOrder from '../components/hourPreferences/LocationOrder';
 import CalendarInfoBox from '../components/CalendarInfoBox';
+import EmployeeIcon from '../components/EmployeeIcon';
 import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
-import {getIconUrl} from '../utils/gravatar';
-
-const req = require.context('img/users', true, /^\.\/.*$/);
 
 @DragDropContext(HTML5Backend)
 class HourPreferences extends Component {
@@ -30,7 +28,7 @@ class HourPreferences extends Component {
     const {employee, isAdmin} = this.props;
     return <div className={styles.container}>
       <div className="header">
-        <img src={employee ? getIconUrl(employee.email) : ''} />
+        <EmployeeIcon employee={employee} />
         <h1>{employee ? employee.name : ''}</h1>
       </div>
       <StudentCalendarGrid disabled={isAdmin} />
