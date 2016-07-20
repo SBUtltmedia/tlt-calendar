@@ -1,5 +1,17 @@
+import { Component } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import md5 from 'js-md5';
 import _ from 'lodash';
+
+const DOMProperty = require('react/lib/ReactInjection').DOMProperty;
+DOMProperty.injectDOMPropertyConfig({
+  Properties: {
+    xmlns: DOMProperty.MUST_USE_ATTRIBUTE
+  },
+  isCustomAttribute: (attributeName) => {
+    return attributeName === 'xmlns';
+  }
+});
 
 function getGravatarIconUrl(email) {
   const hash = md5(email);
@@ -14,16 +26,26 @@ function getInitials(employee) {
   return '';
 }
 
+function getSvgString(props) {
+  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
+}
+
 const DefaultEmployeeIcon = props => (
-  <div {..._.omit(props, 'employee')}>
-    {getInitials(props.employee)}
-  </div>
+  <svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'>
+    <circle cx='50' cy='50' r='40' stroke='green' strokeWidth='4' fill='yellow' />
+  </svg>
 );
 
-const GravatarEmployeeIcon = props => (
-  <img onError={() => console.log(this)} src={props.employee ? getGravatarIconUrl(props.employee.email) : ''} {..._.omit(props, 'employee')} />
-);
+export default class extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { imageSrc: props.employee ? getGravatarIconUrl(props.employee.email) : '' }
+  }
 
-export default props => (
-  <GravatarEmployeeIcon {...props} />
-);
+  render() {
+    return <img src={this.state.imageSrc} {..._.omit(this.props, 'employee')}
+            onError={() => this.setState({imageSrc: getSvgString(this.props)})} />
+  }
+}
+
+console.log(getSvgString({}));
