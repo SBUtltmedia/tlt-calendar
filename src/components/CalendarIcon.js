@@ -62,7 +62,7 @@ class CalendarIcon extends Component {
     const position = duration === HALF_HOUR ? 'absolute' : '';
     const childrenWithProps = Children.map(children,
       child => cloneElement(child, {
-        className: styles.icon,
+        className: `${styles.icon}${disabled ? ' disabled' : ''}`,
         style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}
       })
     );
