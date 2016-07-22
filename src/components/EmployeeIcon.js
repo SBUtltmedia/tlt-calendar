@@ -59,10 +59,10 @@ class EmployeeIcon extends Component {
   render() {
     const {onImageError, employee} = this.props;
 
-    console.log(this.props);
+    console.log(employee);
 
     return <img className={styles.icon} src={getImageSrc(this.props)} onError={() => onImageError(employee)}
-            {..._.omit(this.props, ['employee', 'onImageError', 'containerWidth', 'containerHeight', 'updateDimensions'])} />;
+        {..._.pick(this.props, ['style', 'disabled'])} />;
   }
 }
 
@@ -74,7 +74,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	onImageError: () => dispatch(gravatarLoadFailed(ownProps.employee))
 });
 
-export default Dimensions()(connect(
+export default connect(
   state => ({}),
   mapDispatchToProps
-)(EmployeeIcon));
+)(Dimensions()(EmployeeIcon));
