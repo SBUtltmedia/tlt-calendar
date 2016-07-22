@@ -1,6 +1,7 @@
-import { PropTypes } from 'react';
+import { PropTypes, Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { connect } from 'react-redux';
+import Dimensions from 'react-dimensions';
 import md5 from 'js-md5';
 import _ from 'lodash';
 import { gravatarLoadFailed } from '../actions/EmployeesActions';
@@ -33,7 +34,7 @@ const DefaultEmployeeIcon = props => (
     <g>
       <rect width='100%' height='100%' style={{fill:"#CCC"}} />
       <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#444"
-      fontFamily="sans-serif" fontSize={`${Math.round(props.style.width / 2.5)}px`}>
+      fontFamily="sans-serif" fontSize={`${Math.round(props.containerWidth / 2.5)}px`}>
         {getInitials(props.employee)}
       </text>
     </g>
@@ -41,6 +42,7 @@ const DefaultEmployeeIcon = props => (
 );
 
 function getSvgString(props) {
+  console.log(renderToStaticMarkup(<DefaultEmployeeIcon {...props} />));
   return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
 }
 
@@ -52,10 +54,16 @@ function getImageSrc(props) {
   return '';
 }
 
-const EmployeeIcon = props => (
-  <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
-    {..._.omit(props, ['employee', 'onImageError'])} />
-);
+class EmployeeIcon extends Component {
+  render() {
+    const {onImageError, employee} = this.props;
+
+    console.log(this.props);
+
+    return <img src={getImageSrc(this.props)} onError={() => onImageError(employee)}
+            {..._.omit(this.props, ['employee', 'onImageError', 'containerWidth', 'containerHeight', 'updateDimensions'])} />;
+  }
+}
 
 EmployeeIcon.propTypes = {
   employee: PropTypes.object
@@ -65,7 +73,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	onImageError: () => dispatch(gravatarLoadFailed(ownProps.employee))
 });
 
-export default connect(
+export default Dimensions()(connect(
   state => ({}),
   mapDispatchToProps
-)(EmployeeIcon);
+)(EmployeeIcon));
