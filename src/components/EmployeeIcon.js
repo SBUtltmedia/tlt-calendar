@@ -52,10 +52,10 @@ function getImageSrc(props) {
   return '';
 }
 
-const EmployeeIcon = props => {
-  return <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
+const EmployeeIcon = props => (
+  <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
     {..._.omit(props, ['employee', 'onImageError'])} />
-};
+);
 
 EmployeeIcon.propTypes = {
   employee: PropTypes.object
