@@ -47,14 +47,12 @@ function getSvgString(props) {
 function getImageSrc(props) {
   const { employee } = props;
   if (employee) {
-    console.log(employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email));
     return employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email);
   }
   return '';
 }
 
 const EmployeeIcon = props => {
-  console.log("Render", props.employee);
   return <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
     {..._.omit(props, ['employee', 'onImageError'])} />
 };
