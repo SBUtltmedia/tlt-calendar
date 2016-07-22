@@ -3,6 +3,7 @@ import { DATA_PATH } from '../constants/Settings';
 import _ from 'lodash';
 
 function receivePreferences(json) {
+  console.log(json);
   return {
     type: RECEIVE_PREFERENCES,
     preferences: json
