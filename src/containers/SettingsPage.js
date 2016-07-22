@@ -11,22 +11,18 @@ const AdminSettings = () => (
 
 const EmployeeSettings = ({user}) => (
   <div>
-    <table>
-      <tbody>
-        <tr>
-          <td>Icon</td>
-          <td>
-            <EmployeeIcon className="user-icon" employee={user} />
-            <div>
-              <div><a type="button" className="btn btn-default" target="_blank" href="http://gravatar.com">Change icon</a></div>
-              <div>
-                To get a custom icon, use <a target="_blank" href="http://gravatar.com">Gravatar</a> with your stonybrook.edu email.
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="settings-row">
+      <div className="label">Icon</div>
+      <div className="value">
+        <EmployeeIcon className="user-icon" employee={user} />
+        <div>
+          <div><a type="button" className="btn btn-default" target="_blank" href="http://gravatar.com">Change icon</a></div>
+          <div>
+            To get a custom icon, use <a target="_blank" href="http://gravatar.com">Gravatar</a> with your stonybrook.edu email.
+          </div>
+        </div>
+      </div>
+    </div>
     <hr />
   </div>
 );
