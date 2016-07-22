@@ -1,8 +1,30 @@
 @import '../style/dimens';
 
 :local(.container) {
-  text-align: center;
+  width: 480px;
+  margin: auto;
+  h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  table {
+    width: 100%;
+    td {
+      vertical-align: top;
+    }
+    td:first-child {
+      padding-top: 10px;
+      padding-right: 10px;
+    }
+    td:last-child {
+      display: flex;
+      a.btn {
+        margin-bottom: 5px;
+      }
+    }
+  }
   .user-icon {
     border-radius: $border-radius;
+    margin: 0 10px;
   }
 }
