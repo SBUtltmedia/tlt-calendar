@@ -42,7 +42,7 @@ class Trash extends Component {
 
   fillInfoBox(icon) {
     const name = "Trash";
-    const description = "Drag items from the calendar to here to remove them.";
+    const description = "Drag items from the calendar here to remove them.";
     this.props.fillInfoBox({name, description, icon});
   }
 

@@ -63,13 +63,12 @@ class CalendarIcon extends Component {
     const childrenWithProps = Children.map(children,
       child => cloneElement(child, {
         className: styles.icon,
-        onMouseEnter: () => this.fillInfoBox,
-        onMouseLeave: clearInfoBox,
         style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}
       })
     );
     return connectDragSource(
-      <div style={{maxWidth, marginLeft, overflow, position}}>
+      <div style={{maxWidth, marginLeft, overflow, position}} onMouseEnter={() => this.fillInfoBox()}
+              onMouseLeave={clearInfoBox}>
         {childrenWithProps}
       </div>
     );
