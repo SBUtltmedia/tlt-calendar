@@ -1,4 +1,5 @@
-import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
+import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
+import { markGravatarLoadFailed } from '../utils/employees';
 import { DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
 import * as calendar from '../utils/calendar';
 import _ from 'lodash';
@@ -17,6 +18,7 @@ export default function hourPreferences(state=initialState, action) {
     case REMOVE_CHIP: return {...state, chipsPlaced: calendar.removeItem(action, state.chipsPlaced)};
     case REORDER_GLOBAL_LOCATIONS: return {...state, locationOrder: action.order};
     case CHANGE_NUM_DESIRED_HOURS: return {...state, numDesiredHours: action.hours};
+    case GRAVATAR_LOAD_FAILED: return {...state, employee: markGravatarLoadFailed(state.employee)};
     default: return state;
   }
 }

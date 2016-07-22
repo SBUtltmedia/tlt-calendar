@@ -32,7 +32,8 @@ const DefaultEmployeeIcon = props => (
   <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>
     <g>
       <rect width='100%' height='100%' style={{fill:"#CCC"}} />
-      <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#444" fontFamily="sans-serif" fontSize="1.5em">
+      <text textAnchor="middle" alignmentBaseline="central"
+      x="50%" y="50%" fill="#444" fontFamily="sans-serif" fontSize="1.5em">
         {getInitials(props.employee)}
       </text>
     </g>
@@ -46,15 +47,17 @@ function getSvgString(props) {
 function getImageSrc(props) {
   const { employee } = props;
   if (employee) {
+    console.log(employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email));
     return employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email);
   }
   return '';
 }
 
-const EmployeeIcon = props => (
-  <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
+const EmployeeIcon = props => {
+  console.log("Render", props.employee);
+  return <img src={getImageSrc(props)} onError={() => props.onImageError(props.employee)}
     {..._.omit(props, ['employee', 'onImageError'])} />
-);
+};
 
 EmployeeIcon.propTypes = {
   employee: PropTypes.object
