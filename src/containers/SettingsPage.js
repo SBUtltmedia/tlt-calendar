@@ -12,7 +12,7 @@ const AdminSettings = () => (
 const EmployeeSettings = ({user}) => (
   <div>
     <div className="settings-row">
-      <div className="label">Icon</div>
+      <div className="name">Icon</div>
       <div className="value">
         <EmployeeIcon className="user-icon" employee={user} />
         <div>
