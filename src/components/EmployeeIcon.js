@@ -5,6 +5,7 @@ import Dimensions from 'react-dimensions';
 import md5 from 'js-md5';
 import _ from 'lodash';
 import { gravatarLoadFailed } from '../actions/EmployeesActions';
+import styles from './EmployeeIcon.scss';
 
 const DOMProperty = require('react/lib/ReactInjection').DOMProperty;
 DOMProperty.injectDOMPropertyConfig({
@@ -60,7 +61,7 @@ class EmployeeIcon extends Component {
 
     console.log(this.props);
 
-    return <img src={getImageSrc(this.props)} onError={() => onImageError(employee)}
+    return <img className={styles.icon} src={getImageSrc(this.props)} onError={() => onImageError(employee)}
             {..._.omit(this.props, ['employee', 'onImageError', 'containerWidth', 'containerHeight', 'updateDimensions'])} />;
   }
 }
