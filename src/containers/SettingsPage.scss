@@ -1,22 +1,20 @@
 @import '../style/dimens';
 
 :local(.container) {
-  width: 480px;
+  width: 400px;
   margin: auto;
   h2 {
     text-align: center;
     margin-bottom: 15px;
   }
-  table {
+  .settings-row {
     width: 100%;
-    td {
-      vertical-align: top;
-    }
-    td:first-child {
+
+    .label {
       padding-top: 10px;
       padding-right: 10px;
     }
-    td:last-child {
+    .value {
       display: flex;
       a.btn {
         margin-bottom: 5px;
