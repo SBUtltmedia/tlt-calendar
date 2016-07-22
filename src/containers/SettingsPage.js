@@ -12,13 +12,13 @@ const AdminSettings = () => (
 const EmployeeSettings = ({user}) => (
   <div>
     <div className="settings-row">
-      <div className="name">Icon</div>
+      <div className="name">Photo</div>
       <div className="value">
         <EmployeeIcon className="user-icon" employee={user} />
         <div>
-          <div><a type="button" className="btn btn-default" target="_blank" href="http://gravatar.com">Change icon</a></div>
+          <div><a type="button" className="btn btn-default" target="_blank" href="http://gravatar.com">Change photo</a></div>
           <div>
-            To get a custom icon, use <a target="_blank" href="http://gravatar.com">Gravatar</a> with your stonybrook.edu email.
+            To use a custom photo, use <a target="_blank" href="http://gravatar.com">Gravatar</a> with your stonybrook.edu email.
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ class HourPreferences extends Component {
     const {employee, isAdmin} = this.props;
     return <div className={styles.container}>
       <div className="header">
-        { employee ? <EmployeeIcon employee={employee} /> : '' }
+        <EmployeeIcon employee={employee} />
         <h1>{employee ? employee.name : ''}</h1>
       </div>
       <StudentCalendarGrid disabled={isAdmin} />

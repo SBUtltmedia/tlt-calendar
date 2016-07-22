@@ -57,7 +57,7 @@ const EmployeeIcon = props => (
 );
 
 EmployeeIcon.propTypes = {
-  employee: PropTypes.object.isRequired
+  employee: PropTypes.object
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
