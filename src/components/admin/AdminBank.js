@@ -18,9 +18,9 @@ class AdminBank extends Component {
 				<div style={{margin: ICON_MARGIN}}>
 					<ReserveIcon size={iconSize} disabled={disabled} />
 				</div>
-				{_.map(employees, (emp, i) =>
+				{_.map(employees, (employee, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<EmployeeCalendarIcon size={iconSize} value={emp} disabled={disabled} />
+						<EmployeeCalendarIcon size={iconSize} value={employee} disabled={disabled} />
 					</div>)}
 			</div>
 		</div>;

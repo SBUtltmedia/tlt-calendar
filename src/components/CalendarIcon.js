@@ -23,7 +23,7 @@ const dragSource = {
 }))
 class CalendarIcon extends Component {
   static propTypes = {
-    children: PropTypes.any.isRequired,
+    viewComponent: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     day: PropTypes.number,
     hour: PropTypes.number,
@@ -53,23 +53,23 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox, children} = this.props;
+    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox, value, viewComponent} = this.props;
     const opacity = isDragging || (disabled && (day === null || day === undefined)) ? 0.1 : 1;
     const width = duration === HALF_HOUR ? halfCssSize(size) : size;
     const maxWidth = duration === HALF_HOUR ? width : '';
     const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
     const overflow = duration === HALF_HOUR ? 'hidden' : '';
     const position = duration === HALF_HOUR ? 'absolute' : '';
-    const childrenWithProps = Children.map(children,
-      child => cloneElement(child, {
-        className: `${styles.icon}${disabled ? ' disabled' : ''}`,
-        style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'}
-      })
-    );
+    const viewProps = {
+      className: `${styles.icon}${disabled ? ' disabled' : ''}`,
+      style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'},
+      disabled: disabled,
+      value: value
+    };
     return connectDragSource(
-      <div style={{maxWidth, marginLeft, overflow, position}} onMouseEnter={() => this.fillInfoBox()}
-              onMouseLeave={clearInfoBox}>
-        {childrenWithProps}
+      <div style={{maxWidth, marginLeft, overflow, position, width: size, height: size}}
+               onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
+        {viewComponent(viewProps)}
       </div>
     );
   }

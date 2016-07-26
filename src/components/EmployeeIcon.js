@@ -43,7 +43,6 @@ const DefaultEmployeeIcon = props => (
 );
 
 function getSvgString(props) {
-  console.log(renderToStaticMarkup(<DefaultEmployeeIcon {...props} />));
   return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
 }
 
@@ -58,9 +57,6 @@ function getImageSrc(props) {
 class EmployeeIcon extends Component {
   render() {
     const {onImageError, employee} = this.props;
-
-    console.log(employee);
-
     return <img className={styles.icon} src={getImageSrc(this.props)} onError={() => onImageError(employee)}
         {..._.pick(this.props, ['style', 'disabled'])} />;
   }
