@@ -1,25 +1,37 @@
 import { connect } from 'react-redux';
 import styles from './CalendarInfoBox.scss';
-import { STUDENT_CELL, ADMIN_CELL, EMPLOYEE, ACTION } from '../constants/InfoBoxTypes';
+import { STUDENT_CELL, SLOT_CELL, ADMIN_SCHEDULE_CELL, EMPLOYEE, ACTION } from '../constants/InfoBoxTypes';
 import { DAYS } from '../constants/Settings';
 import { getHourLabel, hourPlus1 } from '../utils/time';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
 
-function renderCellItemsSection(items, heading, renderFn, alwaysRender=false) {
+function renderItem(item) {
+	if (typeof item === 'string') {
+		return item;
+	}
+	else if (item.name) {
+		return item.name;
+	}
+	else {
+		throw new Error(`Cannot render item ${item} to string`);
+	}
+}
+
+function renderCellItemsSection(items, heading, alwaysRender=false) {
 	if (_.isEmpty(items) && !alwaysRender) {
 		return '';
 	} else {
 		return <div>
 	 		{heading}
 	 		<ul>
-	 			{_.map(items, (item, i) => <li key={i}>{renderFn(item)}</li>)}
+	 			{_.map(items, (item, i) => <li key={i}>{renderItem(item.value)}</li>)}
 	 		</ul>
 	 	</div>
 	}
 }
 
-function renderCellItems(day, hour, items, renderFn) {
+function renderCellItems(day, hour, items) {
 	const dayName = DAYS[day];
 	const startHourString = getHourLabel(hour);
 	const endHourString = getHourLabel(hourPlus1(hour));
@@ -28,21 +40,19 @@ function renderCellItems(day, hour, items, renderFn) {
  	const halfItems2 = _.filter(items, item => item.duration === HALF_HOUR && item.minute === 30);
  	const alwaysRender = _.isEmpty(fullItems) && _.isEmpty(halfItems1) && _.isEmpty(halfItems2);
  	return <div>
- 		{renderCellItemsSection(fullItems, dayName + ' ' + startHourString + ' - ' + endHourString, renderFn, alwaysRender)}
- 		{renderCellItemsSection(halfItems1, dayName + ' ' + startHourString + ' - ' + startHourString + ":30", renderFn)}
- 		{renderCellItemsSection(halfItems2, dayName + ' ' + startHourString + ':30 - ' + endHourString, renderFn)}
+ 		{renderCellItemsSection(fullItems, dayName + ' ' + startHourString + ' - ' + endHourString, alwaysRender)}
+ 		{renderCellItemsSection(halfItems1, dayName + ' ' + startHourString + ' - ' + startHourString + ":30")}
+ 		{renderCellItemsSection(halfItems2, dayName + ' ' + startHourString + ':30 - ' + endHourString)}
  	</div>;
 }
 
-function renderCell(day, hour, items, itemRenderFn) {
+function renderCell(day, hour, items) {
 	return <div className="cell">
-		{ renderCellItems(day, hour, items, itemRenderFn) }
+		{ renderCellItems(day, hour, items) }
 	</div>;
 }
 
-const StudentCell = ({day, hour, cellItems}) => renderCell(day, hour, cellItems, item => `Rank: ${item.value}`);
-
-const AdminCell = ({day, hour, cellItems}) => renderCell(day, hour, cellItems, item => item.value.name);
+const Cell = ({day, hour, cellItems}) => renderCell(day, hour, cellItems);
 
 const Employee = data => (
 	<div className="employee">
@@ -59,8 +69,9 @@ const Action = ({name, description}) => (
 
 function renderTemplate(infoType, data) {
 	switch(infoType) {
-		case STUDENT_CELL: return StudentCell(data);
-		case ADMIN_CELL: return AdminCell(data);
+		case STUDENT_CELL: return Cell(data);
+		case ADMIN_SCHEDULE_CELL: return Cell(data);
+		case SLOT_CELL: return Cell(data);
 		case EMPLOYEE: return Employee(data);
 		case ACTION: return Action(data);
 		default: return '';

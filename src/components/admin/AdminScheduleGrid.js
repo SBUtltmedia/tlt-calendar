@@ -6,7 +6,7 @@ import _ from 'lodash';
 import CalendarGrid from '../CalendarGrid';
 import * as ScheduleActions from '../../actions/ScheduleActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
-import { ADMIN_CELL } from '../../constants/InfoBoxTypes';
+import { ADMIN_SCHEDULE_CELL } from '../../constants/InfoBoxTypes';
 import { RESERVED } from '../../constants/Constants';
 
 function getComponentClass(item) {
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: scheduleActions.placeItem,
     removeItem:scheduleActions.removeItem,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_CELL),
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_SCHEDULE_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };
 };
