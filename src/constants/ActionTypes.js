@@ -6,6 +6,7 @@ export const REMOVE_ITEM = 'remove-reserve';
 export const FILL_INFO_BOX = 'set-box-info';
 export const CLEAR_INFO_BOX = 'clear-box-info';
 export const RECEIVE_SCHEDULE = 'receive-schedule';
+export const RECEIVE_SLOTS = 'receive-slots';
 export const RECEIVE_PREFERENCES = 'receive-preferences';
 export const SET_LOCATION = 'set-location';
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations';

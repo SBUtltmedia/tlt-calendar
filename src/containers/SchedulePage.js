@@ -5,11 +5,12 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import AdminCalendarGrid from '../components/admin/AdminCalendarGrid';
 import AdminScheduleBank from '../components/admin/AdminScheduleBank';
-import AdminScheduleTrash from '../components/admin/AdminScheduleTrash';
+import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './SchedulePage.scss';
+import { RESERVE, EMPLOYEE } from '../constants/DraggableTypes';
 import _ from 'lodash';
-import { setLocation, fetchSchedule } from '../actions/ScheduleActions';
+import { setLocation, fetchSchedule, remoteItem } from '../actions/ScheduleActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
@@ -24,13 +25,13 @@ class SchedulePage extends Component {
 	}
 
 	render () {
-		const {loc, isAdmin} = this.props;
+		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<h1>{loc ? loc.name : ''}</h1>
 			<AdminCalendarGrid disabled={!isAdmin} />
       <div className="controls">
         <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
-        <div className="trash"><AdminScheduleTrash disabled={!isAdmin} /></div>
+        <div className="trash"><Trash disabled={!isAdmin} itemTypes={[RESERVE, EMPLOYEE]} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;
@@ -46,7 +47,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setLocation: () => dispatch(setLocation(parseInt(ownProps.params.location))),
-	fetchSchedule: () => dispatch(fetchSchedule(parseInt(ownProps.params.location)))
+	fetchSchedule: () => dispatch(fetchSchedule(parseInt(ownProps.params.location))),
+	removeItem: item => dispatch(removeItem(item))
 });
 
 export default connect(

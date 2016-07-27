@@ -15,6 +15,7 @@ import Dashboard from './containers/Dashboard';
 import AdminTable from './containers/AdminTable';
 import SchedulePage from './containers/SchedulePage';
 import SchedulesPage from './containers/SchedulesPage';
+import SlotPage from './containers/SlotPage';
 import SlotsPage from './containers/SlotsPage';
 import SettingsPage from './containers/SettingsPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';

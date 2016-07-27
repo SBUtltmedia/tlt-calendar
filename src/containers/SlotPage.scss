@@ -1,0 +1,29 @@
+:local(.container) {
+
+  h1 {
+    margin: 0.25em 0 0.5em 0;
+    text-align: center;
+  }
+
+  .controls {
+    display: flex;
+    margin: auto 1em;
+
+    .bank {
+      margin: auto;
+      width: 36em;
+      height: 18em;
+      text-align: center;
+    }
+
+    .trash {
+      margin: 5em auto 0 auto;
+    }
+
+    .info {
+      width: 20em;
+      height: 18em;
+    }
+  }
+
+}

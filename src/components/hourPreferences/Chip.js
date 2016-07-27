@@ -1,5 +1,5 @@
 import { HOUR } from '../../constants/Constants';
-import DraggableTypes from '../../constants/DraggableTypes';
+import { CHIP } from '../../constants/DraggableTypes';
 import CalendarIcon from '../CalendarIcon';
 import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
@@ -11,6 +11,6 @@ const ViewComponent = ({value}) => (
 );
 
 export default props => (
-  <CalendarIcon itemType={DraggableTypes.CHIP} {...props} name={`Rank ${props.value}`} viewComponent={ViewComponent}
+  <CalendarIcon itemType={CHIP} {...props} name={`Rank ${props.value}`} viewComponent={ViewComponent}
   description={`Ranking your available slots from highest to lowest (1 to ${_.last(RANKS)}) communicates your preferred shifts.`} />
 );

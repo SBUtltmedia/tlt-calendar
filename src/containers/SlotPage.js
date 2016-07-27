@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import AdminSlotGrid from '../components/admin/AdminSlotGrid';
+import SlotGrid from '../components/admin/SlotGrid';
 import SlotBank from '../components/admin/AdminScheduleBank';
-import SlotTrash from '../components/admin/SlotTrash';
+import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
-import styles from './SchedulePage.scss';
+import { SLOT } from '../constants/DraggableTypes';
+import styles from './SlotPage.scss';
 import _ from 'lodash';
-import { setLocation, fetchSchedule } from '../actions/ScheduleActions';
+import { setLocation, fetchSlots, remoteItem } from '../actions/SlotsActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
@@ -24,13 +25,13 @@ class SchedulePage extends Component {
 	}
 
 	render () {
-		const {loc, isAdmin} = this.props;
+		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<h1>{loc ? loc.name : ''}</h1>
 			<AdminCalendarGrid disabled={!isAdmin} />
       <div className="controls">
         <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
-        <div className="trash"><AdminScheduleTrash disabled={!isAdmin} /></div>
+        <div className="trash"><Trash disabled={!isAdmin} itemTypes={[SLOT]} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;
@@ -46,7 +47,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setLocation: () => dispatch(setLocation(parseInt(ownProps.params.location))),
-	fetchSchedule: () => dispatch(fetchSchedule(parseInt(ownProps.params.location)))
+	fetchSlots: () => dispatch(fetchSlots(parseInt(ownProps.params.location))),
+  removeItem: item => dispatch(removeItem(item))
 });
 
 export default connect(
