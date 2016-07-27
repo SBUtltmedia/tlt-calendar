@@ -1,0 +1,11 @@
+@import '../../style/dimens';
+
+:local(.container) {
+
+  .notes {
+    font-size: $small-font;
+    color: #999;
+    text-align: center;
+    padding-left: 1em;
+  }
+}

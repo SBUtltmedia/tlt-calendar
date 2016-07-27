@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import AdminCalendarGrid from '../components/admin/AdminCalendarGrid';
-import AdminScheduleBank from '../components/admin/AdminScheduleBank';
+import SlotGrid from '../components/admin/SlotGrid';
+import SlotBank from '../components/admin/AdminScheduleBank';
 import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
-import styles from './SchedulePage.scss';
+import styles from './SlotPage.scss';
 import _ from 'lodash';
-import { setLocation, fetchSchedule, removeItem } from '../actions/ScheduleActions';
+import { setLocation, fetchSlots, removeItem } from '../actions/SlotsActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
@@ -18,8 +18,8 @@ class SchedulePage extends Component {
 	}
 
 	componentDidMount() {
-		const {fetchSchedule, setLocation} = this.props;
-		fetchSchedule();
+		const {fetchSlots, setLocation} = this.props;
+		fetchSlots();
 		setLocation();
 	}
 
@@ -27,9 +27,9 @@ class SchedulePage extends Component {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<h1>{loc ? loc.name : ''}</h1>
-			<AdminCalendarGrid disabled={!isAdmin} />
+			<SlotGrid disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
+        <div className="bank"><SlotBank disabled={!isAdmin} /></div>
         <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
@@ -46,8 +46,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   setLocation: () => dispatch(setLocation(parseInt(ownProps.params.location))),
-	fetchSchedule: () => dispatch(fetchSchedule(parseInt(ownProps.params.location))),
-	removeItem: item => dispatch(removeItem(item))
+	fetchSlots: () => dispatch(fetchSlots(parseInt(ownProps.params.location))),
+  removeItem: item => dispatch(removeItem(item))
 });
 
 export default connect(

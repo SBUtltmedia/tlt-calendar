@@ -15,6 +15,8 @@ import Dashboard from './containers/Dashboard';
 import AdminTable from './containers/AdminTable';
 import SchedulePage from './containers/SchedulePage';
 import SchedulesPage from './containers/SchedulesPage';
+import SlotPage from './containers/SlotPage';
+import SlotsPage from './containers/SlotsPage';
 import SettingsPage from './containers/SettingsPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
@@ -57,6 +59,8 @@ render((
           <Route path="preferences/:id" component={HourPreferences} />
           <Route path="schedules" component={SchedulesPage} />
           <Route path="schedules/:location" component={SchedulePage} />
+          <Route path="slots" component={SlotsPage} />
+          <Route path="slots/:location" component={SlotPage} />
           <Route path="settings" component={SettingsPage} />
           <Route path="admin/table" component={AdminTable} />
         </Route>

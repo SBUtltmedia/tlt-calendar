@@ -1,23 +1,23 @@
-import Chip from './Chip';
+import Slot from './Slot';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import CalendarGrid from '../CalendarGrid';
-import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
+import * as SlotsActions from '../../actions/SlotsActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
 import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
-  items: state.hourPreferences.chipsPlaced,
-  cellComponent: Chip
+  items: state.slots.slots,
+  cellComponent: Slot
 });
 
 const mapDispatchToProps = dispatch => {
-  const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
+  const slotsActions = bindActionCreators(SlotsActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
-    placeItem: hourPreferencesActions.placeItem,
-    removeItem: hourPreferencesActions.removeItem,
+    placeItem: slotsActions.placeItem,
+    removeItem: slotsActions.removeItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, STUDENT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

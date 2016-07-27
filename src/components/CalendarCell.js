@@ -5,6 +5,7 @@ import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 import Dimensions from 'react-dimensions';
+import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 
 function createTarget(minute) {
   return {
@@ -27,7 +28,7 @@ function getCellClass({isOver, canDrop}) {
   return '';
 }
 
-@DropTarget(props => props.itemTypes, createTarget(0), (connect, monitor) => ({
+@DropTarget(CALENDAR_ITEM, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -43,7 +44,6 @@ class FullCell extends Component {
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
-    itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     items: PropTypes.array.isRequired,
     disabled: PropTypes.bool
   };
@@ -67,7 +67,7 @@ class FullCell extends Component {
 
 const DimensionedFullCell = Dimensions()(FullCell);
 
-@DropTarget(props => props.itemTypes, createTarget(30), (connect, monitor) => ({
+@DropTarget(CALENDAR_ITEM, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()

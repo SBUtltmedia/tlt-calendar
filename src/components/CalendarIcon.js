@@ -8,6 +8,7 @@ import styles from './CalendarIcon.scss';
 import { halfCssSize } from '../utils/style.js';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
+import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 
 const dragSource = {
     beginDrag(props) {
@@ -16,7 +17,7 @@ const dragSource = {
     }
 };
 
-@DragSource(props => props.itemType, dragSource, (connect, monitor) => ({
+@DragSource(CALENDAR_ITEM, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
@@ -32,7 +33,6 @@ class CalendarIcon extends Component {
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    itemType: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     fillInfoBox: PropTypes.func.isRequired,

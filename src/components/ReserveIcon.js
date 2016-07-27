@@ -1,5 +1,4 @@
 import { RESERVED } from '../constants/Constants';
-import DraggableTypes from '../constants/DraggableTypes';
 import CalendarIcon from './CalendarIcon';
 
 const ViewComponent = ({value}) => (
@@ -7,6 +6,6 @@ const ViewComponent = ({value}) => (
 );
 
 export default props => (
-  <CalendarIcon itemType={DraggableTypes.RESERVE} {...props} value={RESERVED} viewComponent={ViewComponent}
+  <CalendarIcon {...props} value={RESERVED} viewComponent={ViewComponent}
   name="Reserve" description="Admins can prevent employees from taking specific slots by blocking them out." />
 );
