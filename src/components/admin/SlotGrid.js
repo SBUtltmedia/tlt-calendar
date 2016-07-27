@@ -5,7 +5,7 @@ import _ from 'lodash';
 import CalendarGrid from '../CalendarGrid';
 import * as SlotsActions from '../../actions/SlotsActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
-import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
+import { SLOT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.slots.slots,
@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: slotsActions.placeItem,
     removeItem: slotsActions.removeItem,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, STUDENT_CELL),
+    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, SLOT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };
 };
