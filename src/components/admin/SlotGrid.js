@@ -8,12 +8,12 @@ import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
 import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
-  items: state.slot.chipsPlaced,
+  items: state.slots.slots,
   cellComponent: Slot
 });
 
 const mapDispatchToProps = dispatch => {
-  const slotActions = bindActionCreators(HourPreferencesActions, dispatch);
+  const slotsActions = bindActionCreators(SlotsActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
     placeItem: slotsActions.placeItem,

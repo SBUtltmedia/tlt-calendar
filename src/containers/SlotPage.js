@@ -18,8 +18,8 @@ class SchedulePage extends Component {
 	}
 
 	componentDidMount() {
-		const {fetchSchedule, setLocation} = this.props;
-		fetchSchedule();
+		const {fetchSlots, setLocation} = this.props;
+		fetchSlots();
 		setLocation();
 	}
 
@@ -27,9 +27,9 @@ class SchedulePage extends Component {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<h1>{loc ? loc.name : ''}</h1>
-			<AdminCalendarGrid disabled={!isAdmin} />
+			<SlotGrid disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
+        <div className="bank"><SlotBank disabled={!isAdmin} /></div>
         <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>

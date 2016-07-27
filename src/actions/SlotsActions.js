@@ -7,7 +7,7 @@ import { SET_LOCATION, RECEIVE_SLOTS, PLACE_ITEM, REMOVE_ITEM } from '../constan
 function receiveSlots(json) {
   return {
     type: RECEIVE_SLOTS,
-    slot: json
+    slots: json
   }
 }
 

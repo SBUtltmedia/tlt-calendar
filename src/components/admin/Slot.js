@@ -5,7 +5,7 @@ import _ from 'lodash';
 const req = require.context('img/slots', true, /^\.\/.*$/);
 
 const ViewComponent = ({value}) => (
-  <img src={req(`./${value}.png`)} />
+  <img src={req(`./${value}.svg`)} />
 );
 
 export default props => (
