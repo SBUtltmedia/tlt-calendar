@@ -1,5 +1,4 @@
 import { HOUR } from '../../constants/Constants';
-import { SLOT } from '../../constants/DraggableTypes';
 import CalendarIcon from '../CalendarIcon';
 import _ from 'lodash';
 
@@ -10,6 +9,6 @@ const ViewComponent = ({value}) => (
 );
 
 export default props => (
-  <CalendarIcon itemType={SLOT} {...props} name={`${props.value} slot`} viewComponent={ViewComponent}
+  <CalendarIcon {...props} name={`${props.value} slot`} viewComponent={ViewComponent}
   description={`Set the slots that employees can have shifts at this location.`} />
 );

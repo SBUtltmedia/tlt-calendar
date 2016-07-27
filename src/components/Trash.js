@@ -5,6 +5,7 @@ import styles from './Trash.scss';
 import { DropTarget } from 'react-dnd';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
+import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 
 const trashTarget = {
   drop(props, monitor) {
@@ -23,7 +24,7 @@ function getClassName({isOver, canDrop}) {
   return '';
 }
 
-@DropTarget(props => props.itemTypes, trashTarget, (connect, monitor) => ({
+@DropTarget(CALENDAR_ITEM, trashTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop()
@@ -34,7 +35,6 @@ class Trash extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     removeItem: PropTypes.func.isRequired,
-    itemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
     disabled: PropTypes.bool

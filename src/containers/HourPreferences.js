@@ -9,7 +9,6 @@ import Trash from '../components/Trash';
 import LocationOrder from '../components/hourPreferences/LocationOrder';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
-import { CHIP } from '../constants/DraggableTypes';
 import { fetchPreferences, removeItem } from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
 
@@ -35,7 +34,7 @@ class HourPreferences extends Component {
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="chip-bank"><ChipBank disabled={isAdmin} /></div>
-        <div className="trash"><Trash disabled={!isAdmin} itemTypes={[CHIP]} removeItem={removeItem} /></div>
+        <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="location-order"><LocationOrder disabled={isAdmin} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>

@@ -1,5 +1,1 @@
-export default {
-  CHIP: 'chip',
-  RESERVE: 'reserve',
-  EMPLOYEE: 'employee'
-};
+export const CALENDAR_ITEM = 'cal-icon';

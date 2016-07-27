@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import ReserveIcon from '../ReserveIcon';
 import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
 import _ from 'lodash';
-import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as ScheduleActions from '../../actions/ScheduleActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
@@ -16,7 +15,6 @@ function getComponentClass(item) {
 
 const mapStateToProps = state => ({
   items: state.schedule.shifts || [],
-  itemTypes: [DraggableTypes.RESERVE, DraggableTypes.EMPLOYEE],
   cellComponent: item => getComponentClass(item)(item)
 });
 

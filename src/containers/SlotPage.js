@@ -7,10 +7,9 @@ import SlotGrid from '../components/admin/SlotGrid';
 import SlotBank from '../components/admin/AdminScheduleBank';
 import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
-import { SLOT } from '../constants/DraggableTypes';
 import styles from './SlotPage.scss';
 import _ from 'lodash';
-import { setLocation, fetchSlots, remoteItem } from '../actions/SlotsActions';
+import { setLocation, fetchSlots, removeItem } from '../actions/SlotsActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
@@ -31,7 +30,7 @@ class SchedulePage extends Component {
 			<AdminCalendarGrid disabled={!isAdmin} />
       <div className="controls">
         <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
-        <div className="trash"><Trash disabled={!isAdmin} itemTypes={[SLOT]} removeItem={removeItem} /></div>
+        <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;

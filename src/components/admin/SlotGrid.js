@@ -2,7 +2,6 @@ import Slot from './Slot';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import DraggableTypes from '../../constants/DraggableTypes';
 import CalendarGrid from '../CalendarGrid';
 import * as SlotsActions from '../../actions/SlotsActions';
 import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
@@ -10,7 +9,6 @@ import { STUDENT_CELL } from '../../constants/InfoBoxTypes';
 
 const mapStateToProps = state => ({
   items: state.slot.chipsPlaced,
-  itemTypes: [DraggableTypes.SLOT],
   cellComponent: Slot
 });
 
