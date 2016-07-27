@@ -1,7 +1,9 @@
 import { SET_LOCATION, RECEIVE_SLOTS, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import * as calendar from '../utils/calendar';
 
-const initialState = {};
+const initialState = {
+  slots: []
+};
 
 export default function slots(state=initialState, action) {
   switch (action.type) {

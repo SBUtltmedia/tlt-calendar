@@ -1,4 +1,4 @@
-import Slot from '../Slot';
+import Slot from './Slot';
 import styles from './SlotsBank.scss';
 
 export default () => (

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import SlotGrid from '../components/admin/SlotGrid';
-import SlotBank from '../components/admin/AdminScheduleBank';
+import SlotsBank from '../components/admin/SlotsBank';
 import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './SlotPage.scss';
@@ -29,7 +29,7 @@ class SchedulePage extends Component {
 			<h1>{loc ? loc.name : ''}</h1>
 			<SlotGrid disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><SlotBank disabled={!isAdmin} /></div>
+        <div className="bank"><SlotsBank disabled={!isAdmin} /></div>
         <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
