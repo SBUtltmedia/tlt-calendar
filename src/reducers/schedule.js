@@ -1,7 +1,9 @@
 import { SET_LOCATION, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import * as calendar from '../utils/calendar';
 
-const initialState = {};
+const initialState = {
+  shifts: []
+};
 
 export default function schedules(state=initialState, action) {
   switch (action.type) {
