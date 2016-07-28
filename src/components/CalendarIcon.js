@@ -2,17 +2,15 @@ import { Component, PropTypes, Children, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragSource } from 'react-dnd';
-import { HOUR, HALF_HOUR } from '../constants/Constants';
+
 import _ from 'lodash';
 import styles from './CalendarIcon.scss';
-import { halfCssSize } from '../utils/style.js';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ACTION } from '../constants/InfoBoxTypes';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 
 const dragSource = {
     beginDrag(props) {
-      // TODO: The 'value' field is only for chips, so should it be removed?
       return _.pick(props, ['value', 'day', 'hour', 'minute', 'duration', 'disabled']);
     }
 };
@@ -53,23 +51,12 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {minute, disabled, connectDragSource, isDragging, duration, day, hour, size, clearInfoBox, value, viewComponent} = this.props;
-    const opacity = isDragging || (disabled && (day === null || day === undefined)) ? 0.1 : 1;
-    const width = duration === HALF_HOUR ? halfCssSize(size) : size;
-    const maxWidth = duration === HALF_HOUR ? width : '';
-    const marginLeft = duration === HALF_HOUR && minute === 30 ? width : '';
-    const overflow = duration === HALF_HOUR ? 'hidden' : '';
-    const position = duration === HALF_HOUR ? 'absolute' : '';
-    const viewProps = {
-      style: {width: size, height: size, float: minute === 30 ? 'left' : 'right'},
-      disabled,
-      value
-    };
+    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style} = this.props;
     return connectDragSource(
-      <div style={{opacity, marginLeft, overflow, position, width: size, height: size}}
-            className={`${styles.icon}${disabled ? ' disabled' : ''}`}
+      <div style={{...style, width: size, height: size}}
+            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}`}
             onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
-        {viewComponent(viewProps)}
+        {viewComponent({disabled, value})}
       </div>
     );
   }

@@ -5,7 +5,9 @@ import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
 import styles from './CalendarCell.scss';
 import Dimensions from 'react-dimensions';
+import { halfCssSize } from '../utils/style.js';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
+import { HALF_HOUR } from '../constants/Constants';
 
 function createTarget(minute) {
   return {
@@ -52,6 +54,18 @@ class FullCell extends Component {
     this.props.fillInfoBox({...this.props, cellItems});
   }
 
+  renderCellItem(item, i) {
+    const {containerWidth, cellComponent, disabled} = this.props;
+    const {minute, duration} = item;
+    const startsOnHalf = minute % 60 === 30;
+    //const width = duration === HALF_HOUR ? halfCssSize(containerWidth) : containerWidth;
+    const marginLeft = startsOnHalf ? halfCssSize(containerWidth) : '';
+    const overflow = duration === HALF_HOUR ? 'hidden' : '';
+    const position = duration === HALF_HOUR ? 'absolute' : '';
+    const style = {marginLeft, overflow, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
+    return cellComponent({...item, disabled, style, key: i, size: containerWidth});
+  }
+
   render() {
     const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
@@ -59,7 +73,7 @@ class FullCell extends Component {
       <div className={`cell full ${getCellClass(this.props)}`}
       style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
       onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-        {_.map(cellItems, (item, i) => cellComponent({...item, key: i, disabled: disabled, size: containerWidth}))}
+        {_.map(cellItems, this.renderCellItem.bind(this))}
       </div>
     );
   }
