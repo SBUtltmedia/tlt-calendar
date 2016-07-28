@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { timeToKey, removeItem, placeItem } from '../../src/utils/calendar';
+import { timeToKey, removeItem, placeItem, getItemsInSlot } from '../../src/utils/calendar';
 import { HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
@@ -20,10 +20,16 @@ describe('calendar', () => {
   });
 
   it('removes an item', () => {
-    const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
-    const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
     const items = placeItem({}, item2);
     expect(removeItem(items, item2)).to.deep.equal({});
+  });
+
+  it('gets items in a slot', () => {
+    const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
+    const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
+    const items = {"30": item2, "60": item3};
+    expect(getItemsInSlot(items, 0, 0)).to.deep.equal([item2]);
+    expect(getItemsInSlot(items, 0, 1)).to.deep.equal([item3]);
   });
 });

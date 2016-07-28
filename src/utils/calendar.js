@@ -32,26 +32,19 @@ export function clearIndex(items, key, duration) {
 }
 
 export function getItemsInSlot(items, day, hour) {
-  const value1 = items[getIndex(day, hour, 0)];
-  const value2 = items[getIndex(day, hour, 30)];
-  if (value1 && value2) {
-    if (_.isEqual(value1, value2)) {
-        return [{value: value1, day, hour, minute: 0, duration: HOUR}];
+  const item1 = items[timeToKey(day, hour, 0)];
+  const item2 = items[timeToKey(day, hour, 30)];
+  if (item1 && item2) {
+    if (_.isEqual(item1.value, item2.value)) {
+        return [item1];
+    } else {
+      return [item1, item2];
     }
-    else {
-      return [
-        {value: value1, day, hour, minute: 0, duration: HALF_HOUR},
-        {value: value2, day, hour, minute: 30, duration: HALF_HOUR}
-      ];
-    }
-  }
-  else if (value1) {
-    return [{value: value1, day, hour, minute: 0, duration: HALF_HOUR}];
-  }
-  else if (value2) {
-    return [{value: value2, day, hour, minute: 30, duration: HALF_HOUR}];
-  }
-  else {
+  } else if (item1) {
+    return [item1];
+  } else if (item2) {
+    return [item2];
+  } else {
     return [];
   }
 }
