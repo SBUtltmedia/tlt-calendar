@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
 import { dayHourMinutesPlus30Minutes, dayHourPlus1Hour } from '../utils/time';
+import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
 export function timeToKey(day, hour, minute) {
@@ -11,8 +12,8 @@ export function timeToKey(day, hour, minute) {
 // key1 and key2 are integers here
 export function clearAllBetween(items, key1, key2) {
   const is = _.clone(items);
-  for (let i = key1; i <= key2; i += MINIMUM_ITEM_DURATION) {
-    delete is[i];
+  for (let i = roundUpToNearest(key1, MINIMUM_ITEM_DURATION); i < key2; i += MINIMUM_ITEM_DURATION) {
+    delete is[String(i)];
   }
   return is;
 }
