@@ -61,14 +61,14 @@ class CalendarIcon extends Component {
     const overflow = duration === HALF_HOUR ? 'hidden' : '';
     const position = duration === HALF_HOUR ? 'absolute' : '';
     const viewProps = {
-      className: `${styles.icon}${disabled ? ' disabled' : ''}`,
-      style: {opacity, width: size, height: size, float: minute === 30 ? 'left' : 'right'},
-      disabled: disabled,
-      value: value
+      style: {width: size, height: size, float: minute === 30 ? 'left' : 'right'},
+      disabled,
+      value
     };
     return connectDragSource(
-      <div style={{maxWidth, marginLeft, overflow, position, width: width, height: size}}
-               onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
+      <div style={{opacity, maxWidth, marginLeft, overflow, position, width: width, height: size}}
+              className={`${styles.icon}${disabled ? ' disabled' : ''}`}
+              onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent(viewProps)}
       </div>
     );

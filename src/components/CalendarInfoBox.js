@@ -7,14 +7,11 @@ import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
 
 function renderItem(item) {
-	if (typeof item === 'string') {
-		return item;
-	}
-	else if (item.name) {
+	if (item.name) {
 		return item.name;
 	}
 	else {
-		throw new Error(`Cannot render item ${item} to string`);
+		return item;
 	}
 }
 
