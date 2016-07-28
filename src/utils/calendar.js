@@ -1,31 +1,33 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
-import { RANKS } from '../constants/Settings';
+import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
 import { dayHourMinutesPlus30Minutes, dayHourPlus1Hour } from '../utils/time';
 import './array';
 
-const GREATEST_INDEX = getIndex(6, 23, 30);
-
-export function getIndex(day, hour, minute) {
-  return day * 48 + hour * 2 + !!minute;
+export function timeToKey(day, hour, minute) {
+  return String(day * 1440 + hour * 60 + minute);
 }
 
-export function prevIndex(index) {
-  return index === 0 ? GREATEST_INDEX : index - 1;
-}
-
-export function nextIndex(index) {
-  return index === GREATEST_INDEX ? 0 : index + 1;
-}
-
-export function setValue(items, index, value) {
+// key1 and key2 are integers here
+export function clearAllBetween(items, key1, key2) {
   const is = _.clone(items);
-  is[index] = value;
+  for (let i = key1; i <= key2; i += MINIMUM_ITEM_DURATION) {
+    delete is[i];
+  }
   return is;
 }
 
-export function clearIndex(items, index) {
-  return setValue(items, index, undefined);
+// key may be (and usually is) a string (a key in the items object)
+export function setItem(items, key, duration, item) {
+  const is = _.clone(items);
+  is[key] = item;
+  key = parseInt(key);
+  return clearAllBetween(is, key + 1, key + duration);
+}
+
+export function clearIndex(items, key, duration) {
+  key = parseInt(key);
+  return clearAllBetween(items, key, key + duration);
 }
 
 export function getItemsInSlot(items, day, hour) {
@@ -53,15 +55,10 @@ export function getItemsInSlot(items, day, hour) {
   }
 }
 
-export function removeItem({day, hour, minute, duration}, items) {
-  return placeItem({value: undefined, day, hour, minute, duration}, items);
+export function removeItem(items, {day, hour, minute, duration}) {
+  return clearIndex(items, timeToKey(day, hour, minute), duration);
 }
 
-export function placeItem({value, day, hour, minute, duration=HOUR}, items) {
-  const index = getIndex(day, hour, minute);
-  switch (duration) {
-    case HALF_HOUR: return setValue(items, index, value);
-    case HOUR: return setValue(setValue(items, index, value), nextIndex(index), value);
-    default: throw new Error(`Invalid duration ${duration}`);
-  }
+export function placeItem(items, {value, day, hour, minute, duration=HOUR}) {
+  return setItem(items, timeToKey(day, hour, minute), duration, {value, day, hour, minute, duration});
 }
