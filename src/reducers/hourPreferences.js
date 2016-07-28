@@ -13,7 +13,9 @@ const initialState = {
 
 export default function hourPreferences(state=initialState, action) {
   switch (action.type) {
-    case RECEIVE_PREFERENCES: return action.preferences;
+    case RECEIVE_PREFERENCES:
+      const p = action.preferences;
+      return {...p, chipsPlaced: _.reduce(p.chipsPlaced, calendar.placeItem, [])};
     case PLACE_CHIP: return {...state, chipsPlaced: calendar.placeItem(state.chipsPlaced, action)};
     case REMOVE_CHIP: return {...state, chipsPlaced: calendar.removeItem(state.chipsPlaced, action)};
     case REORDER_GLOBAL_LOCATIONS: return {...state, locationOrder: action.order};
