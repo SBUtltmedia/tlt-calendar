@@ -29,7 +29,7 @@ CalendarGrid.propTypes = {
   fillInfoBox: PropTypes.func.isRequired,
   clearInfoBox: PropTypes.func.isRequired,
   cellComponent: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
+  items: PropTypes.object.isRequired,
   disabled: PropTypes.bool
 };
 

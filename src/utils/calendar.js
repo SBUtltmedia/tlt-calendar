@@ -22,13 +22,13 @@ export function clearAllBetween(items, key1, key2) {
 export function setItem(items, key, duration, item) {
   const is = _.clone(items);
   is[key] = item;
-  key = parseInt(key);
-  return clearAllBetween(is, key + 1, key + duration);
+  const i = parseInt(key);
+  return clearAllBetween(is, i + 1, i + duration);
 }
 
 export function clearIndex(items, key, duration) {
-  key = parseInt(key);
-  return clearAllBetween(items, key, key + duration);
+  const i = parseInt(key);
+  return clearAllBetween(items, i, i + duration);
 }
 
 export function getItemsInSlot(items, day, hour) {
