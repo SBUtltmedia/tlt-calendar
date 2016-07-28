@@ -66,7 +66,7 @@ class CalendarIcon extends Component {
       value
     };
     return connectDragSource(
-      <div style={{opacity, maxWidth, marginLeft, overflow, position, width: width, height: size}}
+      <div style={{opacity, marginLeft, overflow, position, width: size, height: size}}
             className={`${styles.icon}${disabled ? ' disabled' : ''}`}
             onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent(viewProps)}
