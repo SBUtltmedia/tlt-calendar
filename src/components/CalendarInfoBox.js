@@ -57,10 +57,11 @@ const Employee = data => (
 	</div>
 );
 
-const Action = ({name, description}) => (
+const Action = ({name, description, imgSrc}) => (
 	<div className="action">
 		<div className="title">{name}</div>
 		<div className="description">{description}</div>
+		<img src={imgSrc} className="icon" />
 	</div>
 );
 

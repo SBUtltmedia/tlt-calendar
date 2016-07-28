@@ -1,7 +1,6 @@
 import { PropTypes, Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { connect } from 'react-redux';
-import Dimensions from 'react-dimensions';
 import md5 from 'js-md5';
 import _ from 'lodash';
 import { gravatarLoadFailed } from '../actions/EmployeesActions';
@@ -30,26 +29,25 @@ function getInitials(employee) {
   return '';
 }
 
-const DefaultEmployeeIcon = props => (
-  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>
+const DefaultEmployeeIcon = ({employee}) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
       <rect width='100%' height='100%' style={{fill:"#CCC"}} />
       <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#444"
-      fontFamily="sans-serif" fontSize={`${Math.round(props.containerWidth / 2.5)}px`}>
-        {getInitials(props.employee)}
+      fontFamily="sans-serif" fontSize="20">
+        {getInitials(employee)}
       </text>
     </g>
   </svg>
 );
 
-function getSvgString(props) {
-  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon {...props} />);
+function getSvgString(employee, width) {
+  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon employee={employee} />);
 }
 
-function getImageSrc(props) {
-  const { employee } = props;
+export function getImageSrc(employee) {
   if (employee) {
-    return employee.missingGravatar ? getSvgString(props) : getGravatarIconUrl(employee.email);
+    return employee.missingGravatar ? getSvgString(employee) : getGravatarIconUrl(employee.email);
   }
   return '';
 }
@@ -57,7 +55,7 @@ function getImageSrc(props) {
 class EmployeeIcon extends Component {
   render() {
     const {onImageError, employee} = this.props;
-    return <img className={styles.icon} src={getImageSrc(this.props)} onError={() => onImageError(employee)}
+    return <img className={styles.icon} src={getImageSrc(employee)} onError={() => onImageError(employee)}
         {..._.pick(this.props, ['style', 'disabled'])} />;
   }
 }
@@ -73,4 +71,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(
   state => ({}),
   mapDispatchToProps
-)(Dimensions()(EmployeeIcon));
+)(EmployeeIcon);

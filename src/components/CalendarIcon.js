@@ -46,9 +46,9 @@ class CalendarIcon extends Component {
   }
 
   fillInfoBox() {
-    const { imageSrc, fillInfoBox, name, description, day } = this.props;
+    const { imgSrc, fillInfoBox, name, description, day } = this.props;
     if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
-      fillInfoBox({name, description, imageSrc});
+      fillInfoBox({name, description, imgSrc});
     }
   }
 
@@ -67,8 +67,8 @@ class CalendarIcon extends Component {
     };
     return connectDragSource(
       <div style={{opacity, maxWidth, marginLeft, overflow, position, width: width, height: size}}
-              className={`${styles.icon}${disabled ? ' disabled' : ''}`}
-              onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
+            className={`${styles.icon}${disabled ? ' disabled' : ''}`}
+            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent(viewProps)}
       </div>
     );
