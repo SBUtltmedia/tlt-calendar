@@ -34,7 +34,7 @@ class HourPreferences extends Component {
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="chip-bank"><ChipBank disabled={isAdmin} /></div>
-        <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
+        <div className="trash"><Trash disabled={isAdmin} removeItem={removeItem} /></div>
         <div className="location-order"><LocationOrder disabled={isAdmin} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>

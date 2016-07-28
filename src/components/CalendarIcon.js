@@ -2,7 +2,6 @@ import { Component, PropTypes, Children, cloneElement } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragSource } from 'react-dnd';
-
 import _ from 'lodash';
 import styles from './CalendarIcon.scss';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
