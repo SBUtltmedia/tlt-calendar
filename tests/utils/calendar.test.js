@@ -20,12 +20,10 @@ describe('calendar', () => {
   });
 
   it('removes an item', () => {
-    /*
-    const item1 = {value: 'A', day: 0, hour: 0, minute: 0, duration: HALF_HOUR};
-    const item2 = {value: 'B', day: 0, hour: 0, minute: 0, duration: HALF_HOUR};
-    expect({day: 0, hour: 0, minute: 0, duration: HOUR})).to.deep.equal({});
-    expect(removeItem([1, 1], {day: 0, hour: 0, minute: 0, duration: HALF_HOUR})).to.deep.equal([undefined, 1]);
-    expect(removeItem([1, 1], {day: 0, hour: 0, minute: 30, duration: HALF_HOUR})).to.deep.equal([1, undefined]);
-    */
+    const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
+    const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
+    const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
+    const items = placeItem({}, item2);
+    expect(removeItem(items, item2)).to.deep.equal({});
   });
 });
