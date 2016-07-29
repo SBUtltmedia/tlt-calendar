@@ -9,17 +9,17 @@
   .cell.full {
     position: relative;
 
-    >div {
+    .item {
       position: relative;
       z-index: 5;
     }
   }
 
-  .cell.full.dragging>div {
-
+  .cell.half.over ~ div .cell.full {
+    display: none;
   }
 
-  .cell.full>div:hover {
+  .cell.full .item:hover {
     z-index: 8;
   }
 

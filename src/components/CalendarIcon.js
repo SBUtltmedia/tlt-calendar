@@ -14,6 +14,8 @@ const dragSource = {
     }
 };
 
+const calculateWidth = ({size, duration}) => duration ? Math.round(size * duration / 60) : size;
+
 @DragSource(CALENDAR_ITEM, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
@@ -34,12 +36,13 @@ class CalendarIcon extends Component {
     description: PropTypes.string.isRequired,
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
-    size: PropTypes.any
+    size: PropTypes.any,
+    className: PropTypes.string
   };
 
   componentDidMount() {
     const { size, connectDragPreview } = this.props;
-    connectDragPreview(<div style={`width:${size}px; height:${size}px`}></div>);
+    connectDragPreview(<div style={`width:${calculateWidth(this.props)}px; height:${size}px`}></div>);
   }
 
   fillInfoBox() {
@@ -50,10 +53,10 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style} = this.props;
+    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className} = this.props;
     return connectDragSource(
-      <div style={{...style, width: size, height: size}}
-            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}`}
+      <div style={{...style, width: calculateWidth(this.props), height: size}}
+            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
             onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent({disabled, value})}
       </div>

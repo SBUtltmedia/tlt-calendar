@@ -67,7 +67,7 @@ class FullCell extends Component {
     const overflow = duration === HALF_HOUR ? 'hidden' : '';
     const position = duration === HALF_HOUR ? 'absolute' : '';
     const style = {marginLeft, overflow, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
-    return cellComponent({...item, disabled, style, key: i, size: containerWidth});
+    return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
   }
 
   render() {
@@ -118,8 +118,8 @@ export default class CalendarCell extends Component {
       { hour === 0 ?
         <HalfCell side="left" {..._.assign({}, this.props, {day: dayMinus1(day), hour: hourMinus1(hour)})} />
       : ''}
+        <HalfCell side="right" {...this.props} />
       <DimensionedFullCell {...this.props} />
-      <HalfCell side="right" {...this.props} />
     </div>;
   }
 }
