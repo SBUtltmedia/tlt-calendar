@@ -11,26 +11,32 @@
 
     >div {
       position: relative;
-      z-index: 3;
+      z-index: 5;
     }
   }
 
+  .cell.full.dragging>div {
+
+  }
+
   .cell.half {
-    width: 40%;
+    width: 50%;
     height: 100%;
     position: absolute;
+    z-index: 4;
   }
 
   .cell.half.left {
-    left: -20%;
+    left: -25%;
   }
 
   .cell.half.right {
-    right: -20%;
+    right: -25%;
   }
 
   .cell.over {
     opacity: 0.4;
+    z-index: 6;
   }
 
   .cell.over {
