@@ -19,11 +19,19 @@
 
   }
 
+  .cell.full>div:hover {
+    z-index: 8;
+  }
+
   .cell.half {
     width: 50%;
     height: 100%;
     position: absolute;
     z-index: 4;
+  }
+
+  .cell.half.dragging {
+    z-index: 7;
   }
 
   .cell.half.left {
