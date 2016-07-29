@@ -1,10 +1,17 @@
 @import '../style/dimens';
 
 :local(.icon) {
-	cursor: pointer;
-	border-radius: $border-radius
+	cursor: grab;
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
+	border-radius: $border-radius;
 }
 
 :local(.icon).disabled {
 	cursor: default;
+	opacity: 0.1;
+}
+
+:local(.icon).dragging {
+	opacity: 0.1;
 }

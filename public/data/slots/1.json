@@ -1,4 +1,7 @@
 {
   "location": "Main Library",
-  "slots": [ "1hr", "2hr" ]
+  "slots": {
+    "0": {"value": "1hr", "day": 0, "hour": 0, "minute": 0, "duration": 60},
+    "60": {"value": "2hr", "day": 0, "hour": 0, "minute": 60, "duration": 120}
+  }
 }

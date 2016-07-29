@@ -4,30 +4,47 @@
   width: 100%;
   height: 100%;
   position: relative;
-  z-index: 1;
   display: flex;
 
   .cell.full {
     position: relative;
+
+    .item {
+      position: relative;
+      z-index: 5;
+    }
+  }
+
+  .cell.half.over ~ div .cell.full {
+    display: none;
+  }
+
+  .cell.full .item:hover {
+    z-index: 8;
   }
 
   .cell.half {
-    width: 40%;
+    width: 50%;
     height: 100%;
     position: absolute;
-    z-index: 2;
+    z-index: 4;
+  }
+
+  .cell.half.dragging {
+    z-index: 7;
   }
 
   .cell.half.left {
-    left: -20%;
+    left: -25%;
   }
 
   .cell.half.right {
-    right: -20%;
+    right: -25%;
   }
 
   .cell.over {
     opacity: 0.4;
+    z-index: 6;
   }
 
   .cell.over {
@@ -36,5 +53,6 @@
 
   .cell.reject {
     background-color: $reject-color;
+    cursor: no-drop;
   }
 }
