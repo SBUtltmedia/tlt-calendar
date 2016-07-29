@@ -24,16 +24,20 @@ function createTarget(minute) {
   };
 }
 
-function getCellClass({isOver, canDrop}) {
-  if (isOver && canDrop) { return 'over'; }
-  if (isOver && !canDrop) { return 'reject'; }
-  return '';
+function getCellClass(monitor, {isOver, canDrop}) {
+  const hasItem = !!monitor.getItem();
+  var c = hasItem ? 'dragging ' : '';
+  if (isOver && canDrop) { return c + 'over'; }
+  if (isOver && !canDrop) { return c + 'reject'; }
+  return c;
 }
 
 @DropTarget(CALENDAR_ITEM, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
+  canDrop: monitor.canDrop(),
+  getClass: _.bind(getCellClass, {}, monitor),
+  isDragging: () => !!monitor.getItem()
 }))
 class FullCell extends Component {
   static propTypes = {
@@ -67,24 +71,23 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth, getClass, isDragging } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
-    return connectDropTarget(
-      <div className={`cell full ${getCellClass(this.props)}`}
-      style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
-      onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-        {_.map(cellItems, this.renderCellItem.bind(this))}
-      </div>
-    );
+    const html = <div className={`cell full ${getClass(this.props)}`}
+    style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
+    onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
+      {_.map(cellItems, this.renderCellItem.bind(this))}
+    </div>;
+    return isDragging ? connectDropTarget(html) : html;
   }
 }
-
-const DimensionedFullCell = Dimensions()(FullCell);
 
 @DropTarget(CALENDAR_ITEM, createTarget(30), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
-  canDrop: monitor.canDrop()
+  canDrop: monitor.canDrop(),
+  getClass: _.bind(getCellClass, {}, monitor),
+  isDragging: () => !!monitor.getItem()
 }))
 class HalfCell extends Component {
   static propTypes = {
@@ -95,10 +98,13 @@ class HalfCell extends Component {
     placeItem: PropTypes.func.isRequired
   };
   render () {
-    const { isOver, canDrop, connectDropTarget, side } = this.props;
-    return connectDropTarget(<div className={`cell half ${side} ${getCellClass(this.props)}`}></div>);
+    const { getClass, connectDropTarget, side, isDragging } = this.props;
+    const html = <div className={`cell half ${side} ${getClass(this.props)}`}></div>;
+    return isDragging ? connectDropTarget(html) : html;
   }
 }
+
+const DimensionedFullCell = Dimensions()(FullCell);
 
 export default class CalendarCell extends Component {
   static propTypes = {
