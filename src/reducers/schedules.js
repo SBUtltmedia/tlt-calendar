@@ -2,7 +2,7 @@ import { SET_LOCATION, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../cons
 import * as calendar from '../utils/calendar';
 
 const initialState = {
-  shifts: []
+  shifts: {}
 };
 
 export default function schedules(state=initialState, action) {

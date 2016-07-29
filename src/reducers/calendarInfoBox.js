@@ -5,7 +5,7 @@ const initialState = {
   data: null
 };
 
-export default function hourPreferences(state=initialState, action) {
+export default function calendarInfoBox(state=initialState, action) {
   switch (action.type) {
     case FILL_INFO_BOX: return {infoType: action.infoType, data: action.data};
     case CLEAR_INFO_BOX: return initialState;

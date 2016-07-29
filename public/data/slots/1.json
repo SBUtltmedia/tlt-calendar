@@ -1,4 +1,4 @@
 {
   "location": "Main Library",
-  "slots": [ "1hr", "2hr" ]
+  "slots": { "0": "1hr", "60": "2hr" }
 }

@@ -2,7 +2,7 @@ import { SET_LOCATION, RECEIVE_SLOTS, PLACE_ITEM, REMOVE_ITEM } from '../constan
 import * as calendar from '../utils/calendar';
 
 const initialState = {
-  slots: []
+  slots: {}
 };
 
 export default function slots(state=initialState, action) {

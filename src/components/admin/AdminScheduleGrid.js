@@ -14,7 +14,7 @@ function getComponentClass(item) {
 }
 
 const mapStateToProps = state => ({
-  items: state.schedule.shifts || [],
+  items: state.schedules.shifts || {},
   cellComponent: item => getComponentClass(item)(item)
 });
 
