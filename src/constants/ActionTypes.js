@@ -15,3 +15,4 @@ export const RECEIVE_EMPLOYEES = 'receive-employees';
 export const RECEIVE_LOCATIONS = 'receive-locations';
 export const CHANGE_SETTINGS = 'change-settings';
 export const GRAVATAR_LOAD_FAILED = 'gravatar-load-failed';
+export const LOGGED_OUT = 'logged-out';
