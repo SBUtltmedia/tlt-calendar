@@ -4,7 +4,7 @@ import CalendarIcon from './CalendarIcon';
 const imgSrc = require=('img/admin/X.png');
 
 const ViewComponent = ({value}) => (
-  <img src={imgSrc} />
+  <img src={imgSrc} style={{width: '100%', height: '100%'}} />
 );
 
 export default props => (
