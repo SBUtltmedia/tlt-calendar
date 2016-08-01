@@ -33,8 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
-    onMouseEnter: () => { if (coverage > 1) { console.log(coverage); } },  // TODO: This isn't a visual component!?!
-    onMouseLeave: () => { if (coverage > 1) { console.log(coverage); } },
+    renderPopover: coverage > 1 ? () => { return "POPOVER!!!" } } : undefined,
     ...stateProps,
     ...dispatchProps,
     ...ownProps

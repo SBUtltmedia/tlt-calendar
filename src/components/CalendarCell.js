@@ -51,24 +51,32 @@ class FullCell extends Component {
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
+    renderPopover: PropTypes.func,
     disabled: PropTypes.bool
   };
 
+  showPopover(contents) {
+
+  }
+
+  hidePopover() {
+    
+  }
+
   onMouseEnter(cellItems) {
-    const { onMouseEnter, fillInfoBox } = this.props;
+    const { renderPopover, fillInfoBox } = this.props;
     fillInfoBox({...this.props, cellItems});
-    if (onMouseEnter) {
-      onMouseEnter();
+    if (renderPopover) {
+      const popoverContents = renderPopover(cellItems);
+      this.showPopover(popoverContents);
     }
   }
 
   onMouseLeave() {
-    const { onMouseLeave, clearInfoBox } = this.props;
+    const { renderPopover, clearInfoBox } = this.props;
     clearInfoBox();
-    if (onMouseLeave) {
-      onMouseLeave();
+    if (renderPopover) {
+      this.hidePopover();
     }
   }
 
