@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import AdminScheduleGrid from '../components/admin/AdminScheduleGrid';
-import AdminScheduleBank from '../components/admin/AdminScheduleBank';
+import ScheduleGrid from '../components/ScheduleGrid';
+import ScheduleBank from '../components/ScheduleBank';
 import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './SchedulePage.scss';
@@ -27,9 +27,9 @@ class SchedulePage extends Component {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<h1>{loc ? loc.name : ''}</h1>
-			<AdminScheduleGrid disabled={!isAdmin} />
+			<ScheduleGrid disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><AdminScheduleBank disabled={!isAdmin} /></div>
+        <div className="bank"><ScheduleBank disabled={!isAdmin} /></div>
         <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>

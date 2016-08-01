@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import ReserveIcon from '../ReserveIcon';
-import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
+import ReserveIcon from './ReserveIcon';
+import EmployeeCalendarIcon from './EmployeeCalendarIcon';
 import _ from 'lodash';
-import CalendarGrid from '../CalendarGrid';
-import * as ScheduleActions from '../../actions/ScheduleActions';
-import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
-import { ADMIN_SCHEDULE_CELL } from '../../constants/InfoBoxTypes';
-import { RESERVED } from '../../constants/Constants';
+import CalendarGrid from './CalendarGrid';
+import * as ScheduleActions from '../actions/ScheduleActions';
+import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
+import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
+import { RESERVED } from '../constants/Constants';
 
 function getComponentClass(item) {
   return item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
