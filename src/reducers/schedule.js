@@ -8,7 +8,7 @@ const initialState = {
 export default function schedules(state=initialState, action) {
   switch (action.type) {
     case SET_LOCATION: return {...state, location: action.location};
-    case RECEIVE_SCHEDULE: return action.schedule;
+    case RECEIVE_SCHEDULE: return {...state, shifts: action.schedule};
     case PLACE_ITEM: return {...state, shifts: calendar.placeItem(state.shifts, action)};
     case REMOVE_ITEM: return {...state, shifts: calendar.removeItem(state.shifts, action)};
     default: return state;

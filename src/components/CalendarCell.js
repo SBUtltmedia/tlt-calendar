@@ -51,11 +51,25 @@ class FullCell extends Component {
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     disabled: PropTypes.bool
   };
 
-  fillInfoBox(cellItems) {
-    this.props.fillInfoBox({...this.props, cellItems});
+  onMouseEnter(cellItems) {
+    const { onMouseEnter, fillInfoBox } = this.props;
+    fillInfoBox({...this.props, cellItems});
+    if (onMouseEnter) {
+      onMouseEnter();
+    }
+  }
+
+  onMouseLeave() {
+    const { onMouseLeave, clearInfoBox } = this.props;
+    clearInfoBox();
+    if (onMouseLeave) {
+      onMouseLeave();
+    }
   }
 
   renderCellItem(item, i) {
@@ -75,7 +89,7 @@ class FullCell extends Component {
     const cellItems = getItemsInSlot(items, day, hour);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
-    onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
+    onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
       {_.map(cellItems, this.renderCellItem.bind(this))}
     </div>;
     return isDragging ? connectDropTarget(html) : html;

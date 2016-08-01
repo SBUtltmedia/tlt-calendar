@@ -14,11 +14,12 @@ function getComponentClass(item) {
 }
 
 const mapStateToProps = state => ({
-  items: state.schedules.shifts || {},
-  cellComponent: item => getComponentClass(item)(item)
+  items: state.schedule.shifts || {},
+  coverage: state.locations && state.schedule.location ? _.find(state.locations, loc => loc.id === state.schedule.location).coverage : 1,
+  cellComponent: item => getComponentClass(item)(item),
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   const scheduleActions = bindActionCreators(ScheduleActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
@@ -29,7 +30,19 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const {coverage} = stateProps;
+  return {
+    onMouseEnter: () => { if (coverage > 1) { console.log(coverage); } },  // TODO: This isn't a visual component!?!
+    onMouseLeave: () => { if (coverage > 1) { console.log(coverage); } },
+    ...stateProps,
+    ...dispatchProps,
+    ...ownProps
+  }
+};
+
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  mergeProps
 )(CalendarGrid);
