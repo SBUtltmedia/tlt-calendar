@@ -98,10 +98,14 @@ class FullCell extends Component {
   }
 
   onClick(cellItems) {
-    const {shouldShowPopover} = this.props;
-    if (shouldShowPopover && shouldShowPopover(cellItems)) {
+    if (this.shouldShowPopover(cellItems)) {
       this.setState({showPopover: true});
     }
+  }
+
+  shouldShowPopover(cellItems) {
+    const {popover, shouldShowPopover} = this.props;
+    return popover && (!shouldShowPopover || shouldShowPopover(cellItems));
   }
 
   renderCellItem(item, i) {
@@ -116,14 +120,29 @@ class FullCell extends Component {
     return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
   }
 
+  renderTicks(cellItems) {
+    return <svg className={`item ${styles.ticks}`} xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
+      <g>
+        <rect width='19' height='5' x="5" y="5" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="5" y="15" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="5" y="25" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="5" y="35" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="26" y="5" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="26" y="15" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="26" y="25" style={{fill:"#0F0"}} />
+        <rect width='19' height='5' x="26" y="35" style={{fill:"#0F0"}} />
+      </g>
+    </svg>;
+  }
+
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth, getClass, isDragging, popover } = this.props;
+    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onClick={this.onClick.bind(this, cellItems)}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
-      {_.map(cellItems, this.renderCellItem.bind(this))}
+      {this.shouldShowPopover(cellItems) ? this.renderTicks(cellItems) : _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}
     </div>;
     return isDragging ? connectDropTarget(html) : html;

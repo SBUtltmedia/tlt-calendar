@@ -10,24 +10,7 @@ import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED } from '../constants/Constants';
 import styles from './ScheduleGrid.scss';
 
-const Ticks = ({key}) => (
-  <svg className={`item ${styles.ticks}`} key={key} xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
-    <g>
-      <rect width='19' height='5' x="5" y="5" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="5" y="15" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="5" y="25" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="5" y="35" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="26" y="5" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="26" y="15" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="26" y="25" style={{fill:"#0F0"}} />
-      <rect width='19' height='5' x="26" y="35" style={{fill:"#0F0"}} />
-    </g>
-  </svg>
-);
-
-function getComponentClass(coverage, item) {
-  return item.value === RESERVED ? ReserveIcon : (coverage > 1 ? Ticks : EmployeeCalendarIcon);
-}
+const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 
 const popover = <div>
   Booo
@@ -38,7 +21,7 @@ const mapStateToProps = state => {
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
-    cellComponent: item => getComponentClass(coverage, item)(item)
+    cellComponent: item => getComponentClass(item)(item)
   };
 };
 
