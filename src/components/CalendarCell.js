@@ -64,6 +64,7 @@ class FullCell extends Component {
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
     popover: PropTypes.object,
+    shouldShowPopover: PropTypes.func,
     disabled: PropTypes.bool
   };
 
@@ -96,9 +97,9 @@ class FullCell extends Component {
     clearInfoBox();
   }
 
-  onClick() {
-    const { popover } = this.props;
-    if (popover) {
+  onClick(cellItems) {
+    const {shouldShowPopover} = this.props;
+    if (shouldShowPopover && shouldShowPopover(cellItems)) {
       this.setState({showPopover: true});
     }
   }
@@ -120,7 +121,7 @@ class FullCell extends Component {
     const cellItems = getItemsInSlot(items, day, hour);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
-    onClick={this.onClick.bind(this)}
+    onClick={this.onClick.bind(this, cellItems)}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
       {_.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}

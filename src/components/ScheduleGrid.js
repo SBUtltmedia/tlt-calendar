@@ -8,9 +8,10 @@ import * as ScheduleActions from '../actions/ScheduleActions';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED } from '../constants/Constants';
+import styles from './ScheduleGrid.scss';
 
 const Ticks = ({key}) => (
-  <svg key={key} xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
+  <svg className={`item ${styles.ticks}`} key={key} xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
       <rect width='19' height='5' x="5" y="5" style={{fill:"#0F0"}} />
       <rect width='19' height='5' x="5" y="15" style={{fill:"#0F0"}} />
@@ -24,8 +25,8 @@ const Ticks = ({key}) => (
   </svg>
 );
 
-function getComponentClass(item) {
-  return item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
+function getComponentClass(coverage, item) {
+  return item.value === RESERVED ? ReserveIcon : (coverage > 1 ? Ticks : EmployeeCalendarIcon);
 }
 
 const popover = <div>
@@ -37,7 +38,7 @@ const mapStateToProps = state => {
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
-    cellComponent: coverage > 1 ? Ticks : item => getComponentClass(item)(item)
+    cellComponent: item => getComponentClass(coverage, item)(item)
   };
 };
 
@@ -56,6 +57,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
     popover: coverage > 1 ? popover : undefined,
+    shouldShowPopover: cellItems => coverage && _.some(cellItems, item => item.value !== RESERVED),
     ...stateProps,
     ...dispatchProps,
     ...ownProps
