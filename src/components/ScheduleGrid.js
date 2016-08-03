@@ -13,6 +13,10 @@ function getComponentClass(item) {
   return item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 }
 
+const popover = <div style={{width: '2em', height: '10em', border: 'thin solid black', backgroundColor: 'white', borderRadius: '4px'}}>
+  Booo
+</div>;
+
 const mapStateToProps = state => ({
   items: state.schedule.shifts || {},
   coverage: state.locations && state.schedule.location ? _.find(state.locations, loc => loc.id === state.schedule.location).coverage : 1,
@@ -33,7 +37,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
-    renderPopover: coverage > 1 ? () => { return "POPOVER!!!" } } : undefined,
+    popover: coverage > 1 ? popover : undefined,
     ...stateProps,
     ...dispatchProps,
     ...ownProps

@@ -6,16 +6,6 @@ import _ from 'lodash';
 import { gravatarLoadFailed } from '../actions/EmployeesActions';
 import styles from './EmployeeIcon.scss';
 
-const DOMProperty = require('react/lib/ReactInjection').DOMProperty;
-DOMProperty.injectDOMPropertyConfig({
-  Properties: {
-    xmlns: DOMProperty.MUST_USE_ATTRIBUTE
-  },
-  isCustomAttribute: (attributeName) => {
-    return attributeName === 'xmlns';
-  }
-});
-
 function getGravatarIconUrl(email) {
   const hash = md5(email);
   return `https://www.gravatar.com/avatar/${hash}?d=404`;
