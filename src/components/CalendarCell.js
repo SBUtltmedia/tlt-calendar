@@ -3,6 +3,7 @@ import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
+import { Overlay } from 'react-bootstrap';
 import styles from './CalendarCell.scss';
 import Dimensions from 'react-dimensions';
 import { halfCssSize } from '../utils/style.js';
@@ -51,33 +52,36 @@ class FullCell extends Component {
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
-    renderPopover: PropTypes.func,
+    popover: PropTypes.object,
     disabled: PropTypes.bool
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPopover: false
+    }
+  }
 
   showPopover(contents) {
 
   }
 
   hidePopover() {
-    
+
   }
 
   onMouseEnter(cellItems) {
-    const { renderPopover, fillInfoBox } = this.props;
+    const { popover, fillInfoBox } = this.props;
     fillInfoBox({...this.props, cellItems});
-    if (renderPopover) {
-      const popoverContents = renderPopover(cellItems);
-      this.showPopover(popoverContents);
+    if (popover) {
+      this.setState({showPopover: true});
     }
   }
 
   onMouseLeave() {
-    const { renderPopover, clearInfoBox } = this.props;
+    const { popover, clearInfoBox } = this.props;
     clearInfoBox();
-    if (renderPopover) {
-      this.hidePopover();
-    }
   }
 
   renderCellItem(item, i) {
@@ -92,13 +96,24 @@ class FullCell extends Component {
     return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
   }
 
+  renderPopover() {
+    const {popover} = this.props;
+    return popover ?
+    <Overlay
+    show={this.state.showPopover}
+    container={this}>
+      {popover}
+    </Overlay> : '';
+  }
+
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth, getClass, isDragging } = this.props;
+    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth, getClass, isDragging, popover } = this.props;
     const cellItems = getItemsInSlot(items, day, hour);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
       {_.map(cellItems, this.renderCellItem.bind(this))}
+      {this.renderPopover()}
     </div>;
     return isDragging ? connectDropTarget(html) : html;
   }
