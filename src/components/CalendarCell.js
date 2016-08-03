@@ -1,4 +1,4 @@
-import { PropTypes, Component } from 'react';
+import { PropTypes, Component, createClass } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
@@ -9,6 +9,7 @@ import Dimensions from 'react-dimensions';
 import { halfCssSize } from '../utils/style.js';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 import { HALF_HOUR } from '../constants/Constants';
+import onClickOutside from 'react-onclickoutside';
 
 function createTarget(minute) {
   return {
@@ -32,6 +33,17 @@ function getCellClass(monitor, {isOver, canDrop}) {
   if (isOver && !canDrop) { return c + 'reject'; }
   return c;
 }
+
+const OverlayComponent = onClickOutside(createClass({
+  handleClickOutside: function(evt) {
+    console.log("DOBDOO");
+    this.props.handleClickOutside(evt);
+  },
+  render: function() {
+    const {show, container, popover} = this.props;
+    return <Overlay show={show} container={container}>{popover}</Overlay>;
+  }
+}));
 
 @DropTarget(CALENDAR_ITEM, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
@@ -63,25 +75,21 @@ class FullCell extends Component {
     }
   }
 
-  showPopover(contents) {
-
-  }
-
-  hidePopover() {
-
-  }
-
   onMouseEnter(cellItems) {
-    const { popover, fillInfoBox } = this.props;
+    const { fillInfoBox } = this.props;
     fillInfoBox({...this.props, cellItems});
-    if (popover) {
-      this.setState({showPopover: true});
-    }
   }
 
   onMouseLeave() {
-    const { popover, clearInfoBox } = this.props;
+    const { clearInfoBox } = this.props;
     clearInfoBox();
+  }
+
+  onClick() {
+    const { popover } = this.props;
+    if (popover) {
+      this.setState({showPopover: true});
+    }
   }
 
   renderCellItem(item, i) {
@@ -99,11 +107,13 @@ class FullCell extends Component {
   renderPopover() {
     const {popover} = this.props;
     return popover ?
-    <Overlay
+    <OverlayComponent
     show={this.state.showPopover}
+    popover={popover}
+    handleClickOutside={evt => this.setState({showPopover: false})}
     container={this}>
       {popover}
-    </Overlay> : '';
+    </OverlayComponent> : '';
   }
 
   render() {
@@ -111,6 +121,7 @@ class FullCell extends Component {
     const cellItems = getItemsInSlot(items, day, hour);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
+    onClick={this.onClick.bind(this)}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
       {_.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}
