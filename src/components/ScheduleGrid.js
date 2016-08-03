@@ -12,9 +12,11 @@ import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 
-const popover = <div>
-  Booo
-</div>;
+const popover = ({items}) => (
+  <div>
+    Booo
+  </div>
+);
 
 const mapStateToProps = state => {
   const coverage = state.locations && state.schedule.location ? _.find(state.locations, loc => loc.id === state.schedule.location).coverage : 1;
