@@ -36,12 +36,11 @@ function getCellClass(monitor, {isOver, canDrop}) {
 
 const OverlayComponent = onClickOutside(createClass({
   handleClickOutside: function(evt) {
-    console.log("DOBDOO");
     this.props.handleClickOutside(evt);
   },
   render: function() {
-    const {show, container, popover} = this.props;
-    return <Overlay show={show} container={container}>{popover}</Overlay>;
+    const {show, container, popover, containerWidth} = this.props;
+    return <div className='overlay' style={{height: `${containerWidth * 4 + 4}px`}}>{popover}</div>;
   }
 }));
 
@@ -75,6 +74,18 @@ class FullCell extends Component {
     }
   }
 
+  renderPopover() {
+    const {popover} = this.props;
+    return popover ?
+    <Overlay show={this.state.showPopover} container={this} placement='right'>
+      <OverlayComponent
+      {...this.props}
+      handleClickOutside={evt => this.setState({showPopover: false})}>
+        {popover}
+      </OverlayComponent>
+    </Overlay> : '';
+  }
+
   onMouseEnter(cellItems) {
     const { fillInfoBox } = this.props;
     fillInfoBox({...this.props, cellItems});
@@ -102,18 +113,6 @@ class FullCell extends Component {
     const position = duration === HALF_HOUR ? 'absolute' : '';
     const style = {marginLeft, overflow, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
     return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
-  }
-
-  renderPopover() {
-    const {popover} = this.props;
-    return popover ?
-    <OverlayComponent
-    show={this.state.showPopover}
-    popover={popover}
-    handleClickOutside={evt => this.setState({showPopover: false})}
-    container={this}>
-      {popover}
-    </OverlayComponent> : '';
   }
 
   render() {

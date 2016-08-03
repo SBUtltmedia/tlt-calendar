@@ -13,7 +13,7 @@ function getComponentClass(item) {
   return item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 }
 
-const popover = <div style={{width: '2em', height: '10em', border: 'thin solid black', backgroundColor: 'white', borderRadius: '4px'}}>
+const popover = <div>
   Booo
 </div>;
 
