@@ -45,7 +45,7 @@ const OverlayComponent = onClickOutside(createClass({
 }));
 
 const Tick = ({item, col, row, color}) => (
-  <rect width={'19'} height='5' x={col * 26} y={row * 5 + 5} style={{fill:color}} />
+  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 5 + 5} style={{fill:color}} />
 );
 
 const Ticks = ({items, onClick, max}) => {
@@ -54,8 +54,8 @@ const Ticks = ({items, onClick, max}) => {
   const rightItems = _.filter(items, item => item.minute === 30);
   return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
-      <rect width='25' height='50' x='0' y='0' style={{fill:'#FFF'}} onClick={() => onClick(leftItems)} />
-      <rect width='25' height='50' x='25' y='0' style={{fill:'#FFF'}} onClick={() => onClick(rightItems)} />
+      <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems)} />
+      <rect width='25' height='50' x='25' y='0' style={{fillOpacity:0}} onClick={() => onClick(rightItems)} />
       {_.map(leftItems, (item, i) => <Tick item={item} col={0} row={i} key={i} color={getTickColor(leftItems)} />)}
       {_.map(rightItems, (item, i) => <Tick item={item} col={1} row={i} key={i} color={getTickColor(rightItems)} />)}
     </g>
