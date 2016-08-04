@@ -62,13 +62,13 @@ export function minutePlus30Minutes(minute) {
 }
 
 export function minuteMinusXMinutes(minute, x) {
-  const newMinute = minute + x;
-  return newMinute > 60 ? newMinute - 60 : newMinute;
+  const newMinute = minute - x;
+  return newMinute < 0 ? 60 - newMinute : newMinute;
 }
 
 export function minutePlusXMinutes(minute, x) {
-  const newMinute = minute - x;
-  return newMinute < 0 ? 60 - newMinute : newMinute;
+  const newMinute = minute + x;
+  return newMinute >= 60 ? newMinute - 60 : newMinute;
 }
 
 export function dayHourPlus1Hour(day, hour) {

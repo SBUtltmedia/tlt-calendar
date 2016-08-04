@@ -36,7 +36,7 @@ describe('calendar', () => {
 
   it('gets items in a slot (granularity = HOUR)', () => {
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
-    const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
+    const item3 = {value: 3, day: 0, hour: 1, minute: 0, duration: HALF_HOUR};
     const items = {"30": item2, "60": item3};
     expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal([item2]);
     expect(getItemsInSlot(items, {day: 0, hour: 1})).to.deep.equal([item3]);
@@ -50,7 +50,7 @@ describe('calendar', () => {
       {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
       {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
     ];
-    expect(getItemsInSlot(items, {day: 0, hour: 1, baseGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 0, hour: 1, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
   });
 
   it('gets items in a slot (granularity = HALF_HOUR) 2', () => {
@@ -60,6 +60,6 @@ describe('calendar', () => {
     const expected = [
       {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
     ];
-    expect(getItemsInSlot(items, {day: 0, hour: 0, baseGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 0, hour: 0, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
   });
 });

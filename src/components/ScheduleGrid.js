@@ -23,7 +23,7 @@ const mapStateToProps = state => {
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
-    baseGranularity: HALF_HOUR,
+    defaultGranularity: HALF_HOUR,
     cellComponent: item => getComponentClass(item)(item)
   };
 };
@@ -43,7 +43,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
     popover: coverage > 1 ? popover : undefined,
-    shouldUseTicks: cellItems => coverage && _.some(cellItems, item => item.value !== RESERVED),
+    overrideMultiplesFn: cellItems => _.every(cellItems, item => item.value === RESERVED),  // every or some?
     ...stateProps,
     ...dispatchProps,
     ...ownProps

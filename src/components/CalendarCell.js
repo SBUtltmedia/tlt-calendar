@@ -82,8 +82,8 @@ class FullCell extends Component {
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
     popover: PropTypes.func,
-    baseGranularity: PropTypes.number,
-    shouldUseTicks: PropTypes.func,
+    defaultGranularity: PropTypes.number,
+    overrideMultiplesFn: PropTypes.func,
     disabled: PropTypes.bool
   };
 
@@ -116,11 +116,6 @@ class FullCell extends Component {
     clearInfoBox();
   }
 
-  shouldUseTicks(cellItems) {
-    const {popover, shouldUseTicks} = this.props;
-    return popover && (!shouldUseTicks || shouldUseTicks(cellItems));
-  }
-
   renderCellItem(item, i) {
     const {containerWidth, cellComponent, disabled} = this.props;
     const {minute, duration} = item;
@@ -134,14 +129,13 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, shouldUseTicks, baseGranularity } = this.props;
-    const granularityFn = cellItems => this.shouldUseTicks(cellItems) ? HALF_HOUR : baseGranularity;
-    const cellItems = getItemsInSlot(items, {day, hour, baseGranularity, granularityFn});
-    const useTicks = this.shouldUseTicks(cellItems);
+    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage,
+      overrideMultiplesFn, defaultGranularity } = this.props;
+    const cellItems = getItemsInSlot(items, {day, hour, defaultGranularity, overrideMultiplesFn});
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
-      {useTicks ?
+      {!_.isEmpty(cellItems) && _.isArray(cellItems[0]) ?
         <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}

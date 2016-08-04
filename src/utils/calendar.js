@@ -41,9 +41,14 @@ function getItemsWithinSlot(items, {day, hour}) {
   return _.filter([item1, item2]);  // filters out null and undefined
 }
 
-function chopToGranularity(items, slotStart, slotEnd, baseGranularity, granularityFn) {
+function chopToGranularity(items, slotStart, slotEnd, granularity) {
+  if (_.isEmpty(items)) {
+    return items;
+  }
+  if (_.isArray(items[0])) {
+    return _.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity));
+  }
   const choppedItems = _.flatten(_.map(items, item => {
-    const granularity = granularityFn ? granularityFn(items) : baseGranularity;
     if (item.duration > granularity) {
       const pieces = item.duration / granularity;
       return _.map(_.range(pieces), i => {
@@ -59,14 +64,15 @@ function chopToGranularity(items, slotStart, slotEnd, baseGranularity, granulari
 }
 
 /**
- * granularityFn: Takes the cell items and returns the granularity of the cell
- * (usually the base granularity, but this provides the ability to make exceptions)
+ * overrideMultiplesFn:
+ *   Takes a list of cell items as a parameter.
+ *   Returns a bool representing whether or not multiples behavior should be overridden.
  */
-export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granularityFn=undefined, maxDuration=HOUR}) {
-  if (baseGranularity === HOUR) {  // default is HOUR, so no chopping up needed
+export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overrideMultiplesFn=undefined, maxDuration=HOUR}) {
+  if (defaultGranularity === HOUR) {  // default is HOUR, so no chopping up needed
     return getItemsWithinSlot(items, {day, hour});
   }
-  else if (baseGranularity === HALF_HOUR) {
+  else if (defaultGranularity === HALF_HOUR) {
     const slotStart = {day, hour};
     const slotEnd = dayHourPlus1Hour(day, hour);
     const lookbackHours = Math.max(maxDuration / 60);
@@ -77,10 +83,11 @@ export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granular
     });
     const withinItems = getItemsWithinSlot(items, slotStart);
     const slotItems = [...beforeItemsInSlot, ...withinItems];
-    return _.isEmpty(slotItems) ? slotItems : chopToGranularity(slotItems, slotStart, slotEnd, baseGranularity, granularityFn);
+    const shouldChop = (!overrideMultiplesFn || !overrideMultiplesFn(slotItems));
+    return shouldChop ? chopToGranularity(slotItems, slotStart, slotEnd, defaultGranularity) : slotItems;
   }
   else {
-    throw new Error("Invalid baseGranularity: " + baseGranularity);
+    throw new Error("Invalid defaultGranularity: " + defaultGranularity);
   }
 }
 
