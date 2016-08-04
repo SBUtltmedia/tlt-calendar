@@ -19,7 +19,7 @@ const popover = ({items}) => (
 );
 
 const mapStateToProps = state => {
-  const coverage = state.locations && state.schedule.location ? _.find(state.locations, loc => loc.id === state.schedule.location).coverage : 1;
+  const coverage = state.schedule.location ? state.schedule.location.coverage : 1;
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,

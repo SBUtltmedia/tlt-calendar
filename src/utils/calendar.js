@@ -53,6 +53,6 @@ export function removeItem(items, {day, hour, minute, duration}) {
   return clearIndex(items, timeToKey(day, hour, minute), duration);
 }
 
-export function placeItem(items, {value, day, hour, minute, duration=HOUR}) {
+export function placeItem(items, {value, day, hour, minute, duration=HOUR}, maxItems=1) {
   return setItem(items, timeToKey(day, hour, minute), duration, {value, day, hour, minute, duration});
 }
