@@ -19,14 +19,6 @@ export function clearAllBetween(items, key1, key2) {
   return is;
 }
 
-// key may be (and usually is) a string (a key in the items object)
-export function setItem(items, key, duration, item) {
-  const is = _.clone(items);
-  is[key] = item;
-  const i = parseInt(key);
-  return clearAllBetween(is, i + 1, i + duration);
-}
-
 export function clearIndex(items, key, duration) {
   const i = parseInt(key);
   return clearAllBetween(items, i, i + duration);
@@ -96,6 +88,10 @@ export function removeItem(items, {day, hour, minute, duration}) {
   return clearIndex(items, timeToKey(day, hour, minute), duration);
 }
 
-export function placeItem(items, {value, day, hour, minute, duration=HOUR}, maxItems=1) {
-  return setItem(items, timeToKey(day, hour, minute), duration, {value, day, hour, minute, duration});
+export function placeItem(items, item, maxItems=1) {
+  const key = timeToKey(item.day, item.hour, item.minute);
+  const is = _.clone(items);
+  is[key] = item;
+  const i = parseInt(key);
+  return clearAllBetween(is, i + 1, i + item.duration);
 }

@@ -11,7 +11,15 @@ describe('calendar', () => {
     expect(timeToKey(1, 0, 0)).to.equal("1440");
   });
 
-  it('places an item', () => {
+  it('places an item (max = 1)', () => {
+    const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
+    const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
+    const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
+    expect(placeItem({}, item2)).to.deep.equal({"30": item2});
+    expect(placeItem({"30": item2, "60": item3}, item1)).to.deep.equal({"0": item1, "60": item3});
+  });
+
+  it('places an item (max = 2)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
     const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
@@ -38,15 +46,13 @@ describe('calendar', () => {
     const item2 = {value: 2, day: 0, hour: 1, minute: 30, duration: HOUR};
     const items = {"30": item1, "90": item2};
     const expected = [
-      {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR},
       {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
-      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR},
-      {value: 2, day: 0, hour: 2, minute: 0, duration: HALF_HOUR}
+      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 1, baseGranularity: HALF_HOUR})).to.deep.equal(expected);
   });
 
-  it.only('gets items in a slot (granularity = HALF_HOUR) 2', () => {
+  it('gets items in a slot (granularity = HALF_HOUR) 2', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 30, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 1, minute: 30, duration: HOUR};
     const items = {"30": item1, "90": item2};
