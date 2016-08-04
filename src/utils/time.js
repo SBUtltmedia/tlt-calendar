@@ -116,7 +116,7 @@ export function dayHourMinuteMinus30Minutes(day, hour, minute) {
 }
 
 export function dayHourMinutePlusXMinutes(day, hour, minute, x) {
-  const hours = x / 60;
+  const hours = Math.floor(x / 60);
   const minutes = x % 60;
   const newMinute = minutePlusXMinutes(minute, minutes);
   const newHour = newMinute < minute ? hourPlusX(hour, hours + 1) : hourPlusX(hour, hours);
@@ -128,7 +128,7 @@ export function dayHourMinutePlusXMinutes(day, hour, minute, x) {
 }
 
 export function dayHourMinuteMinusXMinutes(day, hour, minute, x) {
-  const hours = x / 60;
+  const hours = Math.floor(x / 60);
   const minutes = x % 60;
   const newMinute = minuteMinusXMinutes(minute, minutes);
   const newHour = newMinute > minute ? hourMinusX(hour, hours - 1) : hourMinusX(hour, hours);

@@ -40,10 +40,30 @@ export function getAllItemsThatStartBetween(items, start, end) {
   return _.filter(foundItems);  // filters out null and undefined
 }
 
+/**
+ * Gets items between slot start (specified by {day, hour}) and 1 hour from then
+ */
 function getItemsWithinSlot(items, {day, hour}) {
   const item1 = items[timeToKey(day, hour, 0)];
   const item2 = items[timeToKey(day, hour, 30)];
   return _.filter([item1, item2]);  // filters out null and undefined
+}
+
+function chopToGranularity(items, slotStart, slotEnd, baseGranularity, granularityFn) {
+  const choppedItems = _.flatten(_.map(items, item => {
+    const granularity = granularityFn ? granularityFn(items) : baseGranularity;
+    if (item.duration > granularity) {
+      const pieces = item.duration / granularity;
+      return _.map(_.range(pieces), i => {
+        const time = dayHourMinutePlusXMinutes(item.day, item.hour, item.minute, i * granularity);
+        return {...item, ...time, duration: granularity};
+      });
+    }
+    else {
+      return item;
+    }
+  }));
+  return _.filter(choppedItems, item => compareTimes(item, slotStart) >= 0 && compareTimes(item, slotEnd) < 0);
 }
 
 /**
@@ -51,7 +71,7 @@ function getItemsWithinSlot(items, {day, hour}) {
  * (usually the base granularity, but this provides the ability to make exceptions)
  */
 export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granularityFn=undefined, maxDuration=HOUR}) {
-  if (baseGranularity === HOUR) {
+  if (baseGranularity === HOUR) {  // default is HOUR, so no chopping up needed
     return getItemsWithinSlot(items, {day, hour});
   }
   else if (baseGranularity === HALF_HOUR) {
@@ -59,9 +79,12 @@ export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granular
     const slotEnd = dayHourPlus1Hour(day, hour);
     const lookbackHours = Math.max(maxDuration / 60);
     const beforeItems = getAllItemsThatStartBetween(items, dayHourMinusXHours(day, hour, lookbackHours), slotStart);
-    const beforeItemsInSlot = _.filter(beforeItems, item => compareTimes(item, slotStart) < 0);
-    const withinItems = getItemsWithinSlot(items, {day, hour});
-    return [...beforeItemsInSlot, ...withinItems];
+    const beforeItemsInSlot = _.filter(beforeItems, item => {
+      const itemEnd = dayHourMinutePlusXMinutes(item.day, item.hour, item.minute, item.duration);
+      return compareTimes(itemEnd, slotStart) > 0;
+    });
+    const withinItems = getItemsWithinSlot(items, slotStart);
+    return chopToGranularity([...beforeItemsInSlot, ...withinItems], slotStart, slotEnd, baseGranularity, granularityFn);
   }
   else {
     throw new Error("Invalid baseGranularity: " + baseGranularity);
