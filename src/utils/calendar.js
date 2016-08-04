@@ -93,5 +93,10 @@ export function placeItem(items, item, maxItems=1) {
   const is = _.clone(items);
   is[key] = item;
   const i = parseInt(key);
-  return clearAllBetween(is, i + 1, i + item.duration);
+  if (maxItems === 1) {
+    return clearAllBetween(is, i + 1, i + item.duration);
+  }
+  else {        // Otherwise don't clear anything. We won't choose what item to delete for them,
+    return is;  // instead we disable placing new items into a full slot inside the UI.
+  }
 }
