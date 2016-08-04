@@ -41,12 +41,24 @@ function getItemsWithinSlot(items, {day, hour}) {
   return _.filter([item1, item2]);  // filters out null and undefined
 }
 
+function putIntoBaskets(items) {
+  const baskets = {};
+  _.each(items, item => {
+    const key = timeToKey(item.day, item.hour, item.minute);
+    if (!baskets[key]) {
+      baskets[key] = [];
+    }
+    baskets[key].push(item);
+  });
+  return baskets;
+}
+
 function chopToGranularity(items, slotStart, slotEnd, granularity) {
   if (_.isEmpty(items)) {
     return items;
   }
   if (_.isArray(items[0])) {
-    return _.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity));
+    return _.values(putIntoBaskets(_.flatten(_.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity)))));
   }
   const choppedItems = _.flatten(_.map(items, item => {
     if (item.duration > granularity) {

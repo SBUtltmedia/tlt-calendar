@@ -50,8 +50,8 @@ const Tick = ({item, col, row, color}) => (
 
 const Ticks = ({items, onClick, max}) => {
   const getTickColor = items => _.size(items) >= max ? '#0F0' : '#F00';
-  const leftItems = _.filter(items, item => item.minute === 0);
-  const rightItems = _.filter(items, item => item.minute === 30);
+  const leftItems = items[0]; //_.filter(items, item => item.minute === 0);
+  const rightItems = items[1]; //_.filter(items, item => item.minute === 30);
   return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
       <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems)} />
