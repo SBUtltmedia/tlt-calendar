@@ -25,11 +25,19 @@ describe('calendar', () => {
     expect(removeItem(items, item2)).to.deep.equal({});
   });
 
-  it('gets items in a slot', () => {
+  it('gets items in a slot (granularity = HOUR)', () => {
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
     const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
     const items = {"30": item2, "60": item3};
-    expect(getItemsInSlot(items, 0, 0)).to.deep.equal([item2]);
-    expect(getItemsInSlot(items, 0, 1)).to.deep.equal([item3]);
+    expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal([item2]);
+    expect(getItemsInSlot(items, {day: 0, hour: 1})).to.deep.equal([item3]);
+  });
+
+  it('gets items in a slot (granularity = HALF_HOUR)', () => {
+    const item1 = {value: 1, day: 0, hour: 0, minute: 30, duration: HOUR};
+    const item2 = {value: 2, day: 0, hour: 1, minute: 30, duration: HOUR};
+    const items = {"30": item1, "90": item2};
+    expect(getItemsInSlot(items, {day: 0, hour: 1, baseGranularity: HALF_HOUR})).to.deep.equal([item1, item2]);
+    expect(getItemsInSlot(items, {day: 0, hour: 0, baseGranularity: HALF_HOUR})).to.deep.equal([item1]);
   });
 });

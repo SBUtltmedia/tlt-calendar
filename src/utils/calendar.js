@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
-import { dayHourMinutesPlus30Minutes, dayHourPlus1Hour } from '../utils/time';
+import { dayHourMinuteInMinutes, compareTimes, dayHourMinusXHours, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
+  dayHourMinutePlusXMinutes } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
 export function timeToKey(day, hour, minute) {
-  return String(day * 1440 + hour * 60 + minute);
+  return String(dayHourMinuteInMinutes(day, hour, minute));
 }
 
 // key1 and key2 are integers here
@@ -31,21 +32,39 @@ export function clearIndex(items, key, duration) {
   return clearAllBetween(items, i, i + duration);
 }
 
-export function getItemsInSlot(items, day, hour) {
+export function getAllItemsThatStartBetween(items, start, end) {
+  let foundItems = [];
+  for (let t = start; t.day <= end.day && t.hour <= end.hour; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
+    foundItems.push(items[timeToKey(t.day, t.hour, 0)]);
+  }
+  return _.filter(foundItems);  // filters out null and undefined
+}
+
+function getItemsWithinSlot(items, {day, hour}) {
   const item1 = items[timeToKey(day, hour, 0)];
   const item2 = items[timeToKey(day, hour, 30)];
-  if (item1 && item2) {
-    if (_.isEqual(item1.value, item2.value)) {
-        return [item1];
-    } else {
-      return [item1, item2];
-    }
-  } else if (item1) {
-    return [item1];
-  } else if (item2) {
-    return [item2];
-  } else {
-    return [];
+  return _.filter([item1, item2]);  // filters out null and undefined
+}
+
+/**
+ * granularityFn: Takes the cell items and returns the granularity of the cell
+ * (usually the base granularity, but this provides the ability to make exceptions)
+ */
+export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granularityFn=undefined, maxDuration=HOUR}) {
+  if (baseGranularity === HOUR) {
+    return getItemsWithinSlot(items, {day, hour});
+  }
+  else if (baseGranularity === HALF_HOUR) {
+    const slotStart = {day, hour};
+    const slotEnd = dayHourPlus1Hour(day, hour);
+    const lookbackHours = Math.max(maxDuration / 60);
+    const beforeItems = getAllItemsThatStartBetween(items, dayHourMinusXHours(day, hour, lookbackHours), slotStart);
+    const beforeItemsInSlot = _.filter(beforeItems, item => compareTimes(item, slotStart) < 0);
+    const withinItems = getItemsWithinSlot(items, {day, hour});
+    return [...beforeItemsInSlot, ...withinItems];
+  }
+  else {
+    throw new Error("Invalid baseGranularity: " + baseGranularity);
   }
 }
 

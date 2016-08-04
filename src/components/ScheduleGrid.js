@@ -7,7 +7,7 @@ import CalendarGrid from './CalendarGrid';
 import * as ScheduleActions from '../actions/ScheduleActions';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
-import { RESERVED } from '../constants/Constants';
+import { RESERVED, HALF_HOUR } from '../constants/Constants';
 import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
@@ -23,6 +23,7 @@ const mapStateToProps = state => {
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
+    baseGranularity: HALF_HOUR,
     cellComponent: item => getComponentClass(item)(item)
   };
 };
@@ -42,7 +43,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
     popover: coverage > 1 ? popover : undefined,
-    shouldShowPopover: cellItems => coverage && _.some(cellItems, item => item.value !== RESERVED),
+    shouldUseTicks: cellItems => coverage && _.some(cellItems, item => item.value !== RESERVED),
     ...stateProps,
     ...dispatchProps,
     ...ownProps

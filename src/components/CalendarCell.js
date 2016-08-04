@@ -8,7 +8,7 @@ import styles from './CalendarCell.scss';
 import Dimensions from 'react-dimensions';
 import { halfCssSize } from '../utils/style.js';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
-import { HALF_HOUR } from '../constants/Constants';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
 import onClickOutside from 'react-onclickoutside';
 
 function createTarget(minute) {
@@ -82,7 +82,8 @@ class FullCell extends Component {
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
     popover: PropTypes.func,
-    shouldShowPopover: PropTypes.func,
+    baseGranularity: PropTypes.number,
+    shouldUseTicks: PropTypes.func,
     disabled: PropTypes.bool
   };
 
@@ -115,9 +116,9 @@ class FullCell extends Component {
     clearInfoBox();
   }
 
-  shouldShowPopover(cellItems) {
-    const {popover, shouldShowPopover} = this.props;
-    return popover && (!shouldShowPopover || shouldShowPopover(cellItems));
+  shouldUseTicks(cellItems) {
+    const {popover, shouldUseTicks} = this.props;
+    return popover && (!shouldUseTicks || shouldUseTicks(cellItems));
   }
 
   renderCellItem(item, i) {
@@ -133,12 +134,14 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage } = this.props;
-    const cellItems = getItemsInSlot(items, day, hour);
+    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, shouldUseTicks, baseGranularity } = this.props;
+    const useTicks = this.shouldUseTicks(cellItems);
+    const granularityFn = cellItems => this.shouldUseTicks(cellItems) ? HALF_HOUR : baseGranularity;
+    const cellItems = getItemsInSlot(items, {day, hour, baseGranularity, granularityFn});
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
-      {this.shouldShowPopover(cellItems) ?
+      {useTicks ?
         <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}
