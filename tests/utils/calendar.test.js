@@ -24,8 +24,8 @@ describe('calendar', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
     const item3 = {value: 3, day: 0, hour: 0, minute: 60, duration: HALF_HOUR};
-    expect(placeItem({}, item2, MAX)).to.deep.equal({"30": item2});
-    expect(placeItem({"30": item2, "60": item3}, item1, MAX)).to.deep.equal({"0": item1, "30": item2, "60": item3});
+    expect(placeItem({}, item2, MAX)).to.deep.equal({"30": [item2]});
+    expect(placeItem({"30": [item2], "60": [item3]}, item1, MAX)).to.deep.equal({"0": [item1], "30": [item2], "60": [item3]});
   });
 
   it('removes an item', () => {

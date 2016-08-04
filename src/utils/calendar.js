@@ -91,12 +91,17 @@ export function removeItem(items, {day, hour, minute, duration}) {
 export function placeItem(items, item, maxItems=1) {
   const key = timeToKey(item.day, item.hour, item.minute);
   const is = _.clone(items);
-  is[key] = item;
+  const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
   const i = parseInt(key);
   if (maxItems === 1) {
-    return clearAllBetween(is, i + 1, i + item.duration);
+    is[key] = strippedItem;                                // Replace previous item if it exists
+    return clearAllBetween(is, i + 1, i + item.duration);  // Clear any previous items that would overlap
   }
-  else {        // Otherwise don't clear anything. We won't choose what item to delete for them,
-    return is;  // instead we disable placing new items into a full slot inside the UI.
+  else {
+    if (!is[key]) {  // If maxItems > 1 then we don't clear anything.
+      is[key] = [];  // We won't choose what item to delete for them,
+    }                // instead we disable placing new items into a full slot inside the UI.
+    is[key].push(strippedItem);
+    return is;
   }
 }
