@@ -35,7 +35,7 @@ export function clearIndex(items, key, duration) {
 export function getAllItemsThatStartBetween(items, start, end) {
   let foundItems = [];
   for (let t = start; t.day <= end.day && t.hour <= end.hour; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
-    foundItems.push(items[timeToKey(t.day, t.hour, 0)]);
+    foundItems.push(items[timeToKey(t.day, t.hour, t.minute)]);
   }
   return _.filter(foundItems);  // filters out null and undefined
 }
