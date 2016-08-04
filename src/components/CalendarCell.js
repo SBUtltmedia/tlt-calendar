@@ -45,7 +45,7 @@ const OverlayComponent = onClickOutside(createClass({
 }));
 
 const Tick = ({item, col, row, color}) => (
-  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 5 + 5} style={{fill:color}} />
+  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 10 + 5} style={{fill:color}} />
 );
 
 const Ticks = ({items, onClick, max}) => {
