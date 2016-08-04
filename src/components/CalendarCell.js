@@ -135,9 +135,9 @@ class FullCell extends Component {
 
   render() {
     const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, shouldUseTicks, baseGranularity } = this.props;
-    const useTicks = this.shouldUseTicks(cellItems);
     const granularityFn = cellItems => this.shouldUseTicks(cellItems) ? HALF_HOUR : baseGranularity;
     const cellItems = getItemsInSlot(items, {day, hour, baseGranularity, granularityFn});
+    const useTicks = this.shouldUseTicks(cellItems);
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>

@@ -84,7 +84,8 @@ export function getItemsInSlot(items, {day, hour, baseGranularity=HOUR, granular
       return compareTimes(itemEnd, slotStart) > 0;
     });
     const withinItems = getItemsWithinSlot(items, slotStart);
-    return chopToGranularity([...beforeItemsInSlot, ...withinItems], slotStart, slotEnd, baseGranularity, granularityFn);
+    const slotItems = [...beforeItemsInSlot, ...withinItems];
+    return _.isEmpty(slotItems) ? slotItems : chopToGranularity(slotItems, slotStart, slotEnd, baseGranularity, granularityFn);
   }
   else {
     throw new Error("Invalid baseGranularity: " + baseGranularity);
