@@ -1,15 +1,15 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import ReserveIcon from '../ReserveIcon';
-import EmployeeCalendarIcon from '../EmployeeCalendarIcon';
-import styles from './AdminScheduleBank.scss';
+import ReserveIcon from './ReserveIcon';
+import EmployeeCalendarIcon from './EmployeeCalendarIcon';
+import styles from './ScheduleBank.scss';
 import Dimensions from 'react-dimensions';
 
 const ICON_MARGIN = 3;
 const WHOLE_COLS = 7;
 const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
-class AdminScheduleBank extends Component {
+class ScheduleBank extends Component {
 	render() {
 		const {containerWidth, employees, disabled} = this.props;
     const iconSize = Math.round((containerWidth - ((COLS - 1) * ICON_MARGIN * 2)) / COLS);
@@ -34,4 +34,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {}
-)(Dimensions()(AdminScheduleBank));
+)(Dimensions()(ScheduleBank));

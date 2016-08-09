@@ -4,6 +4,7 @@
   "description": "A calendar for TLT employee hours",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
+    "test:debug": "node-inspector -p 5000 && mocha --compilers js:babel-core/register --debug-brk --watch tests/**/*.test.js",
     "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./"
   },
   "repository": {
@@ -26,12 +27,14 @@
     "js-md5": "^0.4.1",
     "lodash": "^4.13.1",
     "npm": "^3.10.5",
-    "react": "^15.2.1",
+    "react": "^15.3.0",
+    "react-bootstrap": "^0.30.1",
     "react-dimensions": "^1.3.0",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
-    "react-dom": "^15.2.1",
+    "react-dom": "^15.3.0",
     "react-motion": "^0.4.4",
+    "react-onclickoutside": "^5.3.3",
     "react-redux": "^4.4.5",
     "react-reorder": "^2.0.0",
     "react-router": "^2.5.2",
@@ -55,7 +58,6 @@
     "file-loader": "^0.8.5",
     "mocha": "^2.5.3",
     "node-sass": "^3.7.0",
-    "react-dom": "^15.1.0",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

@@ -1,4 +1,5 @@
 @import '../style/colors';
+@import '../style/dimens';
 
 :local(.container) {
   width: 100%;
@@ -55,5 +56,17 @@
   .cell.reject {
     background-color: $reject-color;
     cursor: no-drop;
+  }
+
+  .ticks {
+    cursor: pointer;
+  }
+
+  .overlay {
+    border: thin solid #777;
+    background-color: #EEE;
+    border-radius: $border-radius;
+    z-index: 10;
+    position: relative;
   }
 }

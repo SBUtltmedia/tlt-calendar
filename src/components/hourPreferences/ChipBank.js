@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {getNumOpenChipSets} from '../../utils/hourPreferences';
 import Chip from './Chip';
 import { RANKS } from '../../constants/Settings';
+import {HALF_HOUR, HOUR} from '../../constants/Constants';
 import _ from 'lodash';
 import styles from './ChipBank.scss';
 import { isValueAvailable } from '../../utils/hourPreferences';
@@ -27,14 +28,14 @@ class ChipBank extends Component {
 
     return <div className={styles.container}>
       <div className="scroll-area">
-        <Motion style={{x: spring(getConveyorBeltX(numOpenSets), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
+        <Motion style={{x: spring(getConveyorBeltX(), {stiffness: CONVEYOR_BELT_STIFFNESS})}}>
           {({x}) =>
             <div style={{marginLeft: -x}}>
               {_.map(RANKS, rank =>
                 <div className="bank-row" key={rank}>
                  {_.map(_.range(numOpenSets + WHOLE_COLS), col =>
                    <div key={col} style={{margin: CHIP_MARGIN}}>
-                      <Chip size={chipSize} value={rank}
+                      <Chip size={chipSize} value={rank} duration={HOUR}
                       disabled={disabled || col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} />
                    </div>)}
                 </div>

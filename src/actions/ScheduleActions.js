@@ -27,9 +27,7 @@ export function removeItem(item) {
   return _.assign({}, item, {type: REMOVE_ITEM});
 }
 
-export function setLocation(location) {
-  return {
-    type: SET_LOCATION,
-    location: location
-  };
-}
+export const setLocation = location => (dispatch, getState) => dispatch({
+  type: SET_LOCATION,
+  location: _.find(getState().locations, loc => loc.id === location)
+});

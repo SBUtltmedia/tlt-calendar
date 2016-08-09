@@ -1,13 +1,15 @@
-import { PropTypes, Component } from 'react';
+import { PropTypes, Component, createClass } from 'react';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
 import { dayMinus1, hourMinus1 } from '../utils/time';
+import { Overlay } from 'react-bootstrap';
 import styles from './CalendarCell.scss';
 import Dimensions from 'react-dimensions';
 import { halfCssSize } from '../utils/style.js';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
-import { HALF_HOUR } from '../constants/Constants';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
+import onClickOutside from 'react-onclickoutside';
 
 function createTarget(minute) {
   return {
@@ -32,6 +34,34 @@ function getCellClass(monitor, {isOver, canDrop}) {
   return c;
 }
 
+const OverlayComponent = onClickOutside(createClass({
+  handleClickOutside: function(evt) {
+    this.props.handleClickOutside(evt);
+  },
+  render: function() {
+    const {show, container, popover, containerWidth} = this.props;
+    return <div className='overlay' style={{height: `${containerWidth * 4 + 4}px`}}>{popover}</div>;
+  }
+}));
+
+const Tick = ({col, row, color}) => (
+  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 10 + 5} style={{fill:color}} />
+);
+
+const Ticks = ({items, onClick, max}) => {
+  const getTickColor = items => _.size(items) >= max ? '#0F0' : '#F00';
+  const leftItems = _.isEmpty(items[0]) ? [] : items[0].value;
+  const rightItems = _.isEmpty(items[1]) ? [] : items[1].value;
+  return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
+    <g>
+      <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems)} />
+      <rect width='25' height='50' x='25' y='0' style={{fillOpacity:0}} onClick={() => onClick(rightItems)} />
+      {_.map(leftItems, (item, i) => <Tick col={0} row={i} key={i} color={getTickColor(leftItems)} />)}
+      {_.map(rightItems, (item, i) => <Tick col={1} row={i} key={i} color={getTickColor(rightItems)} />)}
+    </g>
+  </svg>;
+};
+
 @DropTarget(CALENDAR_ITEM, createTarget(0), (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
@@ -51,11 +81,39 @@ class FullCell extends Component {
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
     items: PropTypes.object.isRequired,
+    popover: PropTypes.func,
+    defaultGranularity: PropTypes.number,
+    overrideMultiplesFn: PropTypes.func,
     disabled: PropTypes.bool
   };
 
-  fillInfoBox(cellItems) {
-    this.props.fillInfoBox({...this.props, cellItems});
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPopover: false
+    }
+  }
+
+  renderPopover() {
+    const {popover} = this.props;
+    return popover ?
+    <Overlay show={this.state.showPopover} container={this} placement='right'>
+      <OverlayComponent
+      {...this.props}
+      handleClickOutside={evt => this.setState({showPopover: false})}>
+        {popover({items: this.state.popoverItems})}
+      </OverlayComponent>
+    </Overlay> : '';
+  }
+
+  onMouseEnter(cellItems) {
+    const { fillInfoBox } = this.props;
+    fillInfoBox({...this.props, cellItems});
+  }
+
+  onMouseLeave() {
+    const { clearInfoBox } = this.props;
+    clearInfoBox();
   }
 
   renderCellItem(item, i) {
@@ -71,12 +129,16 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, cellComponent, day, hour, items, clearInfoBox, disabled, containerWidth, getClass, isDragging } = this.props;
-    const cellItems = getItemsInSlot(items, day, hour);
+    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage,
+      overrideMultiplesFn, defaultGranularity } = this.props;
+    const cellItems = getItemsInSlot(items, {day, hour, defaultGranularity, overrideMultiplesFn});
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
-    onMouseEnter={this.fillInfoBox.bind(this, cellItems)} onMouseLeave={clearInfoBox}>
-      {_.map(cellItems, this.renderCellItem.bind(this))}
+    onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
+      {!_.isEmpty(cellItems) && _.isArray(cellItems[0].value) ?
+        <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
+        _.map(cellItems, this.renderCellItem.bind(this))}
+      {this.renderPopover()}
     </div>;
     return isDragging ? connectDropTarget(html) : html;
   }
