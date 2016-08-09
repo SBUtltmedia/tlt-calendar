@@ -63,12 +63,6 @@ function putIntoBaskets(items) {
  * Takes an array of items (no object keys) and returns an array of items chopped according to the given granularity
  */
 export function chopToGranularity(items, slotStart, slotEnd, granularity) {
-  if (_.isEmpty(items)) {
-    return items;
-  }
-  if (_.isArray(items[0].value)) {  // TODO: We need a more robust check if we have mixed multiples and non-multiples
-    return _.values(putIntoBaskets(_.flatten(_.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity)))));
-  }
   const choppedItems = _.flatten(_.map(items, item => {
     if (item.duration > granularity) {
       const pieces = item.duration / granularity;
@@ -133,9 +127,9 @@ export function placeItem(items, item, {maxItems=1, overrideMultiplesFn=undefine
     is[key] = strippedItem;
   }
   else {
-    if (!is[key]) {                            // If maxItems > 1 then we don't clear anything.
-      is[key] = {...strippedItem, value:[]};   // We won't choose what item to delete for them,
-    }                                          // instead we disable placing new items into a full slot inside the UI.
+    if (!is[key] || !_.isArray(is[key].value)) {  // If maxItems > 1 then we don't clear anything.
+      is[key] = {...strippedItem, value:[]};      // We won't choose what item to delete for them,
+    }                                             // instead we disable placing items into a full slot inside the UI.
     is[key].value.push(strippedItem.value);
   }
   return is;
