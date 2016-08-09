@@ -2,26 +2,30 @@ import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
 import { dayHourMinuteInMinutes, compareTimes, dayHourMinusXHours, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
-  dayHourMinutePlusXMinutes } from '../utils/time';
+  dayHourMinutePlusXMinutes, getItemEndTime } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
-export function timeToKey(day, hour, minute) {
-  return String(dayHourMinuteInMinutes(day, hour, minute));
+function timeToKeyInt(day, hour, minute) {
+  return dayHourMinuteInMinutes(day, hour, minute);
 }
 
-// key1 and key2 are integers here
-export function clearAllBetween(items, key1, key2) {
-  const is = _.clone(items);
+export function timeToKey(day, hour, minute) {
+  return String(timeToKeyInt(day, hour, minute));
+}
+
+export function clearAllBetween(items, time1, time2) {
+  let is = _.clone(items);
+  const key1 = timeToKeyInt(time1);
+  const key2 = timeToKeyInt(time2);
   for (let i = roundUpToNearest(key1, MINIMUM_ITEM_DURATION); i < key2; i += MINIMUM_ITEM_DURATION) {
+    const item = is[String(i)];
     delete is[String(i)];
+    if (compareTimes(getItemEndTime(item), key2) > 0) {                             // if this item goes beyond the end
+      is = placeItem(is, {...item, ...time2, duration: compareTimes(item, time2)})  // replace with a new shorter item
+    }
   }
   return is;
-}
-
-export function clearIndex(items, key, duration) {
-  const i = parseInt(key);
-  return clearAllBetween(items, i, i + duration);
 }
 
 export function getAllItemsThatStartBetween(items, start, end) {
@@ -53,11 +57,14 @@ function putIntoBaskets(items) {
   return baskets;
 }
 
-function chopToGranularity(items, slotStart, slotEnd, granularity) {
+/**
+ * Takes an array of items (no object keys) and returns an array of items chopped according to the given granularity
+ */
+export function chopToGranularity(items, slotStart, slotEnd, granularity) {
   if (_.isEmpty(items)) {
     return items;
   }
-  if (_.isArray(items[0])) {
+  if (_.isArray(items[0])) {  // TODO: We need a more robust check if we have mixed multiples and non-multiples
     return _.values(putIntoBaskets(_.flatten(_.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity)))));
   }
   const choppedItems = _.flatten(_.map(items, item => {
@@ -89,10 +96,7 @@ export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overr
     const slotEnd = dayHourPlus1Hour(day, hour);
     const lookbackHours = Math.max(maxDuration / 60);
     const beforeItems = getAllItemsThatStartBetween(items, dayHourMinusXHours(day, hour, lookbackHours), slotStart);
-    const beforeItemsInSlot = _.filter(beforeItems, item => {
-      const itemEnd = dayHourMinutePlusXMinutes(item.day, item.hour, item.minute, item.duration);
-      return compareTimes(itemEnd, slotStart) > 0;
-    });
+    const beforeItemsInSlot = _.filter(beforeItems, item => compareTimes(getItemEndTime(item), slotStart) > 0);
     const withinItems = getItemsWithinSlot(items, slotStart);
     const slotItems = [...beforeItemsInSlot, ...withinItems];
     const shouldChop = (!overrideMultiplesFn || !overrideMultiplesFn(slotItems));
@@ -103,18 +107,30 @@ export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overr
   }
 }
 
-export function removeItem(items, {day, hour, minute, duration}) {
-  return clearIndex(items, timeToKey(day, hour, minute), duration);
+export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
+  const is = _.clone(items);
+  const key = timeToKey(day, hour, minute);
+  if (_.isArray(is[key])) {  // If this slot contains multiple items
+    if (value) {
+      is[key] = _.filter(is[key], item => !_.isEqual(item.value, value));
+    }
+    else {
+      is[key] = [];  // Remove all items in this slot if no specific value was specified
+    }
+  }
+  else {
+    delete is[key];
+  }
+  return is;
 }
 
-export function placeItem(items, item, maxItems=1) {
-  const key = timeToKey(item.day, item.hour, item.minute);
+export function placeItem(items, item, {maxItems=1, overrideMultiplesFn=undefined}={}) {
   const is = _.clone(items);
+  const key = timeToKey(item.day, item.hour, item.minute);
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
-  const i = parseInt(key);
-  if (maxItems === 1) {
-    is[key] = strippedItem;                                // Replace previous item if it exists
-    return clearAllBetween(is, i + 1, i + item.duration);  // Clear any previous items that would overlap
+  if (maxItems === 1 || (overrideMultiplesFn && overrideMultiplesFn([item]))) {
+    is[key] = strippedItem;  // Replace previous item if it exists
+    return clearAllBetween(is, dayHourMinutePlusXMinutes(item.day, item.hour, item.minute, 1), getItemEndTime(item));
   }
   else {
     if (!is[key]) {  // If maxItems > 1 then we don't clear anything.

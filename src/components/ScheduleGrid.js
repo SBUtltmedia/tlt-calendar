@@ -8,6 +8,7 @@ import * as ScheduleActions from '../actions/ScheduleActions';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED, HALF_HOUR } from '../constants/Constants';
+import { overrideMultiplesFn } from '../utils/schedule';
 import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
@@ -43,7 +44,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
     popover: coverage > 1 ? popover : undefined,
-    overrideMultiplesFn: cellItems => _.every(cellItems, item => item.value === RESERVED),  // every or some?
+    overrideMultiplesFn: overrideMultiplesFn,
     ...stateProps,
     ...dispatchProps,
     ...ownProps

@@ -138,3 +138,7 @@ export function dayHourMinuteMinusXMinutes(day, hour, minute, x) {
     minute: newMinute
   };
 }
+
+export function getItemEndTime({day, hour, minute, duration}) {
+  return dayHourMinutePlusXMinutes(day, hour, minute, duration);
+}
