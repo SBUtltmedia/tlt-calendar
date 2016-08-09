@@ -135,7 +135,7 @@ class FullCell extends Component {
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
-      {!_.isEmpty(cellItems) && _.isArray(cellItems[0]) ?
+      {!_.isEmpty(cellItems) && _.isArray(cellItems[0].value) ?
         <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}

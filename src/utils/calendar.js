@@ -6,12 +6,12 @@ import { dayHourMinuteInMinutes, compareTimes, dayHourMinusXHours, dayHourPlus1H
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
-function timeToKeyInt(day, hour, minute) {
+function timeToKeyInt({day, hour, minute}) {
   return dayHourMinuteInMinutes(day, hour, minute);
 }
 
-export function timeToKey(day, hour, minute) {
-  return String(timeToKeyInt(day, hour, minute));
+export function timeToKey(time) {
+  return String(timeToKeyInt(time));
 }
 
 export function clearAllBetween(items, time1, time2) {
@@ -20,9 +20,11 @@ export function clearAllBetween(items, time1, time2) {
   const key2 = timeToKeyInt(time2);
   for (let i = roundUpToNearest(key1, MINIMUM_ITEM_DURATION); i < key2; i += MINIMUM_ITEM_DURATION) {
     const item = is[String(i)];
-    delete is[String(i)];
-    if (compareTimes(getItemEndTime(item), key2) > 0) {                             // if this item goes beyond the end
-      is = placeItem(is, {...item, ...time2, duration: compareTimes(item, time2)})  // replace with a new shorter item
+    if (item) {
+      delete is[String(i)];
+      if (compareTimes(getItemEndTime(item), time2) > 0) {                             // if this item goes beyond the end
+        is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});  // replace with a new shorter item
+      }
     }
   }
   return is;
@@ -31,7 +33,7 @@ export function clearAllBetween(items, time1, time2) {
 export function getAllItemsThatStartBetween(items, start, end) {
   let foundItems = [];
   for (let t = start; compareTimes(t, end) < 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
-    foundItems.push(items[timeToKey(t.day, t.hour, t.minute)]);
+    foundItems.push(items[timeToKey(t)]);
   }
   return _.filter(foundItems);  // filters out null and undefined
 }
@@ -40,15 +42,15 @@ export function getAllItemsThatStartBetween(items, start, end) {
  * Gets items between slot start (specified by {day, hour}) and 1 hour from then
  */
 function getItemsWithinSlot(items, {day, hour}) {
-  const item1 = items[timeToKey(day, hour, 0)];
-  const item2 = items[timeToKey(day, hour, 30)];
+  const item1 = items[timeToKey({day, hour, minute: 0})];
+  const item2 = items[timeToKey({day, hour, minute: 30})];
   return _.filter([item1, item2]);  // filters out null and undefined
 }
 
 function putIntoBaskets(items) {
   const baskets = {};
   _.each(items, item => {
-    const key = timeToKey(item.day, item.hour, item.minute);
+    const key = timeToKey(item);
     if (!baskets[key]) {
       baskets[key] = [];
     }
@@ -64,7 +66,7 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
   if (_.isEmpty(items)) {
     return items;
   }
-  if (_.isArray(items[0])) {  // TODO: We need a more robust check if we have mixed multiples and non-multiples
+  if (_.isArray(items[0].value)) {  // TODO: We need a more robust check if we have mixed multiples and non-multiples
     return _.values(putIntoBaskets(_.flatten(_.map(items, item => chopToGranularity(item, slotStart, slotEnd, granularity)))));
   }
   const choppedItems = _.flatten(_.map(items, item => {
@@ -109,34 +111,32 @@ export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overr
 
 export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
   const is = _.clone(items);
-  const key = timeToKey(day, hour, minute);
-  if (_.isArray(is[key])) {  // If this slot contains multiple items
-    if (value) {
-      is[key] = _.filter(is[key], item => !_.isEqual(item.value, value));
-    }
-    else {
-      is[key] = [];  // Remove all items in this slot if no specific value was specified
+  const key = timeToKey({day, hour, minute});
+  if (value && _.isArray(is[key].value)) {  // If value was specified and this slot contains multiple values
+    is[key].value = _.reject(is[key].value, v => _.isEqual(v, value));  // filter out the specified value
+    if (_.isEmpty(is[key].value)) {
+      delete is[key];  // delete the entire item if there are no more values inside
     }
   }
-  else {
+  else {  // If no value was specified or the slot contains a single item just delete the whole item
     delete is[key];
   }
   return is;
 }
 
 export function placeItem(items, item, {maxItems=1, overrideMultiplesFn=undefined}={}) {
-  const is = _.clone(items);
-  const key = timeToKey(item.day, item.hour, item.minute);
+  let is = _.clone(items);
+  const key = timeToKey(item);
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
   if (maxItems === 1 || (overrideMultiplesFn && overrideMultiplesFn([item]))) {
-    is[key] = strippedItem;  // Replace previous item if it exists
-    return clearAllBetween(is, dayHourMinutePlusXMinutes(item.day, item.hour, item.minute, 1), getItemEndTime(item));
+    is = clearAllBetween(is, item, getItemEndTime(item));
+    is[key] = strippedItem;
   }
   else {
-    if (!is[key]) {  // If maxItems > 1 then we don't clear anything.
-      is[key] = [];  // We won't choose what item to delete for them,
-    }                // instead we disable placing new items into a full slot inside the UI.
-    is[key].push(strippedItem);
-    return is;
+    if (!is[key]) {                            // If maxItems > 1 then we don't clear anything.
+      is[key] = {...strippedItem, value:[]};   // We won't choose what item to delete for them,
+    }                                          // instead we disable placing new items into a full slot inside the UI.
+    is[key].value.push(strippedItem.value);
   }
+  return is;
 }
