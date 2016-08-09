@@ -89,7 +89,7 @@ export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overr
   }
   else if (defaultGranularity === HALF_HOUR) {
     const slotStart = {day, hour};
-    const slotEnd = dayHourPlus1Hour(day, hour);
+    const slotEnd = dayHourPlus1Hour(day, hour, false);
     const lookbackHours = Math.max(maxDuration / 60);
     const beforeItems = getAllItemsThatStartBetween(items, dayHourMinusXHours(day, hour, lookbackHours), slotStart);
     const beforeItemsInSlot = _.filter(beforeItems, item => compareTimes(getItemEndTime(item), slotStart) > 0);

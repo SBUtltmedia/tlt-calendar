@@ -35,12 +35,12 @@ export function dayPlus1(day) {
   return day === 6 ? 0 : day + 1;
 }
 
-export function hourMinus1(hour) {
-  return hour === 0 ? 23 : hour - 1;
+export function hourMinus1(hour, shouldWrap=false) {
+  return hour === 0 && shouldWrap ? 23 : hour - 1;
 }
 
-export function hourPlus1(hour) {
-  return hour === 23 ? 0 : hour + 1;
+export function hourPlus1(hour, shouldWrap=false) {
+  return hour === 23 && shouldWrap ? 0 : hour + 1;
 }
 
 export function hourMinusX(hour, n) {
@@ -71,16 +71,16 @@ export function minutePlusXMinutes(minute, x) {
   return newMinute >= 60 ? newMinute - 60 : newMinute;
 }
 
-export function dayHourPlus1Hour(day, hour) {
-  const newHour = hourPlus1(hour);
+export function dayHourPlus1Hour(day, hour, shouldWrap=false) {
+  const newHour = hourPlus1(hour, shouldWrap);
   return {
     day: newHour === 0 ? dayPlus1(day) : day,
     hour: newHour
   };
 }
 
-export function dayHourMinus1Hour(day, hour) {
-  const newHour = hourMinus1(hour);
+export function dayHourMinus1Hour(day, hour, shouldWrap=false) {
+  const newHour = hourMinus1(hour, shouldWrap);
   return {
     day: newHour === 23 ? dayMinus1(day) : day,
     hour: newHour

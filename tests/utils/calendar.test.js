@@ -111,4 +111,14 @@ describe('calendar', () => {
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 0, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
   });
+
+  it('gets items in the last slot', () => {
+    const item1 = {value: 1, day: 6, hour: 23, minute: 0, duration: HOUR};
+    const items = {"10020": item1};
+    const expected = [
+      {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR},
+      {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR}
+    ];
+    expect(getItemsInSlot(items, {day: 6, hour: 23, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
+  });
 });
