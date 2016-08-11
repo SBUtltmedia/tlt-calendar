@@ -20,7 +20,6 @@ function createTarget(minute) {
       if (item.day !== null && item.day !== undefined) {  // If it's already placed somewhere on the calendar grid
         removeItem(item);
       }
-      console.log(item);
       placeItem({...item, ...props, minute});
     },
     canDrop(props, monitor) {

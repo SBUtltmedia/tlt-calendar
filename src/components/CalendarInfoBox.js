@@ -22,7 +22,9 @@ function renderCellItemsSection(items, heading, alwaysRender=false) {
 		return <div>
 	 		{heading}
 	 		<ul>
-	 			{_.map(items, (item, i) => <li key={i}>{renderItem(item.value)}</li>)}
+	 			{_.map(items, (item, i) => _.isArray(item.value) ?
+					_.map(item.value, (value, v) => <li key={v}>{renderItem(value)}</li>) :
+					<li key={i}>{renderItem(item.value)}</li>)}
 	 		</ul>
 	 	</div>
 	}
