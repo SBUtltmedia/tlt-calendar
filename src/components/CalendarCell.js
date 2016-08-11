@@ -15,14 +15,15 @@ import onClickOutside from 'react-onclickoutside';
 function createTarget(minute) {
   return {
     drop(props, monitor) {
+      const {placeItem, removeItem} = props;
       const item = monitor.getItem();
       if (item.day !== null && item.day !== undefined) {  // If it's already placed somewhere on the calendar grid
-        props.removeItem(item);
+        removeItem(item);
       }
-      props.placeItem(_.assign({}, item, props, {minute}));
+      console.log(item);
+      placeItem({...item, ...props, minute});
     },
     canDrop(props, monitor) {
-      console.log(props);
       return !monitor.getItem().disabled;
     }
   };
@@ -46,14 +47,19 @@ const OverlayComponent = onClickOutside(createClass({
   }
 }));
 
+function getTickValues(items, minute) {
+  const tickItems = _.find(items, item => item.minute === minute);
+  return tickItems ? tickItems.value : [];
+}
+
 const Tick = ({col, row, color}) => (
   <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 10 + 5} style={{fill:color}} />
 );
 
 const Ticks = ({items, onClick, max}) => {
   const getTickColor = items => _.size(items) >= max ? '#0F0' : '#F00';
-  const leftItems = _.isEmpty(items[0]) ? [] : items[0].value;
-  const rightItems = _.isEmpty(items[1]) ? [] : items[1].value;
+  const leftItems = getTickValues(items, 0);
+  const rightItems = getTickValues(items, 30);
   return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
       <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems)} />
@@ -108,14 +114,19 @@ class FullCell extends Component {
     </Overlay> : '';
   }
 
-  onMouseEnter(cellItems) {
-    const { fillInfoBox } = this.props;
+  onMouseEnter() {
+    const {fillInfoBox, cellItems} = this.props;
     fillInfoBox({...this.props, cellItems});
   }
 
   onMouseLeave() {
-    const { clearInfoBox } = this.props;
+    const {clearInfoBox} = this.props;
     clearInfoBox();
+  }
+
+  shouldUseTicks() {
+    const {cellItems} = this.props;
+    return !_.isEmpty(cellItems) && _.isArray(cellItems[0].value);
   }
 
   renderCellItem(item, i) {
@@ -131,11 +142,11 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems } = this.props;
+    const {connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems} = this.props;
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
-    onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
-      {!_.isEmpty(cellItems) && _.isArray(cellItems[0].value) ?
+    onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
+      {this.shouldUseTicks() ?
         <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}

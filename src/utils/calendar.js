@@ -89,11 +89,13 @@ export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
 }
 
 /**
+ * Returns the items within a 1 hour slot.
  * overrideMultiplesFn:
  *   Takes a list of cell items as a parameter.
  *   Returns a bool representing whether or not multiples behavior should be overridden.
  */
 export function getItemsInSlot(items, {day, hour, minute=0, defaultGranularity=HOUR, overrideMultiplesFn=undefined, maxDuration=HOUR}) {
+  //const items = _.isArray(itemList) ? putIntoBaskets(itemList) : itemList;  // Make sure it's an object with keys
   if (defaultGranularity === HOUR) {  // default is HOUR, so no chopping up needed
     return getAllItemsThatStartBetween(items, {day, hour, minute}, dayHourMinutePlusXMinutes(day, hour, minute, 60));
   }

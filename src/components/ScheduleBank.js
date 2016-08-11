@@ -4,6 +4,7 @@ import ReserveIcon from './ReserveIcon';
 import EmployeeCalendarIcon from './EmployeeCalendarIcon';
 import styles from './ScheduleBank.scss';
 import Dimensions from 'react-dimensions';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
 
 const ICON_MARGIN = 3;
 const WHOLE_COLS = 7;
@@ -16,11 +17,11 @@ class ScheduleBank extends Component {
 		return <div className={styles.container}>
 			<div className="bank-row">
 				<div style={{margin: ICON_MARGIN}}>
-					<ReserveIcon size={iconSize} disabled={disabled} />
+					<ReserveIcon size={iconSize} disabled={disabled} duration={HOUR} />
 				</div>
 				{_.map(employees, (employee, i) =>
 					<div key={i} style={{margin: ICON_MARGIN}}>
-						<EmployeeCalendarIcon size={iconSize} value={employee} disabled={disabled} />
+						<EmployeeCalendarIcon size={iconSize} value={employee} disabled={disabled} duration={HOUR} />
 					</div>)}
 			</div>
 		</div>;

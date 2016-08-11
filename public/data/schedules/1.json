@@ -12,6 +12,21 @@
     "day": 0,
     "hour": 0,
     "minute": 0,
-    "duration": 60
+    "duration": 30
+  },
+  "30": {
+    "value": [{
+      "id": 123456789,
+      "name": "Rong Zou",
+      "email": "rong.zou@stonybrook.edu"
+    }, {
+      "id": 123456789,
+      "name": "Rong Zou",
+      "email": "rong.zou@stonybrook.edu"
+    }],
+    "day": 0,
+    "hour": 0,
+    "minute": 30,
+    "duration": 30
   }
 }
