@@ -128,7 +128,6 @@ export function placeItem(items, item, {maxItems=1, defaultGranularity=HOUR, ove
   const itemEndTime = getItemEndTime(strippedItem);
   if (strippedItem.duration > defaultGranularity) {
     const choppedItems = chopToGranularity([strippedItem], strippedItem, itemEndTime, defaultGranularity);
-    console.log(choppedItems);
     return _.reduce(choppedItems, (items, item) => placeItem(items, item, {maxItems, defaultGranularity}), is);
   }
   if (maxItems === 1 || overrideMultiplesFn && overrideMultiplesFn([strippedItem])) {
