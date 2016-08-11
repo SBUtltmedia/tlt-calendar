@@ -1,6 +1,5 @@
 import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { DATA_PATH } from '../constants/Settings';
-import _ from 'lodash';
 
 function receivePreferences(json) {
   return {
@@ -18,11 +17,11 @@ export function fetchPreferences(student_id) {
 }
 
 export function placeItem(chip) {
-  return _.assign({}, chip, {type: PLACE_CHIP});
+  return {...chip, type: PLACE_CHIP};
 }
 
 export function removeItem(chip) {
-  return _.assign({}, chip, {type: REMOVE_CHIP});
+  return {...chip, type: REMOVE_CHIP};
 }
 
 export function reorderGlobalLocations(order) {

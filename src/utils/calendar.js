@@ -90,28 +90,9 @@ export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
 
 /**
  * Returns the items within a 1 hour slot.
- * overrideMultiplesFn:
- *   Takes a list of cell items as a parameter.
- *   Returns a bool representing whether or not multiples behavior should be overridden.
  */
-export function getItemsInSlot(items, {day, hour, minute=0, defaultGranularity=HOUR, overrideMultiplesFn=undefined, maxDuration=HOUR}) {
-  //const items = _.isArray(itemList) ? putIntoBaskets(itemList) : itemList;  // Make sure it's an object with keys
-  if (defaultGranularity === HOUR) {  // default is HOUR, so no chopping up needed
-    return getAllItemsThatStartBetween(items, {day, hour, minute}, dayHourMinutePlusXMinutes(day, hour, minute, 60));
-  }
-  else if (defaultGranularity === HALF_HOUR) {
-    const slotStart = {day, hour, minute};
-    const slotEnd = dayHourMinutePlusXMinutes(day, hour, minute, 60);
-    const beforeItems = getAllItemsThatStartBetween(items, dayHourMinuteMinusXMinutes(day, hour, minute, maxDuration), slotStart);
-    const beforeItemsInSlot = _.filter(beforeItems, item =>  compareTimes(getItemEndTime(item), slotStart) > 0);
-    const withinItems = getAllItemsThatStartBetween(items, slotStart, slotEnd);
-    const slotItems = [...beforeItemsInSlot, ...withinItems];
-    const shouldChop = !overrideMultiplesFn || !overrideMultiplesFn(slotItems);
-    return shouldChop ? chopToGranularity(slotItems, slotStart, slotEnd, defaultGranularity) : slotItems;
-  }
-  else {
-    throw new Error("Invalid defaultGranularity: " + defaultGranularity);
-  }
+export function getItemsInSlot(items, {day, hour, minute=0}) {
+  return getAllItemsThatStartBetween(items, {day, hour, minute}, dayHourMinutePlusXMinutes(day, hour, minute, 60));
 }
 
 export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
@@ -129,19 +110,37 @@ export function removeItem(items, {day, hour, minute, duration, value=undefined}
   return is;
 }
 
-export function placeItem(items, item, {maxItems=1, overrideMultiplesFn=undefined}={}) {
+/**
+ * Options:
+ *   maxItems:
+ *     The maximum number if items a slot can hold (ex. Main Library is 4)
+ *   defaultGranularity:
+ *     The usual size of items in the grid
+ *     (for full icons this is HOUR, for multiple employee 'ticks' this is HALF_HOUR)
+ *   overrideMultiplesFn:
+ *     Takes a list of cell items as a parameter.
+ *     Returns a bool representing whether or not multiples behavior should be overridden.
+ */
+export function placeItem(items, item, {maxItems=1, defaultGranularity=HOUR, overrideMultiplesFn=undefined}={}) {
   let is = _.clone(items);
-  const key = timeToKey(item);
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
-  if (maxItems === 1 || (overrideMultiplesFn && overrideMultiplesFn([item]))) {
-    is = clearAllBetween(is, item, getItemEndTime(item));
+  const key = timeToKey(strippedItem);
+  const itemEndTime = getItemEndTime(strippedItem);
+  if (strippedItem.duration > defaultGranularity) {
+    const choppedItems = chopToGranularity([strippedItem], strippedItem, itemEndTime, defaultGranularity);
+    console.log(choppedItems);
+    return _.reduce(choppedItems, (items, item) => placeItem(items, item, {maxItems, defaultGranularity}), is);
+  }
+  if (maxItems === 1 || overrideMultiplesFn && overrideMultiplesFn([strippedItem])) {
+    is = clearAllBetween(is, strippedItem, itemEndTime);
     is[key] = strippedItem;
   }
   else {
-    if (!is[key] || !_.isArray(is[key].value)) {  // If maxItems > 1 then we don't clear anything.
-      is[key] = {...strippedItem, value:[]};      // We won't choose what item to delete for them,
-    }                                             // instead we disable placing items into a full slot inside the UI.
-    is[key].value.push(strippedItem.value);
+    if (!is[key] || !_.isArray(is[key].value)) {
+      is[key] = {...strippedItem, value: []};
+    }
+    is[key].value.push(item.value);
+    return is;
   }
   return is;
 }

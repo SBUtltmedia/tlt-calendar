@@ -7,11 +7,12 @@ import CalendarGrid from './CalendarGrid';
 import * as ScheduleActions from '../actions/ScheduleActions';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
-import { RESERVED, HALF_HOUR } from '../constants/Constants';
+import { RESERVED, HOUR, HALF_HOUR } from '../constants/Constants';
 import { overrideMultiplesFn } from '../utils/schedule';
 import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
+const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
 
 const popover = ({items}) => (
   <div>
@@ -24,7 +25,7 @@ const mapStateToProps = state => {
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
-    defaultGranularity: HALF_HOUR,
+    defaultGranularity: getDefaultGranularity(coverage),
     cellComponent: item => getComponentClass(item)(item)
   };
 };
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
     placeItem: scheduleActions.placeItem,
-    removeItem:scheduleActions.removeItem,
+    removeItem: scheduleActions.removeItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_SCHEDULE_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };
@@ -47,7 +48,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...dispatchProps,
     ...ownProps,
     popover: coverage > 1 ? popover : undefined,
-    overrideMultiplesFn: overrideMultiplesFn
+    overrideMultiplesFn: overrideMultiplesFn,
+    placeItem: item => dispatchProps.placeItem(item, getDefaultGranularity(coverage))
   }
 };
 

@@ -4,7 +4,7 @@
   "description": "A calendar for TLT employee hours",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
-    "test:debug": "node-inspector -p 5000 && mocha --compilers js:babel-core/register --debug-brk --watch tests/**/*.test.js",
+    "test:debug": "mocha --compilers js:babel-core/register --debug-brk tests/**/*.test.js && node-inspector -p 5000",
     "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./"
   },
   "repository": {

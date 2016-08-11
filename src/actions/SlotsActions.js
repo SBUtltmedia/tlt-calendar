@@ -1,6 +1,5 @@
 require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
-import _ from 'lodash';
 import { DATA_PATH } from '../constants/Settings';
 import { SET_LOCATION, RECEIVE_SLOTS, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 
@@ -20,11 +19,11 @@ export function fetchSlots(location) {
 }
 
 export function placeItem(item) {
-  return _.assign({}, item, {type: PLACE_ITEM});
+  return {...item, type: PLACE_ITEM};
 }
 
 export function removeItem(item) {
-  return _.assign({}, item, {type: REMOVE_ITEM});
+  return {...item, type: REMOVE_ITEM};
 }
 
 export const setLocation = location => ({

@@ -68,6 +68,15 @@ describe('calendar', () => {
     expect(result).to.deep.equal({"0": item5, "30": {...splitItem1, value: [1]}});
   });
 
+  it('places an item and chops it according to granularity', () => {
+    const options = {defaultGranularity: HALF_HOUR};
+    const item = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
+    const choppedItem1 = {...item, duration: HALF_HOUR};
+    const choppedItem2 = {...item, duration: HALF_HOUR, minute: 30};
+    const items = placeItem({}, item, options);
+    expect(items).to.deep.equal({"0": choppedItem1, "30": choppedItem2});
+  });
+
   it('removes an item', () => {
     const item2 = {value: 2, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
     const items = placeItem({}, item2);
@@ -85,41 +94,54 @@ describe('calendar', () => {
   it('gets items in a slot (granularity = HALF_HOUR) 1', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 30, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 1, minute: 30, duration: HOUR};
-    const items = {"30": item1, "90": item2};
+    const options = {defaultGranularity: HALF_HOUR};
+    const items = placeItem(placeItem({}, item1, options), item2, options);
     const expected = [
       {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
       {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
     ];
-    //console.log(getItemsInSlot(items, {day: 0, hour: 1, defaultGranularity: HALF_HOUR}));
-    expect(getItemsInSlot(items, {day: 0, hour: 1, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 0, hour: 1})).to.deep.equal(expected);
   });
 
   it('gets items in a slot (granularity = HALF_HOUR) 2', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 30, duration: HOUR};
     const item2 = {value: 2, day: 0, hour: 1, minute: 30, duration: HOUR};
-    const items = {"30": item1, "90": item2};
+    const options = {defaultGranularity: HALF_HOUR};
+    const items = placeItem(placeItem({}, item1, options), item2, options);
     const expected = [
       {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
     ];
-    expect(getItemsInSlot(items, {day: 0, hour: 0, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
 
   it('gets items in a slot (multiples)', () => {
     const item1 = {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HOUR};
-    const items = {"30": item1};
+    const options = {defaultGranularity: HALF_HOUR};
+    const items = placeItem({}, item1, options);
     const expected = [
       {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
     ];
-    expect(getItemsInSlot(items, {day: 0, hour: 0, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
 
   it('gets items in the last slot', () => {
     const item1 = {value: 1, day: 6, hour: 23, minute: 0, duration: HOUR};
-    const items = {"10020": item1};
+    const options = {defaultGranularity: HALF_HOUR};
+    const items = placeItem({}, item1, options);
     const expected = [
       {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR},
       {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR}
     ];
-    expect(getItemsInSlot(items, {day: 6, hour: 23, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
+    expect(getItemsInSlot(items, {day: 6, hour: 23})).to.deep.equal(expected);
+  });
+
+  it('does not return an extra item in the subsequent hour when there is a full hour item on the half hour', () => {
+    const options = {defaultGranularity: HALF_HOUR, overrideMultiplesFn: items => true};
+    const item = {value: 1, day: 0, hour: 1, minute: 30, duration: HOUR};
+    const items = {"90": item};
+    const expected = [
+      {value: 1, day: 0, hour: 1, minute: 30, duration: HOUR}
+    ];
+    expect(getItemsInSlot(items, {day: 0, hour: 2}, options)).to.deep.equal([]);
   });
 });

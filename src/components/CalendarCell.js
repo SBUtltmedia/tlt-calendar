@@ -142,6 +142,9 @@ class FullCell extends Component {
 
   render() {
     const {connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems} = this.props;
+    if (!_.isEmpty(cellItems)) {
+      console.log(day, hour, cellItems);
+    }
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
@@ -202,7 +205,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
     ...stateProps,
     ...dispatchProps,
     ...ownProps,
-    cellItems: getItemsInSlot(items, {day, hour, defaultGranularity, overrideMultiplesFn})
+    cellItems: getItemsInSlot(items, {day, hour}, {defaultGranularity, overrideMultiplesFn})
   };
 };
 
