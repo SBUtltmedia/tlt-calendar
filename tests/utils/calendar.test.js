@@ -90,6 +90,7 @@ describe('calendar', () => {
       {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
       {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
     ];
+    //console.log(getItemsInSlot(items, {day: 0, hour: 1, defaultGranularity: HALF_HOUR}));
     expect(getItemsInSlot(items, {day: 0, hour: 1, defaultGranularity: HALF_HOUR})).to.deep.equal(expected);
   });
 

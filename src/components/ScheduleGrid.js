@@ -43,11 +43,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mergeProps = (stateProps, dispatchProps, ownProps) => {
   const {coverage} = stateProps;
   return {
-    popover: coverage > 1 ? popover : undefined,
-    overrideMultiplesFn: overrideMultiplesFn,
     ...stateProps,
     ...dispatchProps,
-    ...ownProps
+    ...ownProps,
+    popover: coverage > 1 ? popover : undefined,
+    overrideMultiplesFn: overrideMultiplesFn
   }
 };
 

@@ -1,4 +1,5 @@
 import { PropTypes, Component, createClass } from 'react';
+import { connect } from 'react-redux';
 import { DropTarget } from 'react-dnd';
 import _ from 'lodash';
 import { getItemsInSlot } from '../utils/calendar';
@@ -21,6 +22,7 @@ function createTarget(minute) {
       props.placeItem(_.assign({}, item, props, {minute}));
     },
     canDrop(props, monitor) {
+      console.log(props);
       return !monitor.getItem().disabled;
     }
   };
@@ -129,9 +131,7 @@ class FullCell extends Component {
   }
 
   render() {
-    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage,
-      overrideMultiplesFn, defaultGranularity } = this.props;
-    const cellItems = getItemsInSlot(items, {day, hour, defaultGranularity, overrideMultiplesFn});
+    const { connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems } = this.props;
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this, cellItems)} onMouseLeave={this.onMouseLeave.bind(this)}>
@@ -168,7 +168,7 @@ class HalfCell extends Component {
 
 const DimensionedFullCell = Dimensions()(FullCell);
 
-export default class CalendarCell extends Component {
+class CalendarCell extends Component {
   static propTypes = {
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired
@@ -185,3 +185,19 @@ export default class CalendarCell extends Component {
     </div>;
   }
 }
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const {items, day, hour, defaultGranularity, overrideMultiplesFn} = ownProps;
+  return {
+    ...stateProps,
+    ...dispatchProps,
+    ...ownProps,
+    cellItems: getItemsInSlot(items, {day, hour, defaultGranularity, overrideMultiplesFn})
+  };
+};
+
+export default connect(
+  state => ({}),
+  {},
+  mergeProps
+)(CalendarCell);

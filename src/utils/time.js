@@ -27,19 +27,19 @@ export function compareTimes(time1, time2) {
          dayHourMinuteInMinutes(time2.day, time2.hour || 0, time2.minute || 0);
 }
 
-export function dayMinus1(day) {
-  return day === 0 ? 6 : day - 1;
+export function dayMinus1(day, shouldWrap=true) {
+  return day === 0 && shouldWrap ? 6 : day - 1;
 }
 
-export function dayPlus1(day) {
-  return day === 6 ? 0 : day + 1;
+export function dayPlus1(day, shouldWrap=true) {
+  return day === 6 && shouldWrap ? 0 : day + 1;
 }
 
-export function hourMinus1(hour, shouldWrap=false) {
+export function hourMinus1(hour, shouldWrap=true) {
   return hour === 0 && shouldWrap ? 23 : hour - 1;
 }
 
-export function hourPlus1(hour, shouldWrap=false) {
+export function hourPlus1(hour, shouldWrap=true) {
   return hour === 23 && shouldWrap ? 0 : hour + 1;
 }
 
@@ -71,7 +71,7 @@ export function minutePlusXMinutes(minute, x) {
   return newMinute >= 60 ? newMinute - 60 : newMinute;
 }
 
-export function dayHourPlus1Hour(day, hour, shouldWrap=false) {
+export function dayHourPlus1Hour(day, hour, shouldWrap=true) {
   const newHour = hourPlus1(hour, shouldWrap);
   return {
     day: newHour === 0 ? dayPlus1(day) : day,
@@ -79,7 +79,7 @@ export function dayHourPlus1Hour(day, hour, shouldWrap=false) {
   };
 }
 
-export function dayHourMinus1Hour(day, hour, shouldWrap=false) {
+export function dayHourMinus1Hour(day, hour, shouldWrap=true) {
   const newHour = hourMinus1(hour, shouldWrap);
   return {
     day: newHour === 23 ? dayMinus1(day) : day,
@@ -103,35 +103,35 @@ export function dayHourMinusXHours(day, hour, x) {
   }
 }
 
-export function dayHourMinutePlus30Minutes(day, hour, minute) {
+export function dayHourMinutePlus30Minutes(day, hour, minute, shouldWrap=true) {
   const newMinute = minutePlus30Minutes(minute);
-  const dayHour = newMinute === 30 ? { day, hour } : dayHourPlus1Hour(day, hour);
+  const dayHour = newMinute === 30 ? { day, hour } : dayHourPlus1Hour(day, hour, shouldWrap);
   return {...dayHour, minute: newMinute};
 }
 
-export function dayHourMinuteMinus30Minutes(day, hour, minute) {
+export function dayHourMinuteMinus30Minutes(day, hour, minute, shouldWrap=true) {
   const newMinute = minuteMinus30Minutes(minute);
   const dayHour = newMinute === 30 ? { day, hour } : dayHourMinus1Hour(day, hour);
   return {...dayHour, minute: newMinute};
 }
 
-export function dayHourMinutePlusXMinutes(day, hour, minute, x) {
+export function dayHourMinutePlusXMinutes(day, hour, minute, x, shouldWrap=true) {
   const hours = Math.floor(x / 60);
   const minutes = x % 60;
   const newMinute = minutePlusXMinutes(minute, minutes);
-  const newHour = newMinute < minute ? hourPlusX(hour, hours + 1) : hourPlusX(hour, hours);
+  const newHour = newMinute < minute ? hourPlusX(hour, hours + 1, shouldWrap) : hourPlusX(hour, hours, shouldWrap);
   return {
-    day: newHour < hour ? dayPlus1(day) : day,
+    day: newHour < hour ? dayPlus1(day, shouldWrap) : day,
     hour: newHour,
     minute: newMinute
   };
 }
 
-export function dayHourMinuteMinusXMinutes(day, hour, minute, x) {
+export function dayHourMinuteMinusXMinutes(day, hour, minute, x, shouldWrap=true) {
   const hours = Math.floor(x / 60);
   const minutes = x % 60;
   const newMinute = minuteMinusXMinutes(minute, minutes);
-  const newHour = newMinute > minute ? hourMinusX(hour, hours - 1) : hourMinusX(hour, hours);
+  const newHour = newMinute > minute ? hourMinusX(hour, hours - 1, shouldWrap) : hourMinusX(hour, hours, shouldWrap);
   return {
     day: newHour > hour ? dayMinus1(day) : day,
     hour: newHour,

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
-import { dayHourMinuteInMinutes, compareTimes, dayHourMinusXHours, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
-  dayHourMinutePlusXMinutes, getItemEndTime } from '../utils/time';
+import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
+  dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
@@ -28,23 +28,6 @@ export function clearAllBetween(items, time1, time2) {
     }
   }
   return is;
-}
-
-export function getAllItemsThatStartBetween(items, start, end) {
-  let foundItems = [];
-  for (let t = start; compareTimes(t, end) < 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
-    foundItems.push(items[timeToKey(t)]);
-  }
-  return _.filter(foundItems);  // filters out null and undefined
-}
-
-/**
- * Gets items between slot start (specified by {day, hour}) and 1 hour from then
- */
-function getItemsWithinSlot(items, {day, hour}) {
-  const item1 = items[timeToKey({day, hour, minute: 0})];
-  const item2 = items[timeToKey({day, hour, minute: 30})];
-  return _.filter([item1, item2]);  // filters out null and undefined
 }
 
 function putIntoBaskets(items) {
@@ -75,7 +58,35 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
       return item;
     }
   }));
-  return _.filter(choppedItems, item => compareTimes(item, slotStart) >= 0 && compareTimes(item, slotEnd) < 0);
+  console.log(choppedItems);
+  return _.filter(choppedItems, item => overlapsSlot(item, getItemEndTime(item), slotStart, slotEnd));
+}
+
+export function getAllItemsThatStartBetween(items, start, end) {
+  let foundItems = [];
+  for (let t = start; compareTimes(t, end) !== 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
+    foundItems.push(items[timeToKey(t)]);
+  }
+  return _.filter(foundItems);  // filters out null and undefined
+}
+
+/**
+ * Returns a bool of whether the item has any part between slotStart and slotEnd
+ * Accounts for wrapping
+ */
+export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
+  const f = () => compareTimes(slotStart, slotEnd) < 0 ?
+                  compareTimes(itemStart, slotEnd) < 0 :
+                  compareTimes(itemStart, slotEnd) > 0;
+  if (compareTimes(itemStart, itemEnd) < 0) {
+    return compareTimes(itemEnd, slotStart) > 0 && f();
+  }
+  else if (compareTimes(itemStart, itemEnd) > 0) {
+    return compareTimes(itemEnd, slotStart) < 0 && f();
+  }
+  else {
+    throw new Error('itemStart == itemEnd. Why!?!');
+  }
 }
 
 /**
@@ -83,19 +94,18 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
  *   Takes a list of cell items as a parameter.
  *   Returns a bool representing whether or not multiples behavior should be overridden.
  */
-export function getItemsInSlot(items, {day, hour, defaultGranularity=HOUR, overrideMultiplesFn=undefined, maxDuration=HOUR}) {
+export function getItemsInSlot(items, {day, hour, minute=0, defaultGranularity=HOUR, overrideMultiplesFn=undefined, maxDuration=HOUR}) {
   if (defaultGranularity === HOUR) {  // default is HOUR, so no chopping up needed
-    return getItemsWithinSlot(items, {day, hour});
+    return getAllItemsThatStartBetween(items, {day, hour, minute}, dayHourMinutePlusXMinutes(day, hour, minute, 60));
   }
   else if (defaultGranularity === HALF_HOUR) {
-    const slotStart = {day, hour};
-    const slotEnd = dayHourPlus1Hour(day, hour, false);
-    const lookbackHours = Math.max(maxDuration / 60);
-    const beforeItems = getAllItemsThatStartBetween(items, dayHourMinusXHours(day, hour, lookbackHours), slotStart);
-    const beforeItemsInSlot = _.filter(beforeItems, item => compareTimes(getItemEndTime(item), slotStart) > 0);
-    const withinItems = getItemsWithinSlot(items, slotStart);
+    const slotStart = {day, hour, minute};
+    const slotEnd = dayHourMinutePlusXMinutes(day, hour, minute, 60);
+    const beforeItems = getAllItemsThatStartBetween(items, dayHourMinuteMinusXMinutes(day, hour, minute, maxDuration), slotStart);
+    const beforeItemsInSlot = _.filter(beforeItems, item =>  compareTimes(getItemEndTime(item), slotStart) > 0);
+    const withinItems = getAllItemsThatStartBetween(items, slotStart, slotEnd);
     const slotItems = [...beforeItemsInSlot, ...withinItems];
-    const shouldChop = (!overrideMultiplesFn || !overrideMultiplesFn(slotItems));
+    const shouldChop = !overrideMultiplesFn || !overrideMultiplesFn(slotItems);
     return shouldChop ? chopToGranularity(slotItems, slotStart, slotEnd, defaultGranularity) : slotItems;
   }
   else {
