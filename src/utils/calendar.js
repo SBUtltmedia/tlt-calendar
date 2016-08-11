@@ -58,7 +58,6 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
       return item;
     }
   }));
-  console.log(choppedItems);
   return _.filter(choppedItems, item => overlapsSlot(item, getItemEndTime(item), slotStart, slotEnd));
 }
 
