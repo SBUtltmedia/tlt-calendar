@@ -1,32 +1,53 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
-import { RANKS, MINIMUM_ITEM_DURATION } from '../constants/Settings';
+import { RANKS, MINIMUM_ITEM_DURATION, MAXIMUM_ITEM_DURATION } from '../constants/Settings';
 import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
-  dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime } from '../utils/time';
+  dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime, timeToKey, timeToKeyInt } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
-function timeToKeyInt({day, hour, minute}) {
-  return dayHourMinuteInMinutes(day, hour, minute);
-}
-
-export function timeToKey(time) {
-  return String(timeToKeyInt(time));
+/**
+ * Returns a bool of whether the item has any part between slotStart and slotEnd
+ * Accounts for wrapping
+ */
+export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
+  const f = () => compareTimes(slotStart, slotEnd) < 0 ?
+                  compareTimes(itemStart, slotEnd) < 0 :
+                  compareTimes(itemStart, slotEnd) > 0;
+  if (compareTimes(itemStart, itemEnd) < 0) {
+    return compareTimes(itemEnd, slotStart) > 0 && f();
+  }
+  else if (compareTimes(itemStart, itemEnd) > 0) {
+    return compareTimes(itemEnd, slotStart) < 0 && f();
+  }
+  else {
+    throw new Error('itemStart == itemEnd. Why!?!');
+  }
 }
 
 export function clearAllBetween(items, time1, time2) {
   let is = _.clone(items);
-  const key1 = timeToKeyInt(time1);
-  const key2 = timeToKeyInt(time2);
-  for (let i = roundUpToNearest(key1, MINIMUM_ITEM_DURATION); i < key2; i += MINIMUM_ITEM_DURATION) {
+  const startTime = dayHourMinuteMinusXMinutes(time1.day, time1.hour, time1.minute, MAXIMUM_ITEM_DURATION, false);
+  const startKey = Math.max(timeToKeyInt(startTime), 0);
+  const endKey = timeToKeyInt(time2);
+  const slots = _.range(roundUpToNearest(startKey, MINIMUM_ITEM_DURATION), endKey, MINIMUM_ITEM_DURATION);
+
+  _.each(slots, i => {
     const item = is[String(i)];
     if (item) {
-      delete is[String(i)];
-      if (compareTimes(getItemEndTime(item), time2) > 0) {                             // if this item goes beyond the end
-        is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});  // replace with a new shorter item
+      const itemEnd = getItemEndTime(item);
+      if (overlapsSlot(item, itemEnd, time1, time2)) {
+        delete is[String(i)];
+        if (compareTimes(item, time1) < 0) {    // if this item has chunk before start, replace with shorter piece
+          is = placeItem(is, {...item, duration: compareTimes(time1, item)});
+        }
+
+        if (compareTimes(itemEnd, time2) > 0) { // if this item goes beyond the end, replace with shorter piece
+          is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});
+        }
       }
     }
-  }
+  });
   return is;
 }
 
@@ -70,25 +91,6 @@ export function getAllItemsThatStartBetween(items, start, end) {
 }
 
 /**
- * Returns a bool of whether the item has any part between slotStart and slotEnd
- * Accounts for wrapping
- */
-export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
-  const f = () => compareTimes(slotStart, slotEnd) < 0 ?
-                  compareTimes(itemStart, slotEnd) < 0 :
-                  compareTimes(itemStart, slotEnd) > 0;
-  if (compareTimes(itemStart, itemEnd) < 0) {
-    return compareTimes(itemEnd, slotStart) > 0 && f();
-  }
-  else if (compareTimes(itemStart, itemEnd) > 0) {
-    return compareTimes(itemEnd, slotStart) < 0 && f();
-  }
-  else {
-    throw new Error('itemStart == itemEnd. Why!?!');
-  }
-}
-
-/**
  * Returns the items within a 1 hour slot.
  */
 export function getItemsInSlot(items, {day, hour, minute=0}) {
@@ -126,11 +128,12 @@ export function placeItem(items, item, {maxItems=1, defaultGranularity=HOUR, ove
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
   const key = timeToKey(strippedItem);
   const itemEndTime = getItemEndTime(strippedItem);
-  if (strippedItem.duration > defaultGranularity) {
+  const override = !!overrideMultiplesFn && overrideMultiplesFn([strippedItem]);
+  if (!override && strippedItem.duration > defaultGranularity) {
     const choppedItems = chopToGranularity([strippedItem], strippedItem, itemEndTime, defaultGranularity);
     return _.reduce(choppedItems, (items, item) => placeItem(items, item, {maxItems, defaultGranularity}), is);
   }
-  if (maxItems === 1 || overrideMultiplesFn && overrideMultiplesFn([strippedItem])) {
+  if (maxItems === 1 || override) {
     is = clearAllBetween(is, strippedItem, itemEndTime);
     is[key] = strippedItem;
   }

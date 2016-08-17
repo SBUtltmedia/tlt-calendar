@@ -1,4 +1,12 @@
 
+export function timeToKeyInt({day, hour, minute}) {
+  return dayHourMinuteInMinutes(day, hour, minute);
+}
+
+export function timeToKey(time) {
+  return String(timeToKeyInt(time));
+}
+
 export function getHourLabel(hour) {
   if (hour === 0) {
     return 12;
@@ -61,14 +69,14 @@ export function minutePlus30Minutes(minute) {
   return minuteMinus30Minutes(minute);
 }
 
-export function minuteMinusXMinutes(minute, x) {
+export function minuteMinusXMinutes(minute, x, shouldWrap=true) {
   const newMinute = minute - x;
-  return newMinute < 0 ? 60 - newMinute : newMinute;
+  return newMinute < 0 && shouldWrap ? 60 - newMinute : newMinute;
 }
 
-export function minutePlusXMinutes(minute, x) {
+export function minutePlusXMinutes(minute, x, shouldWrap=true) {
   const newMinute = minute + x;
-  return newMinute >= 60 ? newMinute - 60 : newMinute;
+  return newMinute >= 60 && shouldWrap ? newMinute - 60 : newMinute;
 }
 
 export function dayHourPlus1Hour(day, hour, shouldWrap=true) {
@@ -128,12 +136,16 @@ export function dayHourMinutePlusXMinutes(day, hour, minute, x, shouldWrap=true)
 }
 
 export function dayHourMinuteMinusXMinutes(day, hour, minute, x, shouldWrap=true) {
-  const hours = Math.floor(x / 60);
-  const minutes = x % 60;
-  const newMinute = minuteMinusXMinutes(minute, minutes);
-  const newHour = newMinute > minute ? hourMinusX(hour, hours - 1, shouldWrap) : hourMinusX(hour, hours, shouldWrap);
+  let hours = Math.floor(x / 60);
+  let minutes = x % 60;
+  let newMinute = minuteMinusXMinutes(minute, minutes, shouldWrap);
+  if (newMinute >= 60) {
+    hours += Math.floor(newMinute / 60)
+    newMinute %= 60;
+  }
+  const newHour = hourMinusX(hour, hours, shouldWrap);
   return {
-    day: newHour > hour ? dayMinus1(day) : day,
+    day: newHour > hour ? dayMinus1(day, shouldWrap) : day,
     hour: newHour,
     minute: newMinute
   };
