@@ -41,8 +41,8 @@ const OverlayComponent = onClickOutside(createClass({
     this.props.handleClickOutside(evt);
   },
   render: function() {
-    const {show, container, popover, containerWidth} = this.props;
-    return <div className='overlay' style={{height: `${containerWidth * 4 + 4}px`}}>{popover}</div>;
+    const {show, container, popover, containerWidth, children} = this.props;
+    return <div className='overlay' style={{height: `${containerWidth * 4 + 4}px`}}>{children}</div>;
   }
 }));
 

@@ -15,10 +15,10 @@ const getComponentClass = item => item.value === RESERVED ? ReserveIcon : Employ
 const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
 
 const popover = ({items}) => (
-  <div>
-    Booo
+  _.map(items, (item, i) => <div key={i}>
+    <EmployeeCalendarIcon value={item} />
   </div>
-);
+));
 
 const mapStateToProps = state => {
   const coverage = state.schedule.location ? state.schedule.location.coverage : 1;
