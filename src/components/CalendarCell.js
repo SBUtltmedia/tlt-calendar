@@ -101,6 +101,12 @@ class FullCell extends Component {
     }
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.state.showPopover) {
+      this.setState({popoverItems: getTickValues(newProps.cellItems, this.state.popoverMinute)});
+    }
+  }
+
   renderPopover() {
     const {popover, day, hour} = this.props;
     return popover ?
