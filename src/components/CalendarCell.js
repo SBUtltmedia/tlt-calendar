@@ -12,6 +12,14 @@ import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import onClickOutside from 'react-onclickoutside';
 
+const collect = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop(),
+  getClass: _.bind(getCellClass, {}, monitor),
+  isDragging: () => !!monitor.getItem()
+});
+
 function createTarget(minute) {
   return {
     drop(props, monitor) {
@@ -69,13 +77,7 @@ const Ticks = ({items, onClick, max}) => {
   </svg>;
 };
 
-@DropTarget(CALENDAR_ITEM, createTarget(0), (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
-  getClass: _.bind(getCellClass, {}, monitor),
-  isDragging: () => !!monitor.getItem()
-}))
+@DropTarget(CALENDAR_ITEM, createTarget(0), collect)
 class FullCell extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
@@ -103,7 +105,13 @@ class FullCell extends Component {
 
   componentWillReceiveProps(newProps) {
     if (this.state.showPopover) {
-      this.setState({popoverItems: getTickValues(newProps.cellItems, this.state.popoverMinute)});
+      const items = getTickValues(newProps.cellItems, this.state.popoverMinute);
+      if (_.isEmpty(items)) {
+        this.setState({showPopover: false});
+      }
+      else {
+        this.setState({popoverItems: items});
+      }
     }
   }
 
@@ -159,13 +167,7 @@ class FullCell extends Component {
   }
 }
 
-@DropTarget(CALENDAR_ITEM, createTarget(30), (connect, monitor) => ({
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-  canDrop: monitor.canDrop(),
-  getClass: _.bind(getCellClass, {}, monitor),
-  isDragging: () => !!monitor.getItem()
-}))
+@DropTarget(CALENDAR_ITEM, createTarget(30), collect)
 class HalfCell extends Component {
   static propTypes = {
     connectDropTarget: PropTypes.func.isRequired,
