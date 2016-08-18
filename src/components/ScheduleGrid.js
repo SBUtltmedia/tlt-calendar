@@ -14,9 +14,9 @@ import styles from './ScheduleGrid.scss';
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
 
-const popover = ({items}) => (
+const popover = ({items, day, hour, minute}) => (
   _.map(items, (item, i) => <div key={i}>
-    <EmployeeCalendarIcon value={item} />
+    <EmployeeCalendarIcon value={item} day={day} hour={hour} minute={minute} />
   </div>
 ));
 

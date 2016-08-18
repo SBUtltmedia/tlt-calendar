@@ -61,8 +61,8 @@ const Ticks = ({items, onClick, max}) => {
   const rightItems = getTickValues(items, 30);
   return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
     <g>
-      <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems)} />
-      <rect width='25' height='50' x='25' y='0' style={{fillOpacity:0}} onClick={() => onClick(rightItems)} />
+      <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems, 0)} />
+      <rect width='25' height='50' x='25' y='0' style={{fillOpacity:0}} onClick={() => onClick(rightItems, 30)} />
       {_.map(leftItems, (item, i) => <Tick col={0} row={i} key={i} color={getTickColor(leftItems)} />)}
       {_.map(rightItems, (item, i) => <Tick col={1} row={i} key={i} color={getTickColor(rightItems)} />)}
     </g>
@@ -102,13 +102,11 @@ class FullCell extends Component {
   }
 
   renderPopover() {
-    const {popover} = this.props;
+    const {popover, day, hour} = this.props;
     return popover ?
     <Overlay show={this.state.showPopover} container={this} placement='right'>
-      <OverlayComponent
-      {...this.props}
-      handleClickOutside={evt => this.setState({showPopover: false})}>
-        {popover({items: this.state.popoverItems})}
+      <OverlayComponent {...this.props} handleClickOutside={evt => this.setState({showPopover: false})}>
+        {popover({items: this.state.popoverItems, day, hour, minute: this.state.popoverMinute})}
       </OverlayComponent>
     </Overlay> : '';
   }
@@ -146,7 +144,8 @@ class FullCell extends Component {
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
       {this.shouldUseTicks() ?
-        <Ticks items={cellItems} max={coverage} onClick={items => this.setState({showPopover: true, popoverItems: items})} /> :
+        <Ticks items={cellItems} max={coverage}
+        onClick={(items, minute) => this.setState({showPopover: true, popoverItems: items, popoverMinute: minute})} /> :
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}
     </div>;
