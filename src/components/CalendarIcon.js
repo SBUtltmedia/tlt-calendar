@@ -42,6 +42,7 @@ class CalendarIcon extends Component {
 
   componentDidMount() {
     const { size, connectDragPreview } = this.props;
+    console.log(size);
     connectDragPreview(<div style={`width:${calculateWidth(this.props)}px; height:${size}px`}></div>);
   }
 
