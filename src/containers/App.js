@@ -5,10 +5,12 @@ import styles from './App.scss';
 import NavBar from '../components/NavBar';
 import { fetchEmployees } from '../actions/EmployeesActions';
 import { fetchLocations } from '../actions/LocationsActions';
+import { fetchThisUser } from '../actions/UserActions';
 
 class App extends Component {
   componentDidMount() {
     const { fetchEmployees, fetchLocations } = this.props;
+    fetchThisUser();
     fetchEmployees();
     fetchLocations();
   }
@@ -21,6 +23,7 @@ class App extends Component {
 }
 
 const matchDispatchToProps = dispatch => ({
+  fetchThisUser: () => dispatch(fetchThisUser()),
   fetchEmployees: () => dispatch(fetchEmployees()),
   fetchLocations: () => dispatch(fetchLocations())
 });

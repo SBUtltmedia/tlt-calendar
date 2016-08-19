@@ -18,6 +18,14 @@ export function fetchUser(netid) {
   }
 }
 
+export function fetchThisUser() {
+  return dispatch => {
+    return fetch(`${DATA_PATH}/user.json`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveUser(json)))
+  }
+}
+
 export function changeSettings(newSettings) {
   return {
     type: CHANGE_SETTINGS,
