@@ -192,7 +192,7 @@ class CalendarCell extends Component {
     hour: PropTypes.number.isRequired
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {  // For render efficiency
     return !_.isEqual(this.props.cellItems, nextProps.cellItems);
   }
 
