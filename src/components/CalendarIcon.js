@@ -42,7 +42,6 @@ class CalendarIcon extends Component {
 
   componentDidMount() {
     const { size, connectDragPreview } = this.props;
-    console.log(size);
     connectDragPreview(<div style={`width:${calculateWidth(this.props)}px; height:${size}px`}></div>);
   }
 
@@ -54,12 +53,12 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className} = this.props;
+    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className, duration} = this.props;
     return connectDragSource(
       <div style={{...style, width: calculateWidth(this.props), height: size}}
            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
-        {viewComponent({disabled, value})}
+        {viewComponent({disabled, value, duration})}
       </div>
     );
   }
