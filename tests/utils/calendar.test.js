@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity } from '../../src/utils/calendar';
-import { HOUR, HALF_HOUR } from '../../src/constants/Constants';
+import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
   it('clears an area between two times A', () => {
@@ -91,6 +91,12 @@ describe('calendar', () => {
     const choppedItem2 = {...item, duration: HALF_HOUR, minute: 30};
     const items = placeItem({}, item, options);
     expect(items).to.deep.equal({"0": choppedItem1, "30": choppedItem2});
+  });
+
+  it('places a two hour item', () => {
+    const item = {value: 1, day: 0, hour: 0, minute: 0, duration: TWO_HOURS};
+    const items = placeItem({}, item);
+    expect(items).to.deep.equal({"0": item});
   });
 
   it('removes an item', () => {

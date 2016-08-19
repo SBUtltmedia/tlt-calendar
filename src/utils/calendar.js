@@ -125,13 +125,13 @@ export function removeItem(items, {day, hour, minute, duration, value=undefined}
  *     Takes a list of cell items as a parameter.
  *     Returns a bool representing whether or not multiples behavior should be overridden.
  */
-export function placeItem(items, item, {maxItems=1, defaultGranularity=HOUR, overrideMultiplesFn=undefined}={}) {
+export function placeItem(items, item, {maxItems=1, defaultGranularity=undefined, overrideMultiplesFn=undefined}={}) {
   let is = _.clone(items);
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
   const key = timeToKey(strippedItem);
   const itemEndTime = getItemEndTime(strippedItem);
   const override = !!overrideMultiplesFn && overrideMultiplesFn([strippedItem]);
-  if (!override && strippedItem.duration > defaultGranularity) {
+  if (!override && defaultGranularity && strippedItem.duration > defaultGranularity) {
     const choppedItems = chopToGranularity([strippedItem], strippedItem, itemEndTime, defaultGranularity);
     return _.reduce(choppedItems, (items, item) => placeItem(items, item, {maxItems, defaultGranularity}), is);
   }
