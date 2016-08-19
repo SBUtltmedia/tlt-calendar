@@ -23,12 +23,12 @@ const collect = (connect, monitor) => ({
 function createTarget(minute) {
   return {
     drop(props, monitor) {
-      const {placeItem, removeItem} = props;
+      const {placeItem, removeItem, day, hour} = props;
       const item = monitor.getItem();
       if (item.day !== null && item.day !== undefined) {  // If it's already placed somewhere on the calendar grid
         removeItem(item);
       }
-      placeItem({...item, ...props, minute});
+      placeItem({...item, day, hour, minute});
     },
     canDrop(props, monitor) {
       return !monitor.getItem().disabled;

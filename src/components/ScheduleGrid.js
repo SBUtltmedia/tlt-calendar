@@ -9,10 +9,10 @@ import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED, HOUR, HALF_HOUR } from '../constants/Constants';
 import { overrideMultiplesFn } from '../utils/schedule';
+import { getDefaultGranularity } from '../utils/calendar';
 import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
-const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
 
 const popover = ({items, day, hour, minute}) => (
   _.map(items, (item, i) => <div key={i}>
@@ -41,17 +41,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  const {coverage} = stateProps;
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    ...ownProps,
-    popover: coverage > 1 ? popover : undefined,
-    overrideMultiplesFn: overrideMultiplesFn,
-    placeItem: item => dispatchProps.placeItem(item, getDefaultGranularity(coverage))
-  }
-};
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  ...ownProps,
+  popover: stateProps.coverage > 1 ? popover : undefined,
+  overrideMultiplesFn: overrideMultiplesFn,
+  placeItem: item => dispatchProps.placeItem(item)
+});
 
 export default connect(
   mapStateToProps,

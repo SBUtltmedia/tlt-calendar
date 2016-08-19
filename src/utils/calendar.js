@@ -6,6 +6,8 @@ import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePl
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
+export const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
+
 /**
  * Returns a bool of whether the item has any part between slotStart and slotEnd
  * Accounts for wrapping

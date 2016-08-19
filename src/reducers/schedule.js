@@ -11,7 +11,12 @@ export default function schedule(state=initialState, action) {
   switch (action.type) {
     case SET_LOCATION: return {...state, location: action.location};
     case RECEIVE_SCHEDULE: return {...state, shifts: action.schedule};
-    case PLACE_ITEM: return {...state, shifts: placeItem(state.shifts, action, {maxItems: state.location.coverage})};
+    case PLACE_ITEM:
+      const coverage = state.location.coverage || 1;
+      return {...state, shifts: placeItem(state.shifts, action, {
+        maxItems: coverage,
+        defaultGranularity: calendar.getDefaultGranularity(coverage)
+      })};
     case REMOVE_ITEM: return {...state, shifts: calendar.removeItem(state.shifts, action)};
     default: return state;
   }

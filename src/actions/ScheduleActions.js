@@ -20,8 +20,8 @@ export function fetchSchedule(location) {
   }
 }
 
-export function placeItem(item, {defaultGranularity=HOUR}={}) {
-  return {...item, type: PLACE_ITEM, defaultGranularity};
+export function placeItem(item) {
+  return {...item, type: PLACE_ITEM};
 }
 
 export function removeItem(item) {

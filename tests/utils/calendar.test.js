@@ -48,6 +48,14 @@ describe('calendar', () => {
     expect(result).to.deep.equal({"0": {...item1, value: [1]}, "30": {...item2, value: [2]}, "60": {...item3, value: [3]}});
   });
 
+  it('places a 1 hour item and creates two 30 minute items', () => {
+    const options = {defaultGranularity: HALF_HOUR};
+    const item = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
+    const splitItem1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HALF_HOUR};
+    const splitItem2 = {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR};
+    expect(placeItem({}, item, options)).to.deep.equal({"0": splitItem1, "30": splitItem2});
+  });
+
   it('places an item (override multiples, full slot)', () => {
     const maxItems = 2;
     const overrideMultiplesFn = items => items[0].value === 5;
