@@ -8,12 +8,15 @@ import { fetchLocations } from '../actions/LocationsActions';
 import { fetchThisUser } from '../actions/UserActions';
 
 class App extends Component {
-  componentDidMount() {
-    const { fetchEmployees, fetchLocations } = this.props;
+
+  constructor(props) {
+    super(props);
+    const { fetchThisUser, fetchEmployees, fetchLocations } = props;
     fetchThisUser();
     fetchEmployees();
     fetchLocations();
   }
+
   render() {
     return <div className={styles.container}>
       <NavBar />
