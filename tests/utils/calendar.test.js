@@ -189,4 +189,8 @@ describe('calendar', () => {
     let result = placeItem({"0": item1}, item2, options);
     expect(result).to.deep.equal({"0": splitItem1, "30": item2});
   });
+
+  it('splits items when they wrap across days', () => {
+
+  });
 });
