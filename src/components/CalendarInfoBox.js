@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import styles from './CalendarInfoBox.scss';
 import { STUDENT_CELL, SLOT_CELL, ADMIN_SCHEDULE_CELL, EMPLOYEE, ACTION } from '../constants/InfoBoxTypes';
-import { DAYS } from '../constants/Settings';
+import { LONG_DAYS } from '../constants/Settings';
 import { getHourLabel, hourPlus1 } from '../utils/time';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import _ from 'lodash';
@@ -31,7 +31,7 @@ function renderCellItemsSection(items, heading, alwaysRender=false) {
 }
 
 function renderCellItems(day, hour, items) {
-	const dayName = DAYS[day];
+	const dayName = LONG_DAYS[day];
 	const startHourString = getHourLabel(hour);
 	const endHourString = getHourLabel(hourPlus1(hour));
 	const fullItems = _.filter(items, item => item.duration === HOUR);

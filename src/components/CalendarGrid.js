@@ -3,7 +3,7 @@ import _ from 'lodash';
 import styles from './CalendarGrid.scss';
 import CalendarCell from './CalendarCell';
 import { getHourLabel } from '../utils/time';
-import { DAYS } from '../constants/Settings';
+import { SHORT_DAYS } from '../constants/Settings';
 
 const CalendarGrid = props => (
   <div className={styles.container}>
@@ -14,7 +14,7 @@ const CalendarGrid = props => (
         </tr>
       </thead>
       <tbody>
-        { _.map(DAYS, (day, i) => (<tr key={i}>
+        { _.map(SHORT_DAYS, (day, i) => (<tr key={i}>
           <td>{day}</td>
           { _.map(_.range(24), hour => <td key={hour}><CalendarCell {...props} day={i} hour={hour} /></td>) }
           <td>{day}</td>
