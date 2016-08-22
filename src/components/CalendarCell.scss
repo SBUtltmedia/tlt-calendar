@@ -69,4 +69,16 @@
     z-index: 10;
     position: relative;
   }
+
+  .ticks {
+    .filled {
+      fill: $success-color;
+    }
+    .unfilled {
+      fill: $reject-color;
+    }
+    .active {
+      fill: $hover-color;
+    }
+  }
 }

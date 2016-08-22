@@ -59,19 +59,19 @@ function getTickValues(items, minute) {
   return tickItems ? tickItems.value : [];
 }
 
-const Tick = ({col, row, color}) => (
-  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 10 + 5} style={{fill:color}} />
+const Tick = ({col, row, className}) => (
+  <rect width='19' height='5' x={col === 0 ? 4 : 26} y={row * 10 + 5} className={className} />
 );
 
 const Ticks = ({items, onClick, max, isActive, activeMinute}) => {
-  const getTickColor = (items, minute) => isActive && activeMinute === minute ?
-                        '#39F' : (_.size(items) >= max ? '#0F0' : '#F00');
+  const getTickClass = (items, minute) => isActive && activeMinute === minute ?
+                        'active' : (_.size(items) >= max ? 'filled' : 'unfilled');
   const leftItems = getTickValues(items, 0);
   const rightItems = getTickValues(items, 30);
-  return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
+  return <svg className="item ticks" xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50" className='ticks'>
     <g>
-      {_.map(leftItems, (item, i) => <Tick col={0} row={i} key={i} color={getTickColor(leftItems, 0)} />)}
-      {_.map(rightItems, (item, i) => <Tick col={1} row={i} key={i} color={getTickColor(rightItems, 30)} />)}
+      {_.map(leftItems, (item, i) => <Tick col={0} row={i} key={i} className={getTickClass(leftItems, 0)} />)}
+      {_.map(rightItems, (item, i) => <Tick col={1} row={i} key={i} className={getTickClass(rightItems, 30)} />)}
       <rect width='25' height='50' x='0' y='0' style={{fillOpacity:0}} onClick={() => onClick(leftItems, 0)} />
       <rect width='25' height='50' x='25' y='0' style={{fillOpacity:0}} onClick={() => onClick(rightItems, 30)} />
     </g>
