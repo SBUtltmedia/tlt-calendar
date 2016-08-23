@@ -14,7 +14,7 @@ const dragSource = {
     }
 };
 
-const calculateWidth = (size, visibleDuration) => visibleDuration ? Math.round(size * visibleDuration / 60) : size;
+const calculateWidth = ({size, duration}) => duration ? Math.round(size * duration / 60) : size;
 
 @DragSource(CALENDAR_ITEM, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -57,7 +57,7 @@ class CalendarIcon extends Component {
     const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className,
             duration, visibleDuration=duration} = this.props;
     return connectDragSource(
-      <div style={{...style, width: calculateWidth(size, visibleDuration), height: size}}
+      <div style={{...style, width: calculateWidth(this.props), height: size}}
            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent({disabled, value, duration, visibleDuration})}
