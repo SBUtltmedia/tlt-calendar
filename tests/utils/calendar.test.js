@@ -1,11 +1,12 @@
 import { expect } from 'chai';
 import { print } from '../helpers.js';
 import _ from 'lodash';
-import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity } from '../../src/utils/calendar';
+import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity,
+  itemToTime, itemSpansPastEndOfDay } from '../../src/utils/calendar';
 import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
-  it('clears an area between two times A', () => {
+  it('clears an area between two times (A)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const time1 = {day: 0, hour: 0, minute: 0};
     const time2 = {day: 0, hour: 0, minute: 30};
@@ -13,7 +14,7 @@ describe('calendar', () => {
     expect(clearAllBetween({"0": item1}, time1, time2)).to.deep.equal({"30": splitItem1});
   });
 
-  it('clears an area between two times B', () => {
+  it('clears an area between two times (B)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const time1 = {day: 0, hour: 0, minute: 30};
     const time2 = {day: 0, hour: 1, minute: 0};
@@ -192,6 +193,11 @@ describe('calendar', () => {
     expect(result).to.deep.equal({"0": splitItem1, "30": item2});
   });
 
+  it('knows if an item spans past the end of the day', () => {
+    expect(itemSpansPastEndOfDay({day: 0, hour: 23, minute: 30, duration: HOUR})).to.be.true;
+    expect(itemSpansPastEndOfDay({day: 0, hour: 23, minute: 30, duration: HALF_HOUR})).to.be.false;
+  });
+
   it('splits items when they wrap across days (piece 1)', () => {
     const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
     const piece1 = {...item, visibleDuration: HALF_HOUR, connectedItem: {day: 1, hour: 0, minute: 0}};
@@ -201,8 +207,9 @@ describe('calendar', () => {
 
   it('splits items when they wrap across days (piece 2)', () => {
     const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
-    const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, ..._.pick(item, ['day', 'hour', 'minute'])};
+    const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, connectedItem: itemToTime(item)};
     const items = placeItem({}, item);
+    print(getItemsInSlot(items, {day: 1, hour: 0}));
     expect(getItemsInSlot(items, {day: 1, hour: 0})).to.deep.equal([piece2]);
   });
 });

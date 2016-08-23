@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION, MAXIMUM_ITEM_DURATION } from '../constants/Settings';
-import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes, dayPlus1,
+import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes, dayPlus1, dayMinus1,
   dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime, timeToKey, timeToKeyInt } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
 export const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
+export const itemToTime = item => _.pick(item, ['day', 'hour', 'minute']);
 
 /**
  * Returns a bool of whether the item has any part between slotStart and slotEnd
@@ -27,26 +28,36 @@ export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
   }
 }
 
+function forEachItemBetween(items, time1, time2, fn) {
+  const startKey = Math.max(timeToKeyInt(time1), 0);
+  const endKey = timeToKeyInt(time2);
+  _.each(_.range(roundUpToNearest(startKey, MINIMUM_ITEM_DURATION), endKey, MINIMUM_ITEM_DURATION), i => {
+    const key = String(i);
+    const item = items[key];
+    if (item) {
+      fn(item, key);
+    }
+  });
+}
+
 export function clearAllBetween(items, time1, time2) {
   let is = _.clone(items);
   const startTime = dayHourMinuteMinusXMinutes(time1.day, time1.hour, time1.minute, MAXIMUM_ITEM_DURATION, false);
-  const startKey = Math.max(timeToKeyInt(startTime), 0);
-  const endKey = timeToKeyInt(time2);
-  const slots = _.range(roundUpToNearest(startKey, MINIMUM_ITEM_DURATION), endKey, MINIMUM_ITEM_DURATION);
-  _.each(slots, i => {
-    const item = is[String(i)];
-    if (item) {
-      const itemEnd = getItemEndTime(item);
-      if (overlapsSlot(item, itemEnd, time1, time2)) {
-        delete is[String(i)];
-        if (compareTimes(item, time1) < 0) {    // if this item has chunk before start, replace with shorter piece
-          is = placeItem(is, {...item, duration: compareTimes(time1, item)});
-        }
+  forEachItemBetween(is, startTime, time2, (item, key) => {
+    const itemEnd = getItemEndTime(item);
+    if (overlapsSlot(item, itemEnd, time1, time2)) {
+      delete is[key];
 
-        if (compareTimes(itemEnd, time2) > 0) { // if this item goes beyond the end, replace with shorter piece
-          is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});
-        }
+
+      // TODO: We don't want to chop up items with a defined duration like slots!
+      if (compareTimes(item, time1) < 0) {    // if this item has chunk before start, replace with shorter piece
+        is = placeItem(is, {...item, duration: compareTimes(time1, item)});
       }
+      if (compareTimes(itemEnd, time2) > 0) { // if this item goes beyond the end, replace with shorter piece
+        is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});
+      }
+
+
     }
   });
   return is;
@@ -65,6 +76,14 @@ function putIntoBaskets(items) {
     baskets[key].push(item);
   });
   return baskets;
+}
+
+export function getAllItemsThatStartBetween(items, start, end) {
+  let foundItems = [];
+  for (let t = start; compareTimes(t, end) !== 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
+    foundItems.push(items[timeToKey(t)]);
+  }
+  return _.filter(foundItems);  // filters out null and undefined
 }
 
 /**
@@ -86,18 +105,21 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
   return _.filter(choppedItems, item => overlapsSlot(item, getItemEndTime(item), slotStart, slotEnd));
 }
 
+export function itemSpansPastEndOfDay(item) {
+  const itemEnd = getItemEndTime(item);
+  return itemEnd.day !== item.day && !(itemEnd.hour === 0 && itemEnd.minute === 0);
+}
+
 /**
- * Takes an array of items (no object keys) and returns an array of items with the items that span several days chopped.
+ * Takes an array of items (no object keys) and returns an array of items with the items that span past today chopped.
+ * This function only returns the first piece of those items (the second piece appears in a different slot).
  * Also adds special information (visibleDuration, connectedItem) to those items that were chopped.
  */
-export function chopItemsThatSpanSeveralDays(items) {
+export function chopItemsThatSpanPastEndOfDay(items) {
   return _.map(items, item => {
-    const itemEnd = getItemEndTime(item);
     const dayCrossover = {day: dayPlus1(item.day), hour: 0, minute: 0};
-    if (itemEnd.day !== item.day && compareTimes(dayCrossover, itemEnd) !== 0) {
-      const piece1 = {...item, visibleDuration: compareTimes(dayCrossover, item)};
-      //const piece2 = {...item, ...dayCrossover, visibleDuration: compareTimes(itemEnd, dayCrossover)};
-      return {...piece1, connectedItem: dayCrossover} /* {...piece2, connectedItem: piece1} */ ;
+    if (itemSpansPastEndOfDay(item)) {
+      return {...item, visibleDuration: compareTimes(dayCrossover, item), connectedItem: dayCrossover};
     }
     else {
       return item;
@@ -105,12 +127,23 @@ export function chopItemsThatSpanSeveralDays(items) {
   });
 }
 
-export function getAllItemsThatStartBetween(items, start, end) {
-  let foundItems = [];
-  for (let t = start; compareTimes(t, end) !== 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
-    foundItems.push(items[timeToKey(t)]);
-  }
-  return _.filter(foundItems);  // filters out null and undefined
+/**
+ * Takes the items object (with keys) and returns only items from the end of previous day that were chopped.
+ * This function returns the second piece of the item returned by the `chopItemsThatSpanPastEndOfDay` function.
+ * Also adds special information (visibleDuration, connectedItem) to those items that were chopped.
+ */
+export function getChoppedItemsFromYesterday(items, today) {
+  const spanStart = {day: dayMinus1(today), hour: 24 - MAXIMUM_ITEM_DURATION / 60, minute: 0};  // Look back N hours
+  const startOfToday = {day: today, hour: 0, minute: 0};
+  const foundItems = [];
+  forEachItemBetween(items, spanStart, startOfToday, (item, key) => {
+    if (itemSpansPastEndOfDay(item)) {
+      const itemEnd = getItemEndTime(item);
+      const visibleDuration = compareTimes(itemEnd, startOfToday);
+      foundItems.push({...item, ...startOfToday, visibleDuration, connectedItem: itemToTime(item)});
+    }
+  });
+  return foundItems;
 }
 
 /**
@@ -119,8 +152,8 @@ export function getAllItemsThatStartBetween(items, start, end) {
 export function getItemsInSlot(items, {day, hour, minute=0}) {
   const startTime = {day, hour, minute};
   const endTime = dayHourMinutePlusXMinutes(day, hour, minute, 60);
-  const slotItems = getAllItemsThatStartBetween(items, startTime, endTime);
-  return chopItemsThatSpanSeveralDays(slotItems);
+  const slotItems = chopItemsThatSpanPastEndOfDay(getAllItemsThatStartBetween(items, startTime, endTime));
+  return hour === 0 && minute === 0 ? [...getChoppedItemsFromYesterday(items, day), ...slotItems] : slotItems;
 }
 
 export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
