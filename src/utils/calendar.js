@@ -52,6 +52,9 @@ export function clearAllBetween(items, time1, time2) {
   return is;
 }
 
+/**
+ * Takes an array of items (no object keys) and returns an object with keys and the original items as values.
+ */
 function putIntoBaskets(items) {
   const baskets = {};
   _.each(items, item => {
