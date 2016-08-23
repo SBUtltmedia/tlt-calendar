@@ -3,7 +3,7 @@ import { print } from '../helpers.js';
 import _ from 'lodash';
 import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity,
   itemToTime, itemSpansPastEndOfDay, putIntoBuckets } from '../../src/utils/calendar';
-import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
+import { EIGHT_HOURS, FOUR_HOURS, TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
   it('puts items into buckets (singles)', () => {
@@ -220,5 +220,12 @@ describe('calendar', () => {
     const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, connectedItem: itemToTime(item)};
     const items = placeItem({}, item);
     expect(getItemsInSlot(items, {day: 1, hour: 0})).to.deep.equal([piece2]);
+  });
+
+  it('removes item via its connected item', () => {
+    const item = {day: 0, hour: 20, minute: 0, duration: EIGHT_HOURS };
+    let items = placeItem({}, item);
+    items = removeItem(items, {day: 1, hour: 0, minute: 0, connectedItem: item});
+    expect(items).to.deep.equal({});
   });
 });

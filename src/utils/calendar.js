@@ -151,17 +151,20 @@ export function getItemsInSlot(items, {day, hour, minute=0}) {
   return hour === 0 && minute === 0 ? [...getChoppedItemsFromYesterday(items, day), ...slotItems] : slotItems;
 }
 
-export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
-  const is = _.clone(items);
+export function removeItem(items, {day, hour, minute, value=undefined, connectedItem=undefined}) {
+  const is = connectedItem ? removeItem(items, connectedItem) : _.clone(items);
   const key = timeToKey({day, hour, minute});
-  if (value && _.isArray(is[key].value)) {  // If value was specified and this slot contains multiple values
-    is[key].value = _.reject(is[key].value, v => _.isEqual(v, value));  // filter out the specified value
-    if (_.isEmpty(is[key].value)) {
-      delete is[key];  // delete the entire item if there are no more values inside
+  const item = is[key];
+  if (item) {
+    if (value && _.isArray(item.value)) {  // If value was specified and this slot contains multiple values
+      item.value = _.reject(item.value, v => _.isEqual(v, value));  // filter out the specified value
+      if (_.isEmpty(item.value)) {
+        delete is[key];  // delete the entire item if there are no more values inside
+      }
     }
-  }
-  else {  // If no value was specified or the slot contains a single item just delete the whole item
-    delete is[key];
+    else {  // If no value was specified or the slot contains a single item just delete the whole item
+      delete is[key];
+    }
   }
   return is;
 }
