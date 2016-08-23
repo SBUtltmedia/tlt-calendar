@@ -2,6 +2,7 @@
   "location": "Main Library",
   "slots": {
     "0": {"day": 0, "hour": 0, "minute": 0, "duration": 60},
-    "60": {"day": 0, "hour": 0, "minute": 60, "duration": 120}
+    "60": {"day": 0, "hour": 1, "minute": 0, "duration": 120},
+    "1200": {"day": 0, "hour": 20, "minute": 0, "duration": 480}
   }
 }
