@@ -47,7 +47,7 @@ class ChipBank extends Component {
 
   render() {
     return <div className={styles.container}>
-      <Tabs defaultActiveKey={1} id="chip-tabs">
+      <Tabs defaultActiveKey={1} id="chip-bank-tabs">
         <Tab eventKey={1} title="Hour">{this.renderChips(HOUR)}</Tab>
         <Tab eventKey={2} title="Half hour">{this.renderChips(HALF_HOUR)}</Tab>
       </Tabs>
