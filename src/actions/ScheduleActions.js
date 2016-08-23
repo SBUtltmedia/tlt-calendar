@@ -1,4 +1,3 @@
-require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import { DATA_PATH } from '../constants/Settings';

@@ -26,9 +26,10 @@ export function dayHourMinuteInMinutes(day, hour, minute) {
 /**
  * params:  time1 and time2 are objects with properties: {day, hour, minute}
  *          If hour and minute are missing in either object, they're assumed to be 0
- * returns: Less than zero: time1 is earlier than time2
- *          Zero: time1 is the same as time2
- *          Greater than zero: time1 is later than time2
+ * returns: The difference of the two times in minutes
+ *          - Less than zero: time1 is earlier than time2
+ *          - Zero: time1 is the same as time2
+ *          - Greater than zero: time1 is later than time2
  */
 export function compareTimes(time1, time2) {
   return dayHourMinuteInMinutes(time1.day, time1.hour || 0, time1.minute || 0) -

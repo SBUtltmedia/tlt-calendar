@@ -1,9 +1,22 @@
 import { expect } from 'chai';
-import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity } from '../../src/utils/calendar';
-import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
+import { print } from '../helpers.js';
+import _ from 'lodash';
+import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity,
+  itemToTime, itemSpansPastEndOfDay, putIntoBuckets } from '../../src/utils/calendar';
+import { EIGHT_HOURS, FOUR_HOURS, TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
-  it('clears an area between two times A', () => {
+  it('puts items into buckets (singles)', () => {
+    const item = {day: 0, hour: 1, minute: 30};
+    expect(putIntoBuckets([item])).to.deep.equal({"90": item});
+  });
+
+  it('puts items into buckets (multiples)', () => {
+    const item = {day: 0, hour: 1, minute: 30, value: [1, 2]};
+    expect(putIntoBuckets([item])).to.deep.equal({"90": item});
+  });
+
+  it('clears an area between two times (A)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const time1 = {day: 0, hour: 0, minute: 0};
     const time2 = {day: 0, hour: 0, minute: 30};
@@ -11,7 +24,7 @@ describe('calendar', () => {
     expect(clearAllBetween({"0": item1}, time1, time2)).to.deep.equal({"30": splitItem1});
   });
 
-  it('clears an area between two times B', () => {
+  it('clears an area between two times (B)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const time1 = {day: 0, hour: 0, minute: 30};
     const time2 = {day: 0, hour: 1, minute: 0};
@@ -126,8 +139,8 @@ describe('calendar', () => {
                                  "90": {...item2, duration: HALF_HOUR},
                                 "120": {...item2, hour:2, minute: 0, duration: HALF_HOUR}});
     const expected = [
-      {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
-      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR, visibleDuration: HALF_HOUR},
+      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 1})).to.deep.equal(expected);
   });
@@ -138,7 +151,7 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem(placeItem({}, item1, options), item2, options);
     const expected = [
-      {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
@@ -148,7 +161,7 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem({}, item1, options);
     const expected = [
-      {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
+      {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
@@ -158,8 +171,8 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem({}, item1, options);
     const expected = [
-      {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR},
-      {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR, visibleDuration: HALF_HOUR},
+      {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 6, hour: 23})).to.deep.equal(expected);
   });
@@ -190,7 +203,29 @@ describe('calendar', () => {
     expect(result).to.deep.equal({"0": splitItem1, "30": item2});
   });
 
-  it('splits items when they wrap across days', () => {
+  it('knows if an item spans past the end of the day', () => {
+    expect(itemSpansPastEndOfDay({day: 0, hour: 23, minute: 30, duration: HOUR})).to.be.true;
+    expect(itemSpansPastEndOfDay({day: 0, hour: 23, minute: 30, duration: HALF_HOUR})).to.be.false;
+  });
 
+  it('splits items when they wrap across days (piece 1)', () => {
+    const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
+    const piece1 = {...item, visibleDuration: HALF_HOUR, connectedItem: {day: 1, hour: 0, minute: 0}};
+    const items = placeItem({}, item);
+    expect(getItemsInSlot(items, {day: 0, hour: 23})).to.deep.equal([piece1]);
+  });
+
+  it('splits items when they wrap across days (piece 2)', () => {
+    const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
+    const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, connectedItem: itemToTime(item)};
+    const items = placeItem({}, item);
+    expect(getItemsInSlot(items, {day: 1, hour: 0})).to.deep.equal([piece2]);
+  });
+
+  it('removes item via its connected item', () => {
+    const item = {day: 0, hour: 20, minute: 0, duration: EIGHT_HOURS };
+    let items = placeItem({}, item);
+    items = removeItem(items, {day: 1, hour: 0, minute: 0, connectedItem: item});
+    expect(items).to.deep.equal({});
   });
 });

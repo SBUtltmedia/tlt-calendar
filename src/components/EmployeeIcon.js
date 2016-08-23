@@ -20,7 +20,7 @@ function getInitials(employee) {
 }
 
 const DefaultEmployeeIcon = ({employee}) => (
-  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox="0 0 50 50">
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 50 50">
     <g>
       <rect width='100%' height='100%' style={{fill:"#CCC"}} />
       <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#444"

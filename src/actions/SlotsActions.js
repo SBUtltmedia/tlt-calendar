@@ -1,7 +1,7 @@
-require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import { DATA_PATH } from '../constants/Settings';
 import { SET_LOCATION, RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
+import { dispatchAndSave } from './actionHelpers';
 
 function receiveSlots(json) {
   return {
@@ -19,11 +19,11 @@ export function fetchSlots(location) {
 }
 
 export function placeItem(item) {
-  return {...item, type: PLACE_SLOT};
+  return dispatchAndSave({...item, type: PLACE_SLOT});
 }
 
 export function removeItem(item) {
-  return {...item, type: REMOVE_SLOT};
+  return dispatchAndSave({...item, type: REMOVE_SLOT});
 }
 
 export const setLocation = location => ({

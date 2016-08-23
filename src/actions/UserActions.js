@@ -1,4 +1,3 @@
-require('es6-promise').polyfill();
 import fetch from 'isomorphic-fetch';
 import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_USER, CHANGE_SETTINGS } from '../constants/ActionTypes';

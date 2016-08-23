@@ -5,12 +5,19 @@ import { DragSource } from 'react-dnd';
 import _ from 'lodash';
 import styles from './CalendarIcon.scss';
 import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
+import { setDraggingItem, clearDraggingItem } from '../actions/DndActions';
 import { ACTION } from '../constants/InfoBoxTypes';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
+import { compareTimes } from '../utils/time';
 
 const dragSource = {
     beginDrag(props) {
-      return _.pick(props, ['value', 'day', 'hour', 'minute', 'duration', 'disabled']);
+      const {setDraggingItem, day, hour, minute, connectedItem} = props;
+      setDraggingItem({day, hour, minute, connectedItem});
+      return _.pick(props, ['value', 'day', 'hour', 'minute', 'duration', 'visibleDuration', 'connectedItem', 'disabled']);
+    },
+    endDrag(props) {
+      props.clearDraggingItem();
     }
 };
 
@@ -28,7 +35,9 @@ class CalendarIcon extends Component {
     day: PropTypes.number,
     hour: PropTypes.number,
     minute: PropTypes.number,
-    duration: PropTypes.number,
+    duration: PropTypes.number.isRequired,
+    visibleDuration: PropTypes.number,
+    connectedItem: PropTypes.object,
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
@@ -52,27 +61,40 @@ class CalendarIcon extends Component {
     }
   }
 
+  isConnectedItemDragging() {
+    const {connectedItem, draggingItem} = this.props;
+    return connectedItem && draggingItem && compareTimes(connectedItem, draggingItem) === 0;
+  }
+
   render() {
-    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className, duration} = this.props;
+    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className,
+            duration, visibleDuration=duration} = this.props;
+    const showDragging = isDragging || this.isConnectedItemDragging();
     return connectDragSource(
       <div style={{...style, width: calculateWidth(this.props), height: size}}
-           className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
+           className={`${styles.icon}${disabled ? ' disabled' : ''}${showDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
-        {viewComponent({disabled, value, duration})}
+        {viewComponent({disabled, value, duration, visibleDuration})}
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  draggingItem: state.dnd.draggingItem
+});
+
 const mapDispatchToProps = dispatch => {
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   return {
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ACTION),
-    clearInfoBox: infoBoxActions.clearInfoBox
-  }
+    clearInfoBox: infoBoxActions.clearInfoBox,
+    setDraggingItem: item => dispatch(setDraggingItem(item)),
+    clearDraggingItem: () => dispatch(clearDraggingItem())
+  };
 };
 
 export default connect(
-  state => ({}),
+  mapStateToProps,
   mapDispatchToProps
 )(CalendarIcon);

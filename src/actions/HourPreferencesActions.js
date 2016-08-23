@@ -1,9 +1,9 @@
-import { RECEIVE_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
+import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { DATA_PATH } from '../constants/Settings';
 
 function receivePreferences(json) {
   return {
-    type: RECEIVE_PREFERENCES,
+    type: RECEIVE_HOUR_PREFERENCES,
     preferences: json
   }
 }

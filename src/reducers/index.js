@@ -5,3 +5,4 @@ export slots from './slots';
 export employees from './employees';
 export locations from './locations';
 export user from './user';
+export dnd from './dnd';
