@@ -17,4 +17,6 @@ export const RECEIVE_EMPLOYEES = 'receive-employees';
 export const RECEIVE_LOCATIONS = 'receive-locations';
 export const CHANGE_SETTINGS = 'change-settings';
 export const GRAVATAR_LOAD_FAILED = 'gravatar-load-failed';
+export const SET_DRAGGING_ITEM = 'set-dragging-item';
+export const CLEAR_DRAGGING_ITEM = 'clear-dragging-item';
 export const LOGGED_OUT = 'logged-out';
