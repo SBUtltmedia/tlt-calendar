@@ -1,4 +1,6 @@
 import { expect } from 'chai';
+import { print } from '../helpers.js';
+import _ from 'lodash';
 import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity } from '../../src/utils/calendar';
 import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
@@ -190,7 +192,17 @@ describe('calendar', () => {
     expect(result).to.deep.equal({"0": splitItem1, "30": item2});
   });
 
-  it('splits items when they wrap across days', () => {
+  it('splits items when they wrap across days (piece 1)', () => {
+    const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
+    const piece1 = {...item, visibleDuration: HALF_HOUR, connectedItem: {day: 1, hour: 0, minute: 0}};
+    const items = placeItem({}, item);
+    expect(getItemsInSlot(items, {day: 0, hour: 23})).to.deep.equal([piece1]);
+  });
 
+  it('splits items when they wrap across days (piece 2)', () => {
+    const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
+    const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, ..._.pick(item, ['day', 'hour', 'minute'])};
+    const items = placeItem({}, item);
+    expect(getItemsInSlot(items, {day: 1, hour: 0})).to.deep.equal([piece2]);
   });
 });

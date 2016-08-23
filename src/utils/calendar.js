@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION, MAXIMUM_ITEM_DURATION } from '../constants/Settings';
-import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes,
+import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes, dayPlus1,
   dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime, timeToKey, timeToKeyInt } from '../utils/time';
 import { roundUpToNearest } from '../utils/numbers';
 import './array';
@@ -33,7 +33,6 @@ export function clearAllBetween(items, time1, time2) {
   const startKey = Math.max(timeToKeyInt(startTime), 0);
   const endKey = timeToKeyInt(time2);
   const slots = _.range(roundUpToNearest(startKey, MINIMUM_ITEM_DURATION), endKey, MINIMUM_ITEM_DURATION);
-
   _.each(slots, i => {
     const item = is[String(i)];
     if (item) {
@@ -66,7 +65,7 @@ function putIntoBaskets(items) {
 }
 
 /**
- * Takes an array of items (no object keys) and returns an array of items chopped according to the given granularity
+ * Takes an array of items (no object keys) and returns an array of items chopped according to the given granularity.
  */
 export function chopToGranularity(items, slotStart, slotEnd, granularity) {
   const choppedItems = _.flatten(_.map(items, item => {
@@ -84,6 +83,25 @@ export function chopToGranularity(items, slotStart, slotEnd, granularity) {
   return _.filter(choppedItems, item => overlapsSlot(item, getItemEndTime(item), slotStart, slotEnd));
 }
 
+/**
+ * Takes an array of items (no object keys) and returns an array of items with the items that span several days chopped.
+ * Also adds special information (visibleDuration, connectedItem) to those items that were chopped.
+ */
+export function chopItemsThatSpanSeveralDays(items) {
+  return _.map(items, item => {
+    const itemEnd = getItemEndTime(item);
+    const dayCrossover = {day: dayPlus1(item.day), hour: 0, minute: 0};
+    if (itemEnd.day !== item.day && compareTimes(dayCrossover, itemEnd) !== 0) {
+      const piece1 = {...item, visibleDuration: compareTimes(dayCrossover, item)};
+      //const piece2 = {...item, ...dayCrossover, visibleDuration: compareTimes(itemEnd, dayCrossover)};
+      return {...piece1, connectedItem: dayCrossover} /* {...piece2, connectedItem: piece1} */ ;
+    }
+    else {
+      return item;
+    }
+  });
+}
+
 export function getAllItemsThatStartBetween(items, start, end) {
   let foundItems = [];
   for (let t = start; compareTimes(t, end) !== 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
@@ -96,7 +114,10 @@ export function getAllItemsThatStartBetween(items, start, end) {
  * Returns the items within a 1 hour slot.
  */
 export function getItemsInSlot(items, {day, hour, minute=0}) {
-  return getAllItemsThatStartBetween(items, {day, hour, minute}, dayHourMinutePlusXMinutes(day, hour, minute, 60));
+  const startTime = {day, hour, minute};
+  const endTime = dayHourMinutePlusXMinutes(day, hour, minute, 60);
+  const slotItems = getAllItemsThatStartBetween(items, startTime, endTime);
+  return chopItemsThatSpanSeveralDays(slotItems);
 }
 
 export function removeItem(items, {day, hour, minute, duration, value=undefined}) {
