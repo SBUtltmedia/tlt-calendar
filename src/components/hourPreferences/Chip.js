@@ -9,7 +9,7 @@ import './Chip.scss';
 //const getImgSrc = value => req(`./${value}.svg`);
 
 const ViewComponent = ({value}) => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 50 50" className={`chip_${value}`}>
+  <svg xmlns='http://www.w3.org/2000/svg' height='100%' viewBox="0 0 50 50" className={`chip_${value}`}>
     <g>
       <circle cx="25" cy="25" r="20" />
       <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%"
