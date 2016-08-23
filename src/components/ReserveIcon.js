@@ -1,4 +1,3 @@
-import { renderToStaticMarkup } from 'react-dom/server';
 import { RESERVED } from '../constants/Constants';
 import CalendarIcon from './CalendarIcon';
 import styles from './EmployeeIcon.scss';
@@ -15,9 +14,7 @@ const ViewComponent = () => (
   </svg>
 );
 
-const imgSrc = "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<ViewComponent />);
-
 export default props => (
-  <CalendarIcon {...props} value={RESERVED} viewComponent={ViewComponent} imgSrc={imgSrc}
+  <CalendarIcon {...props} value={RESERVED} viewComponent={ViewComponent} img={<ViewComponent />}
   name="Reserved" description="Admins can prevent employees from taking specific slots by blocking them out." />
 );

@@ -35,7 +35,7 @@ function getSvgString(employee, width) {
   return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<DefaultEmployeeIcon employee={employee} />);
 }
 
-export function getImageSrc(employee) {
+function getImageSrc(employee) {
   if (employee) {
     return employee.missingGravatar ? getSvgString(employee) : getGravatarIconUrl(employee.email);
   }

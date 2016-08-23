@@ -1,7 +1,6 @@
 import { HOUR } from '../../constants/Constants';
 import CalendarIcon from '../CalendarIcon';
 import { RANKS } from '../../constants/Settings';
-import { renderToStaticMarkup } from 'react-dom/server';
 import _ from 'lodash';
 import './Chip.scss';
 
@@ -20,11 +19,7 @@ const ViewComponent = ({value}) => (
   </svg>
 );
 
-function getSvgString(props) {
-  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<ViewComponent {...props} />);
-}
-
 export default props => (
-  <CalendarIcon {...props} name={`Rank ${props.value}`} viewComponent={ViewComponent} imgSrc={getSvgString(props)}
+  <CalendarIcon {...props} name={`Rank ${props.value}`} viewComponent={ViewComponent} img={<ViewComponent {...props} />}
   description={`Ranking your available slots from highest to lowest (1 to ${_.last(RANKS)}) communicates your preferred shifts.`} />
 );

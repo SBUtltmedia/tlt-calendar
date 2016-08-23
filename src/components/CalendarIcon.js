@@ -47,7 +47,8 @@ class CalendarIcon extends Component {
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
     size: PropTypes.any,
-    className: PropTypes.string
+    className: PropTypes.string,
+    img: PropTypes.element.isRequired
   };
 
   componentDidMount() {
@@ -56,9 +57,9 @@ class CalendarIcon extends Component {
   }
 
   fillInfoBox() {
-    const { imgSrc, fillInfoBox, name, description, day } = this.props;
+    const { img, fillInfoBox, name, description, day } = this.props;
     if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
-      fillInfoBox({name, description, imgSrc});
+      fillInfoBox({name, description, img});
     }
   }
 

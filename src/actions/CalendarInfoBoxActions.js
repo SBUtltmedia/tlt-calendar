@@ -10,6 +10,6 @@ export function fillInfoBox(type, data) {
 
 export function clearInfoBox() {
 	return {
-		type: CLEAR_INFO_BOX
+		type: 'blank' //CLEAR_INFO_BOX
 	}
 }

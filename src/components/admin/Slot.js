@@ -1,5 +1,4 @@
 import { EIGHT_HOURS, FOUR_HOURS, TWO_HOURS, HOUR, HALF_HOUR } from '../../constants/Constants';
-import { renderToStaticMarkup } from 'react-dom/server';
 import CalendarIcon from '../CalendarIcon';
 import _ from 'lodash';
 import './Slot.scss';
@@ -17,11 +16,7 @@ const ViewComponent = ({duration}) => {
   </svg>
 };
 
-function getSvgString(props) {
-  return "data:image/svg+xml;charset=utf-8," + renderToStaticMarkup(<ViewComponent {...props} />);
-}
-
 export default props => {
-  return <CalendarIcon {...props} viewComponent={ViewComponent} imgSrc={getSvgString(props)}
-  name={`${props.duration/60} hour slot`} description={`Set the slots that employees can have shifts at this location.`} />
+  return <CalendarIcon {...props} viewComponent={ViewComponent} img={<ViewComponent {...props} />}
+  name={`${props.duration / 60} hour slot`} description={`Set the slots that employees can have shifts at this location.`} />
 };
