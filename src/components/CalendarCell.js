@@ -52,7 +52,7 @@ const OverlayComponent = onClickOutside(createClass({
   },
   render: function() {
     const {show, container, popover, containerWidth, children} = this.props;
-    return <div className='overlay' style={{height: `${containerWidth * 4 + 4}px`}}>{children}</div>;
+    return <div className='overlay' style={{height: `${containerWidth * 4 - 6}px`}}>{children}</div>;
   }
 }));
 
@@ -120,11 +120,11 @@ class FullCell extends Component {
   }
 
   renderPopover() {
-    const {popover, day, hour} = this.props;
+    const {popover, day, hour, containerWidth} = this.props;
     return popover ?
     <Overlay show={this.state.showPopover} container={this} placement='right'>
       <OverlayComponent {...this.props} handleClickOutside={evt => this.setState({showPopover: false})}>
-        {popover({items: this.state.popoverItems, day, hour, minute: this.state.popoverMinute})}
+        {popover({items: this.state.popoverItems, day, hour, containerWidth, minute: this.state.popoverMinute})}
       </OverlayComponent>
     </Overlay> : '';
   }
