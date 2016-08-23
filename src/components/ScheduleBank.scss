@@ -1,4 +1,5 @@
 @import '../style/dimens';
+@import '../style/colors';
 
 :local(.container) {
 
@@ -12,7 +13,7 @@
 
   .notes {
     font-size: $small-font;
-    color: #999;
+    color: $medium-gray;
     text-align: center;
     padding-left: 1em;
   }

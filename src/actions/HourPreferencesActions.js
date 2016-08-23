@@ -26,7 +26,7 @@ export function removeItem(item) {
 }
 
 export function moveItem(oldItem, newItem) {
-  return dispatchAndSave({...olditem, type: REMOVE_CHIP}, {...newItem, type: PLACE_CHIP});
+  return dispatchAndSave({...oldItem, type: REMOVE_CHIP}, {...newItem, type: PLACE_CHIP});
 }
 
 export function reorderGlobalLocations(order) {
