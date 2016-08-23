@@ -49,24 +49,21 @@ function forEachItemBetween(items, time1, time2, fn) {
   });
 }
 
-export function clearAllBetween(items, time1, time2) {
+export function clearAllBetween(items, time1, time2, chopOnDelete=true) {
   let is = _.clone(items);
   const startTime = dayHourMinuteMinusXMinutes(time1.day, time1.hour, time1.minute, MAXIMUM_ITEM_DURATION, false);
   forEachItemBetween(is, startTime, time2, (item, key) => {
     const itemEnd = getItemEndTime(item);
     if (overlapsSlot(item, itemEnd, time1, time2)) {
       delete is[key];
-
-
-      // TODO: We don't want to chop up items with a defined duration like slots!
-      if (compareTimes(item, time1) < 0) {    // if this item has chunk before start, replace with shorter piece
-        is = placeItem(is, {...item, duration: compareTimes(time1, item)});
+      if (chopOnDelete) {
+        if (compareTimes(item, time1) < 0) {    // if this item has chunk before start, replace with shorter piece
+          is = placeItem(is, {...item, duration: compareTimes(time1, item)});
+        }
+        if (compareTimes(itemEnd, time2) > 0) { // if this item goes beyond the end, replace with shorter piece
+          is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});
+        }
       }
-      if (compareTimes(itemEnd, time2) > 0) { // if this item goes beyond the end, replace with shorter piece
-        is = placeItem(is, {...item, ...time2, duration: compareTimes(time2, item)});
-      }
-
-
     }
   });
   return is;
@@ -179,8 +176,10 @@ export function removeItem(items, {day, hour, minute, duration, value=undefined}
  *   overrideMultiplesFn:
  *     Takes a list of cell items as a parameter.
  *     Returns a bool representing whether or not multiples behavior should be overridden.
+ *   chopOnDelete:
+ *     Tries to retain pieces of old items when placing a new overlapping item
  */
-export function placeItem(items, item, {maxItems=1, defaultGranularity=undefined, overrideMultiplesFn=undefined}={}) {
+export function placeItem(items, item, {maxItems=1, defaultGranularity=undefined, overrideMultiplesFn=undefined, chopOnDelete=true}={}) {
   let is = _.clone(items);
   const strippedItem = _.pick(item, ['value', 'duration', 'day', 'hour', 'minute']);
   const key = timeToKey(strippedItem);
@@ -191,7 +190,7 @@ export function placeItem(items, item, {maxItems=1, defaultGranularity=undefined
     return _.reduce(choppedItems, (items, item) => placeItem(items, item, {maxItems, defaultGranularity}), is);
   }
   if (maxItems === 1 || override) {
-    is = clearAllBetween(is, strippedItem, itemEndTime);
+    is = clearAllBetween(is, strippedItem, itemEndTime, chopOnDelete);
     is[key] = strippedItem;
   }
   else {
