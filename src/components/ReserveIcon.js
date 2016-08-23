@@ -6,10 +6,10 @@ import styles from './EmployeeIcon.scss';
 const ViewComponent = () => (
   <svg xmlns='http://www.w3.org/2000/svg' viewBox="0 0 50 50" className={styles.icon}>
     <g>
-      <rect width='100%' height='100%' style={{fill:"#F00"}} />
+      <rect width='100%' height='100%' style={{fill:"#E00"}} />
       <text textAnchor="middle" alignmentBaseline="central" x="50%" y="50%" fill="#FFF"
-      fontFamily="sans-serif" fontSize="30" style={{fontWeight: 'bold'}}>
-        R
+      fontFamily="sans-serif" fontSize="40" style={{fontWeight: 'bold'}}>
+        X
       </text>
     </g>
   </svg>
