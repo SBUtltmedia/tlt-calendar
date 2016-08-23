@@ -143,12 +143,12 @@ class FullCell extends Component {
 
   renderCellItem(item, i) {
     const {containerWidth, cellComponent, disabled} = this.props;
-    const {minute, duration} = item;
+    const {minute, visibleDuration} = item;
     const startsOnHalf = minute % 60 === 30;
-    //const width = duration === HALF_HOUR ? halfCssSize(containerWidth) : containerWidth;
+    //const width = visibleDuration === HALF_HOUR ? halfCssSize(containerWidth) : containerWidth;
     const marginLeft = startsOnHalf ? halfCssSize(containerWidth) : '';
-    const overflow = duration === HALF_HOUR ? 'hidden' : '';
-    const position = duration === HALF_HOUR ? 'absolute' : '';
+    const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
+    const position = visibleDuration === HALF_HOUR ? 'absolute' : '';
     const style = {marginLeft, overflow, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
     return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
   }

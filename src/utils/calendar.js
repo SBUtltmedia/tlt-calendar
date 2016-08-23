@@ -81,9 +81,13 @@ function putIntoBaskets(items) {
 export function getAllItemsThatStartBetween(items, start, end) {
   let foundItems = [];
   for (let t = start; compareTimes(t, end) !== 0; t = dayHourMinutePlus30Minutes(t.day, t.hour, t.minute)) {
-    foundItems.push(items[timeToKey(t)]);
+    const item = items[timeToKey(t)];
+    if (item) {
+      item.visibleDuration = item.duration;  // by default the entire item is shown in one block
+      foundItems.push(item);
+    }
   }
-  return _.filter(foundItems);  // filters out null and undefined
+  return foundItems;
 }
 
 /**
@@ -113,7 +117,7 @@ export function itemSpansPastEndOfDay(item) {
 /**
  * Takes an array of items (no object keys) and returns an array of items with the items that span past today chopped.
  * This function only returns the first piece of those items (the second piece appears in a different slot).
- * Also adds special information (visibleDuration, connectedItem) to those items that were chopped.
+ * Also adds the connectedItem attribute to those items that were chopped.
  */
 export function chopItemsThatSpanPastEndOfDay(items) {
   return _.map(items, item => {
@@ -130,7 +134,7 @@ export function chopItemsThatSpanPastEndOfDay(items) {
 /**
  * Takes the items object (with keys) and returns only items from the end of previous day that were chopped.
  * This function returns the second piece of the item returned by the `chopItemsThatSpanPastEndOfDay` function.
- * Also adds special information (visibleDuration, connectedItem) to those items that were chopped.
+ * Also adds the connectedItem attribute to those items that were chopped.
  */
 export function getChoppedItemsFromYesterday(items, today) {
   const spanStart = {day: dayMinus1(today), hour: 24 - MAXIMUM_ITEM_DURATION / 60, minute: 0};  // Look back N hours

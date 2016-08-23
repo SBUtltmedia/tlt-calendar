@@ -10,11 +10,11 @@ import { CALENDAR_ITEM } from '../constants/DraggableTypes';
 
 const dragSource = {
     beginDrag(props) {
-      return _.pick(props, ['value', 'day', 'hour', 'minute', 'duration', 'disabled']);
+      return _.pick(props, ['value', 'day', 'hour', 'minute', 'duration', 'visibleDuration', 'disabled']);
     }
 };
 
-const calculateWidth = ({size, duration}) => duration ? Math.round(size * duration / 60) : size;
+const calculateWidth = (size, visibleDuration) => visibleDuration ? Math.round(size * visibleDuration / 60) : size;
 
 @DragSource(CALENDAR_ITEM, dragSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -28,7 +28,8 @@ class CalendarIcon extends Component {
     day: PropTypes.number,
     hour: PropTypes.number,
     minute: PropTypes.number,
-    duration: PropTypes.number,
+    duration: PropTypes.number.isRequired,
+    visibleDuration: PropTypes.number,
     connectDragSource: PropTypes.func.isRequired,
     connectDragPreview: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
@@ -53,12 +54,13 @@ class CalendarIcon extends Component {
   }
 
   render() {
-    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className, duration} = this.props;
+    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className,
+            duration, visibleDuration=duration} = this.props;
     return connectDragSource(
-      <div style={{...style, width: calculateWidth(this.props), height: size}}
+      <div style={{...style, width: calculateWidth(size, visibleDuration), height: size}}
            className={`${styles.icon}${disabled ? ' disabled' : ''}${isDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
-        {viewComponent({disabled, value, duration})}
+        {viewComponent({disabled, value, duration, visibleDuration})}
       </div>
     );
   }

@@ -129,8 +129,8 @@ describe('calendar', () => {
                                  "90": {...item2, duration: HALF_HOUR},
                                 "120": {...item2, hour:2, minute: 0, duration: HALF_HOUR}});
     const expected = [
-      {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR},
-      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 0, hour: 1, minute: 0, duration: HALF_HOUR, visibleDuration: HALF_HOUR},
+      {value: 2, day: 0, hour: 1, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 1})).to.deep.equal(expected);
   });
@@ -141,7 +141,7 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem(placeItem({}, item1, options), item2, options);
     const expected = [
-      {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 0, hour: 0, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
@@ -151,7 +151,7 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem({}, item1, options);
     const expected = [
-      {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HALF_HOUR}
+      {value: [1, 2], day: 0, hour: 0, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 0, hour: 0})).to.deep.equal(expected);
   });
@@ -161,8 +161,8 @@ describe('calendar', () => {
     const options = {defaultGranularity: HALF_HOUR};
     const items = placeItem({}, item1, options);
     const expected = [
-      {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR},
-      {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR}
+      {value: 1, day: 6, hour: 23, minute: 0, duration: HALF_HOUR, visibleDuration: HALF_HOUR},
+      {value: 1, day: 6, hour: 23, minute: 30, duration: HALF_HOUR, visibleDuration: HALF_HOUR}
     ];
     expect(getItemsInSlot(items, {day: 6, hour: 23})).to.deep.equal(expected);
   });
