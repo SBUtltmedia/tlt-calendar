@@ -26,6 +26,10 @@ export function removeItem(item) {
   return dispatchAndSave({...item, type: REMOVE_SLOT});
 }
 
+export function moveItem(oldItem, newItem) {
+  return dispatchAndSave({...oldItem, type: REMOVE_SLOT}, {...newItem, type: PLACE_SLOT});
+}
+
 export const setLocation = location => ({
   type: SET_LOCATION,
   location: location

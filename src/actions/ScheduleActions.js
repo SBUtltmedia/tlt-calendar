@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { DATA_PATH } from '../constants/Settings';
 import { HOUR } from '../constants/Constants';
 import { SET_LOCATION, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
+import { dispatchAndSave } from './actionHelpers';
 
 function receiveSchedule(json) {
   return {
@@ -20,11 +21,15 @@ export function fetchSchedule(location) {
 }
 
 export function placeItem(item) {
-  return {...item, type: PLACE_ITEM};
+  return dispatchAndSave({...item, type: PLACE_ITEM});
 }
 
 export function removeItem(item) {
-  return {...item, type: REMOVE_ITEM};
+  return dispatchAndSave({...item, type: REMOVE_ITEM});
+}
+
+export function moveItem(oldItem, newItem) {
+  return dispatchAndSave({...olditem, type: REMOVE_ITEM}, {...newItem, type: PLACE_ITEM});
 }
 
 export const setLocation = location => (dispatch, getState) => dispatch({

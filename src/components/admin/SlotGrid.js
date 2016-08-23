@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => {
   return {
     placeItem: slotsActions.placeItem,
     removeItem: slotsActions.removeItem,
+    moveItem: slotsActions.moveItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, SLOT_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

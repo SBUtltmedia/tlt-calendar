@@ -36,6 +36,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     placeItem: scheduleActions.placeItem,
     removeItem: scheduleActions.removeItem,
+    moveItem: scheduleActions.moveItem,
     fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ADMIN_SCHEDULE_CELL),
     clearInfoBox: infoBoxActions.clearInfoBox
   };

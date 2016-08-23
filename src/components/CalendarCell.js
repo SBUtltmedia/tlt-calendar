@@ -23,12 +23,14 @@ const collect = (connect, monitor) => ({
 function createTarget(minute) {
   return {
     drop(props, monitor) {
-      const {placeItem, removeItem, day, hour} = props;
+      const {placeItem, moveItem, day, hour} = props;
       const item = monitor.getItem();
       if (item.day !== null && item.day !== undefined) {  // If it's already placed somewhere on the calendar grid
-        removeItem(item);
+        moveItem(item, {...item, day, hour, minute});
       }
-      placeItem({...item, day, hour, minute});
+      else {
+        placeItem({...item, day, hour, minute});
+      }
     },
     canDrop(props, monitor) {
       return !monitor.getItem().disabled;
@@ -87,6 +89,7 @@ class FullCell extends Component {
     day: PropTypes.number.isRequired,
     hour: PropTypes.number.isRequired,
     placeItem: PropTypes.func.isRequired,
+    moveItem: PropTypes.func.isRequired,
     fillInfoBox: PropTypes.func.isRequired,
     clearInfoBox: PropTypes.func.isRequired,
     cellComponent: PropTypes.func.isRequired,
@@ -189,7 +192,8 @@ class HalfCell extends Component {
     isOver: PropTypes.bool.isRequired,
     canDrop: PropTypes.bool.isRequired,
     side: PropTypes.string.isRequired,
-    placeItem: PropTypes.func.isRequired
+    placeItem: PropTypes.func.isRequired,
+    moveItem: PropTypes.func.isRequired
   };
   render () {
     const { getClass, connectDropTarget, side, isDragging } = this.props;

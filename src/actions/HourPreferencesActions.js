@@ -1,5 +1,6 @@
 import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { DATA_PATH } from '../constants/Settings';
+import { dispatchAndSave } from './actionHelpers';
 
 function receivePreferences(json) {
   return {
@@ -16,12 +17,16 @@ export function fetchPreferences(student_id) {
   }
 }
 
-export function placeItem(chip) {
-  return {...chip, type: PLACE_CHIP};
+export function placeItem(item) {
+  return dispatchAndSave({...item, type: PLACE_CHIP});
 }
 
-export function removeItem(chip) {
-  return {...chip, type: REMOVE_CHIP};
+export function removeItem(item) {
+  return dispatchAndSave({...item, type: REMOVE_CHIP});
+}
+
+export function moveItem(oldItem, newItem) {
+  return dispatchAndSave({...olditem, type: REMOVE_CHIP}, {...newItem, type: PLACE_CHIP});
 }
 
 export function reorderGlobalLocations(order) {
