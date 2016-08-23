@@ -33,7 +33,7 @@ class ChipBank extends Component {
             {_.map(RANKS, rank =>
               <div className="bank-row" key={rank}>
                {_.map(_.range(numOpenSets + WHOLE_COLS), col =>
-                 <div key={col} style={{margin: CHIP_MARGIN}}>
+                 <div key={col} style={{margin: CHIP_MARGIN, width: chipSize}}>
                     <Chip size={chipSize} value={rank} duration={duration}
                     disabled={disabled || col + 1 !== numOpenSets || !isValueAvailable(chipsPlaced, rank)} />
                  </div>)}

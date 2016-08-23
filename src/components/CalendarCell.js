@@ -164,9 +164,8 @@ class FullCell extends Component {
     const {visibleDuration} = item;
     //const width = visibleDuration === HALF_HOUR ? halfCssSize(containerWidth) : containerWidth;
     const marginLeft = this.calculateMarginLeft(item);
-    const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
     const position = visibleDuration === HALF_HOUR ? 'absolute' : '';
-    const style = {marginLeft, overflow, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
+    const style = {marginLeft, position, /* float: startsOnHalf === 30 ? 'left' : 'right' */};
     return cellComponent({...item, disabled, style, key: i, size: containerWidth, className: 'item'});
   }
 

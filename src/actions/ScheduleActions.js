@@ -29,7 +29,7 @@ export function removeItem(item) {
 }
 
 export function moveItem(oldItem, newItem) {
-  return dispatchAndSave({...olditem, type: REMOVE_ITEM}, {...newItem, type: PLACE_ITEM});
+  return dispatchAndSave({...oldItem, type: REMOVE_ITEM}, {...newItem, type: PLACE_ITEM});
 }
 
 export const setLocation = location => (dispatch, getState) => dispatch({

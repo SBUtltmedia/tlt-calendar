@@ -8,6 +8,7 @@ import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import { setDraggingItem, clearDraggingItem } from '../actions/DndActions';
 import { ACTION } from '../constants/InfoBoxTypes';
 import { CALENDAR_ITEM } from '../constants/DraggableTypes';
+import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { compareTimes } from '../utils/time';
 
 const dragSource = {
@@ -69,9 +70,11 @@ class CalendarIcon extends Component {
   render() {
     const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className,
             duration, visibleDuration=duration} = this.props;
+    const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
     const showDragging = isDragging || this.isConnectedItemDragging();
+    const width = calculateWidth(this.props);
     return connectDragSource(
-      <div style={{...style, width: calculateWidth(this.props), height: size}}
+      <div style={{...style, overflow, width: width, height: size, marginRight: size - width}}
            className={`${styles.icon}${disabled ? ' disabled' : ''}${showDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
            onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent({disabled, value, duration, visibleDuration})}
