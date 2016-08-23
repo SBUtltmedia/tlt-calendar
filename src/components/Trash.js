@@ -40,22 +40,16 @@ class Trash extends Component {
     disabled: PropTypes.bool
   };
 
-  fillInfoBox(icon) {
+  fillInfoBox(img) {
     const name = "Trash";
     const description = "Drag items from the calendar here to remove them.";
-    this.props.fillInfoBox({name, description, icon});
+    this.props.fillInfoBox({name, description, img});
   }
 
 	render() {
-
-    // TODO: There's no icon for this? It's a font. Eventually it'll be an SVG image though....
-    const icon = null;
-
+    const img = <i className={`fa fa-trash fa-4 trash-icon ${getClassName(this.props)}`}></i>;
     const {connectDropTarget, clearInfoBox, disabled} = this.props;
-    const html = <div className={styles.container}
-    onMouseEnter={this.fillInfoBox.bind(this, icon)} onMouseLeave={clearInfoBox}>
-      <i className={`fa fa-trash fa-4 ${getClassName(this.props)}`}></i>
-    </div>;
+    const html = <div onMouseEnter={this.fillInfoBox.bind(this, img)} onMouseLeave={clearInfoBox}>{img}</div>;
 		return disabled ? html : connectDropTarget(html);
 	}
 }

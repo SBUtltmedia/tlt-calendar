@@ -1,25 +1,22 @@
 @import '../style/colors';
 @import '../style/dimens';
 
-:local(.container) {
+.trash-icon {
+	font-size: 7em;
+	color: $lighter-gray;
+	padding: 0.1em;
+	background-color: $lightest-gray;
+	border-radius: $border-radius;
+}
 
-	i {
-		font-size: 7em;
-		color: $lighter-gray;
-		padding: 0.1em;
-		background-color: $lightest-gray;
-		border-radius: $border-radius;
-	}
+.trash-icon.enabled {
+	color: $medium-gray;
+}
 
-	i.enabled {
-		color: $medium-gray;
-	}
+.trash-icon.over {
+	color: $hover-color;
+}
 
-	i.over {
-		color: $hover-color;
-	}
-
-	i.reject {
-		color: $reject-color;
-	}
+.trash-icon.reject {
+	color: $reject-color;
 }
