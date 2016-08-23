@@ -10,7 +10,7 @@ const initialState = {
 export default function schedule(state=initialState, action) {
   switch (action.type) {
     case SET_LOCATION: return {...state, location: action.location};
-    case RECEIVE_SCHEDULE: return {...state, shifts: action.schedule};
+    case RECEIVE_SCHEDULE: return {...state, shifts: calendar.putIntoBuckets(action.schedule)};
     case PLACE_ITEM:
       const coverage = state.location.coverage || 1;
       return {...state, shifts: placeItem(state.shifts, action, {

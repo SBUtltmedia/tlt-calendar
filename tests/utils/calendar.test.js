@@ -2,10 +2,20 @@ import { expect } from 'chai';
 import { print } from '../helpers.js';
 import _ from 'lodash';
 import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity,
-  itemToTime, itemSpansPastEndOfDay } from '../../src/utils/calendar';
+  itemToTime, itemSpansPastEndOfDay, putIntoBuckets } from '../../src/utils/calendar';
 import { TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
 describe('calendar', () => {
+  it('puts items into buckets (singles)', () => {
+    const item = {day: 0, hour: 1, minute: 30};
+    expect(putIntoBuckets([item])).to.deep.equal({"90": item});
+  });
+
+  it('puts items into buckets (multiples)', () => {
+    const item = {day: 0, hour: 1, minute: 30, value: [1, 2]};
+    expect(putIntoBuckets([item])).to.deep.equal({"90": item});
+  });
+
   it('clears an area between two times (A)', () => {
     const item1 = {value: 1, day: 0, hour: 0, minute: 0, duration: HOUR};
     const time1 = {day: 0, hour: 0, minute: 0};
@@ -209,7 +219,6 @@ describe('calendar', () => {
     const item = {value: 'RESERVED', day: 0, hour: 23, minute: 30, duration: HOUR};
     const piece2 = {...item, day: 1, hour: 0, minute: 0, visibleDuration: HALF_HOUR, connectedItem: itemToTime(item)};
     const items = placeItem({}, item);
-    print(getItemsInSlot(items, {day: 1, hour: 0}));
     expect(getItemsInSlot(items, {day: 1, hour: 0})).to.deep.equal([piece2]);
   });
 });

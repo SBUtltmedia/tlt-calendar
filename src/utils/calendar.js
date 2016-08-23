@@ -28,6 +28,15 @@ export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
   }
 }
 
+/**
+ * Takes an array of items (no object keys) and returns an object with keys and the original items as values.
+ */
+export function putIntoBuckets(items) {
+  const buckets = {};
+  _.each(items, item => buckets[timeToKey(item)] = item);
+  return buckets;
+}
+
 function forEachItemBetween(items, time1, time2, fn) {
   const startKey = Math.max(timeToKeyInt(time1), 0);
   const endKey = timeToKeyInt(time2);
@@ -61,21 +70,6 @@ export function clearAllBetween(items, time1, time2) {
     }
   });
   return is;
-}
-
-/**
- * Takes an array of items (no object keys) and returns an object with keys and the original items as values.
- */
-function putIntoBaskets(items) {
-  const baskets = {};
-  _.each(items, item => {
-    const key = timeToKey(item);
-    if (!baskets[key]) {
-      baskets[key] = [];
-    }
-    baskets[key].push(item);
-  });
-  return baskets;
 }
 
 export function getAllItemsThatStartBetween(items, start, end) {
