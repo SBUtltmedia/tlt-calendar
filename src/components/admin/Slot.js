@@ -2,7 +2,7 @@ import { EIGHT_HOURS, FOUR_HOURS, TWO_HOURS, HOUR, HALF_HOUR } from '../../const
 import { renderToStaticMarkup } from 'react-dom/server';
 import CalendarIcon from '../CalendarIcon';
 import _ from 'lodash';
-import styles from './Slot.scss';
+import './Slot.scss';
 
 const handle = 3;
 
