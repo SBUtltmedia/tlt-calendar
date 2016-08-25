@@ -32,13 +32,13 @@ export function moveItem(oldItem, newItem) {
 export function reorderGlobalLocations(order) {
   return {
     type: REORDER_GLOBAL_LOCATIONS,
-    order: order
+    order
   };
 }
 
 export function changeNumDesiredHours(hours) {
   return {
     type: CHANGE_NUM_DESIRED_HOURS,
-    hours: hours
+    hours
   };
 }

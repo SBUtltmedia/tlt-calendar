@@ -1,12 +1,12 @@
 import fetch from 'isomorphic-fetch';
 import { DATA_PATH } from '../constants/Settings';
-import { SET_LOCATION, RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
+import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
 import { dispatchAndSave } from './actionHelpers';
 
 function receiveSlots(json) {
   return {
     type: RECEIVE_SLOTS,
-    slots: json
+    ...json
   }
 }
 
@@ -29,8 +29,3 @@ export function removeItem(item) {
 export function moveItem(oldItem, newItem) {
   return dispatchAndSave({...oldItem, type: REMOVE_SLOT}, {...newItem, type: PLACE_SLOT});
 }
-
-export const setLocation = location => ({
-  type: SET_LOCATION,
-  location: location
-});

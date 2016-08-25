@@ -1,7 +1,9 @@
 import { RECEIVE_USER, CHANGE_SETTINGS, GRAVATAR_LOAD_FAILED, LOGGED_OUT } from '../constants/ActionTypes';
 import { markGravatarLoadFailed } from '../utils/employees';
 
-const initialState = null;
+const initialState = {
+  managesSites: []
+};
 
 export default function user(state=initialState, action) {
   switch (action.type) {

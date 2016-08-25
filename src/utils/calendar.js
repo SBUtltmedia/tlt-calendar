@@ -3,29 +3,38 @@ import { HOUR, HALF_HOUR } from '../constants/Constants';
 import { RANKS, MINIMUM_ITEM_DURATION, MAXIMUM_ITEM_DURATION } from '../constants/Settings';
 import { dayHourMinuteInMinutes, compareTimes, dayHourPlus1Hour, dayHourMinutePlus30Minutes, dayPlus1, dayMinus1,
   dayHourMinutePlusXMinutes, dayHourMinuteMinusXMinutes, getItemEndTime, timeToKey, timeToKeyInt } from '../utils/time';
-import { roundUpToNearest } from '../utils/numbers';
 import './array';
 
 export const getDefaultGranularity = coverage => coverage > 1 ? HALF_HOUR : HOUR;
 export const itemToTime = item => _.pick(item, ['day', 'hour', 'minute']);
+
+function getEachSlotBetween(time1, time2) {
+  const slots = [];
+  for (let t = time1; compareTimes(t, time2) !== 0; t = dayHourMinutePlusXMinutes(t.day, t.hour, t.minute, MINIMUM_ITEM_DURATION)) {
+    slots.push(timeToKeyInt(t));
+  }
+  return slots;
+}
+
+function forEachItemBetween(items, time1, time2, fn) {
+  const slots = getEachSlotBetween(time1, time2);
+  _.each(slots, i => {
+    const key = String(i);
+    const item = items[key];
+    if (item) {
+      fn(item, key);
+    }
+  });
+}
 
 /**
  * Returns a bool of whether the item has any part between slotStart and slotEnd
  * Accounts for wrapping
  */
 export function overlapsSlot(itemStart, itemEnd, slotStart, slotEnd) {
-  const f = () => compareTimes(slotStart, slotEnd) < 0 ?
-                  compareTimes(itemStart, slotEnd) < 0 :
-                  compareTimes(itemStart, slotEnd) > 0;
-  if (compareTimes(itemStart, itemEnd) < 0) {
-    return compareTimes(itemEnd, slotStart) > 0 && f();
-  }
-  else if (compareTimes(itemStart, itemEnd) > 0) {
-    return compareTimes(itemEnd, slotStart) < 0 && f();
-  }
-  else {
-    throw new Error('itemStart == itemEnd. Why!?!');
-  }
+  const slotSlots = getEachSlotBetween(slotStart, slotEnd);
+  const itemSlots = getEachSlotBetween(itemStart, itemEnd);
+  return !_.isEmpty(_.intersection(slotSlots, itemSlots));
 }
 
 /**
@@ -37,21 +46,9 @@ export function putIntoBuckets(items) {
   return buckets;
 }
 
-function forEachItemBetween(items, time1, time2, fn) {
-  const startKey = Math.max(timeToKeyInt(time1), 0);
-  const endKey = timeToKeyInt(time2);
-  _.each(_.range(roundUpToNearest(startKey, MINIMUM_ITEM_DURATION), endKey, MINIMUM_ITEM_DURATION), i => {
-    const key = String(i);
-    const item = items[key];
-    if (item) {
-      fn(item, key);
-    }
-  });
-}
-
 export function clearAllBetween(items, time1, time2, chopOnDelete=true) {
   let is = _.clone(items);
-  const startTime = dayHourMinuteMinusXMinutes(time1.day, time1.hour, time1.minute, MAXIMUM_ITEM_DURATION, false);
+  const startTime = dayHourMinuteMinusXMinutes(time1.day, time1.hour, time1.minute, MAXIMUM_ITEM_DURATION);
   forEachItemBetween(is, startTime, time2, (item, key) => {
     const itemEnd = getItemEndTime(item);
     if (overlapsSlot(item, itemEnd, time1, time2)) {

@@ -1,5 +1,6 @@
 [
   { "name": "Mario Mario", "id": 987654321, "email": "mario.mario@stonybrook.edu" },
   { "name": "Rong Zou", "id": 123456789, "email": "rong.zou@stonybrook.edu" },
-  { "name": "Ken Fehling", "id": 123123123, "email": "kenfehling@gmail.com" }
+  { "name": "Ken Fehling", "id": 123123123, "email": "kenfehling@gmail.com" },
+  { "name": "Site Manager", "id": 111111111, "email": "site.manager@gmail.com" }
 ]
