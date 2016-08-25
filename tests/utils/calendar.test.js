@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { print } from '../helpers.js';
 import _ from 'lodash';
-import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity,
+import { timeToKey, clearAllBetween, removeItem, placeItem, getItemsInSlot, chopToGranularity, overlapsSlot,
   itemToTime, itemSpansPastEndOfDay, putIntoBuckets } from '../../src/utils/calendar';
 import { EIGHT_HOURS, FOUR_HOURS, TWO_HOURS, HOUR, HALF_HOUR } from '../../src/constants/Constants';
 
@@ -14,6 +14,62 @@ describe('calendar', () => {
   it('puts items into buckets (multiples)', () => {
     const item = {day: 0, hour: 1, minute: 30, value: [1, 2]};
     expect(putIntoBuckets([item])).to.deep.equal({"90": item});
+  });
+
+  it('knows if an item overlaps a slot 1', () => {
+    const itemStart = {day: 0, hour: 0, minute: 0};
+    const itemEnd = {day: 0, hour: 0, minute: 30};
+    const slotStart = {day: 0, hour: 0, minute: 0};
+    const slotEnd = {day: 0, hour: 0, minute: 60};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.true;
+  });
+
+  it('knows if an item overlaps a slot 2', () => {
+    const itemStart = {day: 6, hour: 23, minute: 30};
+    const itemEnd = {day: 0, hour: 0, minute: 0};
+    const slotStart = {day: 0, hour: 0, minute: 0};
+    const slotEnd = {day: 0, hour: 0, minute: 60};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.false;
+  });
+
+  it('knows if an item overlaps a slot 3', () => {
+    const itemStart = {day: 6, hour: 23, minute: 30};
+    const itemEnd = {day: 0, hour: 0, minute: 0};
+    const slotStart = {day: 6, hour: 23, minute: 30};
+    const slotEnd = {day: 0, hour: 0, minute: 60};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.true;
+  });
+
+  it('knows if an item overlaps a slot 4', () => {
+    const itemStart = {day: 0, hour: 0, minute: 0};
+    const itemEnd = {day: 0, hour: 0, minute: 30};
+    const slotStart = {day: 6, hour: 23, minute: 30};
+    const slotEnd = {day: 0, hour: 0, minute: 30};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.true;
+  });
+
+  it('knows if an item overlaps a slot 5', () => {
+    const itemStart = {day: 6, hour: 23, minute: 30};
+    const itemEnd = {day: 0, hour: 0, minute: 30};
+    const slotStart = {day: 0, hour: 0, minute: 0};
+    const slotEnd = {day: 0, hour: 0, minute: 30};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.true;
+  });
+
+  it('knows if an item overlaps a slot 6', () => {
+    const itemStart = {day: 6, hour: 23, minute: 30};
+    const itemEnd = {day: 0, hour: 0, minute: 30};
+    const slotStart = {day: 6, hour: 23, minute: 0};
+    const slotEnd = {day: 6, hour: 23, minute: 30};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.false;
+  });
+
+  it('knows if an item overlaps a slot 7', () => {
+    const itemStart = {day: 6, hour: 23, minute: 0};
+    const itemEnd = {day: 6, hour: 23, minute: 30};
+    const slotStart = {day: 6, hour: 23, minute: 0};
+    const slotEnd = {day: 0, hour: 0, minute: 0};
+    expect(overlapsSlot(itemStart, itemEnd, slotStart, slotEnd)).to.be.true;
   });
 
   it('clears an area between two times (A)', () => {
@@ -104,6 +160,15 @@ describe('calendar', () => {
     const choppedItem2 = {...item, duration: HALF_HOUR, minute: 30};
     const items = placeItem({}, item, options);
     expect(items).to.deep.equal({"0": choppedItem1, "30": choppedItem2});
+  });
+
+  it('places an hour item on the week line and splits it into two half hour items', () => {
+    const options = {maxItems: 4, defaultGranularity: HALF_HOUR};
+    const item = {value: 1, day: 6, hour: 23, minute: 30, duration: HOUR};
+    const choppedItem2 = {...item, duration: HALF_HOUR, value: [1]};
+    const choppedItem1 = {...choppedItem2, day: 0, hour: 0, minute: 0};
+    const items = placeItem({}, item, options);
+    expect(items).to.deep.equal({"0": choppedItem1, "10050": choppedItem2});
   });
 
   it('places a two hour item', () => {
