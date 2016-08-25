@@ -1,5 +1,6 @@
-[
-  {
+{
+  "location": { "id": 2, "name": "Central Reading Room", "coverage": 1 },
+  "shifts": [{
     "value": {
       "id": 123456789,
       "name": "Ken Fehling",
@@ -19,5 +20,5 @@
     "hour": 23,
     "minute": 30,
     "duration": 60
-  }
-]
+  }]
+}

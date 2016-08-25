@@ -9,7 +9,7 @@ import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import styles from './SlotPage.scss';
 import _ from 'lodash';
-import { setLocation, fetchSlots, removeItem } from '../actions/SlotsActions';
+import { fetchSlots, removeItem } from '../actions/SlotsActions';
 
 @DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
@@ -18,9 +18,8 @@ class SchedulePage extends Component {
 	}
 
 	componentDidMount() {
-		const {fetchSlots, setLocation} = this.props;
+		const {fetchSlots} = this.props;
 		fetchSlots();
-		setLocation();
 	}
 
 	render () {
@@ -45,7 +44,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  setLocation: () => dispatch(setLocation(parseInt(ownProps.params.location))),
 	fetchSlots: () => dispatch(fetchSlots(parseInt(ownProps.params.location))),
   removeItem: item => dispatch(removeItem(item))
 });

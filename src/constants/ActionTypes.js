@@ -10,7 +10,6 @@ export const CLEAR_INFO_BOX = 'clear-box-info';
 export const RECEIVE_SCHEDULE = 'receive-schedule';
 export const RECEIVE_SLOTS = 'receive-slots';
 export const RECEIVE_HOUR_PREFERENCES = 'receive-preferences';
-export const SET_LOCATION = 'set-location';
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations';
 export const CHANGE_NUM_DESIRED_HOURS = 'change-desired_weekly-hours';
 export const RECEIVE_EMPLOYEES = 'receive-employees';

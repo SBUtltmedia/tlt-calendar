@@ -2,13 +2,13 @@ import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import { DATA_PATH } from '../constants/Settings';
 import { HOUR } from '../constants/Constants';
-import { SET_LOCATION, RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
+import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import { dispatchAndSave } from './actionHelpers';
 
 function receiveSchedule(json) {
   return {
     type: RECEIVE_SCHEDULE,
-    schedule: json
+    ...json
   }
 }
 
@@ -31,8 +31,3 @@ export function removeItem(item) {
 export function moveItem(oldItem, newItem) {
   return dispatchAndSave({...oldItem, type: REMOVE_ITEM}, {...newItem, type: PLACE_ITEM});
 }
-
-export const setLocation = location => (dispatch, getState) => dispatch({
-  type: SET_LOCATION,
-  location: _.find(getState().locations, loc => loc.id === location)
-});

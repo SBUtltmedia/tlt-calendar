@@ -9,6 +9,7 @@ const DevelopmentOnlyLogin = ({onSelectUser}) => (
   <div style={{textAlign:'center'}}>
     <button type="button" className="btn btn-default" onClick={() => onSelectUser('rzou')} style={{margin:10}}>Student login</button>
     <button type="button" className="btn btn-default" onClick={() => onSelectUser('admin')} style={{margin:10}}>Admin login</button>
+    <button type="button" className="btn btn-default" onClick={() => onSelectUser('site_manager')} style={{margin:10}}>Site manager login</button>
   </div>
 );
 
@@ -18,6 +19,13 @@ function renderAdmin(user) {
     <li><Link to={`/schedules`}>Schedules</Link></li>
     <li><Link to={`/preferences`}>Student preferences</Link></li>
     <li><Link to={`/admin/table`}>Table (experimental)</Link></li>
+  </ul>;
+}
+
+function renderSiteManager(user) {
+  return <ul>
+    <li><Link to={`/preferences/${user.id}`}>Update hour preferences</Link></li>
+    <li><Link to={`/schedules`}>Schedules</Link></li>
   </ul>;
 }
 
