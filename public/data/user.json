@@ -1,1 +1,6 @@
-{ "name": "Admin", "isAdmin": true }
+{
+  "name": "Site Manager",
+  "id": 111111111,
+  "email": "site.manager@stonybrook.edu",
+  "managesSites": [ 1 ]
+}
