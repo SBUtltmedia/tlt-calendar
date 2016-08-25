@@ -9,7 +9,11 @@ export function fillInfoBox(type, data) {
 }
 
 export function clearInfoBox() {
-	return {
-		type: CLEAR_INFO_BOX
+	return (dispatch, getState) => {
+		if (getState().calendarInfoBox.infoType) {  // If it's not already cleared
+			dispatch({
+				type: CLEAR_INFO_BOX
+			});
+		}
 	}
 }
