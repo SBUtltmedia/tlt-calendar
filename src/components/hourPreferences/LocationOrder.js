@@ -36,14 +36,14 @@ const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInf
 )
 
 const mapStateToProps = state => ({
-  locations: _.orderBy(state.locations, loc => loc.id, state.hourPreferences.locationOrder)
+  locations: _.map(state.hourPreferences.locationOrder, id => _.find(state.locations, loc => loc.id === id))
 });
 
 const mapDispatchToProps = dispatch => {
   const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
   const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex, itemsNewIndex, reorderedArray) {
-    hourPreferencesActions.reorderGlobalLocations(_.pick(reorderedArray, 'id'));
+    hourPreferencesActions.reorderGlobalLocations(_.map(reorderedArray, item => item.id));
   }
   return {
     reorderGlobalLocations: reorderFn,
