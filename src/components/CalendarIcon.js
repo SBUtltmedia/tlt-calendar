@@ -68,16 +68,20 @@ class CalendarIcon extends Component {
     return connectedItem && draggingItem && compareTimes(connectedItem, draggingItem) === 0;
   }
 
-  render() {
-    const {day, value, disabled, connectDragSource, isDragging, size, clearInfoBox, viewComponent, style, className,
-            duration, visibleDuration=duration} = this.props;
-    const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
+  getClassName() {
+    const {day, disabled, isDragging, className} = this.props;
+    const transparent = disabled && (day === null || day === undefined);
     const showDragging = isDragging || this.isConnectedItemDragging();
+    return `${styles.icon}${disabled ? ' disabled' : ''}${transparent ? ' transparent' : ''}${showDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`
+  }
+
+  render() {
+    const {value, disabled, connectDragSource, size, clearInfoBox, viewComponent, style, duration, visibleDuration=duration} = this.props;
+    const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
     const width = calculateWidth(this.props);
     return connectDragSource(
       <div style={{...style, overflow, width: width, height: size, marginRight: size - width}}
-           className={`${styles.icon}${disabled ? ' disabled' : ''}${showDragging ? ' dragging' : ''}${className ? ` ${className} `: ''}`}
-           onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
+           className={this.getClassName()} onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
         {viewComponent({disabled, value, duration, visibleDuration})}
       </div>
     );

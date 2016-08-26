@@ -10,7 +10,6 @@ import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED, HOUR, HALF_HOUR } from '../constants/Constants';
 import { overrideMultiplesFn } from '../utils/schedule';
 import { getDefaultGranularity } from '../utils/calendar';
-import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 

@@ -9,6 +9,9 @@
 
 :local(.icon).disabled {
 	cursor: default;
+}
+
+:local(.icon).disabled.transparent {
 	opacity: 0.15;
 }
 
