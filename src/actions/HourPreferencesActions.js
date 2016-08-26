@@ -9,9 +9,9 @@ function receivePreferences(json) {
   }
 }
 
-export function fetchPreferences(student_id) {
+export function fetchPreferences(netid) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/preferences/${student_id}.json`)
+    return fetch(`${DATA_PATH}/preferences/${netid}.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }

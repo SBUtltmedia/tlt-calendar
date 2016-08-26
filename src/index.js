@@ -62,7 +62,7 @@ render((
         <Route path="/" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="preferences" component={HourPreferencesList} />
-          <Route path="preferences/:id" component={HourPreferences} />
+          <Route path="preferences/:netid" component={HourPreferences} />
           <Route path="schedules" component={SchedulesPage} />
           <Route path="schedules/:location" component={SchedulePage} />
           <Route path="slots" component={SlotsPage} />

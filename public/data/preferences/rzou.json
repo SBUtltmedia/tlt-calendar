@@ -1,8 +1,8 @@
 {
   "employee": {
-    "id": 111111111,
-    "name": "Site Manager",
-    "email": "site.manager@stonybrook.edu"
+    "netid": "rzou",
+    "name": "Rong Zou",
+    "email": "rong.zou@stonybrook.edu"
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
   "chipsPlaced": [

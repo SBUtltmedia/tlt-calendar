@@ -24,14 +24,14 @@ function renderAdmin(user) {
 
 function renderSiteManager(user) {
   return <ul>
-    <li><Link to={`/preferences/${user.id}`}>Update hour preferences</Link></li>
+    <li><Link to={`/preferences/${user.netid}`}>Update hour preferences</Link></li>
     <li><Link to={`/schedules`}>Schedules</Link></li>
   </ul>;
 }
 
 function renderEmployee(user) {
   return <ul>
-    <li><Link to={`/preferences/${user.id}`}>Update hour preferences</Link></li>
+    <li><Link to={`/preferences/${user.netid}`}>Update hour preferences</Link></li>
     <li><Link to={`/schedules`}>Schedules</Link></li>
   </ul>;
 }
