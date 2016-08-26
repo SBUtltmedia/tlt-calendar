@@ -3,11 +3,13 @@
   "shifts": [{
     "value": [{
       "netid": "kfehling",
-      "name": "Ken Fehling",
+      "firstname": "Ken",
+      "lastname": "Fehling",
       "email": "ken@androidideas.org"
     }, {
       "id": "rzou",
-      "name": "Rong Zou",
+      "firstname": "Rong",
+      "lastname": "Zou",
       "email": "rong.zou@stonybrook.edu"
     }],
     "day": 0,
@@ -17,11 +19,13 @@
   }, {
     "value": [{
       "netid": "kfehling",
-      "name": "Ken Fehling",
+      "firstname": "Ken",
+      "lastname": "Fehling",
       "email": "ken@androidideas.org"
     }, {
       "netid": "rzou",
-      "name": "Rong Zou",
+      "firstname": "Rong",
+      "lastname": "Zou",
       "email": "rong.zou@stonybrook.edu"
     }],
     "day": 0,

@@ -3,7 +3,8 @@
   "shifts": [{
     "value": {
       "netid": "kfehling",
-      "name": "Ken Fehling",
+      "firstname": "Ken",
+      "lastname": "Fehling",
       "email": "ken@androidideas.org"
     },
     "day": 0,
@@ -13,7 +14,8 @@
   }, {
     "value": {
       "netid": "kfehling",
-      "name": "Ken Fehling",
+      "firstname": "Ken",
+      "lastname": "Fehling",
       "email": "ken@androidideas.org"
     },
     "day": 0,

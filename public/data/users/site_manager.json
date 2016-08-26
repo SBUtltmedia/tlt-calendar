@@ -1,5 +1,6 @@
 {
-  "name": "Site Manager",
+  "firstname": "Site",
+  "lastname": "Manager",
   "netid": "sitemanager",
   "email": "site.manager@stonybrook.edu",
   "managesSites": [ 1 ]
