@@ -13,8 +13,7 @@ function getGravatarIconUrl(email) {
 
 function getInitials(employee) {
   if (employee) {
-    const initials = employee.name.match(/\b\w/g) || [];
-    return ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+    return employee.firstName[0] + employee.lastName[0];
   }
   return '';
 }

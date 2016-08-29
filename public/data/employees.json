@@ -1,6 +1,6 @@
 [
-  { "name": "Mario Mario", "netid": "mmario", "email": "mario.mario@stonybrook.edu" },
-  { "name": "Rong Zou", "netid": "rzou", "email": "rong.zou@stonybrook.edu" },
-  { "name": "Ken Fehling", "netid": "kfehling", "email": "kenfehling@gmail.com" },
-  { "name": "Site Manager", "netid": "sitemanager", "email": "site.manager@gmail.com" }
+  { "firstName": "Mario", "lastName": "Mario", "netId": "mmario", "email": "mario.mario@stonybrook.edu" },
+  { "firstName": "Rong", "lastName": "Zou", "netId": "rzou", "email": "rong.zou@stonybrook.edu" },
+  { "firstName": "Ken", "lastName": "Fehling", "netId": "kfehling", "email": "kenfehling@gmail.com" },
+  { "firstName": "Site", "lastName": "Manager", "netId": "sitemanager", "email": "site.manager@gmail.com" }
 ]

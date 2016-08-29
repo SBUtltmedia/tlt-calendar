@@ -10,6 +10,9 @@ function renderItem(item) {
 	if (item.name) {
 		return item.name;
 	}
+	else if (item.firstName && item.lastName) {
+		return item.firstName + ' ' + item.lastName;
+	}
 	else {
 		return item;
 	}
@@ -63,7 +66,7 @@ const Action = ({name, description, img}) => (
 	<div className="action">
 		<div className="title">{name}</div>
 		<div className="description">{description}</div>
-		<div className="icon">{img}</div>		
+		<div className="icon">{img}</div>
 	</div>
 );
 

@@ -24,14 +24,14 @@ function renderAdmin(user) {
 
 function renderSiteManager(user) {
   return <ul>
-    <li><Link to={`/preferences/${user.netid}`}>Update hour preferences</Link></li>
+    <li><Link to={`/preferences/${user.netId}`}>Update hour preferences</Link></li>
     <li><Link to={`/schedules`}>Schedules</Link></li>
   </ul>;
 }
 
 function renderEmployee(user) {
   return <ul>
-    <li><Link to={`/preferences/${user.netid}`}>Update hour preferences</Link></li>
+    <li><Link to={`/preferences/${user.netId}`}>Update hour preferences</Link></li>
     <li><Link to={`/schedules`}>Schedules</Link></li>
   </ul>;
 }
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchUser: netid => dispatch(fetchUser(netid))
+  fetchUser: netId => dispatch(fetchUser(netId))
 });
 
 export default connect(

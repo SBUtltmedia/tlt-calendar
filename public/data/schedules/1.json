@@ -2,12 +2,14 @@
   "location": { "id": 1, "name": "Main Library", "coverage": 4 },
   "shifts": [{
     "value": [{
-      "netid": "kfehling",
-      "name": "Ken Fehling",
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
       "email": "ken@androidideas.org"
     }, {
       "id": "rzou",
-      "name": "Rong Zou",
+      "firstName": "Rong",
+      "lastName": "Zou",
       "email": "rong.zou@stonybrook.edu"
     }],
     "day": 0,
@@ -16,12 +18,14 @@
     "duration": 30
   }, {
     "value": [{
-      "netid": "kfehling",
-      "name": "Ken Fehling",
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
       "email": "ken@androidideas.org"
     }, {
-      "netid": "rzou",
-      "name": "Rong Zou",
+      "netId": "rzou",
+      "firstName": "Rong",
+      "lastName": "Zou",
       "email": "rong.zou@stonybrook.edu"
     }],
     "day": 0,
