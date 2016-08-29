@@ -2,9 +2,9 @@
   "location": { "id": 2, "name": "Central Reading Room", "coverage": 1 },
   "shifts": [{
     "value": {
-      "netid": "kfehling",
-      "firstname": "Ken",
-      "lastname": "Fehling",
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
       "email": "ken@androidideas.org"
     },
     "day": 0,
@@ -13,9 +13,9 @@
     "duration": 30
   }, {
     "value": {
-      "netid": "kfehling",
-      "firstname": "Ken",
-      "lastname": "Fehling",
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
       "email": "ken@androidideas.org"
     },
     "day": 0,

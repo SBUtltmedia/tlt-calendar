@@ -1,8 +1,8 @@
 {
   "employee": {
-    "netid": "sitemanager",
-    "firstname": "Site",
-    "lastname": "Manager",
+    "netId": "sitemanager",
+    "firstName": "Site",
+    "lastName": "Manager",
     "email": "site.manager@stonybrook.edu"
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],

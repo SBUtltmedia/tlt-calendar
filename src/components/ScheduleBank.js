@@ -12,7 +12,7 @@ const WHOLE_COLS = 7;
 const COLS = WHOLE_COLS + 0.5;  // Show half an extra column
 
 function filterEmployees(employees, search) {
-	return _.filter(employees, emp => emp.name.toLowerCase().includes(search.toLowerCase()));
+	return _.filter(employees, emp => (emp.firstName + ' ' + emp.lastName).toLowerCase().includes(search.toLowerCase()));
 }
 
 class ScheduleBank extends Component {

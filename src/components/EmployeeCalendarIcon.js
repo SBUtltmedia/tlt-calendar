@@ -7,6 +7,6 @@ const ViewComponent = ({value}) => (
 );
 
 export default props => (
-  <CalendarIcon {...props} name={props.value.name} description={props.value.name} viewComponent={ViewComponent}
-    img={<EmployeeIcon employee={props.value} />} />
+  <CalendarIcon {...props} name={props.value.firstName + ' ' + props.value.lastName} description=''
+    viewComponent={ViewComponent} img={<EmployeeIcon employee={props.value} />} />
 );

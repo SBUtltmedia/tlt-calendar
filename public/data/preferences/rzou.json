@@ -1,8 +1,8 @@
 {
   "employee": {
-    "netid": "rzou",
-    "firstname": "Rong",
-    "lastname": "Zou",
+    "netId": "rzou",
+    "firstName": "Rong",
+    "lastName": "Zou",
     "email": "rong.zou@stonybrook.edu"
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],

@@ -6,7 +6,7 @@ export function markGravatarLoadFailed(employee) {
 
 export function markGravatarLoadFailedInList(employees, employee) {
   if (employee) {
-    const index = _.findIndex(employees, e => e.netid === employee.netid);
+    const index = _.findIndex(employees, e => e.netId === employee.netId);
     return [...employees.slice(0, index), markGravatarLoadFailed(employee), ...employees.slice(index + 1)]
   }
   return employees;

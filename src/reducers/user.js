@@ -7,7 +7,7 @@ const initialState = {
 
 export default function user(state=initialState, action) {
   switch (action.type) {
-    case RECEIVE_USER: return {...action.user, name: action.user.firstname + ' ' + action.user.lastname};
+    case RECEIVE_USER: return action.user;
     case CHANGE_SETTINGS: return action.settings;
     case GRAVATAR_LOAD_FAILED: return markGravatarLoadFailed(state);
     case LOGGED_OUT: return null;

@@ -36,7 +36,7 @@ class CalendarIcon extends Component {
     day: PropTypes.number,
     hour: PropTypes.number,
     minute: PropTypes.number,
-    duration: PropTypes.number.isRequired,
+    duration: PropTypes.number,
     visibleDuration: PropTypes.number,
     connectedItem: PropTypes.object,
     connectDragSource: PropTypes.func.isRequired,
@@ -58,9 +58,10 @@ class CalendarIcon extends Component {
 
   fillInfoBox() {
     const { img, fillInfoBox, name, description, day } = this.props;
-    if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
+
+    //if (day === null || day === undefined) {  // If isn't on the calendar (if it is, we want the underlying cell's info)
       fillInfoBox({name, description, img});
-    }
+    //}
   }
 
   isConnectedItemDragging() {

@@ -28,7 +28,7 @@ class HourPreferences extends Component {
     return <div className={styles.container}>
       <div className="header">
         { employee ? <div className="employee-icon"><EmployeeIcon employee={employee} /></div> : '' }
-        <span className="name">{employee ? employee.name : ''}</span>
+        <span className="name">{employee ? employee.firstName + ' ' + employee.lastName : ''}</span>
       </div>
       <StudentCalendarGrid disabled={isAdmin} />
       <div className="controls">
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netid)),
+	fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
   removeItem: item => dispatch(removeItem(item))
 });
 
