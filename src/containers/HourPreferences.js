@@ -7,6 +7,7 @@ import HoursSettings from '../components/hourPreferences/HoursSettings';
 import ChipBank from '../components/hourPreferences/ChipBank';
 import Trash from '../components/Trash';
 import LocationOrder from '../components/hourPreferences/LocationOrder';
+import Title from '../components/Title';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
 import { fetchPreferences, removeItem } from '../actions/HourPreferencesActions';
@@ -26,10 +27,8 @@ class HourPreferences extends Component {
   render() {
     const {employee, isAdmin, removeItem} = this.props;
     return <div className={styles.container}>
-      <div className="header">
-        { employee ? <div className="employee-icon"><EmployeeIcon employee={employee} /></div> : '' }
-        <span className="name">{employee ? employee.firstName + ' ' + employee.lastName : ''}</span>
-      </div>
+      <Title icon={employee ? <EmployeeIcon employee={employee} /> : null}
+        name={employee ? employee.firstName + ' ' + employee.lastName : ''} />
       <HourPreferenceGrid disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>

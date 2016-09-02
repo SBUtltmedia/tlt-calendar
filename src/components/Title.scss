@@ -1,0 +1,16 @@
+@import '../style/dimens';
+
+:local(.container) {
+  padding: 0.5em 0 0.25em 1.1em;
+  display: flex;
+  .icon {
+    width: 2.5em;
+    height: 2.5em;
+  }
+  .name {
+    font-size: $title-font;
+    line-height: 1.75em;
+    padding-left: 0.35em;
+    font-weight: $title-weight;
+  }
+}

@@ -29,7 +29,6 @@ $border: thin solid $border-color;
     tbody {
       td {
         padding: 0;
-        background-color: white;
       }
       td:not(:last-child) {
         border-right: $border;
@@ -40,17 +39,17 @@ $border: thin solid $border-color;
       tr:first-child td:not(:first-child):not(:last-child) {
         border-top: $border;
       }
-      td:first-child {  /* row labels (left) */
-        text-align: right;
+      td:first-child, td:last-child {  /* row labels */
+        background-color: white;
         padding-right: 0.6em;
         position: relative;
         z-index: 20;
       }
+      td:first-child {  /* row labels (left) */
+        text-align: right;
+      }
       td:last-child {  /* row labels (right) */
         text-align: left;
-        padding-left: 0.6em;
-        position: relative;
-        z-index: 20;
       }
     }
   }

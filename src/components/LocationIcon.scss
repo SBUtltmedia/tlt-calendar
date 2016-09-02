@@ -1,0 +1,7 @@
+@import '../style/dimens';
+
+:local(.icon) {
+  border-radius: $border-radius;
+  height: 100%;
+  width: 100%;
+}

@@ -7,6 +7,8 @@ import SlotGrid from '../components/admin/SlotGrid';
 import SlotsBank from '../components/admin/SlotsBank';
 import Trash from '../components/Trash';
 import CalendarInfoBox from '../components/CalendarInfoBox';
+import Title from '../components/Title';
+import LocationIcon from '../components/LocationIcon';
 import styles from './SlotPage.scss';
 import _ from 'lodash';
 import { fetchSlots, removeItem } from '../actions/SlotsActions';
@@ -25,7 +27,7 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
-			<h1>{loc ? loc.name : ''}</h1>
+			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.name : ''} />
 			<SlotGrid disabled={!isAdmin} />
       <div className="controls">
         <div className="bank"><SlotsBank disabled={!isAdmin} /></div>

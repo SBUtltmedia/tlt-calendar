@@ -1,27 +1,26 @@
 var webpack = require('webpack');
-var baseConfig = require('./webpack.base.config.babel');
-var config = Object.create(baseConfig);
+var base = require('./webpack.base.config.babel');
+var _ = require('lodash');
 
-config.output = {
-  path: './build',
-  filename: 'bundle.js',
-  publicPath: '/public/'
-};
-
-config.plugins = [
-  ...baseConfig.plugins,
-  new webpack.optimize.UglifyJsPlugin({
-    minimize: true,
-    compressor: {
-      screw_ie8: true,
-      warnings: false
-    }
-  }),
-  new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify('production')
-    }
-  })
-];
-
-module.exports = config;
+module.exports = _.merge(base, {
+  output: {
+    path: './build',
+    filename: 'bundle.js',
+    publicPath: '/public/'
+  },
+  plugins: [
+    ...base.plugins,
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      compressor: {
+        screw_ie8: true,
+        warnings: false
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  ]
+});

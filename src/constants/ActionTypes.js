@@ -18,4 +18,6 @@ export const CHANGE_SETTINGS = 'change-settings';
 export const GRAVATAR_LOAD_FAILED = 'gravatar-load-failed';
 export const SET_DRAGGING_ITEM = 'set-dragging-item';
 export const CLEAR_DRAGGING_ITEM = 'clear-dragging-item';
+export const SHOW_SLOTS = 'show-slots';
+export const HIDE_SLOTS = 'hide-slots';
 export const LOGGED_OUT = 'logged-out';

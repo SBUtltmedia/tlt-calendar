@@ -1,0 +1,16 @@
+:local(.container) {
+  position: relative;
+  height: 31em;
+  .slots {
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+  }
+  .schedule {
+    position: absolute;
+    z-index: 2;
+  }
+  .slots + .schedule {
+    opacity: 0.5;
+  }
+}

@@ -1,13 +1,12 @@
 var webpack = require('webpack');
-var baseConfig = require('./webpack.base.config.babel');
-var config = Object.create(baseConfig);
+var base = require('./webpack.base.config.babel');
+var _ = require("lodash");
 
-config.devtool = '#eval-cheap-module-source-map';
-
-config.output = {
-  path: './public',
-  filename: 'bundle.js',
-  publicPath: '/public/'
-};
-
-module.exports = config;
+module.exports = _.merge(base, {
+  devtool: '#eval-cheap-module-source-map',
+  output: {
+    path: './public',
+    filename: 'bundle.js',
+    publicPath: '/public/'
+  }
+});

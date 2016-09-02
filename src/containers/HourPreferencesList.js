@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
-import styles from './HourPreferencesList.scss';
 import _ from 'lodash';
 
 const HourPreferencesList = ({employees}) => (
-  <div className={styles.container}>
+  <div>
     <ul>
       {_.map(employees, (emp, i) => <li key={i}><Link to={`/preferences/${emp.netId}`}>{emp.lastName}, {emp.firstName}</Link></li>)}
     </ul>

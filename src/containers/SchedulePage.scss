@@ -1,8 +1,8 @@
-:local(.container) {
+@import '../style/dimens';
 
-  h1 {
-    margin: 0.25em 0 0.5em 0;
-    text-align: center;
+:local(.container) {
+  .header {
+    display: flex;
   }
 
   .controls {

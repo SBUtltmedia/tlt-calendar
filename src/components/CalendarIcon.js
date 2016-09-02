@@ -80,12 +80,11 @@ class CalendarIcon extends Component {
     const {value, disabled, connectDragSource, size, clearInfoBox, viewComponent, style, duration, visibleDuration=duration} = this.props;
     const overflow = visibleDuration === HALF_HOUR ? 'hidden' : '';
     const width = calculateWidth(this.props);
-    return connectDragSource(
-      <div style={{...style, overflow, width: width, height: size, marginRight: size - width}}
-           className={this.getClassName()} onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
-        {viewComponent({disabled, value, duration, visibleDuration})}
-      </div>
-    );
+    const html = <div style={{...style, overflow, width: width, height: size, marginRight: size - width}}
+         className={this.getClassName()} onMouseEnter={() => this.fillInfoBox()} onMouseLeave={clearInfoBox}>
+      {viewComponent({disabled, value, duration, visibleDuration})}
+    </div>;
+    return disabled ? html : connectDragSource(html);
   }
 }
 

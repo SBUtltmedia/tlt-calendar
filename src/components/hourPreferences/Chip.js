@@ -4,9 +4,6 @@ import { RANKS } from '../../constants/Settings';
 import _ from 'lodash';
 import './Chip.scss';
 
-//const req = require.context('img/chips', true, /^\.\/.*$/);
-//const getImgSrc = value => req(`./${value}.svg`);
-
 const ViewComponent = ({value}) => (
   <svg xmlns='http://www.w3.org/2000/svg' height='100%' viewBox="0 0 50 50" className={`chip_${value}`}>
     <g>

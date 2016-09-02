@@ -1,3 +1,4 @@
+import { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ReserveIcon from './ReserveIcon';
@@ -10,6 +11,8 @@ import { ADMIN_SCHEDULE_CELL } from '../constants/InfoBoxTypes';
 import { RESERVED, HOUR, HALF_HOUR } from '../constants/Constants';
 import { overrideMultiplesFn } from '../utils/schedule';
 import { getDefaultGranularity } from '../utils/calendar';
+import SlotGrid from './admin/SlotGrid';
+import styles from './ScheduleGrid.scss';
 
 const getComponentClass = item => item.value === RESERVED ? ReserveIcon : EmployeeCalendarIcon;
 
@@ -19,13 +22,25 @@ const popover = ({items, day, hour, minute, containerWidth}) => (
   </div>
 ));
 
+const ScheduleGrid = props => (
+  <div className={styles.container}>
+    {props.slotsShowing ? <div className="slots"><SlotGrid disabled={true} /></div> : <div></div>}
+    <div className="schedule"><CalendarGrid {...props} /></div>
+  </div>
+);
+
+ScheduleGrid.propTypes = {
+  slotsShowing: PropTypes.bool
+};
+
 const mapStateToProps = state => {
   const coverage = state.schedule.location ? state.schedule.location.coverage : 1;
   return {
     items: state.schedule.shifts || {},
     coverage: coverage,
     defaultGranularity: getDefaultGranularity(coverage),
-    cellComponent: item => getComponentClass(item)(item)
+    cellComponent: item => getComponentClass(item)(item),
+    slotsShowing: state.ui.slotsShowing
   };
 };
 
@@ -54,4 +69,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(CalendarGrid);
+)(ScheduleGrid);
