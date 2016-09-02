@@ -1,7 +1,6 @@
-import fetch from 'isomorphic-fetch';
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
 import { dispatchAndSave } from './actionHelpers';
+import { fetch } from '../utils/api';
 
 function receiveSlots(json) {
   return {
@@ -12,7 +11,7 @@ function receiveSlots(json) {
 
 export function fetchSlots(location) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/slots/${location}.json`)
+    return fetch(`/slots/${location}.json`)
       .then(response => response.json())
       .then(json => dispatch(receiveSlots(json)))
   }

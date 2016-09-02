@@ -1,6 +1,5 @@
-import fetch from 'isomorphic-fetch';
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_EMPLOYEES, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
+import { fetch } from '../utils/api';
 
 function receiveEmployees(json) {
   return {
@@ -11,7 +10,7 @@ function receiveEmployees(json) {
 
 export function fetchEmployees() {
   return dispatch => {
-    return fetch(`${DATA_PATH}/employees.json`)
+    return fetch('/employees')
       .then(response => response.json())
       .then(json => dispatch(receiveEmployees(json)))
   }

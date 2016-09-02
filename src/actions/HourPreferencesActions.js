@@ -1,5 +1,5 @@
 import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
-import { DATA_PATH } from '../constants/Settings';
+import { fetch } from '../utils/api';
 import { dispatchAndSave } from './actionHelpers';
 
 function receivePreferences(json) {
@@ -11,7 +11,7 @@ function receivePreferences(json) {
 
 export function fetchPreferences(netId) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/preferences/${netId}.json`)
+    return fetch(`/${netId}.json`)
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }

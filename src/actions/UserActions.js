@@ -11,7 +11,7 @@ function receiveUser(json) {
 
 export function fetchUser(netId) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/users/${netId}.json`)
+    return fetch(`${DATA_PATH}/users/${netId}`, {mode: 'no-cors'})
       .then(response => response.json())
       .then(json => dispatch(receiveUser(json)))
   }
@@ -19,7 +19,7 @@ export function fetchUser(netId) {
 
 export function fetchThisUser() {
   return dispatch => {
-    return fetch(`${DATA_PATH}/user.json`)
+    return fetch(`${DATA_PATH}/user`, {mode: 'no-cors'})
       .then(response => response.json())
       .then(json => dispatch(receiveUser(json)))
   }

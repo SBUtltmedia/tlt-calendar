@@ -4,12 +4,13 @@ var _ = require('lodash');
 
 module.exports = _.merge(base, {
   output: {
-    path: './build',
+    path: '/Volumes/tlt-calendar-api/www/public',
     filename: 'bundle.js',
     publicPath: '/public/'
   },
   plugins: [
     ...base.plugins,
+    /*
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       compressor: {
@@ -22,5 +23,6 @@ module.exports = _.merge(base, {
         'NODE_ENV': JSON.stringify('production')
       }
     })
+    */
   ]
 });
