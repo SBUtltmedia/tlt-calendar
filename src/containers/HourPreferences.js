@@ -2,7 +2,7 @@ import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import StudentCalendarGrid from '../components/hourPreferences/StudentCalendarGrid';
+import HourPreferenceGrid from '../components/hourPreferences/HourPreferenceGrid';
 import HoursSettings from '../components/hourPreferences/HoursSettings';
 import ChipBank from '../components/hourPreferences/ChipBank';
 import Trash from '../components/Trash';
@@ -30,7 +30,7 @@ class HourPreferences extends Component {
         { employee ? <div className="employee-icon"><EmployeeIcon employee={employee} /></div> : '' }
         <span className="name">{employee ? employee.firstName + ' ' + employee.lastName : ''}</span>
       </div>
-      <StudentCalendarGrid disabled={isAdmin} />
+      <HourPreferenceGrid disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="chip-bank"><ChipBank disabled={isAdmin} /></div>

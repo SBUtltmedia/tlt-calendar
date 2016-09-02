@@ -170,7 +170,7 @@ class FullCell extends Component {
   }
 
   render() {
-    const {connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems} = this.props;
+    const {connectDropTarget, day, hour, items, clearInfoBox, containerWidth, getClass, isDragging, coverage, cellItems, disabled} = this.props;
     const html = <div className={`cell full ${getClass(this.props)}`}
     style={{width:`${containerWidth}px`, height: `${containerWidth}px`}}
     onMouseEnter={this.onMouseEnter.bind(this)} onMouseLeave={this.onMouseLeave.bind(this)}>
@@ -180,7 +180,7 @@ class FullCell extends Component {
         _.map(cellItems, this.renderCellItem.bind(this))}
       {this.renderPopover()}
     </div>;
-    return isDragging ? connectDropTarget(html) : html;
+    return isDragging && !disabled ? connectDropTarget(html) : html;
   }
 }
 
@@ -195,9 +195,9 @@ class HalfCell extends Component {
     moveItem: PropTypes.func.isRequired
   };
   render () {
-    const { getClass, connectDropTarget, side, isDragging } = this.props;
+    const { getClass, connectDropTarget, side, isDragging, disabled } = this.props;
     const html = <div className={`cell half ${side} ${getClass(this.props)}`}></div>;
-    return isDragging ? connectDropTarget(html) : html;
+    return isDragging && !disabled ? connectDropTarget(html) : html;
   }
 }
 
