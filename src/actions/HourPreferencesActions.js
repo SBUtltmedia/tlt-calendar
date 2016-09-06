@@ -11,7 +11,7 @@ function receivePreferences(json) {
 
 export function fetchPreferences(netId) {
   return dispatch => {
-    return fetch(`/${netId}.json`)
+    return fetch(`/hour-preferences/${netId}`)
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }

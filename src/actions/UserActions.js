@@ -1,4 +1,3 @@
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_USER, CHANGE_SETTINGS } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
 

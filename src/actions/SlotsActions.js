@@ -11,7 +11,7 @@ function receiveSlots(json) {
 
 export function fetchSlots(location) {
   return dispatch => {
-    return fetch(`/slots/${location}.json`)
+    return fetch(`/slots/${location}`)
       .then(response => response.json())
       .then(json => dispatch(receiveSlots(json)))
   }
