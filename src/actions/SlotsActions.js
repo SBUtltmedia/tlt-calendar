@@ -1,6 +1,14 @@
 import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
-import { dispatchAndSave } from './actionHelpers';
+import * as ActionHelpers from './ActionHelpers';
 import { fetch } from '../utils/api';
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => `/slots/${state.slots.location.id}`,
+    state => state.slots,
+    ...dispatchObjs
+  );
+}
 
 function receiveSlots(json) {
   return {

@@ -2,7 +2,15 @@ import _ from 'lodash';
 import { fetch } from '../utils/api';
 import { HOUR } from '../constants/Constants';
 import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
-import { dispatchAndSave } from './actionHelpers';
+import * as ActionHelpers from './ActionHelpers';
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => `/schedules/${state.schedule.location.id}`,
+    state => state.schedule,
+    ...dispatchObjs
+  );
+}
 
 function receiveSchedule(json) {
   return {

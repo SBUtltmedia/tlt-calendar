@@ -1,9 +1,10 @@
 import _ from 'lodash';
+import { save } from '../utils/api';
 
-export function dispatchAndSave(...objs) {
+export function dispatchAndSave(mapStateToPostPath, mapStateToData, ...dispatchObjs) {
   return (dispatch, getState) => {
-    _.each(objs, obj => dispatch(obj));
+    _.each(dispatchObjs, obj => dispatch(obj));
     const state = getState();
-    console.log('SAVING...');
+    save(mapStateToPostPath(state), mapStateToData(state));
   };
 }

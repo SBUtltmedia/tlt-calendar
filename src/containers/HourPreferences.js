@@ -46,10 +46,13 @@ const mapStateToProps = state => ({
   isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
-  removeItem: item => dispatch(removeItem(item))
-});
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const netId = ownProps.params.netId;
+  return {
+    fetchPreferences: () => dispatch(fetchPreferences()),
+    removeItem: item => dispatch(removeItem(item))
+  };
+};
 
 export default connect(
   mapStateToProps,

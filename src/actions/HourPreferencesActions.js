@@ -1,6 +1,14 @@
 import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
-import { dispatchAndSave } from './actionHelpers';
+import * as ActionHelpers from './ActionHelpers';
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => `/hour-preferences/${state.user.netId}`,
+    state => state.hourPreferences,
+    ...dispatchObjs
+  );
+}
 
 function receivePreferences(json) {
   return {
@@ -30,15 +38,9 @@ export function moveItem(oldItem, newItem) {
 }
 
 export function reorderGlobalLocations(order) {
-  return {
-    type: REORDER_GLOBAL_LOCATIONS,
-    order
-  };
+  dispatchAndSave({order, type: REORDER_GLOBAL_LOCATIONS});
 }
 
 export function changeNumDesiredHours(hours) {
-  return {
-    type: CHANGE_NUM_DESIRED_HOURS,
-    hours
-  };
+  dispatchAndSave({hours, type: CHANGE_NUM_DESIRED_HOURS});
 }
