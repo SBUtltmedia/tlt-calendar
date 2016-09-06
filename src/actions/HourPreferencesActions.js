@@ -1,13 +1,14 @@
 import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
 import * as ActionHelpers from './ActionHelpers';
+import _ from 'lodash';
 
 const getUrl = netId => `/employees/${netId}/hour-preferences`;
 
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
     state => getUrl(state.user.netId),
-    state => state.hourPreferences,
+    state => ({...state.hourPreferences, chipsPlaced: _.values(state.hourPreferences.chipsPlaced)}),
     ...dispatchObjs
   );
 }

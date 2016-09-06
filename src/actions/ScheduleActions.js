@@ -9,7 +9,7 @@ const getUrl = locationId => `/locations/${locationId}/schedule`;
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
     state => getUrl(state.schedule.location.id),
-    state => state.schedule,
+    state => ({...state.schedule, shifts: _.values(state.schedule.shifts)}),
     ...dispatchObjs
   );
 }

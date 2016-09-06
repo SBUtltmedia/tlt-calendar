@@ -25,9 +25,9 @@ export function save(path, data) {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        'Content-Type': 'application/json'
       },
-      body: data
+      body: JSON.stringify(data)
     });
   }
   else {

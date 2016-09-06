@@ -1,13 +1,14 @@
 import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
 import * as ActionHelpers from './ActionHelpers';
 import { fetch } from '../utils/api';
+import _ from 'lodash';
 
 const getUrl = locationId => `/locations/${locationId}/slots`;
 
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
     state => getUrl(state.slots.location.id),
-    state => state.slots,
+    state => ({...state.slots, slots: _.values(state.slots.slots)}),
     ...dispatchObjs
   );
 }
