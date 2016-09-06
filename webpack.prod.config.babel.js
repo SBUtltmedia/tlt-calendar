@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 module.exports = _.merge(base, {
   output: {
-    path: '/Volumes/tlt-calendar-api/www/public',
+    path: '/Volumes/tlt-calendar-api/public',
     filename: 'bundle.js',
     publicPath: '/public/'
   },
