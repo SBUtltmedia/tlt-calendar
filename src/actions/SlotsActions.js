@@ -2,9 +2,11 @@ import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes
 import * as ActionHelpers from './ActionHelpers';
 import { fetch } from '../utils/api';
 
+const getUrl = locationId => `/locations/${locationId}/slots`;
+
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
-    state => `/slots/${state.slots.location.id}`,
+    state => getUrl(state.slots.location.id),
     state => state.slots,
     ...dispatchObjs
   );
@@ -19,7 +21,7 @@ function receiveSlots(json) {
 
 export function fetchSlots(location) {
   return dispatch => {
-    return fetch(`/slots/${location}`)
+    return fetch(getUrl(location))
       .then(response => response.json())
       .then(json => dispatch(receiveSlots(json)))
   }

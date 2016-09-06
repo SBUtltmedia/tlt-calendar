@@ -2,9 +2,11 @@ import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCAT
 import { fetch } from '../utils/api';
 import * as ActionHelpers from './ActionHelpers';
 
+const getUrl = netId => `/employees/${netId}/hour-preferences`;
+
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
-    state => `/hour-preferences/${state.user.netId}`,
+    state => getUrl(state.user.netId),
     state => state.hourPreferences,
     ...dispatchObjs
   );
@@ -19,7 +21,7 @@ function receivePreferences(json) {
 
 export function fetchPreferences(netId) {
   return dispatch => {
-    return fetch(`/hour-preferences/${netId}`)
+    return fetch(getUrl(netId))
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }

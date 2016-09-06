@@ -8,14 +8,6 @@ function receiveUser(json) {
   }
 }
 
-export function fetchUser(netId) {
-  return dispatch => {
-    return fetch(`/users/${netId}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveUser(json)))
-  }
-}
-
 export function fetchThisUser() {
   return dispatch => {
     return fetch('/user')
