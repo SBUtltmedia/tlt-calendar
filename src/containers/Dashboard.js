@@ -3,15 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import styles from './Dashboard';
-import { fetchUser } from '../actions/UserActions';
-
-const DevelopmentOnlyLogin = ({onSelectUser}) => (
-  <div style={{textAlign:'center'}}>
-    <button type="button" className="btn btn-default" onClick={() => onSelectUser('rzou')} style={{margin:10}}>Student login</button>
-    <button type="button" className="btn btn-default" onClick={() => onSelectUser('admin')} style={{margin:10}}>Admin login</button>
-    <button type="button" className="btn btn-default" onClick={() => onSelectUser('site_manager')} style={{margin:10}}>Site manager login</button>
-  </div>
-);
 
 function renderAdmin(user) {
   return <ul>
@@ -36,10 +27,9 @@ function renderEmployee(user) {
   </ul>;
 }
 
-const Dashboard = ({user, fetchUser}) => (
+const Dashboard = ({user}) => (
   <div>
-    { user ? (user.isAdmin ? renderAdmin(user) : renderEmployee(user))
-           : <DevelopmentOnlyLogin onSelectUser={fetchUser} /> }
+    { user ? (user.isAdmin ? renderAdmin(user) : renderEmployee(user)) : '' }
   </div>
 );
 
@@ -48,7 +38,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchUser: netId => dispatch(fetchUser(netId))
+
 });
 
 export default connect(

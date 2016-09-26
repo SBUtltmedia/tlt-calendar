@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
+  fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
   removeItem: item => dispatch(removeItem(item))
 });
 

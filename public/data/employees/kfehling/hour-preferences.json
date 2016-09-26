@@ -1,0 +1,11 @@
+{
+  "employee": {
+    "netId": "kenfehling",
+    "firstName": "Ken",
+    "lastName": "Fehling",
+    "email": "kenneth.fehling@stonybrook.edu"
+  },
+  "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
+  "chipsPlaced": [],
+  "numDesiredHours": 12
+}

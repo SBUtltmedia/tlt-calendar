@@ -1,9 +1,18 @@
-import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
-import { DATA_PATH } from '../constants/Settings';
+import { fetch } from '../utils/api';
 import { HOUR } from '../constants/Constants';
 import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
-import { dispatchAndSave } from './actionHelpers';
+import * as ActionHelpers from './ActionHelpers';
+
+const getUrl = locationId => `/locations/${locationId}/schedule`;
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => getUrl(state.schedule.location.id),
+    state => ({...state.schedule, shifts: _.values(state.schedule.shifts)}),
+    ...dispatchObjs
+  );
+}
 
 function receiveSchedule(json) {
   return {
@@ -14,7 +23,7 @@ function receiveSchedule(json) {
 
 export function fetchSchedule(location) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/schedules/${location}.json`)
+    return fetch(getUrl(location))
       .then(response => response.json())
       .then(json => dispatch(receiveSchedule(json)))
   }

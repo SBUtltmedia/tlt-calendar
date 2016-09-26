@@ -1,7 +1,17 @@
-import fetch from 'isomorphic-fetch';
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
-import { dispatchAndSave } from './actionHelpers';
+import * as ActionHelpers from './ActionHelpers';
+import { fetch } from '../utils/api';
+import _ from 'lodash';
+
+const getUrl = locationId => `/locations/${locationId}/slots`;
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => getUrl(state.slots.location.id),
+    state => ({...state.slots, slots: _.values(state.slots.slots)}),
+    ...dispatchObjs
+  );
+}
 
 function receiveSlots(json) {
   return {
@@ -12,7 +22,7 @@ function receiveSlots(json) {
 
 export function fetchSlots(location) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/slots/${location}.json`)
+    return fetch(getUrl(location))
       .then(response => response.json())
       .then(json => dispatch(receiveSlots(json)))
   }

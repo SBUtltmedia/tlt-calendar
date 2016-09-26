@@ -1,6 +1,5 @@
-import fetch from 'isomorphic-fetch';
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_LOCATIONS } from '../constants/ActionTypes';
+import { fetch } from '../utils/api';
 
 function receiveLocations(json) {
   return {
@@ -11,7 +10,7 @@ function receiveLocations(json) {
 
 export function fetchLocations() {
   return dispatch => {
-    return fetch(`${DATA_PATH}/locations.json`)
+    return fetch('/locations')
       .then(response => response.json())
       .then(json => dispatch(receiveLocations(json)))
   }

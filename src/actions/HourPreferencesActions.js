@@ -1,6 +1,17 @@
 import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
-import { DATA_PATH } from '../constants/Settings';
-import { dispatchAndSave } from './actionHelpers';
+import { fetch } from '../utils/api';
+import * as ActionHelpers from './ActionHelpers';
+import _ from 'lodash';
+
+const getUrl = netId => `/employees/${netId}/hour-preferences`;
+
+function dispatchAndSave(...dispatchObjs) {
+  return ActionHelpers.dispatchAndSave(
+    state => getUrl(state.user.netId),
+    state => ({...state.hourPreferences, chipsPlaced: _.values(state.hourPreferences.chipsPlaced)}),
+    ...dispatchObjs
+  );
+}
 
 function receivePreferences(json) {
   return {
@@ -11,7 +22,7 @@ function receivePreferences(json) {
 
 export function fetchPreferences(netId) {
   return dispatch => {
-    return fetch(`${DATA_PATH}/preferences/${netId}.json`)
+    return fetch(getUrl(netId))
       .then(response => response.json())
       .then(json => dispatch(receivePreferences(json)))
   }
@@ -30,15 +41,9 @@ export function moveItem(oldItem, newItem) {
 }
 
 export function reorderGlobalLocations(order) {
-  return {
-    type: REORDER_GLOBAL_LOCATIONS,
-    order
-  };
+  dispatchAndSave({order, type: REORDER_GLOBAL_LOCATIONS});
 }
 
 export function changeNumDesiredHours(hours) {
-  return {
-    type: CHANGE_NUM_DESIRED_HOURS,
-    hours
-  };
+  dispatchAndSave({hours, type: CHANGE_NUM_DESIRED_HOURS});
 }

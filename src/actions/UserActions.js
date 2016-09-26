@@ -1,6 +1,5 @@
-import fetch from 'isomorphic-fetch';
-import { DATA_PATH } from '../constants/Settings';
 import { RECEIVE_USER, CHANGE_SETTINGS } from '../constants/ActionTypes';
+import { fetch } from '../utils/api';
 
 function receiveUser(json) {
   return {
@@ -9,17 +8,9 @@ function receiveUser(json) {
   }
 }
 
-export function fetchUser(netId) {
-  return dispatch => {
-    return fetch(`${DATA_PATH}/users/${netId}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveUser(json)))
-  }
-}
-
 export function fetchThisUser() {
   return dispatch => {
-    return fetch(`${DATA_PATH}/user.json`)
+    return fetch('/user')
       .then(response => response.json())
       .then(json => dispatch(receiveUser(json)))
   }
