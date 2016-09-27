@@ -7,7 +7,7 @@
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
   "chipsPlaced": [
-    { "value": 1, "day": 0, "hour": 0, "minute": 30, "duration": 60}
+    {"value": 1, "day": 0, "hour": 0, "minute": 30, "duration": 60}
   ],
   "numDesiredHours": 12
 }

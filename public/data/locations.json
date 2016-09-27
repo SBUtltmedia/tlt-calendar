@@ -1,11 +1,11 @@
 [
-  { "id": 1, "name": "Main Library", "coverage": 4 },
-  { "id": 2, "name": "Central Reading Room", "coverage": 1 },
-  { "id": 3, "name": "North Reading Room - 1st Floor", "coverage": 1 },
-  { "id": 4, "name": "North Reading Room - 2nd Floor", "coverage": 1 },
-  { "id": 5, "name": "Student Union", "coverage": 1 },
-  { "id": 6, "name": "Engineering", "coverage": 1 },
-  { "id": 7, "name": "Math/Physics", "coverage": 1 },
-  { "id": 8, "name": "SBS (6th Floor)", "coverage": 1 },
-  { "id": 9, "name": "Sports Center", "coverage": 1 }
+  { "id": 1, "title": "Main Library", "coverage": 4 },
+  { "id": 2, "title": "Central Reading Room", "coverage": 1 },
+  { "id": 3, "title": "North Reading Room - 1st Floor", "coverage": 1 },
+  { "id": 4, "title": "North Reading Room - 2nd Floor", "coverage": 1 },
+  { "id": 5, "title": "Student Union", "coverage": 1 },
+  { "id": 6, "title": "Engineering", "coverage": 1 },
+  { "id": 7, "title": "Math/Physics", "coverage": 1 },
+  { "id": 8, "title": "SBS (6th Floor)", "coverage": 1 },
+  { "id": 9, "title": "Sports Center", "coverage": 1 }
 ]

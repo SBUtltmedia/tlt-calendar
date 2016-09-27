@@ -6,6 +6,11 @@ html, body {
   margin: 0;
 }
 
+body {
+  font-size: 14px;
+}
+
+/*
 @for $i from 0 through ($max-width - $min-width) / $granularity {
   $width: $min-width + $i * $granularity;
   @media (min-width: $width) {
@@ -18,6 +23,7 @@ html, body {
     }
   }
 }
+*/
 
 :local(.container) {
   font-family: sans-serif;

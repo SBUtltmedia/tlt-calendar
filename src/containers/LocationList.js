@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 const LocationList = ({locations, path}) => (
   <ul>
-    {_.map(locations, (loc, i) => <li key={i}><Link to={`${path}/${loc.id}`}>{loc.name}</Link></li>)}
+    {_.map(locations, (loc, i) => <li key={i}><Link to={`${path}/${loc.id}`}>{loc.title}</Link></li>)}
   </ul>
 );
 

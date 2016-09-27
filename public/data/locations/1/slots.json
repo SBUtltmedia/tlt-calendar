@@ -1,5 +1,5 @@
 {
-  "location": { "id": 1, "name": "Main Library", "coverage": 4 },
+  "location": { "id": 1, "title": "Main Library", "coverage": 4 },
   "slots": [
     {"day": 0, "hour": 0, "minute": 0, "duration": 60},
     {"day": 0, "hour": 1, "minute": 0, "duration": 120},

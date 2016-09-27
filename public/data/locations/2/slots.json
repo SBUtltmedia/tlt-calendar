@@ -1,5 +1,5 @@
 {
-  "location": { "id": 2, "name": "Central Reading Room", "coverage": 1 },
+  "location": { "id": 2, "title": "Central Reading Room", "coverage": 1 },
   "slots": [
     {"day": 0, "hour": 0, "minute": 0, "duration": 60},
     {"day": 0, "hour": 1, "minute": 0, "duration": 120},

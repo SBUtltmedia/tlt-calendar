@@ -1,11 +1,7 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import SlotGrid from '../components/admin/SlotGrid';
-import SlotsBank from '../components/admin/SlotsBank';
-import Trash from '../components/Trash';
+import SlotsTimeline from '../components/SlotsTimeline';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import Title from '../components/Title';
 import LocationIcon from '../components/LocationIcon';
@@ -13,7 +9,6 @@ import styles from './SlotPage.scss';
 import _ from 'lodash';
 import { fetchSlots, removeItem } from '../actions/SlotsActions';
 
-@DragDropContext(HTML5Backend)
 class SchedulePage extends Component {
 	static propTypes = {
 		isAdmin: PropTypes.bool
@@ -27,11 +22,9 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
-			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.name : ''} />
-			<SlotGrid disabled={!isAdmin} />
+			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.title : ''} />
+			<SlotsTimeline disabled={!isAdmin} />
       <div className="controls">
-        <div className="bank"><SlotsBank disabled={!isAdmin} /></div>
-        <div className="trash"><Trash disabled={!isAdmin} removeItem={removeItem} /></div>
         <div className="info"><CalendarInfoBox /></div>
       </div>
 		</div>;

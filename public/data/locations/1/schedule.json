@@ -1,5 +1,5 @@
 {
-  "location": { "id": 1, "name": "Main Library", "coverage": 4 },
+  "location": { "id": 1, "title": "Main Library", "coverage": 4 },
   "shifts": [{
     "value": [{
       "netId": "kfehling",

@@ -15,6 +15,7 @@ const Timeline = ({groups, items}) => (
           month: 1,
           year: 1
         }}
+        sidebarWidth={200}
         defaultTimeStart={moment().add(-12, 'hour')}
         defaultTimeEnd={moment().add(12, 'hour')}
     />
