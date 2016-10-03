@@ -15,6 +15,7 @@ class Timeline extends Component {
   }
 
   onCanvasClick(groupId, time, e) {
+    console.log(groupId, time, e);
     this.setState({
       modalIsOpen: true,
       modalGroup: groupId,
@@ -37,11 +38,12 @@ class Timeline extends Component {
             year: 1
           }}
           sidebarWidth={200}
-          onCanvasClick={() => this.onCanvasClick()}
+          onCanvasClick={this.onCanvasClick.bind(this)}
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
-    <AddItemPopup open={modalIsOpen} group={modalGroup} time={modalTime} />
+      <AddItemPopup open={modalIsOpen} location={modalGroup} time={modalTime}
+                    onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
 }
