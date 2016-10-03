@@ -36,6 +36,10 @@
   }
 }
 
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  z-index: 9999999;
+}
+
 .selectivity-single-select {
   background: #FFF !important;
   border-width: 1px !important;

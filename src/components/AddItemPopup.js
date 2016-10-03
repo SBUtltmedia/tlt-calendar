@@ -8,8 +8,6 @@ import 'selectivity/styles/selectivity-react.min.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-const ONE_HOUR_IN_MS = 3600000;
-
 class AddItemPopup extends Component {
   constructor(props) {
     super(props);
@@ -28,14 +26,17 @@ class AddItemPopup extends Component {
   }
 
   render() {
-    const {locations, employees, time, location} = this.props;
-    return <Modal isOpen={this.state.modalIsOpen} className={styles.container} onRequestClose={() => this.close()}>
+    const {locations, employees, startTime, endTime, location} = this.props;
+    return <Modal
+    isOpen={this.state.modalIsOpen}
+    className={styles.container}
+    onRequestClose={() => this.close()}>
       <h3 className="title">Add Employee Shift</h3>
       <div className="field">
         <label>WHEN</label>
-        <Datetime className='datetime' defaultValue={new Date(time)} />
+        <Datetime className='datetime' defaultValue={startTime} />
         -
-        <Datetime className='datetime' defaultValue={new Date(time + ONE_HOUR_IN_MS)} />
+        <Datetime className='datetime' defaultValue={endTime} />
       </div>
       <div className="field">
         <label>WHERE</label>
@@ -56,8 +57,9 @@ class AddItemPopup extends Component {
 }
 
 AddItemPopup.propTypes = {
-  modalIsOpen: PropTypes.bool.isRequired,
-  time: PropTypes.number,
+  open: PropTypes.bool.isRequired,
+  startTime: PropTypes.object,
+  endTime: PropTypes.object,
   location: PropTypes.number,
   onClose: PropTypes.func
 };
