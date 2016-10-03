@@ -14,8 +14,6 @@ import HourPreferencesList from './containers/HourPreferencesList';
 import Dashboard from './containers/Dashboard';
 import AdminTable from './containers/AdminTable';
 import SchedulePage from './containers/SchedulePage';
-import SchedulesPage from './containers/SchedulesPage';
-import SlotPage from './containers/SlotPage';
 import SlotsPage from './containers/SlotsPage';
 import SettingsPage from './containers/SettingsPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
@@ -63,10 +61,8 @@ render((
           <IndexRoute component={Dashboard} />
           <Route path="preferences" component={HourPreferencesList} />
           <Route path="preferences/:netId" component={HourPreferences} />
-          <Route path="schedules" component={SchedulesPage} />
-          <Route path="schedules/:location" component={SchedulePage} />
+          <Route path="schedules" component={SchedulePage} />
           <Route path="slots" component={SlotsPage} />
-          <Route path="slots/:location" component={SlotPage} />
           <Route path="settings" component={SettingsPage} />
           <Route path="admin/table" component={AdminTable} />
         </Route>
