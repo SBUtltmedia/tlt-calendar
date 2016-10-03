@@ -26,7 +26,6 @@ class AddItemPopup extends Component {
 
   render() {
     const {locations, employees} = this.props;
-    console.log(_.map(locations, loc => loc.name));
     return <Modal isOpen={this.state.modalIsOpen} className={styles.container} onRequestClose={() => this.close()}>
       <h2>Add Employee Shift</h2>
       <div className="field">

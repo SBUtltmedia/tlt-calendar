@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
+import * as HourPreferencesActions from '../actions/HourPreferencesActions';
 import styles from './HoursSettings.scss';
 import { NumberPicker } from 'react-widgets';
 import numberLocalizer from 'react-widgets/lib/localizers/simple-number';

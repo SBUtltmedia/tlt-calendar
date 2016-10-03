@@ -3,11 +3,9 @@ import * as ActionHelpers from './ActionHelpers';
 import { fetch } from '../utils/api';
 import _ from 'lodash';
 
-const getUrl = locationId => `/locations/${locationId}/slots`;
-
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
-    state => getUrl(state.slots.location.id),
+    state => getUrl('/slots'),
     state => ({...state.slots, slots: _.values(state.slots.slots)}),
     ...dispatchObjs
   );
@@ -22,7 +20,7 @@ function receiveSlots(json) {
 
 export function fetchSlots(location) {
   return dispatch => {
-    return fetch(getUrl(location))
+    return fetch('/slots')
       .then(response => response.json())
       .then(json => dispatch(receiveSlots(json)))
   }

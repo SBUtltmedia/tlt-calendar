@@ -1,4 +1,4 @@
-{
+[{
   "location": { "id": 1, "title": "Main Library", "coverage": 4 },
   "shifts": [{
     "value": [{
@@ -33,4 +33,29 @@
     "minute": 30,
     "duration": 30
   }]
-}
+}, {
+  "location": { "id": 2, "title": "Central Reading Room", "coverage": 1 },
+  "shifts": [{
+    "value": {
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
+      "email": "ken@androidideas.org"
+    },
+    "day": 0,
+    "hour": 0,
+    "minute": 30,
+    "duration": 30
+  }, {
+    "value": {
+      "netId": "kfehling",
+      "firstName": "Ken",
+      "lastName": "Fehling",
+      "email": "ken@androidideas.org"
+    },
+    "day": 0,
+    "hour": 23,
+    "minute": 30,
+    "duration": 60
+  }]
+}]

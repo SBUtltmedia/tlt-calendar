@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Reorder from 'react-reorder';
 import styles from './LocationOrder.scss';
-import * as HourPreferencesActions from '../../actions/HourPreferencesActions';
-import * as InfoBoxActions from '../../actions/CalendarInfoBoxActions';
+import * as HourPreferencesActions from '../actions/HourPreferencesActions';
+import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import _ from 'lodash';
-import { ACTION } from '../../constants/InfoBoxTypes';
+import { ACTION } from '../constants/InfoBoxTypes';
 
 const ListItem = ({item}) => (
   <div className="list-item">{item.name}</div>

@@ -1,7 +1,7 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import HoursSettings from '../components/hourPreferences/HoursSettings';
-import LocationOrder from '../components/hourPreferences/LocationOrder';
+import HoursSettings from '../components/HoursSettings';
+import LocationOrder from '../components/LocationOrder';
 import Title from '../components/Title';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';

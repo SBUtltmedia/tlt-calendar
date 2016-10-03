@@ -4,11 +4,9 @@ import { HOUR } from '../constants/Constants';
 import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
 import * as ActionHelpers from './ActionHelpers';
 
-const getUrl = locationId => `/locations/${locationId}/schedule`;
-
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
-    state => getUrl(state.schedule.location.id),
+    state => '/schedules',
     state => ({...state.schedule, shifts: _.values(state.schedule.shifts)}),
     ...dispatchObjs
   );
@@ -23,7 +21,7 @@ function receiveSchedule(json) {
 
 export function fetchSchedule(location) {
   return dispatch => {
-    return fetch(getUrl(location))
+    return fetch('/schedules')
       .then(response => response.json())
       .then(json => dispatch(receiveSchedule(json)))
   }
