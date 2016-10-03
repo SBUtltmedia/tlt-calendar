@@ -29,9 +29,8 @@ class AddItemPopup extends Component {
 
   render() {
     const {locations, employees, time, location} = this.props;
-    console.log('props', this.props);
     return <Modal isOpen={this.state.modalIsOpen} className={styles.container} onRequestClose={() => this.close()}>
-      <h2>Add Employee Shift</h2>
+      <h3 className="title">Add Employee Shift</h3>
       <div className="field">
         <label>WHEN</label>
         <Datetime className='datetime' defaultValue={new Date(time)} />
@@ -48,9 +47,9 @@ class AddItemPopup extends Component {
         <Selectivity.React className="select who"
         items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
       </div>
-      <div>
-        <button onClick={() => this.close()}>Cancel</button>
-        <button onClick={() => this.close()}>Save</button>
+      <div className="buttons">
+        <button className='btn' onClick={() => this.close()}>Cancel</button>
+        <button className='btn btn-primary' onClick={() => this.close()}>Save</button>
       </div>
     </Modal>;
   }

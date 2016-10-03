@@ -1,6 +1,6 @@
 :local(.container) {
-  width: 600px;
-  height: 480px;
+  width: 480px;
+  height: 360px;
   padding: 20px;
   border: thin solid #CCC;
   background-color: #FFF;
@@ -9,7 +9,15 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
+  .title {
+    margin-bottom: 30px;
+    border-bottom: thin solid #DDD;
+    padding-bottom: 3px;
+  }
   .field {
+    label {
+      font-weight: 500;
+    }
     margin: 10px 0;
     .datetime, .select {
       display: inline-block;
@@ -17,6 +25,13 @@
     }
     .select {
       width: 320px;
+    }
+  }
+  .buttons {
+    display: flex;
+    button {
+      flex: 1;
+      margin: 25px;
     }
   }
 }
@@ -45,4 +60,12 @@
     top:0 !important;
     position: absolute;
   }
+}
+
+.selectivity-single-result-container {
+  left: 10px !important;
+}
+
+.selectivity-caret {
+  right: 15px !important;
 }
