@@ -1,12 +1,14 @@
 import styles from './AddItemPopup.scss';
 import Modal from 'react-modal';
+import { connect } from 'react-redux';
 import { Component } from 'react';
+import _ from 'lodash';
 import Selectivity from 'selectivity/react';
 import 'selectivity/styles/selectivity-react.min.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-export default class AddItemPopup extends Component {
+class AddItemPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +25,8 @@ export default class AddItemPopup extends Component {
   }
 
   render() {
+    const {locations, employees} = this.props;
+    console.log(_.map(locations, loc => loc.name));
     return <Modal isOpen={this.state.modalIsOpen} className={styles.container} onRequestClose={() => this.close()}>
       <h2>Add Employee Shift</h2>
       <div className="field">
@@ -32,14 +36,31 @@ export default class AddItemPopup extends Component {
         <Datetime className='datetime' defaultValue={new Date()} />
       </div>
       <div className="field">
-        <label className="where">WHERE</label>
-        <Selectivity.React className="select" items={['ones', 'two']} />
+        <label>WHERE</label>
+        <Selectivity.React className="select where" items={_.map(locations, loc => loc.title)} />
       </div>
       <div className="field">
-        <label className="where">WHO</label>
-        <Selectivity.React className="select" items={['ones', 'two']} />
+        <label>WHO</label>
+        <Selectivity.React className="select who" items={_.map(employees, emp => emp.firstName + ' ' + emp.lastName)} />
       </div>
-      <button onClick={() => this.close()}>Cancel</button>
+      <div>
+        <button onClick={() => this.close()}>Cancel</button>
+        <button onClick={() => this.close()}>Save</button>
+      </div>
     </Modal>;
   }
 }
+
+const mapStateToProps = state => ({
+  locations: state.locations,
+  employees: state.employees
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddItemPopup);

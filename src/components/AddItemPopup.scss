@@ -16,7 +16,7 @@
       margin: 0 10px;
     }
     .select {
-
+      width: 320px;
     }
   }
 }
@@ -29,6 +29,7 @@
   border-image: initial !important;
   border-radius: 4px !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  line-height: 1em !important;
 }
 
 .selectivity-dropdown.has-search-input  {
