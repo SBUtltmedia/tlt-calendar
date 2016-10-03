@@ -1,11 +1,34 @@
 :local(.container) {
-  width: 320px;
-  height: 320px;
+  width: 600px;
+  height: 480px;
+  padding: 20px;
+  border: thin solid #CCC;
+  background-color: #FFF;
   border-radius: 4px;
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
+  .field {
+    margin: 10px 0;
+    .datetime, .select {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    .select {
+
+    }
+  }
+}
+
+.selectivity-single-select {
+  background: #FFF !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgb(204, 204, 204) !important;
+  border-image: initial !important;
+  border-radius: 4px !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
 }
 
 .selectivity-dropdown.has-search-input  {

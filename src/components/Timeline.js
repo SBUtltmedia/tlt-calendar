@@ -15,7 +15,6 @@ class Timeline extends Component {
   }
 
   onCanvasClick(groupId, time, e) {
-    console.log("DN");
     this.setState({
       modalIsOpen: true,
       modalGroup: groupId,
