@@ -1,8 +1,10 @@
 import { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
 import AddItemPopup from './AddItemPopup';
+import {resizeItem, moveItem} from '../actions/ScheduleActions';
 
 const ONE_HOUR_IN_MS = 3600000;
 
@@ -30,9 +32,12 @@ class Timeline extends Component {
     });
   }
 
+  onItemMove(itemId, dragTime, newGroupOrder) {
+    this.props.moveItem(itemId, dragTime, newGroupOrder);
+  }
+
   onItemResize(itemId, newResizeEnd) {
-    const item = this.findItem(itemId);
-    // TODO: Send action with item
+    this.props.resizeItem(itemId, newResizeEnd);
   }
 
   onItemSelect(itemId, e) {
@@ -41,7 +46,7 @@ class Timeline extends Component {
 
   onItemClick(itemId, e) {
     const item = this.findItem(itemId);
-    console.log(item);
+    //console.log(moment(1234567890));
     this.setState({
       modalIsOpen: true,
       modalGroup: item.group,
@@ -66,6 +71,7 @@ class Timeline extends Component {
           }}
           sidebarWidth={200}
           onCanvasClick={this.onCanvasClick.bind(this)}
+          onItemMove={this.onItemMove.bind(this)}
           onItemResize={this.onItemResize.bind(this)}
           onItemSelect={this.onItemSelect.bind(this)}
           onItemClick={this.onItemClick.bind(this)}
@@ -83,4 +89,16 @@ Timeline.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default Timeline;
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  resizeItem: (itemId, newResizeEnd) => dispatch(resizeItem(itemId, newResizeEnd)),
+  moveItem: (itemId, dragTime, newGroupOrder) => dispatch(moveItem(itemId, dragTime, newGroupOrder))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Timeline);

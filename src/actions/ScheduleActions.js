@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { fetch } from '../utils/api';
 import { HOUR } from '../constants/Constants';
-import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM } from '../constants/ActionTypes';
+import { RECEIVE_SCHEDULE, PLACE_ITEM, REMOVE_ITEM, RESIZE_ITEM, MOVE_ITEM } from '../constants/ActionTypes';
 import * as ActionHelpers from './ActionHelpers';
 
 function dispatchAndSave(...dispatchObjs) {
@@ -35,6 +35,19 @@ export function removeItem(item) {
   return dispatchAndSave({...item, type: REMOVE_ITEM});
 }
 
-export function moveItem(oldItem, newItem) {
-  return dispatchAndSave({...oldItem, type: REMOVE_ITEM}, {...newItem, type: PLACE_ITEM});
+export function resizeItem(itemId, newResizeEnd) {
+  return {
+    type: RESIZE_ITEM,
+    itemId,
+    newResizeEnd
+  }
+}
+
+export function moveItem(itemId, dragTime, newGroupOrder) {
+  return {
+    type: MOVE_ITEM,
+    itemId,
+    dragTime,
+    newGroupOrder
+  }
 }
