@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
-import AddItemPopup from './AddItemPopup';
 import {resizeItem, moveItem} from '../actions/ScheduleActions';
 
 const ONE_HOUR_IN_MS = 3600000;
@@ -23,12 +22,12 @@ class Timeline extends Component {
     return _.find(this.props.items, item => item.id === itemId);
   }
 
-  onCanvasClick(groupId, time, e) {
+  onCanvasClick(time, groupId) {
     this.setState({
       modalIsOpen: true,
       modalGroup: groupId,
       modalStartTime: time,
-      modalEndTime: time + ONE_HOUR_IN_MS
+      modalEndTime: moment(time).add(1, 'hours')
     });
   }
 
@@ -56,7 +55,7 @@ class Timeline extends Component {
   }
 
   render() {
-    const {groups, items} = this.props;
+    const {Modal, groups, items} = this.props;
     const {modalIsOpen, modalGroup, modalStartTime, modalEndTime} = this.state;
     return <div className={styles.container}>
       <ReactCalendarTimeline groups={groups}
@@ -70,7 +69,7 @@ class Timeline extends Component {
             year: 1
           }}
           sidebarWidth={200}
-          onCanvasClick={this.onCanvasClick.bind(this)}
+          onCanvasDoubleClick={this.onCanvasClick.bind(this)}
           onItemMove={this.onItemMove.bind(this)}
           onItemResize={this.onItemResize.bind(this)}
           onItemSelect={this.onItemSelect.bind(this)}
@@ -78,7 +77,7 @@ class Timeline extends Component {
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
-      <AddItemPopup open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
+      <Modal open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
                     onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
@@ -86,7 +85,8 @@ class Timeline extends Component {
 
 Timeline.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.object).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  Modal: PropTypes.func,
 }
 
 const mapStateToProps = state => ({

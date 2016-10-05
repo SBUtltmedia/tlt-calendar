@@ -1,4 +1,4 @@
-import styles from './AddItemPopup.scss';
+import styles from './TimelineModal.scss';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import { Component, PropTypes } from 'react';
@@ -8,7 +8,7 @@ import 'selectivity/styles/selectivity-react.min.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
-class AddItemPopup extends Component {
+class TimelineModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,12 +26,12 @@ class AddItemPopup extends Component {
   }
 
   render() {
-    const {locations, employees, startTime, endTime, location} = this.props;
+    const {children, title, locations, employees, startTime, endTime, location} = this.props;
     return <Modal
     isOpen={this.state.modalIsOpen}
     className={styles.container}
     onRequestClose={() => this.close()}>
-      <h3 className="title">Add Employee Shift</h3>
+      <h3 className="title">{title}</h3>
       <div className="field">
         <label>WHEN</label>
         <Datetime className='datetime' defaultValue={startTime} />
@@ -48,6 +48,7 @@ class AddItemPopup extends Component {
         <Selectivity.React className="select who"
         items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
       </div>
+      {children}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
         <button className='btn btn-primary' onClick={() => this.close()}>Save</button>
@@ -56,8 +57,32 @@ class AddItemPopup extends Component {
   }
 }
 
-AddItemPopup.propTypes = {
+/*
+{if (worksheet){
+  <div className="field">
+    <label>WHERE</label>
+    <Selectivity.React className="select where" defaultValue={location}
+    items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
+  </div>
+  <div className="field">
+    <label>WHO</label>
+    <Selectivity.React className="select who"
+    items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
+  </div>
+} else{
+  /RANK
+  <div className="field">
+    <label>RANK</label>
+    <something for rank>
+  </div>
+}}
+
+*/
+
+TimelineModal.propTypes = {
+  children: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
   startTime: PropTypes.object,
   endTime: PropTypes.object,
   location: PropTypes.number,
@@ -76,4 +101,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddItemPopup);
+)(TimelineModal);
