@@ -1,5 +1,5 @@
 import TimelineModal from './TimelineModal';
 
 export default props => (
-  <TimelineModal {...props} />
+  <TimelineModal {...props} title='Slot' />
 );

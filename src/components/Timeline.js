@@ -5,8 +5,6 @@ import moment from 'moment';
 import styles from './Timeline.scss';
 import {resizeItem, moveItem} from '../actions/ScheduleActions';
 
-const ONE_HOUR_IN_MS = 3600000;
-
 class Timeline extends Component {
   constructor(props) {
     super(props);
@@ -22,12 +20,13 @@ class Timeline extends Component {
     return _.find(this.props.items, item => item.id === itemId);
   }
 
-  onCanvasClick(time, groupId) {
+  onCanvasClick(time, group) {
+    const start_time = moment(time);
     this.setState({
       modalIsOpen: true,
-      modalGroup: groupId,
-      modalStartTime: time,
-      modalEndTime: moment(time).add(1, 'hours')
+      modalGroup: group.id,
+      modalStartTime: start_time,
+      modalEndTime: start_time.add(1, 'hours')
     });
   }
 
@@ -45,7 +44,6 @@ class Timeline extends Component {
 
   onItemClick(itemId, e) {
     const item = this.findItem(itemId);
-    //console.log(moment(1234567890));
     this.setState({
       modalIsOpen: true,
       modalGroup: item.group,
