@@ -5,7 +5,7 @@ import ScheduleModal from './ScheduleModal';
 
 const mapStateToProps = state => ({
 	groups: state.locations,
-  items: state.schedule.shifts,
+  items: _.map(state.schedule.shifts, item => ({...item, title: item.value.firstName + ' ' + item.value.lastName})),
 	Modal: ScheduleModal
 });
 

@@ -66,7 +66,7 @@ class TimelineModal extends Component {
         <label>WHO</label>
         <Selectivity.React className="select who"
         ref={(ref) => this.whoInput = ref}
-        items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
+        items={_.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
       </div>
       {children}
       <div className="buttons">

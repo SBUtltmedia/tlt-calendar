@@ -3,9 +3,9 @@ import moment from 'moment';
 
 const initialState = {
   shifts: [
-		{id: 1, group: 1, title: 'item 1', start_time: moment(), end_time: moment().add(1, 'hour'), },
-	  {id: 2, group: 2, title: 'item 2', start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour')},
-	  {id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour')}
+		{id: 1, group: 1, value: {netId: 'rzou', firstName: 'Rong', lastName: 'Zou'}, start_time: moment(), end_time: moment().add(1, 'hour'), },
+	  {id: 2, group: 2, value: {netId: 'rzou', firstName: 'Rong', lastName: 'Zou'}, start_time: moment().add(-0.5, 'hour'), end_time: moment().add(0.5, 'hour')},
+	  {id: 3, group: 1, value: {netId: 'rzou', firstName: 'Rong', lastName: 'Zou'}, start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour')}
 	],
   location: undefined
 };
