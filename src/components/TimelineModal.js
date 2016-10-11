@@ -25,6 +25,24 @@ class TimelineModal extends Component {
     this.props.onClose();
   }
 
+  save() {
+    const {addItem} = this.props;
+    const item = {
+      start_time: this.startTimeInput.state.selectedDate,
+      end_time: this.endTimeInput.state.selectedDate,
+      group: this.whereInput.getData().id,
+      value: this.whoInput.getData()
+    };
+    addItem(item);
+    this.close();
+  }
+
+  remove(itemId) {
+    const {removeItem} = this.props;
+    removeItem(itemId);
+    this.close();
+  }
+
   render() {
     const {children, title, locations, employees, itemId, startTime, endTime, location} = this.props;
     return <Modal
@@ -34,25 +52,27 @@ class TimelineModal extends Component {
       <h3 className="title">{title}</h3>
       <div className="field">
         <label>WHEN</label>
-        <Datetime className='datetime' defaultValue={startTime} />
+        <Datetime className='datetime' defaultValue={startTime} ref={(ref) => this.startTimeInput = ref} />
         -
-        <Datetime className='datetime' defaultValue={endTime} />
+        <Datetime className='datetime' defaultValue={endTime} ref={(ref) => this.endTimeInput = ref} />
       </div>
       <div className="field">
         <label>WHERE</label>
         <Selectivity.React className="select where" defaultValue={location}
+        ref={(ref) => this.whereInput = ref}
         items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
       </div>
       <div className="field">
         <label>WHO</label>
         <Selectivity.React className="select who"
+        ref={(ref) => this.whoInput = ref}
         items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
       </div>
       {children}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
-        {itemId ? <button className='btn btn-danger' onClick={() => this.close()}>Delete</button> : ''}
-        <button className='btn btn-primary' onClick={() => this.close()}>Save</button>
+        {itemId ? <button className='btn btn-danger' onClick={() => this.remove(itemId)}>Delete</button> : ''}
+        <button className='btn btn-primary' onClick={() => this.save()}>Save</button>
       </div>
     </Modal>;
   }
@@ -88,7 +108,9 @@ TimelineModal.propTypes = {
   startTime: PropTypes.object,
   endTime: PropTypes.object,
   location: PropTypes.number,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  addItem: PropTypes.func,
+  removeItem: PropTypes.func
 };
 
 const mapStateToProps = state => ({

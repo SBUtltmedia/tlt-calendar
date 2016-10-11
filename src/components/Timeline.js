@@ -40,7 +40,7 @@ class Timeline extends Component {
       modalItemId: null,
       modalGroup: group.id,
       modalStartTime: start_time,
-      modalEndTime: start_time.add(1, 'hours')
+      modalEndTime: start_time.clone().add(1, 'hours')
     });
   }
 
