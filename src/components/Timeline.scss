@@ -1,6 +1,20 @@
 :local(.container) {
   margin: 10px;
   margin-bottom: 20px;
+
+  .menu {
+    font-size: 36px;
+    text-align: right;
+    padding-right: 12px;
+
+    .item.disabled {
+      color: #999;
+    }
+
+    .item.enabled {
+      color: #C00;
+    }
+  }
 }
 
 .react-calendar-timeline .rct-outer {

@@ -26,7 +26,7 @@ class TimelineModal extends Component {
   }
 
   render() {
-    const {children, title, locations, employees, startTime, endTime, location} = this.props;
+    const {children, title, locations, employees, itemId, startTime, endTime, location} = this.props;
     return <Modal
     isOpen={this.state.modalIsOpen}
     className={styles.container}
@@ -51,6 +51,7 @@ class TimelineModal extends Component {
       {children}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
+        {itemId ? <button className='btn btn-danger' onClick={() => this.close()}>Delete</button> : ''}
         <button className='btn btn-primary' onClick={() => this.close()}>Save</button>
       </div>
     </Modal>;
@@ -83,6 +84,7 @@ TimelineModal.propTypes = {
   children: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
+  itemId: PropTypes.number,  // Only for existing item
   startTime: PropTypes.object,
   endTime: PropTypes.object,
   location: PropTypes.number,

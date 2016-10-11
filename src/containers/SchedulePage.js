@@ -25,10 +25,6 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
-			<div className="header">
-				<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.title : ''} />
-				<SlotsOverlayToggle />
-			</div>
 			<ScheduleTimeline disabled={!isAdmin} />
       <div className="controls">
         <div className="info"><CalendarInfoBox /></div>

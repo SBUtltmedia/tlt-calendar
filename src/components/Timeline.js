@@ -4,6 +4,13 @@ import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
 import {resizeItem, moveItem} from '../actions/ScheduleActions';
+import key from 'keymaster';
+
+const Menu = () => (
+  <div className="menu">
+    <i className="fa fa-trash" aria-hidden="true"></i>
+  </div>
+);
 
 class Timeline extends Component {
   constructor(props) {
@@ -16,6 +23,12 @@ class Timeline extends Component {
     }
   }
 
+  componentDidMount() {
+    key('delete, backspace', (event, handler) => {
+      console.log("I am the keymaster!");
+    });
+  }
+
   findItem(itemId) {
     return _.find(this.props.items, item => item.id === itemId);
   }
@@ -24,6 +37,7 @@ class Timeline extends Component {
     const start_time = moment(time);
     this.setState({
       modalIsOpen: true,
+      modalItemId: null,
       modalGroup: group.id,
       modalStartTime: start_time,
       modalEndTime: start_time.add(1, 'hours')
@@ -46,6 +60,7 @@ class Timeline extends Component {
     const item = this.findItem(itemId);
     this.setState({
       modalIsOpen: true,
+      modalItemId: item.id,
       modalGroup: item.group,
       modalStartTime: item.start_time,
       modalEndTime: item.end_time
@@ -54,8 +69,9 @@ class Timeline extends Component {
 
   render() {
     const {Modal, groups, items} = this.props;
-    const {modalIsOpen, modalGroup, modalStartTime, modalEndTime} = this.state;
+    const {modalIsOpen, modalItemId, modalGroup, modalStartTime, modalEndTime} = this.state;
     return <div className={styles.container}>
+      <Menu />
       <ReactCalendarTimeline groups={groups}
           items={items}
           timeSteps={{
@@ -76,7 +92,7 @@ class Timeline extends Component {
           defaultTimeEnd={moment().add(12, 'hour')}
       />
       <Modal open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
-                    onClose={() => this.setState({modalIsOpen: false})} />
+                    itemId={modalItemId} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
 }
