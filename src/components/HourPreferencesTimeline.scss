@@ -1,0 +1,15 @@
+:local(.modal-content) {
+  margin-top: 15px;
+  .rank-slider {
+    width: 80%;
+    margin: 8px auto 40px auto;
+    .rc-slider-mark-text {
+      font-size: 14px;
+      width: 26% !important;
+      margin-left: -13% !important;
+    }
+    .rc-slider-track {
+      background: linear-gradient(to right, #96dbfa, #456c7d) !important;
+    }
+  }
+}

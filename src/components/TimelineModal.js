@@ -44,30 +44,32 @@ class TimelineModal extends Component {
   }
 
   render() {
-    const {children, title, locations, employees, itemId, startTime, endTime, location} = this.props;
+    const {children, title, locations, employees, itemId, startTime, endTime, location, useLocation=false, useEmployee=false} = this.props;
     return <Modal
     isOpen={this.state.modalIsOpen}
     className={styles.container}
     onRequestClose={() => this.close()}>
-      <h3 className="title">{title}</h3>
+      <h3 className="title">{title || 'Title'}</h3>
       <div className="field">
         <label>WHEN</label>
         <Datetime className='datetime' defaultValue={startTime} ref={(ref) => this.startTimeInput = ref} />
         -
         <Datetime className='datetime' defaultValue={endTime} ref={(ref) => this.endTimeInput = ref} />
       </div>
-      <div className="field">
-        <label>WHERE</label>
-        <Selectivity.React className="select where" defaultValue={location}
-        ref={(ref) => this.whereInput = ref}
-        items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
-      </div>
-      <div className="field">
-        <label>WHO</label>
-        <Selectivity.React className="select who"
-        ref={(ref) => this.whoInput = ref}
-        items={_.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
-      </div>
+      {useLocation ?
+        <div className="field">
+          <label>WHERE</label>
+          <Selectivity.React className="select where" defaultValue={location}
+          ref={(ref) => this.whereInput = ref}
+          items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
+        </div> : ''}
+      {useEmployee ?
+        <div className="field">
+          <label>WHO</label>
+          <Selectivity.React className="select who"
+          ref={(ref) => this.whoInput = ref}
+          items={_.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
+        </div> : ''}
       {children}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
@@ -101,9 +103,9 @@ class TimelineModal extends Component {
 */
 
 TimelineModal.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.object,
   open: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   itemId: PropTypes.number,  // Only for existing item
   startTime: PropTypes.object,
   endTime: PropTypes.object,

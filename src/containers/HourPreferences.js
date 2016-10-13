@@ -7,7 +7,7 @@ import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
 import { fetchPreferences, removeItem } from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
-import HourPreferenceTimeline from '../components/HourPreferenceTimeline';
+import HourPreferencesTimeline from '../components/HourPreferencesTimeline';
 
 class HourPreferences extends Component {
   static propTypes = {
@@ -24,7 +24,7 @@ class HourPreferences extends Component {
     return <div className={styles.container}>
       <Title icon={employee ? <EmployeeIcon employee={employee} /> : null}
         name={employee ? employee.firstName + ' ' + employee.lastName : ''} />
-      <HourPreferenceTimeline disabled={isAdmin} />
+      <HourPreferencesTimeline disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="location-order"><LocationOrder disabled={isAdmin} /></div>

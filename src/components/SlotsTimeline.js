@@ -1,12 +1,13 @@
 import Timeline from './Timeline';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import SlotsModal from './SlotsModal';
+import TimelineModal from './TimelineModal';
+import {addItem, removeItem} from '../actions/SlotsActions';
 
 const mapStateToProps = state => ({
 	groups: state.locations,
   items: [],
-	Modal: SlotsModal
+	Modal: props => (<TimelineModal {...props} title='Slot' />)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

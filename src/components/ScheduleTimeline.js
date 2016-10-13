@@ -1,16 +1,18 @@
 import Timeline from './Timeline';
+import TimelineModal from './TimelineModal';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import ScheduleModal from './ScheduleModal';
+import {addItem, removeItem} from '../actions/ScheduleActions';
 
 const mapStateToProps = state => ({
 	groups: state.locations,
   items: _.map(state.schedule.shifts, item => ({...item, title: item.value.firstName + ' ' + item.value.lastName})),
-	Modal: ScheduleModal
+	Modal: props => (<TimelineModal {...props} title='Schedule Item' useLocation={true} useEmployee={true} />)
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item)),
+  removeItem: itemId => dispatch(removeItem(itemId))
 });
 
 export default connect(
