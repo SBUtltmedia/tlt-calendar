@@ -7,6 +7,8 @@ import Selectivity from 'selectivity/react';
 import 'selectivity/styles/selectivity-react.min.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 class TimelineModal extends Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class TimelineModal extends Component {
   }
 
   save() {
-    const {addItem, useLocation, useEmployee} = this.props;
+    const {addItem, useLocation, useEmployee, usePreference} = this.props;
     const item = {
       start_time: this.startTimeInput.state.selectedDate,
       end_time: this.endTimeInput.state.selectedDate
@@ -36,6 +38,9 @@ class TimelineModal extends Component {
     }
     if (useEmployee) {
       item.value = this.whoInput.getData();
+    }
+    else if (usePreference) {
+      item.value = this.preferenceInput.state.bounds[1];
     }
     addItem(item);
     this.close();
@@ -48,7 +53,7 @@ class TimelineModal extends Component {
   }
 
   render() {
-    const {children, title, locations, employees, itemId, startTime, endTime, location, useLocation=false, useEmployee=false} = this.props;
+    const {children, title, locations, employees, itemId, startTime, endTime, location, useLocation, useEmployee, usePreference} = this.props;
     return <Modal
     isOpen={this.state.modalIsOpen}
     className={styles.container}
@@ -74,7 +79,12 @@ class TimelineModal extends Component {
           ref={(ref) => this.whoInput = ref}
           items={_.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
         </div> : ''}
-      {children}
+      {usePreference ?
+        <div className="field preference">
+          <label>PREFERENCE</label>
+          <Slider className='rank-slider' min={1} max={4} marks={{1: 'Least prefer', 4: 'Most prefer'}}
+                  ref={(ref) => this.preferenceInput = ref} />
+          </div> : ''}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
         {itemId ? <button className='btn btn-danger' onClick={() => this.remove(itemId)}>Delete</button> : ''}
@@ -83,28 +93,6 @@ class TimelineModal extends Component {
     </Modal>;
   }
 }
-
-/*
-{if (worksheet){
-  <div className="field">
-    <label>WHERE</label>
-    <Selectivity.React className="select where" defaultValue={location}
-    items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
-  </div>
-  <div className="field">
-    <label>WHO</label>
-    <Selectivity.React className="select who"
-    items={_.map(employees, emp => ({id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
-  </div>
-} else{
-  /RANK
-  <div className="field">
-    <label>RANK</label>
-    <something for rank>
-  </div>
-}}
-
-*/
 
 TimelineModal.propTypes = {
   children: PropTypes.object,
