@@ -1,0 +1,16 @@
+@import '../../style/colors';
+
+@mixin color($c) {
+    border-color: darken($c,10%);
+    background: $c;
+}
+
+:local(.container) {
+  .react-calendar-timeline .rct-items .rct-item {
+    @for $i 1 to 4 {
+      &.rank#{$i}{
+        @include color("$rank-"#{$i}-color);
+      }
+    }
+  }
+}

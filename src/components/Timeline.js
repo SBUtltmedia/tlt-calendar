@@ -68,9 +68,9 @@ class Timeline extends Component {
   }
 
   render() {
-    const {Modal, groups, items, addItem, removeItem} = this.props;
+    const {Modal, groups, items, addItem, removeItem, className=''} = this.props;
     const {modalIsOpen, modalItemId, modalGroup, modalStartTime, modalEndTime} = this.state;
-    return <div className={styles.container}>
+    return <div className={`${styles.container} ${className}`}>
       <Menu />
       <ReactCalendarTimeline groups={groups}
           items={items}
@@ -101,6 +101,7 @@ class Timeline extends Component {
 Timeline.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.object).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  className: PropTypes.string,
   Modal: PropTypes.func,
 }
 
