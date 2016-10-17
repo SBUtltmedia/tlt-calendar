@@ -68,7 +68,7 @@ class Timeline extends Component {
   }
 
   render() {
-    const {Modal, groups, items} = this.props;
+    const {Modal, groups, items, addItem, removeItem} = this.props;
     const {modalIsOpen, modalItemId, modalGroup, modalStartTime, modalEndTime} = this.state;
     return <div className={styles.container}>
       <Menu />
@@ -92,6 +92,7 @@ class Timeline extends Component {
           defaultTimeEnd={moment().add(12, 'hour')}
       />
       <Modal open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
+                    addItem={addItem} removeItem={removeItem}
                     itemId={modalItemId} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }

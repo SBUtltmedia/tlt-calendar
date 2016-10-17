@@ -1,25 +1,26 @@
-import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
+import { RECEIVE_HOUR_PREFERENCES, ADD_HOUR_PREFERENCE, REMOVE_HOUR_PREFERENCE, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
 import { markGravatarLoadFailed } from '../utils/employees';
 import { DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
-import * as calendar from '../utils/calendar';
+import moment from 'moment';
+import * as timeline from '../utils/timeline';
 import _ from 'lodash';
 
 const initialState = {
-  chipsPlaced: {},
+  preferences: [
+	  {id: 2, value: 2, start_time: moment().add(2, 'hour'), end_time: moment().add(4, 'hour')},
+	  {id: 3, value: 3, start_time: moment().add(5, 'hour'), end_time: moment().add(7, 'hour')}
+	],
   numDesiredHours: DEFAULT_WEEKLY_HOURS,
   locationOrder: null,  // default
   employee: null
 };
 
-export default function hourPreferences(state=initialState, action) {
+export default function schedule(state=initialState, action) {
   switch (action.type) {
-    case RECEIVE_HOUR_PREFERENCES:
-      return {...action.preferences, chipsPlaced: calendar.putIntoBuckets(action.preferences.chipsPlaced)};
-    case PLACE_CHIP: return {...state, chipsPlaced: calendar.placeItem(state.chipsPlaced, action)};
-    case REMOVE_CHIP: return {...state, chipsPlaced: calendar.removeItem(state.chipsPlaced, action)};
-    case REORDER_GLOBAL_LOCATIONS: return {...state, locationOrder: action.order};
-    case CHANGE_NUM_DESIRED_HOURS: return {...state, numDesiredHours: action.hours};
-    case GRAVATAR_LOAD_FAILED: return {...state, employee: markGravatarLoadFailed(state.employee)};
+    case ADD_HOUR_PREFERENCE:
+      return {...state, preferences: timeline.addItem(state.preferences, action.item)};
+      case REMOVE_HOUR_PREFERENCE:
+        return {...state, preferences: timeline.removeItem(state.preferences, action.itemId)};
     default: return state;
   }
 }

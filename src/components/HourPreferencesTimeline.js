@@ -9,7 +9,7 @@ import styles from './HourPreferencesTimeline.scss';
 
 const mapStateToProps = state => ({
 	groups: [{id: 1, title: 'Hour Preferences'}],
-  items: _.map(state.hourPreferences.chipsPlaced, chip => ({...chip, group: 1})),
+  items: _.map(state.hourPreferences.preferences, p => ({...p, group: 1, title: p.value})),
 	Modal: props => (
 		<TimelineModal {...props} title='Shift preference'>
 	    <div className={styles['modal-content']}>

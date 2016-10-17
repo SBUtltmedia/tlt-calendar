@@ -28,12 +28,11 @@
     }
   }
   .buttons {
-    display: flex;
+    text-align: center;
     button {
-      width: auto;
+      width: 100%;
       max-width: 180px;
       margin: 10px;
-      flex: 1;
     }
   }
 }

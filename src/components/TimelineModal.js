@@ -26,13 +26,17 @@ class TimelineModal extends Component {
   }
 
   save() {
-    const {addItem} = this.props;
+    const {addItem, useLocation, useEmployee} = this.props;
     const item = {
       start_time: this.startTimeInput.state.selectedDate,
-      end_time: this.endTimeInput.state.selectedDate,
-      group: this.whereInput.getData().id,
-      value: this.whoInput.getData()
+      end_time: this.endTimeInput.state.selectedDate
     };
+    if (useLocation) {
+      item.group = this.whereInput.getData().id;
+    }
+    if (useEmployee) {
+      item.value = this.whoInput.getData();
+    }
     addItem(item);
     this.close();
   }

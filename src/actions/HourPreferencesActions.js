@@ -1,4 +1,4 @@
-import { RECEIVE_HOUR_PREFERENCES, PLACE_CHIP, REMOVE_CHIP, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
+import { RECEIVE_HOUR_PREFERENCES, ADD_HOUR_PREFERENCE, REMOVE_HOUR_PREFERENCE, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
 import * as ActionHelpers from './ActionHelpers';
 import _ from 'lodash';
@@ -8,7 +8,7 @@ const getUrl = netId => `/employees/${netId}/hour-preferences`;
 function dispatchAndSave(...dispatchObjs) {
   return ActionHelpers.dispatchAndSave(
     state => getUrl(state.user.netId),
-    state => ({...state.hourPreferences, chipsPlaced: _.values(state.hourPreferences.chipsPlaced)}),
+    state => state.hourPreferences,
     ...dispatchObjs
   );
 }
@@ -28,16 +28,12 @@ export function fetchPreferences(netId) {
   }
 }
 
-export function placeItem(item) {
-  return dispatchAndSave({...item, type: PLACE_CHIP});
+export function addItem(item) {
+  return dispatchAndSave({item, type: ADD_HOUR_PREFERENCE});
 }
 
 export function removeItem(item) {
-  return dispatchAndSave({...item, type: REMOVE_CHIP});
-}
-
-export function moveItem(oldItem, newItem) {
-  return dispatchAndSave({...oldItem, type: REMOVE_CHIP}, {...newItem, type: PLACE_CHIP});
+  return dispatchAndSave({item, type: REMOVE_HOUR_PREFERENCE});
 }
 
 export function reorderGlobalLocations(order) {

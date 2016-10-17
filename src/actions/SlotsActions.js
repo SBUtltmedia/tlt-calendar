@@ -1,4 +1,4 @@
-import { RECEIVE_SLOTS, PLACE_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
+import { RECEIVE_SLOTS, ADD_SLOT, REMOVE_SLOT } from '../constants/ActionTypes';
 import * as ActionHelpers from './ActionHelpers';
 import { fetch } from '../utils/api';
 import _ from 'lodash';
@@ -27,7 +27,7 @@ export function fetchSlots(location) {
 }
 
 export function placeItem(item) {
-  return dispatchAndSave({...item, type: PLACE_SLOT});
+  return dispatchAndSave({...item, type: ADD_SLOT});
 }
 
 export function removeItem(item) {
@@ -35,5 +35,5 @@ export function removeItem(item) {
 }
 
 export function moveItem(oldItem, newItem) {
-  return dispatchAndSave({...oldItem, type: REMOVE_SLOT}, {...newItem, type: PLACE_SLOT});
+  return dispatchAndSave({...oldItem, type: REMOVE_SLOT}, {...newItem, type: ADD_SLOT});
 }

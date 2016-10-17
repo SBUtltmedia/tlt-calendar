@@ -1,8 +1,3 @@
-
-export const PLACE_CHIP = 'place-chip';
-export const REMOVE_CHIP = 'remove-chip';
-export const PLACE_SLOT = 'place-slot';
-export const REMOVE_SLOT = 'remove-slot';
 export const FILL_INFO_BOX = 'set-box-info';
 export const CLEAR_INFO_BOX = 'clear-box-info';
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations';
@@ -21,7 +16,11 @@ export const RECEIVE_LOCATIONS = 'receive-locations';
 export const RECEIVE_USER = 'receive-user';
 export const RECEIVE_SCHEDULE = 'receive-schedule';
 export const RECEIVE_SLOTS = 'receive-slots';
+export const ADD_HOUR_PREFERENCE = 'ADD_HOUR_PREFERENCE';
+export const REMOVE_HOUR_PREFERENCE = 'REMOVE_HOUR_PREFERENCE';
 export const ADD_ITEM = 'add-item';
 export const REMOVE_ITEM = 'remove-item';
 export const RESIZE_ITEM = 'RESIZE_ITEM';
 export const MOVE_ITEM = 'MOVE_ITEM';
+export const ADD_SLOT = 'place-slot';
+export const REMOVE_SLOT = 'remove-slot';

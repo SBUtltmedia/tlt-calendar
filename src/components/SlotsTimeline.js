@@ -10,8 +10,9 @@ const mapStateToProps = state => ({
 	Modal: props => (<TimelineModal {...props} title='Slot' />)
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item)),
+  removeItem: itemId => dispatch(removeItem(itemId))
 });
 
 export default connect(
