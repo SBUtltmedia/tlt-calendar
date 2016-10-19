@@ -24,3 +24,8 @@ export const RESIZE_ITEM = 'RESIZE_ITEM';
 export const MOVE_ITEM = 'MOVE_ITEM';
 export const ADD_SLOT = 'place-slot';
 export const REMOVE_SLOT = 'remove-slot';
+
+export const ADD_TIMELINE_ITEM = 'ADD_TIMELINE_ITEM';
+export const REMOVE_TIMELINE_ITEM = 'REMOVE_TIMELINE_ITEM';
+export const MOVE_TIMELINE_ITEM = 'MOVE_TIMELINE_ITEM';
+export const RESIZE_TIMELINE_ITEM = 'RESIZE_TIMELINE_ITEM';
