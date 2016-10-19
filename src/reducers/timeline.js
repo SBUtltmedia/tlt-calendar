@@ -1,4 +1,4 @@
-import { ADD_TIMELINE_ITEM, REMOVE_TIMELINE_ITEM, MOVE_TIMELINE_ITEM, RESIZE_TIMELINE_ITEM } from '../constants/ActionTypes';
+import { RECEIVE_TIMELINE_ITEMS, ADD_TIMELINE_ITEM, REMOVE_TIMELINE_ITEM, MOVE_TIMELINE_ITEM, RESIZE_TIMELINE_ITEM } from '../constants/ActionTypes';
 import * as timeline from '../utils/timeline';
 import moment from 'moment';
 
@@ -8,6 +8,9 @@ const initialState = {
 
 export default function slots(state=initialState, action) {
   switch (action.type) {
+    case RECEIVE_TIMELINE_ITEMS:
+      console.log(action);
+      return {...state};
     case ADD_TIMELINE_ITEM:
       return {...state, shifts: timeline.addItem(state.items, action.item)};
     case RESIZE_TIMELINE_ITEM:

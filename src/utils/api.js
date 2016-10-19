@@ -35,7 +35,7 @@ export function getHandler(type) {
   }
 }
 
-export function fetch(path)  {
+export function fetch(path) {
   return origFetch(getBasePath() + path + getExtension(), FETCH_PARAMS);
 }
 

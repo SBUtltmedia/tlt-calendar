@@ -11,7 +11,6 @@ function dispatchAndSave(type, ...dispatchObjs) {
 }
 
 export function fetchTimelineItems(type) {
-  console.log("fetch", type);
   return (dispatch, getState) => {
     const state = getState();
     return fetchType(type, state)
