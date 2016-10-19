@@ -8,13 +8,13 @@ const initialState = {
 
 export default function slots(state=initialState, action) {
   switch (action.type) {
-    case ADD_ITEM:
+    case ADD_TIMELINE_ITEM:
       return {...state, shifts: timeline.addItem(state.items, action.item)};
-    case RESIZE_ITEM:
+    case RESIZE_TIMELINE_ITEM:
       return {...state, shifts: timeline.updateItem(state.items, action.itemId, {end_time: moment(action.newResizeEnd)})};
-    case MOVE_ITEM:
+    case MOVE_TIMELINE_ITEM:
       return {...state, shifts: timeline.moveItem(state.items, action.itemId, action.dragTime, action.newGroupOrder)};
-    case REMOVE_ITEM:
+    case REMOVE_TIMELINE_ITEM:
       return {...state, shifts: timeline.removeItem(state.items, action.itemId)};
     default: return state;
   }

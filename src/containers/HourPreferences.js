@@ -5,7 +5,6 @@ import LocationOrder from '../components/LocationOrder';
 import Title from '../components/Title';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
-import { fetchPreferences, removeItem } from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
 import HourPreferencesTimeline from '../components/HourPreferencesTimeline';
 
@@ -13,10 +12,6 @@ class HourPreferences extends Component {
   static propTypes = {
     params: PropTypes.object.isRequired,  // Params from URL
     isAdmin: PropTypes.bool
-  }
-
-  componentWillMount() {
-    this.props.fetchPreferences();
   }
 
   render() {
@@ -39,12 +34,7 @@ const mapStateToProps = state => ({
   isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
-  removeItem: item => dispatch(removeItem(item))
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {}
 )(HourPreferences);

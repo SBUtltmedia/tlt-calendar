@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
-import {resizeItem, moveItem} from '../actions/ScheduleActions';
+import {fetchTimelineItems, resizeItem, moveItem} from '../actions/TimelineActions';
 import key from 'keymaster';
 
 const Menu = () => (
@@ -21,6 +21,7 @@ class Timeline extends Component {
       modalStartTime: null,
       modalEndTime: null
     }
+    props.fetchTimelineItems(props.type);
   }
 
   componentDidMount() {
@@ -99,6 +100,7 @@ class Timeline extends Component {
 }
 
 Timeline.propTypes = {
+  type: PropTypes.string.isRequired,
   groups: PropTypes.arrayOf(PropTypes.object).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string,
@@ -109,12 +111,7 @@ const mapStateToProps = state => ({
 
 });
 
-const mapDispatchToProps = dispatch => ({
-  resizeItem: (itemId, newResizeEnd) => dispatch(resizeItem(itemId, newResizeEnd)),
-  moveItem: (itemId, dragTime, newGroupOrder) => dispatch(moveItem(itemId, dragTime, newGroupOrder))
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {fetchTimelineItems, resizeItem, moveItem}
 )(Timeline);
