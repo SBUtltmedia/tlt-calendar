@@ -1,15 +1,15 @@
-@import '../../style/colors';
+@import '../style/colors';
 
 @mixin color($c) {
-    border-color: darken($c,10%);
+    border-color: darken($c, 10%);
     background: $c;
 }
 
 :local(.container) {
   .react-calendar-timeline .rct-items .rct-item {
-    @for $i 1 to 4 {
-      &.rank#{$i}{
-        @include color("$rank-"#{$i}-color);
+    @for $i from 1 to length($rank-colors) {
+      &.rank#{$i} {
+        @include color(nth($rank-colors, $i));
       }
     }
   }

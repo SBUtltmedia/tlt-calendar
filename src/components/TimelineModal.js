@@ -40,7 +40,8 @@ class TimelineModal extends Component {
       item.value = this.whoInput.getData();
     }
     else if (usePreference) {
-      item.value = this.preferenceInput.state.bounds[1];
+      console.log(this.preferenceInput);
+      item.value = 5 - this.preferenceInput.state.bounds[1];
     }
     addItem(item);
     this.close();
@@ -82,8 +83,8 @@ class TimelineModal extends Component {
       {usePreference ?
         <div className="field preference">
           <label>PREFERENCE</label>
-          <Slider className='rank-slider' min={1} max={4} marks={{1: 'Least prefer', 4: 'Most prefer'}}
-                  ref={(ref) => this.preferenceInput = ref} />
+          <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref} min={1} max={4}
+                marks={{1: 'Least prefer', 2: '3', 3: '2', 4: 'Most prefer'}} />
           </div> : ''}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
