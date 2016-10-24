@@ -84,7 +84,7 @@ class TimelineModal extends Component {
         <div className="field preference">
           <label>PREFERENCE</label>
           <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref} min={1} max={4}
-                marks={{1: 'Least prefer', 2: '3', 3: '2', 4: 'Most prefer'}} />
+                marks={{1: 'Least prefered', 2: '3', 3: '2', 4: 'Most prefered'}} />
           </div> : ''}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>

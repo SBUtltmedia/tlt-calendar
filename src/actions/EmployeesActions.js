@@ -1,5 +1,16 @@
-import { RECEIVE_EMPLOYEES, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
+import { SET_EMPLOYEE, RECEIVE_EMPLOYEES, GRAVATAR_LOAD_FAILED } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
+import _ from 'lodash';
+
+export function setEmployee(netId) {
+  return (dispatch, getState) => {
+    const state = getState();
+    dispatch({
+      type: SET_EMPLOYEE,
+      employee: {netId}
+    });
+  };
+}
 
 function receiveEmployees(json) {
   return {
