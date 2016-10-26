@@ -10,6 +10,7 @@ import 'react-datetime/css/react-datetime.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {addItem, removeItem} from '../actions/TimelineActions';
+import {HOUR_PREFERENCE_DESCRIPTIONS} from '../constants/Settings';
 
 class TimelineModal extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ class TimelineModal extends Component {
         <div className="field preference">
           <label>PREFERENCE</label>
           <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref} min={1} max={4}
-                marks={{1: 'Least prefered', 2: '3', 3: '2', 4: 'Most prefered'}} />
+                marks={{1: HOUR_PREFERENCE_DESCRIPTIONS[3], 4: HOUR_PREFERENCE_DESCRIPTIONS[0]}} />
           </div> : ''}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>

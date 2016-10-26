@@ -36,8 +36,8 @@
         margin: 8px auto 40px auto;
         .rc-slider-mark-text {
           font-size: 14px;
-          width: 26% !important;
-          margin-left: -13% !important;
+          width: 30% !important;
+          margin-left: -15% !important;
         }
         .rc-slider-track {
           background: linear-gradient(to right, #96dbfa, $end-color) !important;
@@ -45,6 +45,9 @@
         .rc-slider-handle {
           border-color: $end-color;
           background-color: $end-color;
+        }
+        .rc-slider-dot {
+          display: none;
         }
       }
     }

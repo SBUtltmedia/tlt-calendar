@@ -6,7 +6,7 @@ import { SLOTS } from '../constants/Constants';
 const mapStateToProps = state => ({
 	type: SLOTS,
 	groups: state.locations,
-  items: [],
+  items: _.map(state.timeline.items, item => ({...item, title: ''})),
 	Modal: props => (<TimelineModal {...props} title='Slot' />)
 });
 
