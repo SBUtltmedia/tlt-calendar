@@ -19,17 +19,17 @@ export function getHandler(type) {
   switch (type) {
     case SCHEDULE: return {
       mapStateToPath: () => '/schedules',
-      mapStateToData: state => ({...state.schedule, shifts: _.values(state.schedule.shifts)}),
+      mapStateToData: state => ({...state.schedule, items: _.values(state.timeline.items)}),
       mapReceivedData: json => json
     };
     case SLOTS: return {
       mapStateToPath: () => '/slots',
-      mapStateToData: state => ({...state.slots, slots: _.values(state.slots.slots)}),
+      mapStateToData: state => ({...state.slots, items: _.values(state.timeline.items)}),
       mapReceivedData: json => json
     };
     case HOUR_PREFERENCES: return {
       mapStateToPath: state => `/employees/${state.hourPreferences.employee.netId}/hour-preferences`,
-      mapStateToData: state => state.hourPreferences,
+      mapStateToData: state => ({...state.hourPreferences, items: _.values(state.timeline.items)}),
       mapReceivedData: json => json
     }
   }
@@ -67,6 +67,9 @@ export function save(path, data) {
 }
 
 export function saveState(state, type) {
+
+  console.log('type', type);
+
   const handler = getHandler(type);
   const path = handler.mapStateToPath(state);
   const data = handler.mapStateToData(state);

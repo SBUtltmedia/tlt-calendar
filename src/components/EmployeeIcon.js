@@ -44,8 +44,13 @@ function getImageSrc(employee) {
 class EmployeeIcon extends Component {
   render() {
     const {onImageError, employee} = this.props;
-    return <img className={styles.icon} src={getImageSrc(employee)} onError={() => onImageError(employee)}
-        {..._.pick(this.props, ['style', 'disabled'])} />;
+    if (employee && employee.email) {
+      return <img className={styles.icon} src={getImageSrc(employee)} onError={() => onImageError(employee)}
+          {..._.pick(this.props, ['style', 'disabled'])} />;
+    }
+    else {
+      return <div></div>;
+    }
   }
 }
 

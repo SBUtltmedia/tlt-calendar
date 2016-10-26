@@ -69,7 +69,7 @@ class Timeline extends Component {
   }
 
   render() {
-    const {Modal, groups, items, addItem, removeItem, className=''} = this.props;
+    const {Modal, groups, items, type, className=''} = this.props;
     const {modalIsOpen, modalItemId, modalGroup, modalStartTime, modalEndTime} = this.state;
     return <div className={`${styles.container} ${className}`}>
       <Menu />
@@ -92,8 +92,7 @@ class Timeline extends Component {
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
-      <Modal open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
-                    addItem={addItem} removeItem={removeItem}
+      <Modal type={type} open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
                     itemId={modalItemId} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
@@ -111,7 +110,13 @@ const mapStateToProps = state => ({
 
 });
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  fetchTimelineItems: () => dispatch(fetchTimelineItems(ownProps.type)),
+  resizeItem: (itemId, newResizeEnd) => dispatch(resizeItem(ownProps.type, itemId, newResizeEnd)),
+  moveItem: (itemId, dragTime, newGroupOrder) => dispatch(moveItem(ownProps.type, itemId, dragTime, newGroupOrder))
+});
+
 export default connect(
   mapStateToProps,
-  {fetchTimelineItems, resizeItem, moveItem}
+  mapDispatchToProps
 )(Timeline);

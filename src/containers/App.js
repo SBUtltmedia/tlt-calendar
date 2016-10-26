@@ -9,9 +9,8 @@ import { fetchThisUser } from '../actions/UserActions';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    const { fetchThisUser, fetchEmployees, fetchLocations } = props;
+  componentWillMount() {
+    const { fetchThisUser, fetchEmployees, fetchLocations } = this.props;
     fetchThisUser();
     fetchEmployees();
     fetchLocations();
@@ -25,13 +24,7 @@ class App extends Component {
   }
 }
 
-const matchDispatchToProps = dispatch => ({
-  fetchThisUser: () => dispatch(fetchThisUser()),
-  fetchEmployees: () => dispatch(fetchEmployees()),
-  fetchLocations: () => dispatch(fetchLocations())
-});
-
 export default connect(
   state => ({}),
-  matchDispatchToProps
+  {fetchThisUser, fetchEmployees, fetchLocations}
 )(App);

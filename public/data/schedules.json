@@ -1,6 +1,6 @@
 [{
   "location": { "id": 1, "title": "Main Library", "coverage": 4 },
-  "shifts": [{
+  "items": [{
     "value": [{
       "netId": "kfehling",
       "firstName": "Ken",
@@ -35,7 +35,7 @@
   }]
 }, {
   "location": { "id": 2, "title": "Central Reading Room", "coverage": 1 },
-  "shifts": [{
+  "items": [{
     "value": {
       "netId": "kfehling",
       "firstName": "Ken",

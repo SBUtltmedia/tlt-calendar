@@ -16,7 +16,7 @@ class HourPreferences extends Component {
   }
 
   componentWillMount() {
-    const {setEmployee, netId} = this.props;
+    const {setEmployee, params:{netId}} = this.props;
     setEmployee(netId);
   }
 
@@ -24,7 +24,7 @@ class HourPreferences extends Component {
     const {employee, isAdmin, removeItem} = this.props;
     return <div className={styles.container}>
       <Title icon={employee ? <EmployeeIcon employee={employee} /> : null}
-        name={employee ? employee.firstName + ' ' + employee.lastName : ''} />
+        name={employee ? (employee.firstName || '') + ' ' + (employee.lastName || '') : ''} />
       <HourPreferencesTimeline disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>

@@ -9,6 +9,7 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import {addItem, removeItem} from '../actions/TimelineActions';
 
 class TimelineModal extends Component {
   constructor(props) {
@@ -96,6 +97,7 @@ class TimelineModal extends Component {
 }
 
 TimelineModal.propTypes = {
+  type: PropTypes.string.isRequired,
   children: PropTypes.object,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string,
@@ -103,9 +105,7 @@ TimelineModal.propTypes = {
   startTime: PropTypes.object,
   endTime: PropTypes.object,
   location: PropTypes.number,
-  onClose: PropTypes.func,
-  addItem: PropTypes.func,
-  removeItem: PropTypes.func
+  onClose: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -113,8 +113,9 @@ const mapStateToProps = state => ({
   employees: state.employees
 });
 
-const mapDispatchToProps = dispatch => ({
-
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addItem: item => dispatch(addItem(ownProps.type, item)),
+  removeItem: item => dispatch(removeItem(ownProps.type, item)),
 });
 
 export default connect(

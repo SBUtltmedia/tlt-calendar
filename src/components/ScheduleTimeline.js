@@ -7,7 +7,7 @@ import { SCHEDULE } from '../constants/Constants';
 const mapStateToProps = state => ({
 	type: SCHEDULE,
 	groups: state.locations,
-  items: _.map(state.schedule.shifts, item => ({...item, title: item.value.firstName + ' ' + item.value.lastName})),
+  items: _.map(state.timeline.items, item => ({...item, title: item.value.firstName + ' ' + item.value.lastName})),
 	Modal: props => (<TimelineModal {...props} title='Schedule Item' useLocation={true} useEmployee={true} />)
 });
 

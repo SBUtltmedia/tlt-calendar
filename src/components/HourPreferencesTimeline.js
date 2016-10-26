@@ -8,7 +8,7 @@ import { HOUR_PREFERENCES } from '../constants/Constants';
 const mapStateToProps = state => ({
 	type: HOUR_PREFERENCES,
 	groups: [{id: 1, title: 'Hour Preferences'}],
-  items: _.map(state.hourPreferences.preferences, p => ({...p, group: 1, title: p.value, className: 'rank' + p.value})),
+  items: _.map(state.timeline.items, p => ({...p, group: 1, title: p.value, className: 'rank' + p.value})),
 	className: styles.container,
 	Modal: props => <TimelineModal {...props} title='Shift preference' usePreference={true}/>
 });

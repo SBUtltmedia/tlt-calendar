@@ -3,12 +3,9 @@ import { fetch } from '../utils/api';
 import _ from 'lodash';
 
 export function setEmployee(netId) {
-  return (dispatch, getState) => {
-    const state = getState();
-    dispatch({
-      type: SET_EMPLOYEE,
-      employee: {netId}
-    });
+  return {
+    type: SET_EMPLOYEE,
+    employee: {netId}
   };
 }
 
