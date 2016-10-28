@@ -11,6 +11,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {addItem, removeItem, updateItem} from '../actions/TimelineActions';
 import {HOUR_PREFERENCE_DESCRIPTIONS} from '../constants/Settings';
+import {RESERVED} from '../constants/Constants';
 
 class TimelineModal extends Component {
   constructor(props) {
@@ -30,75 +31,82 @@ class TimelineModal extends Component {
   }
 
   save() {
-    const {addItem, updateItem, useLocation, useEmployee, usePreference, itemId} = this.props;
-    const item = {
+    const {addItem, updateItem, useLocation, useEmployee, usePreference, item} = this.props;
+    const newItem = {
       start_time: this.startTimeInput.state.selectedDate,
       end_time: this.endTimeInput.state.selectedDate
     };
     if (useLocation) {
-      item.group = this.whereInput.getData().id;
+      newItem.group = this.whereInput.getData().id;
     }
     if (useEmployee) {
-      item.value = this.whoInput.getData();
+      const value = this.whoInput.getData();
+      if (value.id === RESERVED) {
+        newItem.value = RESERVED;
+      }
+      else {
+        newItem.value = _.omit(this.whoInput.getData(), ['id', 'text']);
+      }
     }
     else if (usePreference) {
-      console.log(this.preferenceInput);
-      item.value = 5 - this.preferenceInput.state.bounds[1];
+      newItem.value = 5 - this.preferenceInput.state.bounds[1];
     }
-    if (itemId) {  // If item exists already
-      updateItem(itemId, item);
+    if (item.id) {  // If item exists already
+      updateItem(item.id, newItem);
     }
     else {
-      addItem(item);
+      addItem(newItem);
     }
     this.close();
   }
 
-  remove(itemId) {
+  remove(item) {
     const {removeItem} = this.props;
-    removeItem(itemId);
+    removeItem(item.id);
     this.close();
   }
 
   render() {
-    const {children, title, locations, employees, itemId, startTime, endTime, location, useLocation, useEmployee, usePreference} = this.props;
-    return <Modal
+    const {children, title, locations, employees, item, useLocation, useEmployee, usePreference} = this.props;
+    return item ? <Modal
     isOpen={this.state.modalIsOpen}
     className={styles.container}
     onRequestClose={() => this.close()}>
       <h3 className="title">{title || 'Title'}</h3>
       <div className="field">
         <label>WHEN</label>
-        <Datetime className='datetime' defaultValue={startTime} ref={(ref) => this.startTimeInput = ref} />
+        <Datetime className='datetime' defaultValue={item.start_time} ref={(ref) => this.startTimeInput = ref} />
         -
-        <Datetime className='datetime' defaultValue={endTime} ref={(ref) => this.endTimeInput = ref} />
+        <Datetime className='datetime' defaultValue={item.end_time} ref={(ref) => this.endTimeInput = ref} />
       </div>
       {useLocation ?
         <div className="field">
           <label>WHERE</label>
-          <Selectivity.React className="select where" defaultValue={location}
+          <Selectivity.React className="select where" defaultValue={item.group}
           ref={(ref) => this.whereInput = ref}
           items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
         </div> : ''}
       {useEmployee ?
         <div className="field">
           <label>WHO</label>
-          <Selectivity.React className="select who"
+          <Selectivity.React className="select who" defaultValue={item.value.netId || RESERVED}
           ref={(ref) => this.whoInput = ref}
-          items={_.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))} />
+          items={[{id: RESERVED, text: RESERVED},
+            ..._.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))]} />
         </div> : ''}
       {usePreference ?
         <div className="field preference">
           <label>PREFERENCE</label>
-          <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref} min={1} max={4}
+          <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref}
+                min={1} max={4} defaultValue={item.value}
                 marks={{1: HOUR_PREFERENCE_DESCRIPTIONS[3], 4: HOUR_PREFERENCE_DESCRIPTIONS[0]}} />
           </div> : ''}
       <div className="buttons">
         <button className='btn' onClick={() => this.close()}>Cancel</button>
-        {itemId ? <button className='btn btn-danger' onClick={() => this.remove(itemId)}>Delete</button> : ''}
+        {item.id ? <button className='btn btn-danger' onClick={() => this.remove(item)}>Delete</button> : ''}
         <button className='btn btn-primary' onClick={() => this.save()}>Save</button>
       </div>
-    </Modal>;
+    </Modal> : <div></div>;
   }
 }
 
@@ -107,10 +115,9 @@ TimelineModal.propTypes = {
   children: PropTypes.object,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string,
-  itemId: PropTypes.number,  // Only for existing item
+  item: PropTypes.object,
   startTime: PropTypes.object,
   endTime: PropTypes.object,
-  location: PropTypes.number,
   onClose: PropTypes.func
 };
 

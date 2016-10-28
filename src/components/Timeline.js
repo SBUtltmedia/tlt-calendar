@@ -18,8 +18,7 @@ class Timeline extends Component {
     this.state = {
       modalIsOpen: false,
       modalGroup: null,
-      modalStartTime: null,
-      modalEndTime: null
+      modalItem: null
     }
     props.fetchTimelineItems(props.type);
   }
@@ -38,10 +37,11 @@ class Timeline extends Component {
     const start_time = moment(time);
     this.setState({
       modalIsOpen: true,
-      modalItemId: null,
-      modalGroup: group.id,
-      modalStartTime: start_time,
-      modalEndTime: start_time.clone().add(1, 'hours')
+      modalItem: {
+        group: group.id,
+        start_time,
+        end_time: start_time.clone().add(1, 'hours')
+      }
     });
   }
 
@@ -53,24 +53,16 @@ class Timeline extends Component {
     this.props.resizeItem(itemId, newResizeEnd);
   }
 
-  onItemSelect(itemId, e) {
-    const item = this.findItem(itemId);
-  }
-
   onItemClick(itemId, e) {
-    const item = this.findItem(itemId);
     this.setState({
       modalIsOpen: true,
-      modalItemId: item.id,
-      modalGroup: item.group,
-      modalStartTime: item.start_time,
-      modalEndTime: item.end_time
+      modalItem: this.findItem(itemId)
     });
   }
 
   render() {
     const {Modal, groups, items, type, className=''} = this.props;
-    const {modalIsOpen, modalItemId, modalGroup, modalStartTime, modalEndTime} = this.state;
+    const {modalIsOpen, modalItem} = this.state;
     return <div className={`${styles.container} ${className}`}>
       <Menu />
       <ReactCalendarTimeline groups={groups}
@@ -87,13 +79,11 @@ class Timeline extends Component {
           onCanvasDoubleClick={this.onCanvasClick.bind(this)}
           onItemMove={this.onItemMove.bind(this)}
           onItemResize={this.onItemResize.bind(this)}
-          onItemSelect={this.onItemSelect.bind(this)}
           onItemClick={this.onItemClick.bind(this)}
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
-      <Modal type={type} open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
-                    itemId={modalItemId} onClose={() => this.setState({modalIsOpen: false})} />
+      <Modal type={type} open={modalIsOpen} item={modalItem} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
 }

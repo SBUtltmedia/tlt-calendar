@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 	groups: [{id: 1, title: 'Hour Preferences'}],
   items: _.map(state.timeline.items, p => ({...p, group: 1, title: HOUR_PREFERENCE_DESCRIPTIONS[p.value - 1], className: 'rank' + p.value})),
 	className: styles.container,
-	Modal: props => <TimelineModal {...props} title='Shift preference' usePreference={true}/>
+	Modal: props => <TimelineModal {...props} title='Shift preference' usePreference={true} />
 });
 
 export default connect(
