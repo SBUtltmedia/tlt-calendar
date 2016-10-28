@@ -63,9 +63,10 @@ class Timeline extends Component {
   }
 
   render() {
-    const {Modal, groups, items, type, className=''} = this.props;
+    const {Modal, groups, items, type, className='', disabled} = this.props;
     const {modalIsOpen, modalItem} = this.state;
-    return <div className={`${styles.container} ${className}`}>
+    const doNothing = () => {};
+    return <div className={`${styles.container} ${className} ${disabled ? 'disabled' : ''}`}>
       <ReactCalendarTimeline groups={groups}
           items={items}
           timeSteps={{
@@ -78,10 +79,13 @@ class Timeline extends Component {
           }}
           stackItems={true}
           sidebarWidth={200}
-          onCanvasDoubleClick={this.onCanvasClick.bind(this)}
-          onItemMove={this.onItemMove.bind(this)}
-          onItemResize={this.onItemResize.bind(this)}
-          onItemClick={this.onItemClick.bind(this)}
+          canMove={!disabled}
+          canChangeGroup={!disabled}
+          canResize={!disabled}
+          onCanvasDoubleClick={disabled ? doNothing : this.onCanvasClick.bind(this)}
+          onItemMove={disabled ? doNothing : this.onItemMove.bind(this)}
+          onItemResize={disabled ? doNothing : this.onItemResize.bind(this)}
+          onItemClick={disabled ? doNothing : this.onItemClick.bind(this)}
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
