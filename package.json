@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "A calendar for TLT employee hours",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
-    "test:debug": "mocha --compilers js:babel-core/register --debug-brk tests/**/*.test.js && node-inspector -p 5000",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:debug": "node --debug-brk --inspect ./node_modules/.bin/jest -i -p 5000",
     "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./ --config webpack.dev.config.babel.js",
-    "build": "webpack --content-base ./ --config webpack.prod.config.babel.js"
+    "build": "webpack --content-base ./ --config webpack.prod.config.babel.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -26,8 +29,10 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
     "js-md5": "^0.4.1",
+    "keymaster": "^1.6.2",
     "lodash": "^4.13.1",
     "moment": "^2.15.1",
+    "rc-slider": "^5.1.2",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.1",
     "react-calendar-timeline": "^0.8.6",
@@ -49,6 +54,7 @@
     "selectivity": "^3.0.0-rc1"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.9.1",
     "babel-loader": "^6.2.4",
@@ -57,11 +63,10 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.14.0",
-    "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "expose-loader": "^0.7.1",
     "file-loader": "^0.8.5",
-    "mocha": "^2.5.3",
+    "jest-cli": "^16.0.1",
     "node-sass": "^3.7.0",
     "react-addons-perf": "^15.3.0",
     "react-addons-pure-render-mixin": "^15.3.0",

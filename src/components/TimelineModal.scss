@@ -26,12 +26,39 @@
     .select {
       width: 320px;
     }
+
+    &.preference {
+      margin-top: 15px;
+      .rank-slider {
+        $end-color: #456C7D;
+        cursor: pointer;
+        width: 80%;
+        margin: 8px auto 40px auto;
+        .rc-slider-mark-text {
+          font-size: 14px;
+          width: 30% !important;
+          margin-left: -15% !important;
+        }
+        .rc-slider-track {
+          background: linear-gradient(to right, #96dbfa, $end-color) !important;
+        }
+        .rc-slider-handle {
+          border-color: $end-color;
+          background-color: $end-color;
+        }
+        .rc-slider-dot {
+          display: none;
+        }
+      }
+    }
   }
   .buttons {
     display: flex;
+    padding: 0 10px;
     button {
       flex: 1;
-      margin: 25px;
+      margin: 10px;
+
     }
   }
 }

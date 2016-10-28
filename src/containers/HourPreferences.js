@@ -5,9 +5,9 @@ import LocationOrder from '../components/LocationOrder';
 import Title from '../components/Title';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
-import { fetchPreferences, removeItem } from '../actions/HourPreferencesActions';
 import styles from './HourPreferences.scss';
-import HourPreferenceTimeline from '../components/HourPreferenceTimeline';
+import HourPreferencesTimeline from '../components/HourPreferencesTimeline';
+import { setEmployee } from '../actions/EmployeesActions';
 
 class HourPreferences extends Component {
   static propTypes = {
@@ -16,15 +16,16 @@ class HourPreferences extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchPreferences();
+    const {setEmployee, params:{netId}} = this.props;
+    setEmployee(netId);
   }
 
   render() {
     const {employee, isAdmin, removeItem} = this.props;
     return <div className={styles.container}>
       <Title icon={employee ? <EmployeeIcon employee={employee} /> : null}
-        name={employee ? employee.firstName + ' ' + employee.lastName : ''} />
-      <HourPreferenceTimeline disabled={isAdmin} />
+        name={employee ? (employee.firstName || '') + ' ' + (employee.lastName || '') : ''} />
+      <HourPreferencesTimeline disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="location-order"><LocationOrder disabled={isAdmin} /></div>
@@ -39,12 +40,7 @@ const mapStateToProps = state => ({
   isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchPreferences: () => dispatch(fetchPreferences(ownProps.params.netId)),
-  removeItem: item => dispatch(removeItem(item))
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { setEmployee }
 )(HourPreferences);

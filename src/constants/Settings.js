@@ -9,3 +9,10 @@ export const REMOTE_DATA_PATH = 'https://apps.tlt.stonybrook.edu/sccal/api';
 export const LOCAL_DATA_PATH = '/public/data';
 export const MINIMUM_ITEM_DURATION = HALF_HOUR;
 export const MAXIMUM_ITEM_DURATION = EIGHT_HOURS;
+
+export const HOUR_PREFERENCE_DESCRIPTIONS = [
+    "Most preferred",
+    "More preferred",
+    "Less preferred",
+    "Least preferred"
+];

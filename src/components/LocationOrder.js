@@ -2,14 +2,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Reorder from 'react-reorder';
 import styles from './LocationOrder.scss';
-import * as HourPreferencesActions from '../actions/HourPreferencesActions';
-import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
+import {reorderGlobalLocations} from '../actions/HourPreferencesActions';
+//import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import _ from 'lodash';
 import { ACTION } from '../constants/InfoBoxTypes';
 
-const ListItem = ({item}) => (
-  <div className="list-item">{item.name}</div>
-);
+const ListItem = ({item}) => <div className="list-item">{item.title}</div>;
 
 const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox, disabled}) => (
   <div className={`${styles.container}${disabled ? ' disabled' : ''}`} onMouseLeave={clearInfoBox}
@@ -17,7 +15,7 @@ const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInf
     <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key
-      itemKey='name'
+      itemKey='id'
       // Lock horizontal to have a vertical list
       lock='horizontal'
       // The milliseconds to hold an item for before dragging begins
@@ -40,16 +38,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  const hourPreferencesActions = bindActionCreators(HourPreferencesActions, dispatch);
-  const infoBoxActions = bindActionCreators(InfoBoxActions, dispatch);
   function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex, itemsNewIndex, reorderedArray) {
-    hourPreferencesActions.reorderGlobalLocations(_.map(reorderedArray, item => item.id));
+    dispatch(reorderGlobalLocations(_.map(reorderedArray, item => item.id)));
   }
   return {
     reorderGlobalLocations: reorderFn,
-    fillInfoBox: _.bind(infoBoxActions.fillInfoBox, {}, ACTION),
-    clearInfoBox: infoBoxActions.clearInfoBox
-  }
+    fillInfoBox: () => {},  //_.bind(infoBoxActions.fillInfoBox, {}, ACTION),
+    clearInfoBox: () => {}  //infoBoxActions.clearInfoBox
+  };
 };
 
 export default connect(

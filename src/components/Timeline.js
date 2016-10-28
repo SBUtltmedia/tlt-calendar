@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
-import {resizeItem, moveItem} from '../actions/ScheduleActions';
+import {fetchTimelineItems, resizeItem, moveItem} from '../actions/TimelineActions';
+//import key from 'keymaster';
 
-const ONE_HOUR_IN_MS = 3600000;
+const Menu = () => (
+  <div className="menu">
+    <i className="fa fa-trash" aria-hidden="true"></i>
+  </div>
+);
 
 class Timeline extends Component {
   constructor(props) {
@@ -13,21 +18,32 @@ class Timeline extends Component {
     this.state = {
       modalIsOpen: false,
       modalGroup: null,
-      modalStartTime: null,
-      modalEndTime: null
+      modalItem: null
     }
+    props.fetchTimelineItems(props.type);
   }
+
+  /*
+  componentDidMount() {
+    key('delete, backspace', (event, handler) => {
+      console.log("I am the keymaster!");
+    });
+  }
+  */
 
   findItem(itemId) {
     return _.find(this.props.items, item => item.id === itemId);
   }
 
-  onCanvasClick(time, groupId) {
+  onCanvasClick(time, group) {
+    const start_time = moment(time);
     this.setState({
       modalIsOpen: true,
-      modalGroup: groupId,
-      modalStartTime: time,
-      modalEndTime: moment(time).add(1, 'hours')
+      modalItem: {
+        group: group.id,
+        start_time,
+        end_time: start_time.clone().add(1, 'hours')
+      }
     });
   }
 
@@ -39,25 +55,18 @@ class Timeline extends Component {
     this.props.resizeItem(itemId, newResizeEnd);
   }
 
-  onItemSelect(itemId, e) {
-    const item = this.findItem(itemId);
-  }
-
   onItemClick(itemId, e) {
-    const item = this.findItem(itemId);
-    //console.log(moment(1234567890));
     this.setState({
       modalIsOpen: true,
-      modalGroup: item.group,
-      modalStartTime: item.start_time,
-      modalEndTime: item.end_time
+      modalItem: this.findItem(itemId)
     });
   }
 
   render() {
-    const {Modal, groups, items} = this.props;
-    const {modalIsOpen, modalGroup, modalStartTime, modalEndTime} = this.state;
-    return <div className={styles.container}>
+    const {Modal, groups, items, type, className='', disabled} = this.props;
+    const {modalIsOpen, modalItem} = this.state;
+    const doNothing = () => {};
+    return <div className={`${styles.container} ${className} ${disabled ? 'disabled' : ''}`}>
       <ReactCalendarTimeline groups={groups}
           items={items}
           timeSteps={{
@@ -68,24 +77,28 @@ class Timeline extends Component {
             month: 1,
             year: 1
           }}
+          stackItems={true}
           sidebarWidth={200}
-          onCanvasDoubleClick={this.onCanvasClick.bind(this)}
-          onItemMove={this.onItemMove.bind(this)}
-          onItemResize={this.onItemResize.bind(this)}
-          onItemSelect={this.onItemSelect.bind(this)}
-          onItemClick={this.onItemClick.bind(this)}
+          canMove={!disabled}
+          canChangeGroup={!disabled}
+          canResize={!disabled}
+          onCanvasDoubleClick={disabled ? doNothing : this.onCanvasClick.bind(this)}
+          onItemMove={disabled ? doNothing : this.onItemMove.bind(this)}
+          onItemResize={disabled ? doNothing : this.onItemResize.bind(this)}
+          onItemClick={disabled ? doNothing : this.onItemClick.bind(this)}
           defaultTimeStart={moment().add(-12, 'hour')}
           defaultTimeEnd={moment().add(12, 'hour')}
       />
-      <Modal open={modalIsOpen} location={modalGroup} startTime={modalStartTime} endTime={modalEndTime}
-                    onClose={() => this.setState({modalIsOpen: false})} />
+      <Modal type={type} open={modalIsOpen} item={modalItem} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
 }
 
 Timeline.propTypes = {
+  type: PropTypes.string.isRequired,
   groups: PropTypes.arrayOf(PropTypes.object).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  className: PropTypes.string,
   Modal: PropTypes.func,
 }
 
@@ -93,9 +106,10 @@ const mapStateToProps = state => ({
 
 });
 
-const mapDispatchToProps = dispatch => ({
-  resizeItem: (itemId, newResizeEnd) => dispatch(resizeItem(itemId, newResizeEnd)),
-  moveItem: (itemId, dragTime, newGroupOrder) => dispatch(moveItem(itemId, dragTime, newGroupOrder))
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  fetchTimelineItems: () => dispatch(fetchTimelineItems(ownProps.type)),
+  resizeItem: (itemId, newResizeEnd) => dispatch(resizeItem(ownProps.type, itemId, newResizeEnd)),
+  moveItem: (itemId, dragTime, newGroupOrder) => dispatch(moveItem(ownProps.type, itemId, dragTime, newGroupOrder))
 });
 
 export default connect(

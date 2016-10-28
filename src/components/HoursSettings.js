@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as HourPreferencesActions from '../actions/HourPreferencesActions';
+import { changeNumDesiredHours } from '../actions/HourPreferencesActions';
 import styles from './HoursSettings.scss';
 import { NumberPicker } from 'react-widgets';
 import numberLocalizer from 'react-widgets/lib/localizers/simple-number';
@@ -34,14 +34,7 @@ const mapStateToProps = state => ({
   numDesiredHours: state.hourPreferences.numDesiredHours
 });
 
-const mapDispatchToProps = dispatch => {
-  const actions = bindActionCreators(HourPreferencesActions, dispatch);
-  return {
-    changeNumDesiredHours: actions.changeNumDesiredHours
-  }
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {changeNumDesiredHours}
 )(HoursSettings);

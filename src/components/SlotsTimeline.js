@@ -1,19 +1,16 @@
 import Timeline from './Timeline';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import SlotsModal from './SlotsModal';
+import TimelineModal from './TimelineModal';
+import { SLOTS } from '../constants/Constants';
 
 const mapStateToProps = state => ({
+	type: SLOTS,
 	groups: state.locations,
-  items: [],
-	Modal: SlotsModal
-});
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
+  items: _.map(state.timeline.items, item => ({...item, title: ''})),
+	Modal: props => (<TimelineModal {...props} useLocation={true} title='Slot' />)
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {}
 )(Timeline);

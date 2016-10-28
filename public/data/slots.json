@@ -1,15 +1,3 @@
-[{
-  "location": { "id": 1, "title": "Main Library", "coverage": 4 },
-  "slots": [
-    {"day": 0, "hour": 0, "minute": 0, "duration": 60},
-    {"day": 0, "hour": 1, "minute": 0, "duration": 120},
-    {"day": 0, "hour": 20, "minute": 0, "duration": 480}
-  ]
-}, {
-  "location": { "id": 2, "title": "Central Reading Room", "coverage": 1 },
-  "slots": [
-    {"day": 0, "hour": 0, "minute": 0, "duration": 60},
-    {"day": 0, "hour": 1, "minute": 0, "duration": 120},
-    {"day": 0, "hour": 20, "minute": 0, "duration": 480}
-  ]
-}]
+[
+  {"location": 1, "start_time": 1477670400000, "end_time": 1477699200000}
+]
