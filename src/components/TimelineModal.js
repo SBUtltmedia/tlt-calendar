@@ -101,7 +101,7 @@ class TimelineModal extends Component {
         <div className="field preference">
           <label>PREFERENCE</label>
           <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref}
-                min={1} max={4} defaultValue={item.value}
+                min={1} max={4} defaultValue={5 - item.value}
                 marks={{1: HOUR_PREFERENCE_DESCRIPTIONS[3], 4: HOUR_PREFERENCE_DESCRIPTIONS[0]}} />
           </div> : ''}
       <div className="buttons">
