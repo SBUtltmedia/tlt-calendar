@@ -13,6 +13,8 @@ export default function schedule(state=initialState, action) {
   switch (action.type) {
     case SET_EMPLOYEE: return {...state, employee: action.employee};
     case RECEIVE_TIMELINE_ITEMS: return {...state, ..._.pick(action, ['numDesiredHours', 'locationOrder', 'employee'])};
+    case REORDER_GLOBAL_LOCATIONS: return {...state, locationOrder: action.order};
+    case CHANGE_NUM_DESIRED_HOURS: return {...state, numDesiredHours: action.hours};
     default: return state;
   }
 }

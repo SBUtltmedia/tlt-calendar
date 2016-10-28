@@ -82,9 +82,6 @@ export function save(path, data) {
 }
 
 export function saveState(state, type) {
-
-  console.log('type', type);
-
   const handler = getHandler(type);
   const path = handler.mapStateToPath(state);
   const data = handler.mapStateToData(state);
