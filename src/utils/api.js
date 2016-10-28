@@ -1,36 +1,37 @@
 import origFetch from 'isomorphic-fetch';
 import { REMOTE_DATA_PATH, LOCAL_DATA_PATH } from '../constants/Settings';
 import { SCHEDULE, SLOTS, HOUR_PREFERENCES } from '../constants/Constants';
+import _ from 'lodash';
 
 const FETCH_PARAMS = {
   mode: 'no-cors',
   credentials: 'same-origin'
 };
 
-function getBasePath() {
-  return process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH;
-}
+const getBasePath = () => process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH;
+const getExtension = () => process.env.NODE_ENV === 'production' ? '' : '.json';
 
-function getExtension() {
-  return process.env.NODE_ENV === 'production' ? '' : '.json';
-}
+const mapReceivedSchedulesOrSlots = json => {
+    let id = 1;
+    return {items: _.map(json, item => ({...item, group: item.location, id: id++}))};
+};
 
 export function getHandler(type) {
   switch (type) {
     case SCHEDULE: return {
       mapStateToPath: () => '/schedules',
       mapStateToData: state => ({...state.schedule, items: _.values(state.timeline.items)}),
-      mapReceivedData: json => json
+      mapReceivedData: mapReceivedSchedulesOrSlots
     };
     case SLOTS: return {
       mapStateToPath: () => '/slots',
       mapStateToData: state => ({...state.slots, items: _.values(state.timeline.items)}),
-      mapReceivedData: json => json
+      mapReceivedData: mapReceivedSchedulesOrSlots
     };
     case HOUR_PREFERENCES: return {
       mapStateToPath: state => `/employees/${state.hourPreferences.employee.netId}/hour-preferences`,
       mapStateToData: state => ({...state.hourPreferences, items: _.values(state.timeline.items)}),
-      mapReceivedData: json => json
+      mapReceivedData: _.identity
     }
   }
 }

@@ -9,7 +9,7 @@ const initialState = {
 export default function timeline(state=initialState, action) {
   switch (action.type) {
     case RECEIVE_TIMELINE_ITEMS:
-      return {...state};
+      return {...state, items: action.items};
     case ADD_TIMELINE_ITEM:
       return {...state, items: utils.addItem(state.items, action.item)};
     case RESIZE_TIMELINE_ITEM:
