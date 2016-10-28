@@ -83,16 +83,16 @@ class TimelineModal extends Component {
         <div className="field">
           <label>WHERE</label>
           <Selectivity.React className="select where" defaultValue={item.group}
-          ref={(ref) => this.whereInput = ref}
-          items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
+              ref={(ref) => this.whereInput = ref}
+              items={_.map(locations, loc => ({id: loc.id, text: loc.title}))} />
         </div> : ''}
       {useEmployee ?
         <div className="field">
           <label>WHO</label>
-          <Selectivity.React className="select who" defaultValue={item.value.netId || RESERVED}
-          ref={(ref) => this.whoInput = ref}
-          items={[{id: RESERVED, text: RESERVED},
-            ..._.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))]} />
+          <Selectivity.React className="select who" defaultValue={item.value ? (item.value.netId || RESERVED) : null}
+              ref={(ref) => this.whoInput = ref}
+              items={[{id: RESERVED, text: RESERVED},
+                ..._.map(employees, emp => ({...emp, id: emp.netId, text: emp.firstName + ' ' + emp.lastName}))]} />
         </div> : ''}
       {usePreference ?
         <div className="field preference">
