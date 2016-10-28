@@ -13,6 +13,19 @@ const Menu = () => (
 );
 
 class Timeline extends Component {
+  static propTypes = {
+    type: PropTypes.string.isRequired,
+    groups: PropTypes.arrayOf(PropTypes.object).isRequired,
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    className: PropTypes.string,
+    Modal: PropTypes.func,
+    addSteps: React.PropTypes.func.isRequired,
+    addTooltip: React.PropTypes.func.isRequired,
+    joyrideOverlay: React.PropTypes.bool.isRequired,
+    joyrideType: React.PropTypes.string.isRequired,
+    onClickSwitch: React.PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -21,6 +34,45 @@ class Timeline extends Component {
       modalItem: null
     }
     props.fetchTimelineItems(props.type);
+  }
+
+
+  componentDidMount() {
+    /* this.props.addSteps({
+     text: 'React Joyride is a ReactJS component for creating tours for your app.<br/><br/>It is fully responsive and customizable.',
+     selector: '.intro',
+     position: 'bottom'
+     }); */
+
+    this.props.addTooltip({
+      title: 'Standalone Tooltips',
+      text: '<h2 style="margin-bottom: 10px; line-height: 1.6">Now you can open tooltips independently!</h2>And even style them one by one!',
+      selector: '.intro h3 a',
+      position: 'bottom',
+      event: 'hover',
+      style: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        borderRadius: 0,
+        color: '#fff',
+        mainColor: '#ff67b4',
+        textAlign: 'center',
+        width: '29rem'
+      }
+    });
+
+    this.props.addTooltip({
+      text: 'Change how you want to play the tour',
+      selector: '.sw-right',
+      trigger: '.sw-right span a',
+      position: 'bottom',
+      style: {
+        backgroundColor: '#E6F212',
+        borderRadius: '0.5rem',
+        color: '#000',
+        textAlign: 'center',
+        width: '18rem'
+      }
+    });
   }
 
   /*
@@ -63,10 +115,27 @@ class Timeline extends Component {
   }
 
   render() {
-    const {Modal, groups, items, type, className='', disabled} = this.props;
+    const {Modal, groups, items, type, className='', disabled, joyrideType, onClickSwitch} = this.props;
     const {modalIsOpen, modalItem} = this.state;
     const doNothing = () => {};
     return <div className={`${styles.container} ${className} ${disabled ? 'disabled' : ''}`}>
+
+  <div className="switch-wrapper sw-right">
+    <span>Tour Type<a href="#"><i className="fa fa-question-circle" /></a></span>
+
+    <div className="switch">
+      <a
+        href="#" className={joyrideType === 'continuous' ? 'active' : ''}
+        data-key="joyrideType"
+        data-type="continuous"
+        onClick={onClickSwitch}>Continuous</a>
+      <a
+        href="#" className={joyrideType === 'single' ? 'active' : ''}
+        data-key="joyrideType"
+        data-type="single"
+        onClick={onClickSwitch}>Single</a>
+    </div>
+  </div>
       <ReactCalendarTimeline groups={groups}
           items={items}
           timeSteps={{
@@ -92,14 +161,6 @@ class Timeline extends Component {
       <Modal type={type} open={modalIsOpen} item={modalItem} onClose={() => this.setState({modalIsOpen: false})} />
     </div>;
   }
-}
-
-Timeline.propTypes = {
-  type: PropTypes.string.isRequired,
-  groups: PropTypes.arrayOf(PropTypes.object).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  className: PropTypes.string,
-  Modal: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
