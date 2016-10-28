@@ -9,7 +9,7 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import {addItem, removeItem} from '../actions/TimelineActions';
+import {addItem, removeItem, updateItem} from '../actions/TimelineActions';
 import {HOUR_PREFERENCE_DESCRIPTIONS} from '../constants/Settings';
 
 class TimelineModal extends Component {
@@ -30,7 +30,7 @@ class TimelineModal extends Component {
   }
 
   save() {
-    const {addItem, useLocation, useEmployee, usePreference} = this.props;
+    const {addItem, updateItem, useLocation, useEmployee, usePreference, itemId} = this.props;
     const item = {
       start_time: this.startTimeInput.state.selectedDate,
       end_time: this.endTimeInput.state.selectedDate
@@ -45,7 +45,12 @@ class TimelineModal extends Component {
       console.log(this.preferenceInput);
       item.value = 5 - this.preferenceInput.state.bounds[1];
     }
-    addItem(item);
+    if (itemId) {  // If item exists already
+      updateItem(itemId, item);
+    }
+    else {
+      addItem(item);
+    }
     this.close();
   }
 
@@ -117,6 +122,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   addItem: item => dispatch(addItem(ownProps.type, item)),
   removeItem: item => dispatch(removeItem(ownProps.type, item)),
+  updateItem: (itemId, newItemData) => dispatch(updateItem(ownProps.type, itemId, newItemData))
 });
 
 export default connect(

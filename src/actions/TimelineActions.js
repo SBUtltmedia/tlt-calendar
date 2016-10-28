@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { fetchType, receiveType, saveState } from '../utils/api';
-import { RECEIVE_TIMELINE_ITEMS, ADD_TIMELINE_ITEM, REMOVE_TIMELINE_ITEM, RESIZE_TIMELINE_ITEM, MOVE_TIMELINE_ITEM } from '../constants/ActionTypes';
+import { RECEIVE_TIMELINE_ITEMS, ADD_TIMELINE_ITEM, REMOVE_TIMELINE_ITEM, UPDATE_TIMELINE_ITEM, RESIZE_TIMELINE_ITEM, MOVE_TIMELINE_ITEM } from '../constants/ActionTypes';
 import { getHandler } from '../utils/api';
 
 function dispatchAndSave(type, ...dispatchObjs) {
@@ -32,6 +32,14 @@ export function addItem(type, item) {
 
 export function removeItem(type, itemId) {
   return dispatchAndSave(type, {itemId, type: REMOVE_TIMELINE_ITEM});
+}
+
+export function updateItem(type, itemId, newItemData) {
+  return dispatchAndSave(type, {
+    type: UPDATE_TIMELINE_ITEM,
+    itemId,
+    newItemData
+  });
 }
 
 export function resizeItem(type, itemId, newResizeEnd) {

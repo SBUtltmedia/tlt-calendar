@@ -21,7 +21,7 @@ const mapReceivedSchedulesOrSlots = items => {
 };
 
 const mapScheduleOrSlotStateToData = state =>
-  _.map(state.timeline.items, item => ({..._.omit(item, ['group']), location: item.group}));
+  _.map(state.timeline.items, item => ({..._.omit(item, ['id', 'group']), location: item.group}));
 
 export function getHandler(type) {
   switch (type) {
@@ -37,7 +37,7 @@ export function getHandler(type) {
     };
     case HOUR_PREFERENCES: return {
       mapStateToPath: state => `/employees/${state.hourPreferences.employee.netId}/hour-preferences`,
-      mapStateToData: state => ({...state.hourPreferences, items: _.map(state.timeline.items, item => _.omit(item, ['group']))}),
+      mapStateToData: state => ({...state.hourPreferences, items: _.map(state.timeline.items, item => _.omit(item, ['id', 'group']))}),
       mapReceivedData: json => ({...json, items: mapReceivedTimelineItems(json.items)})
     }
   }
