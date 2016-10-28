@@ -32,6 +32,9 @@ class TimelineModal extends Component {
 
   save() {
     const {addItem, updateItem, useLocation, useEmployee, usePreference, item} = this.props;
+
+    console.log(this.props);
+
     const newItem = {
       start_time: this.startTimeInput.state.selectedDate,
       end_time: this.endTimeInput.state.selectedDate

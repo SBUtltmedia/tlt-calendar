@@ -4,7 +4,7 @@ import ReactCalendarTimeline from 'react-calendar-timeline';
 import moment from 'moment';
 import styles from './Timeline.scss';
 import {fetchTimelineItems, resizeItem, moveItem} from '../actions/TimelineActions';
-import key from 'keymaster';
+//import key from 'keymaster';
 
 const Menu = () => (
   <div className="menu">
@@ -23,11 +23,13 @@ class Timeline extends Component {
     props.fetchTimelineItems(props.type);
   }
 
+  /*
   componentDidMount() {
     key('delete, backspace', (event, handler) => {
       console.log("I am the keymaster!");
     });
   }
+  */
 
   findItem(itemId) {
     return _.find(this.props.items, item => item.id === itemId);
