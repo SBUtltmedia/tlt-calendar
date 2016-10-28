@@ -32,15 +32,24 @@ class TimelineModal extends Component {
 
   save() {
     const {addItem, updateItem, useLocation, useEmployee, usePreference, item} = this.props;
-    const newItem = {
-      start_time: this.startTimeInput.state.selectedDate,
-      end_time: this.endTimeInput.state.selectedDate
-    };
+    const start_time = this.startTimeInput.state.selectedDate;
+    const end_time = this.endTimeInput.state.selectedDate;
+    if (!start_time || !end_time) {
+      return;  // ERROR
+    }
+    const newItem = {start_time, end_time};
     if (useLocation) {
-      newItem.group = this.whereInput.getData().id;
+      const group = this.whereInput.getData();
+      if (!group) {
+        return;  // ERROR
+      }
+      newItem.group = group.id;
     }
     if (useEmployee) {
       const value = this.whoInput.getData();
+      if (!value) {
+        return;  // ERROR
+      }
       if (value.id === RESERVED) {
         newItem.value = RESERVED;
       }
@@ -98,7 +107,7 @@ class TimelineModal extends Component {
         <div className="field preference">
           <label>PREFERENCE</label>
           <Slider className='rank-slider' ref={(ref) => this.preferenceInput = ref}
-                min={1} max={4} defaultValue={5 - item.value}
+                min={1} max={4} defaultValue={item.value ? 5 - item.value : 1}
                 marks={{1: HOUR_PREFERENCE_DESCRIPTIONS[3], 4: HOUR_PREFERENCE_DESCRIPTIONS[0]}} />
           </div> : ''}
       <div className="buttons">

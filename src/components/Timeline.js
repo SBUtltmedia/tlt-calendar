@@ -66,7 +66,6 @@ class Timeline extends Component {
     const {Modal, groups, items, type, className=''} = this.props;
     const {modalIsOpen, modalItem} = this.state;
     return <div className={`${styles.container} ${className}`}>
-      <Menu />
       <ReactCalendarTimeline groups={groups}
           items={items}
           timeSteps={{
@@ -77,6 +76,7 @@ class Timeline extends Component {
             month: 1,
             year: 1
           }}
+          stackItems={true}
           sidebarWidth={200}
           onCanvasDoubleClick={this.onCanvasClick.bind(this)}
           onItemMove={this.onItemMove.bind(this)}
