@@ -53,10 +53,10 @@
     }
   }
   .buttons {
-    text-align: center;
+    display: flex;
+    padding: 0 10px;
     button {
-      width: 100%;
-      max-width: 180px;
+      flex: 1;
       margin: 10px;
 
     }
