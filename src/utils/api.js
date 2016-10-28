@@ -11,6 +11,13 @@ const FETCH_PARAMS = {
 const getBasePath = () => process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH;
 const getExtension = () => process.env.NODE_ENV === 'production' ? '' : '.json';
 
+export function dispatchAndSave(type, ...dispatchObjs) {
+  return (dispatch, getState) => {
+    _.each(dispatchObjs, obj => dispatch(obj));
+    saveState(getState(), type);
+  };
+}
+
 const mapReceivedTimelineItems = items => {
   let id = 1;
   return _.map(items, item => ({...item, id: id++}));

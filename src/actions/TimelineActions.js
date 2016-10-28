@@ -1,14 +1,7 @@
 import _ from 'lodash';
 import { fetchType, receiveType, saveState } from '../utils/api';
 import { RECEIVE_TIMELINE_ITEMS, ADD_TIMELINE_ITEM, REMOVE_TIMELINE_ITEM, UPDATE_TIMELINE_ITEM, RESIZE_TIMELINE_ITEM, MOVE_TIMELINE_ITEM } from '../constants/ActionTypes';
-import { getHandler } from '../utils/api';
-
-function dispatchAndSave(type, ...dispatchObjs) {
-  return (dispatch, getState) => {
-    _.each(dispatchObjs, obj => dispatch(obj));
-    saveState(getState(), type);
-  };
-}
+import { getHandler, dispatchAndSave } from '../utils/api';
 
 export function fetchTimelineItems(type) {
   return (dispatch, getState) => {
