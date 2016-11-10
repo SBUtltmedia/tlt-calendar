@@ -44,7 +44,7 @@ export function getHandler(type) {
     };
     case HOUR_PREFERENCES: return {
       mapStateToPath: state => `/employees/${state.hourPreferences.employee.netId}/hour-preferences`,
-      mapStateToData: state => ({...state.hourPreferences, items: _.map(state.timeline.items, item => _.omit(item, ['id', 'group']))}),
+      mapStateToData: state => state.hourPreferences,
       mapReceivedData: json => ({...json, items: mapReceivedTimelineItems(json.items)})
     }
   }

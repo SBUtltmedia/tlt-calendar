@@ -20,7 +20,11 @@ export default props => (
       <tbody>
         { _.map(SHORT_DAYS, (day, i) => (<tr key={i}>
           <td colSpan="2">{day}</td>
-          { _.map(_.range(48), hour => <td key={hour}><HourPreferencesGridCell {...props} day={i} hour={hour} /></td>) }
+          { _.map(_.range(48), col => (
+            <td key={col}>
+              <HourPreferencesGridCell {...props} day={i} hour={Math.floor(col / 2)} minute={col % 2 === 0 ? 0 : 30} />
+            </td>
+          )) }
           <td colSpan="2">{day}</td>
         </tr>)) }
       </tbody>

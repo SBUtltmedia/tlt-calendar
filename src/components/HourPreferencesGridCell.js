@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { onCellClick } from '../actions/HourPreferencesActions';
+import { getCellValue } from '../utils/hourPreferences';
 import styles from './HourPreferencesGridCell.scss';
 
 const HourPreferencesGridCell = ({rank, onCellClick}) => (
@@ -8,8 +9,8 @@ const HourPreferencesGridCell = ({rank, onCellClick}) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-
+const mapStateToProps = (state, ownProps) => ({
+  rank: getCellValue(state.hourPreferences.preferences, ownProps)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
