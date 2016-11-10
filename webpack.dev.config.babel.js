@@ -3,7 +3,7 @@ var base = require('./webpack.base.config.babel');
 var _ = require("lodash");
 
 module.exports = _.merge(base, {
-  devtool: '"eval-source-map',
+  devtool: '#cheap-eval-source-map',
   output: {
     path: './public',
     filename: 'bundle.js',
