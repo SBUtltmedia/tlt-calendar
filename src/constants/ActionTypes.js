@@ -10,13 +10,9 @@ export const LOGGED_OUT = 'logged-out';
 export const RECEIVE_EMPLOYEES = 'receive-employees';
 export const RECEIVE_LOCATIONS = 'receive-locations';
 export const RECEIVE_USER = 'receive-user';
+export const RECEIVE_HOUR_PREFERENCES = 'receive-hour-preferences';
 
-export const RECEIVE_TIMELINE_ITEMS = 'RECEIVE_TIMELINE_ITEMS';
-export const ADD_TIMELINE_ITEM = 'ADD_TIMELINE_ITEM';
-export const REMOVE_TIMELINE_ITEM = 'REMOVE_TIMELINE_ITEM';
-export const UPDATE_TIMELINE_ITEM = 'UPDATE_TIMELINE_ITEM';
-export const MOVE_TIMELINE_ITEM = 'MOVE_TIMELINE_ITEM';
-export const RESIZE_TIMELINE_ITEM = 'RESIZE_TIMELINE_ITEM';
+export const HOUR_PREFERENCES_CELL_CLICK = 'HOUR_PREFERENCES_CELL_CLICK';
 
 export const SET_EMPLOYEE = 'SET_EMPLOYEE';
 export const SET_LOCATION = 'SET_LOCATION';

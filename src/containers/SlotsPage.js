@@ -1,6 +1,5 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import SlotsTimeline from '../components/SlotsTimeline';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import Title from '../components/Title';
 import LocationIcon from '../components/LocationIcon';
@@ -11,12 +10,11 @@ class SchedulePage extends Component {
 	static propTypes = {
 		isAdmin: PropTypes.bool
 	}
-	
+
 	render () {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
 			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.title : ''} />
-			<SlotsTimeline disabled={!isAdmin} />
       <div className="controls">
         <div className="info"><CalendarInfoBox /></div>
       </div>

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import HoursSettings from '../components/HoursSettings';
 import LocationOrder from '../components/LocationOrder';
 import Title from '../components/Title';
+import HourPreferencesGrid from '../components/HourPreferencesGrid';
 import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
 import styles from './HourPreferences.scss';
-import HourPreferencesTimeline from '../components/HourPreferencesTimeline';
 import { setEmployee } from '../actions/EmployeesActions';
 
 class HourPreferences extends Component {
@@ -25,7 +25,7 @@ class HourPreferences extends Component {
     return <div className={styles.container}>
       <Title icon={employee ? <EmployeeIcon employee={employee} /> : null}
         name={employee ? (employee.firstName || '') + ' ' + (employee.lastName || '') : ''} />
-      <HourPreferencesTimeline disabled={isAdmin} />
+      <HourPreferencesGrid disabled={isAdmin} />
       <div className="controls">
         <div className="hours-settings"><HoursSettings disabled={isAdmin} /></div>
         <div className="location-order"><LocationOrder disabled={isAdmin} /></div>

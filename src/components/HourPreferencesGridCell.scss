@@ -1,0 +1,13 @@
+@import '../style/colors';
+
+:local(.container) {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display:inline-block;
+  @for $i from 1 to length($rank-colors) {
+    &.rank#{$i} {
+      background-color: nth($rank-colors, $i);
+    }
+  }
+}

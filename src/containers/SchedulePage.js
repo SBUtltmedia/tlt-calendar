@@ -1,7 +1,6 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import CalendarInfoBox from '../components/CalendarInfoBox';
-import ScheduleTimeline from '../components/ScheduleTimeline';
 import Title from '../components/Title';
 import LocationIcon from '../components/LocationIcon';
 import styles from './SchedulePage.scss';
@@ -15,7 +14,6 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
-			<ScheduleTimeline disabled={!isAdmin} />
       <div className="controls">
         <div className="info"><CalendarInfoBox /></div>
       </div>
