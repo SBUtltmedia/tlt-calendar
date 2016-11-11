@@ -3,7 +3,7 @@
 :local(.container) {
   cursor: pointer;
   width: 100%;
-  height: 100%;
+  height: 25px;
   display:inline-block;
   @for $i from 1 to length($rank-colors) + 1 {
     &.rank#{$i} {
