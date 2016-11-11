@@ -15,4 +15,9 @@ describe('hour preferences utils', () => {
   it('gets cell value', () => {
     expect(utils.getCellValue([1, 2, 3], {day: 0, hour: 0, minute: 30})).toBe(2);
   });
+
+  it('gets average value', () => {
+    expect(utils.getAverageCellValue([1, 2, 3])).toBe(2);
+    expect(utils.getAverageCellValue([0, 0, 0, 1, 2, 3])).toBe(2);
+  })
 });

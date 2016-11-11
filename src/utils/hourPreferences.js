@@ -1,5 +1,6 @@
 import { timeToIndex } from './time';
 import { NUM_RANKS } from '../constants/Settings';
+import _ from 'lodash';
 
 export function initializeCells() {
   const n = timeToIndex({day: 7});
@@ -15,4 +16,8 @@ export function toggleCell(cells, time) {
 export function getCellValue(cells, time) {
   const index = timeToIndex(time);
   return cells[index];
+}
+
+export function getAverageCellValue(cells) {
+  return _.mean(_.filter(cells, _.identity));
 }
