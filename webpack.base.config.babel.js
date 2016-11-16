@@ -9,7 +9,7 @@ module.exports = {
    module: {
      loaders: [{
        test: /\.js$/,
-       exclude: /node_modules/,
+       include: [path.join(__dirname, 'src'), path.join(__dirname, 'node_modules/downloadbutton')],
        loader: 'babel-loader'
      }, {
       test: /\.scss$/,

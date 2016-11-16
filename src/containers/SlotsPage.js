@@ -1,9 +1,7 @@
 import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import CalendarInfoBox from '../components/CalendarInfoBox';
-import Title from '../components/Title';
-import LocationIcon from '../components/LocationIcon';
 import styles from './SlotsPage.scss';
+import SpreadsheetDashboard from './SpreadsheetDashboard';
 import _ from 'lodash';
 
 class SchedulePage extends Component {
@@ -12,11 +10,11 @@ class SchedulePage extends Component {
 	}
 
 	render () {
-		const {loc, isAdmin, removeItem} = this.props;
+		const {loc, isAdmin} = this.props;
 		return <div className={styles.container}>
-			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.title : ''} />
+
       <div className="controls">
-        <div className="info"><CalendarInfoBox /></div>
+				<SpreadsheetDashboard />
       </div>
 		</div>;
 	}
