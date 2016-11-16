@@ -27,6 +27,7 @@ $border: thin solid $border-color;
     tbody {
       td {
         padding: 0;
+        height: 3rem
       }
       td:not(:last-child) {
         border-right: $border;
