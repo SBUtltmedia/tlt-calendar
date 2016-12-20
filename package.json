@@ -30,6 +30,7 @@
     "json2csv": "^3.7.1",
     "keymaster": "^1.6.2",
     "lodash": "^4.13.1",
+    "neat-csv": "^2.1.0",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.1",
     "react-dom": "^15.3.0",
