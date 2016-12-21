@@ -3,3 +3,4 @@ export calendarInfoBox from './calendarInfoBox';
 export employees from './employees';
 export locations from './locations';
 export user from './user';
+export slots from './slots';

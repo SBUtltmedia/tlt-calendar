@@ -4,20 +4,13 @@ import csv2json from 'neat-csv';
 import fileDownload from 'react-file-download';
 import { save } from '../utils/api';
 import * as _ from 'lodash';
+import { connect } from 'react-redux';
 
-function fakeCsv() {
-  const data = {a:1, b:2};
+function generateCsv(data) {
   return json2csv({
     data,
-    fields: ['a', 'b']
+    fields: ['Session', 'Site', 'Day', 'Start Time', 'End Time']
   });
-}
-
-function rearrangeInputData(json) {
-  const bySession = _.groupBy(json, 'Session')
-  const byLocation = _.mapValues(bySession, s => _.groupBy(s, 'Site'))
-  return _.mapValues(byLocation, s => _.mapValues(  // remove reduntant fields
-    s, l => _.map(l, item => _.omit(item, ['Session', 'Site']))))
 }
 
 function upload(event) {
@@ -28,18 +21,25 @@ function upload(event) {
     reader.addEventListener("load", () => {
       const csv = reader.result;
       csv2json(csv).then(json => {
-        save('/slots', rearrangeInputData(json));
+        save('/slots', json);
       });
     }, false);
   }
 }
 
-export default () => (
+const SpreadsheetDashboard = ({slots}) => (
   <div className={styles.container}>
-    <button onClick={() => fileDownload(fakeCsv(), 'filename.csv')}
+    <button onClick={() => fileDownload(generateCsv(slots), 'slots.csv')}
     className="btn btn-success">Download spreadsheet</button>
 
     <input onChange={upload}
     type="file" className="btn btn-success" />
   </div>
 );
+
+export default connect(
+  state => ({
+    slots: state.slots
+  }),
+	{}
+)(SpreadsheetDashboard);

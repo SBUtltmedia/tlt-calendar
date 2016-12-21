@@ -13,7 +13,7 @@ class SchedulePage extends Component {
 		const {loc, isAdmin, removeItem} = this.props;
 		return <div className={styles.container}>
       <div className="controls">
-				<SpreadsheetDashboard />
+				{/* <SpreadsheetDashboard /> */}
       </div>
 		</div>;
 	}
@@ -22,7 +22,6 @@ class SchedulePage extends Component {
 const mapStateToProps = (state, ownProps) => {
 	const locationNumber = parseInt(ownProps.params.location);
 	return {
-		loc: _.find(state.locations, loc => loc.id === locationNumber),
 		isAdmin: state.user.isAdmin || _.includes(state.user.managesSites, locationNumber)
 	};
 };
