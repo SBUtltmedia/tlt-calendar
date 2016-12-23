@@ -1,7 +1,7 @@
 import { RECEIVE_SLOTS } from '../constants/ActionTypes';
 import { fetch } from '../utils/api';
 
-function receiveSlots(json) {
+export function receiveSlots(json) {
   return {
     type: RECEIVE_SLOTS,
     slots: json
