@@ -2,8 +2,9 @@ import { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import styles from './SlotsPage.scss'
 import { fetchSlots } from '../actions/SlotsActions'
-import SpreadsheetDashboard from './SpreadsheetDashboard'
-import SlotsView from '../components/SlotsView'
+import SpreadsheetDashboard from '../components/SpreadsheetDashboard'
+import SpreadsheetView from '../components/SpreadsheetView'
+import { receiveSlots } from '../actions/SlotsActions'
 import _ from 'lodash'
 
 class SchedulePage extends Component {
@@ -19,11 +20,13 @@ class SchedulePage extends Component {
 		const {loc, isAdmin} = this.props
 		return <div className={styles.container}>
       <div className="controls">
-				<SpreadsheetDashboard />
+				<SpreadsheetDashboard endpoint='/slots' downloadFile='slots.csv'
+					mapStateToData={state => state.slots} receiveAction={receiveSlots} />
       </div>
 			<br />
 			<div>
-				<SlotsView schedule="Fall Temp" location="Central Reading Room" />
+			<SpreadsheetView columns={['Day', 'Start Time', 'End Time', 'Shift Length']}
+				mapStateToData={state => state.slots} />
 			</div>
 		</div>
 	}
