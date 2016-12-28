@@ -41,7 +41,7 @@ class SlotsView extends Component {
       </div>
       <div>
         <Griddle results={slots[schedule][location]}
-        columns={['Day', 'Start Time', 'End Time']}
+        columns={['Day', 'Start Time', 'End Time', 'Shift Length']}
           showPager={false} resultsPerPage={999} useFixedLayout={false} />
       </div>
     </div>)
