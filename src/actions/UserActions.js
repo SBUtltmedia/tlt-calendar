@@ -11,7 +11,7 @@ function receiveUser(json) {
 export function fetchThisUser() {
   return dispatch => {
     return fetch('/user')
-      .then(response => response.json())
+      .then(response => { console.log(response.text()); return response.json() })
       .then(json => dispatch(receiveUser(json)))
   }
 }

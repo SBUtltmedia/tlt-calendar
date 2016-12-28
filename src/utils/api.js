@@ -5,7 +5,11 @@ import _ from 'lodash'
 
 const FETCH_PARAMS = {
   mode: 'no-cors',
-  credentials: 'same-origin'
+  credentials: 'same-origin',
+  headers: {
+    'Accept': '*/*',
+    'Content-Type': 'application/json'
+  }
 }
 
 const getBasePath = () => process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH
@@ -69,10 +73,6 @@ export function save(path, data) {
     origFetch(getBasePath() + path, {
       ...FETCH_PARAMS,
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify(data)
     })
   }

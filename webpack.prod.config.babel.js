@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 module.exports = _.merge(base, {
   output: {
-    path: '/tmp/ssh/sccal/public',
+    path: 'build',
     filename: 'bundle.js',
     publicPath: '/public/'
   },
