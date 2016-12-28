@@ -1,34 +1,34 @@
-import origFetch from 'isomorphic-fetch';
-import { REMOTE_DATA_PATH, LOCAL_DATA_PATH } from '../constants/Settings';
-import { SCHEDULE, SLOTS, HOUR_PREFERENCES } from '../constants/Constants';
-import _ from 'lodash';
+import origFetch from 'isomorphic-fetch'
+import { REMOTE_DATA_PATH, LOCAL_DATA_PATH } from '../constants/Settings'
+import { SCHEDULE, SLOTS, HOUR_PREFERENCES } from '../constants/Constants'
+import _ from 'lodash'
 
 const FETCH_PARAMS = {
   mode: 'no-cors',
   credentials: 'same-origin'
-};
+}
 
-const getBasePath = () => process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH;
-const getExtension = () => process.env.NODE_ENV === 'production' ? '' : '.json';
+const getBasePath = () => process.env.NODE_ENV === 'production' ? REMOTE_DATA_PATH : LOCAL_DATA_PATH
+const getExtension = () => process.env.NODE_ENV === 'production' ? '' : '.json'
 
 export function dispatchAndSave(type, ...dispatchObjs) {
   return (dispatch, getState) => {
-    _.each(dispatchObjs, obj => dispatch(obj));
-    saveState(getState(), type);
-  };
+    _.each(dispatchObjs, obj => dispatch(obj))
+    saveState(getState(), type)
+  }
 }
 
 const mapReceivedTimelineItems = items => {
-  let id = 1;
-  return _.map(items, item => ({...item, id: id++}));
-};
+  let id = 1
+  return _.map(items, item => ({...item, id: id++}))
+}
 
 const mapReceivedSchedulesOrSlots = items => {
-    return {items: _.map(mapReceivedTimelineItems(items), item => ({...item, group: item.location}))};
-};
+    return {items: _.map(mapReceivedTimelineItems(items), item => ({...item, group: item.location}))}
+}
 
 const mapScheduleOrSlotStateToData = state =>
-  _.map(state.timeline.items, item => ({..._.omit(item, ['id', 'group']), location: item.group}));
+  _.map(state.timeline.items, item => ({..._.omit(item, ['id', 'group']), location: item.group}))
 
 export function getHandler(type) {
   switch (type) {
@@ -36,12 +36,12 @@ export function getHandler(type) {
       mapStateToPath: () => '/schedules',
       mapStateToData: mapScheduleOrSlotStateToData,
       mapReceivedData: mapReceivedSchedulesOrSlots
-    };
+    }
     case SLOTS: return {
       mapStateToPath: () => '/slots',
       mapStateToData: mapScheduleOrSlotStateToData,
       mapReceivedData: mapReceivedSchedulesOrSlots
-    };
+    }
     case HOUR_PREFERENCES: return {
       mapStateToPath: state => `/employees/${state.hourPreferences.employee.netId}/hour-preferences`,
       mapStateToData: state => state.hourPreferences,
@@ -51,17 +51,17 @@ export function getHandler(type) {
 }
 
 export function fetch(path) {
-  return origFetch(getBasePath() + path + getExtension(), FETCH_PARAMS);
+  return origFetch(getBasePath() + path + getExtension(), FETCH_PARAMS)
 }
 
 export function fetchType(type, state) {
-  const handler = getHandler(type);
-  return fetch(handler.mapStateToPath(state));
+  const handler = getHandler(type)
+  return fetch(handler.mapStateToPath(state))
 }
 
 export function receiveType(type, json) {
-  const handler = getHandler(type);
-  return handler.mapReceivedData(json);
+  const handler = getHandler(type)
+  return handler.mapReceivedData(json)
 }
 
 export function save(path, data) {
@@ -74,16 +74,16 @@ export function save(path, data) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+    })
   }
   else {
-    console.log('SAVING ', data, 'TO', path);
+    console.log('SAVING ', data, 'TO', path)
   }
 }
 
 export function saveState(state, type) {
-  const handler = getHandler(type);
-  const path = handler.mapStateToPath(state);
-  const data = handler.mapStateToData(state);
-  return save(path, data);
+  const handler = getHandler(type)
+  const path = handler.mapStateToPath(state)
+  const data = handler.mapStateToData(state)
+  return save(path, data)
 }

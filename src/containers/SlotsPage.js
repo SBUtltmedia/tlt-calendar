@@ -1,35 +1,44 @@
-import { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import CalendarInfoBox from '../components/CalendarInfoBox';
-import Title from '../components/Title';
-import LocationIcon from '../components/LocationIcon';
-import styles from './SlotsPage.scss';
-import _ from 'lodash';
+import { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import styles from './SlotsPage.scss'
+import { fetchSlots } from '../actions/SlotsActions'
+import SpreadsheetDashboard from '../components/SpreadsheetDashboard'
+import SpreadsheetView from '../components/SpreadsheetView'
+import { receiveSlots } from '../actions/SlotsActions'
+import _ from 'lodash'
 
 class SchedulePage extends Component {
 	static propTypes = {
 		isAdmin: PropTypes.bool
 	}
 
+	componentWillMount() {
+		this.props.fetchSlots()
+	}
+
 	render () {
-		const {loc, isAdmin, removeItem} = this.props;
+		const {loc, isAdmin} = this.props
 		return <div className={styles.container}>
-			<Title icon={loc ? <LocationIcon id={loc.id} /> : null} name={loc ? loc.title : ''} />
       <div className="controls">
-        <div className="info"><CalendarInfoBox /></div>
+				<SpreadsheetDashboard endpoint='/slots' downloadFile='slots.csv'
+					mapStateToData={state => state.slots} receiveAction={receiveSlots} />
       </div>
-		</div>;
+			<br />
+			<div>
+			<SpreadsheetView columns={['Day', 'Start Time', 'End Time', 'Shift Length']}
+				mapStateToData={state => state.slots} />
+			</div>
+		</div>
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		loc: _.find(state.locations, loc => loc.id === parseInt(ownProps.params.location)),
 		isAdmin: state.user.isAdmin
 	}
-};
+}
 
 export default connect(
   mapStateToProps,
-	{}
-)(SchedulePage);
+	{fetchSlots}
+)(SchedulePage)

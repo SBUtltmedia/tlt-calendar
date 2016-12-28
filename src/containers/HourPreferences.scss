@@ -1,25 +1,22 @@
 @import '../style/dimens';
 @import '../style/colors';
 
-
-
-
 :local(.container) {
   @mixin percentage($dir) {
     display: inline-block;
     font-size: 1rem;
     font-weight: bold;
-    #{$dir}:5px;
+    #{$dir}: 5px;
     color : #231f20;
     position: absolute;
     top:0;
-    line-height: 20px;
+    line-height: 25px;
   }
 
   .legend {
     width: 40%;
-    height: 20px;
-    margin:  auto;
+    height: 25px;
+    margin: auto;
     margin-bottom:1rem;
     background: linear-gradient(to left, $rank-colors) !important;
     position: relative;
