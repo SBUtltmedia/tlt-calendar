@@ -1,2 +1,2 @@
-export const EMPLOYEE = 'employee';
-export const ACTION = 'action';
+export const EMPLOYEE = 'employee'
+export const ACTION = 'action'

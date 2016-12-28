@@ -1,4 +1,4 @@
-export function nestSlots(slots) {
+export function nestSpreadsheetItems(slots) {
   const bySession = _.groupBy(slots, 'Session')
   const byLocation = _.mapValues(bySession, s => _.groupBy(s, 'Site'))
   return _.mapValues(byLocation, s => _.mapValues(  // remove reduntant fields
