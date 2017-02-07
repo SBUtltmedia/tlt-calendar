@@ -12,7 +12,6 @@ import App from './containers/App';
 import HourPreferences from './containers/HourPreferences';
 import HourPreferencesList from './containers/HourPreferencesList';
 import Dashboard from './containers/Dashboard';
-import AdminTable from './containers/AdminTable';
 import SchedulePage from './containers/SchedulePage';
 import SlotsPage from './containers/SlotsPage';
 import SettingsPage from './containers/SettingsPage';
@@ -20,8 +19,9 @@ import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 import "babel-polyfill";  // For ES6 Promise support
 
+// Exposes React performance profiling tools for use in console
 if (process.env.NODE_ENV !== 'production') {
-  require('expose-loader?Perf!react-addons-perf');  // Exposes React performance profiling tools for use in console
+  require('expose-loader?Perf!react-addons-perf');
 }
 
 const reducer = combineReducers({
@@ -64,7 +64,6 @@ render((
           <Route path="schedules" component={SchedulePage} />
           <Route path="slots" component={SlotsPage} />
           <Route path="settings" component={SettingsPage} />
-          <Route path="admin/table" component={AdminTable} />
         </Route>
       </Router>
       <DevTools />

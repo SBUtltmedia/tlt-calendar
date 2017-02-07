@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCellClick: () => dispatch(onCellClick(ownProps))
+  onCellClick: () => dispatch(onCellClick(_.pick(ownProps, ['day', 'hour', 'minute'])))
 });
 
 /*

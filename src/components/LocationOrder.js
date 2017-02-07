@@ -11,7 +11,10 @@ const ListItem = ({item}) => <div className="list-item">{item.title}</div>;
 
 const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox, disabled}) => (
   <div className={`${styles.container}${disabled ? ' disabled' : ''}`} onMouseLeave={clearInfoBox}
-  onMouseEnter={() => fillInfoBox({name: 'Location order', description: 'Drag to sort SINC site locations to your preferred order'})}>
+  onMouseEnter={() => fillInfoBox({
+    name: 'Location order',
+    description: 'Drag to sort SINC site locations to your preferred order'
+  })}>
     <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key
@@ -33,8 +36,12 @@ const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInf
   </div>
 )
 
+const getLocationsFromOrder = (state) =>
+    _.map(state.hourPreferences.locationOrder,
+      id => _.find(state.locations, loc => loc.id === id))
+
 const mapStateToProps = state => ({
-  locations: _.map(state.hourPreferences.locationOrder, id => _.find(state.locations, loc => loc.id === id))
+  locations: getLocationsFromOrder(state)
 });
 
 const mapDispatchToProps = dispatch => {

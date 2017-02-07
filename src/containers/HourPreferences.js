@@ -9,6 +9,7 @@ import CalendarInfoBox from '../components/CalendarInfoBox';
 import EmployeeIcon from '../components/EmployeeIcon';
 import styles from './HourPreferences.scss';
 import { setEmployee } from '../actions/EmployeesActions';
+import { fetchHourPreferences } from '../actions/HourPreferencesActions';
 
 class HourPreferences extends Component {
   static propTypes = {
@@ -17,8 +18,9 @@ class HourPreferences extends Component {
   }
 
   componentWillMount() {
-    const {setEmployee, params:{netId}} = this.props;
+    const {setEmployee, fetchHourPreferences, params:{netId}} = this.props;
     setEmployee(netId);
+    fetchHourPreferences(netId);
   }
 
   render() {
@@ -45,5 +47,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { setEmployee }
+  { setEmployee, fetchHourPreferences }
 )(HourPreferences);

@@ -22,7 +22,12 @@ export default props => (
           <td colSpan="2">{day}</td>
           { _.map(_.range(48), col => (
             <td key={col}>
-              <HourPreferencesGridCell {...props} day={i} hour={Math.floor(col / 2)} minute={col % 2 === 0 ? 0 : 30} />
+              <HourPreferencesGridCell
+                {...props}
+                day={i}
+                hour={Math.floor(col / 2)}
+                minute={col % 2 === 0 ? 0 : 30}
+              />
             </td>
           )) }
           <td colSpan="2">{day}</td>
