@@ -21,7 +21,7 @@ import { SHOW_DEV_TOOLS } from './constants/Settings';
 import "babel-polyfill";  // For ES6 Promise support
 
 if (process.env.NODE_ENV !== 'production') {
-  require('expose?Perf!react-addons-perf');  // Exposes React performance profiling tools for use in console
+  require('expose-loader?Perf!react-addons-perf');  // Exposes React performance profiling tools for use in console
 }
 
 const reducer = combineReducers({
