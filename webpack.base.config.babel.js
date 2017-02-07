@@ -37,7 +37,9 @@ module.exports = {
     }]
    },
    resolve: {
-    root: path.resolve(__dirname),
-    img: 'img'
+     alias: {
+      root: path.resolve(__dirname),
+      img: 'img'
+    }
    }
  };
