@@ -10,7 +10,7 @@ Also `sudo npm -g install webpack webpack-dev-server` to run dev server
 `npm run build` to build production bundle
 
 ## Create local link to API server
-Requires [sshfs](https://osxfuse.github.io/)
+Requires [sshfs and Fuse for macOS](https://osxfuse.github.io/)
 `mkdir /tmp/sccal`
 `sshfs tltsecure@apps.tlt.stonybrook.edu:/home1/tltsecure/www/sccal /tmp/sccal`
 

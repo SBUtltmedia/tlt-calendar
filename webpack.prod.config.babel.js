@@ -1,10 +1,11 @@
 var webpack = require('webpack');
 var base = require('./webpack.base.config.babel');
+var path = require('path')
 var _ = require('lodash');
 
 module.exports = _.merge(base, {
   output: {
-    path: 'build',
+    path: path.resolve('build'),
     filename: 'bundle.js',
     publicPath: '/public/'
   },

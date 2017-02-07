@@ -13,10 +13,10 @@ module.exports = {
        loader: 'babel-loader'
      }, {
       test: /\.scss$/,
-      loader: 'style!css!sass'
+      loader: 'style-loader!css-loader!sass-loader'
     }, {
      test: /\.css$/,
-     loader: 'style!css'
+     loader: 'style-loader!css'
     }, {
       test: /\.png?$/,
       exclude: /node_modules/,
