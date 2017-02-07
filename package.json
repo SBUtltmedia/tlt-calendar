@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "A calendar for TLT employee hours",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --watch tests/**/*.test.js",
-    "test:debug": "mocha --compilers js:babel-core/register --debug-brk tests/**/*.test.js && node-inspector -p 5000",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:debug": "node --debug-brk --inspect ./node_modules/.bin/jest -i -p 5000",
     "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./ --config webpack.dev.config.babel.js",
-    "build": "webpack --content-base ./ --config webpack.prod.config.babel.js"
+    "build": "webpack --content-base ./ --config webpack.prod.config.babel.js --output-path /tmp/sccal/public",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -22,19 +25,17 @@
     "ag-grid": "^5.0.0-alpha.2",
     "ag-grid-react": "^5.0.0-alpha.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "install": "^0.8.1",
+    "griddle-react": "^0.7.1",
     "isomorphic-fetch": "^2.2.1",
     "js-md5": "^0.4.1",
+    "json2csv": "^3.7.1",
+    "keymaster": "^1.6.2",
     "lodash": "^4.13.1",
-    "npm": "^3.10.5",
+    "neat-csv": "^2.1.0",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.1",
-    "react-dimensions": "^1.3.0",
-    "react-dnd": "^2.1.4",
-    "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.3.0",
-    "react-motion": "^0.4.4",
-    "react-onclickoutside": "^5.3.3",
+    "react-file-download": "^0.3.2",
     "react-redux": "^4.4.5",
     "react-reorder": "^2.0.0",
     "react-router": "^2.5.2",
@@ -47,26 +48,41 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "autoprefixer": "^6.3.6",
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-polyfill": "^6.13.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babel-register": "^6.14.0",
-    "chai": "^3.5.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-register": "^6.18.0",
     "css-loader": "^0.23.1",
+    "enzyme": "^2.6.0",
     "expose-loader": "^0.7.1",
     "file-loader": "^0.8.5",
-    "mocha": "^2.5.3",
+    "jest-cli": "^17.0.0",
     "node-sass": "^3.7.0",
     "react-addons-perf": "^15.3.0",
     "react-addons-pure-render-mixin": "^15.3.0",
+    "react-addons-test-utils": "^15.3.2",
     "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "webpack-babel-jest": "^1.0.4"
+  },
+  "jest": {
+    "scriptPreprocessor": "node_modules/webpack-babel-jest",
+    "testPathDirs": [
+      "tests"
+    ],
+    "testRegex": "/*.test.js$",
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }
