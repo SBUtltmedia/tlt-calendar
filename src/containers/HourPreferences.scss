@@ -2,25 +2,24 @@
 @import '../style/colors';
 
 :local(.container) {
-  @mixin percentage($dir) {
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: bold;
-    #{$dir}: 5px;
-    color : #231f20;
-    position: absolute;
-    top:0;
-    line-height: 25px;
-  }
-
   .legend {
     width: 40%;
     height: 25px;
     margin: auto;
-    margin-bottom:1rem;
+    margin-bottom:2rem;
     background: linear-gradient(to left, $rank-colors) !important;
     position: relative;
 
+    @mixin percentage($side) {
+      display: inline-block;
+      font-size: 1rem;
+      font-weight: bold;
+      #{$side}: 7px;
+      color : #231f20;
+      position: absolute;
+      top:0;
+      line-height: 25px;
+    }
 
     &::before {
       content:"0%";
@@ -43,14 +42,6 @@
 
     .hours-settings {
       width: 22em;
-    }
-
-    .chip-bank {
-      width: 24em;
-    }
-
-    .trash {
-      margin-top: 5em;
     }
 
     .location-order {

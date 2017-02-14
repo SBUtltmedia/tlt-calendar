@@ -6,7 +6,13 @@ import _ from 'lodash';
 const HourPreferencesList = ({employees}) => (
   <div>
     <ul>
-      {_.map(employees, (emp, i) => <li key={i}><Link to={`/preferences/${emp.netId}`}>{emp.lastName}, {emp.firstName}</Link></li>)}
+      {_.map(employees, (emp, i) => (
+        <li key={i}>
+          <Link to={`/preferences/${emp.netId}`}>
+            {emp.lastName}, {emp.firstName}
+          </Link>
+        </li>
+      ))}
     </ul>
   </div>
 );

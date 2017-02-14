@@ -15,10 +15,18 @@ const EmployeeSettings = ({user}) => (
       <div className="name">Photo</div>
       <div className="value">
         <EmployeeIcon className="user-icon" employee={user} />
-        <div>
-          <div><a type="button" className="btn btn-default" target="_blank" href="http://gravatar.com">Change photo</a></div>
+        <div className="action">
           <div>
-            To use a custom photo, use <a target="_blank" href="http://gravatar.com">Gravatar</a> with your stonybrook.edu email.
+            <a type="button" className="btn btn-default"
+               target="_blank" href="http://gravatar.com">
+              Change photo
+            </a>
+          </div>
+          <div>
+            To use a custom photo, use
+            <a target="_blank" href="http://gravatar.com">
+              Gravatar</a>
+            with your stonybrook.edu email.
           </div>
         </div>
       </div>

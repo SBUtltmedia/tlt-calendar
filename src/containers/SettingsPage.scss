@@ -5,7 +5,8 @@
   margin: auto;
   h2 {
     text-align: center;
-    margin-bottom: 15px;
+    padding-top: 10px;
+    margin-bottom: 22px;
   }
   .settings-row {
     display: flex;
@@ -19,6 +20,10 @@
       display: flex;
       a.btn {
         margin-bottom: 5px;
+      }
+
+      .action {
+        margin-left: 12px;
       }
     }
   }
