@@ -23,8 +23,9 @@ const HoursSettings = ({numDesiredHours, changeNumDesiredHours, disabled}) => (
       <p>This value determines your approximate ﬁnal hours.</p>
       <p>
         Enter as many preferences as you’d like and your
-        schedule permits. The more availability you provide,
-        the more changes of getting your first choice.
+        schedule permits. The more choices you provide,
+        the more chances of getting your first choice since
+        the scheduler rewards higher availability.
       </p>
     </div>
   </form>

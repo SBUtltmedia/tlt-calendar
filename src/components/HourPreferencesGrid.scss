@@ -5,6 +5,9 @@ $border: thin solid $border-color;
 
 :local(.container) {
   margin-bottom: 2em;
+  .day-label {
+    font-size: 0.9em;
+  }
   table.calendar {
     width: 100%;
     table-layout: fixed;

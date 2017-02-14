@@ -1,5 +1,3 @@
-export const FILL_INFO_BOX = 'set-box-info'
-export const CLEAR_INFO_BOX = 'clear-box-info'
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations'
 export const CHANGE_NUM_DESIRED_HOURS = 'change-desired_weekly-hours'
 export const CHANGE_SETTINGS = 'change-settings'

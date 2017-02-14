@@ -3,18 +3,12 @@ import { bindActionCreators } from 'redux';
 import Reorder from 'react-reorder';
 import styles from './LocationOrder.scss';
 import {reorderGlobalLocations} from '../actions/HourPreferencesActions';
-//import * as InfoBoxActions from '../actions/CalendarInfoBoxActions';
 import _ from 'lodash';
-import { ACTION } from '../constants/InfoBoxTypes';
 
 const ListItem = ({item}) => <div className="list-item">{item.title}</div>;
 
-const LocationOrder = ({locations, reorderGlobalLocations, fillInfoBox, clearInfoBox, disabled}) => (
-  <div className={`${styles.container}${disabled ? ' disabled' : ''}`} onMouseLeave={clearInfoBox}
-  onMouseEnter={() => fillInfoBox({
-    name: 'Location order',
-    description: 'Drag to sort SINC site locations to your preferred order'
-  })}>
+const LocationOrder = ({locations, reorderGlobalLocations, disabled}) => (
+  <div className={`${styles.container}${disabled ? ' disabled' : ''}`}>
     <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key
@@ -45,13 +39,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => {
-  function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex, itemsNewIndex, reorderedArray) {
+  function reorderFn(event, itemThatHasBeenMoved, itemsPreviousIndex,
+                     itemsNewIndex, reorderedArray) {
     dispatch(reorderGlobalLocations(_.map(reorderedArray, item => item.id)));
   }
   return {
-    reorderGlobalLocations: reorderFn,
-    fillInfoBox: () => {},  //_.bind(infoBoxActions.fillInfoBox, {}, ACTION),
-    clearInfoBox: () => {}  //infoBoxActions.clearInfoBox
+    reorderGlobalLocations: reorderFn
   };
 };
 
