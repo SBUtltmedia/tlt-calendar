@@ -18,7 +18,7 @@ export default function schedule(state=initialState, action) {
     case RECEIVE_HOUR_PREFERENCES:
       return {...state, ..._.pick(action, ['preferences', 'numDesiredHours', 'locationOrder', 'employee'])};
     case HOUR_PREFERENCES_CELL_CLICK:
-      return {...state, preferences: utils.toggleCell(state.preferences, action)};
+      return {...state, preferences: utils.toggleCell(state.preferences, action.index)};
     case REORDER_GLOBAL_LOCATIONS:
       return {...state, locationOrder: action.order};
     case CHANGE_NUM_DESIRED_HOURS:

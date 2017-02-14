@@ -1,15 +1,11 @@
-import { RECEIVE_HOUR_PREFERENCES, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, HOUR_PREFERENCES_CELL_CLICK } from '../constants/ActionTypes';
-import { HOUR_PREFERENCES } from '../constants/Constants';
-import { fetch, save } from '../utils/api';
+import { RECEIVE_HOUR_PREFERENCES, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, HOUR_PREFERENCES_CELL_CLICK } from '../constants/ActionTypes'
+import { fetch, save } from '../utils/api'
 
 const path = (netId) => `/employees/${netId}/hour-preferences`
 
 const dispatchAndSave = (data, type) => (dispatch, getState) => {
   const netId = getState().user.netId
-  dispatch({
-    ...data,
-    type
-  })
+  dispatch({...data, type})
   save(path(netId), getState().hourPreferences)
 }
 
@@ -18,12 +14,10 @@ const receiveTimelineItems = (json) => ({
   ...json
 })
 
-export const fetchHourPreferences = (netId) => (dispatch, getState) => {
-  const state = getState();
-  return fetch(path())
+export const fetchHourPreferences = (netId) => (dispatch, getState) =>
+  fetch(path(netId))
     .then(response => response.json())
     .then(json => dispatch(receiveTimelineItems(json)))
-}
 
 export const reorderGlobalLocations = (order) =>
     dispatchAndSave({order}, REORDER_GLOBAL_LOCATIONS)
@@ -31,6 +25,5 @@ export const reorderGlobalLocations = (order) =>
 export const changeNumDesiredHours = (hours) =>
     dispatchAndSave({hours}, CHANGE_NUM_DESIRED_HOURS)
 
-// TODO: Run Reducer first, then call getState() to grab new value
-export const onCellClick = (params) =>
-    dispatchAndSave(params, HOUR_PREFERENCES_CELL_CLICK)
+export const onCellClick = (index) =>
+    dispatchAndSave({index}, HOUR_PREFERENCES_CELL_CLICK)

@@ -8,12 +8,12 @@ describe('hour preferences utils', () => {
   });
 
   it('toggles cell', () => {
-    expect(utils.toggleCell([1, 2, 3], {day: 0, hour: 0, minute: 0})).toEqual([2, 2, 3]);
-    expect(utils.toggleCell([1, 2, 4], {day: 0, hour: 1, minute: 0})).toEqual([1, 2, 0]);
+    expect(utils.toggleCell([1, 2, 3], 0)).toEqual([2, 2, 3]);
+    expect(utils.toggleCell([1, 2, 4], 2)).toEqual([1, 2, 0]);
   });
 
   it('gets cell value', () => {
-    expect(utils.getCellValue([1, 2, 3], {day: 0, hour: 0, minute: 30})).toBe(2);
+    expect(utils.getCellValue([1, 2, 3], 1)).toBe(2);
   });
 
   it('gets average value', () => {

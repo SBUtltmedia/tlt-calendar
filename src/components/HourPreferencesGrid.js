@@ -2,7 +2,7 @@ import { PropTypes } from 'react';
 import _ from 'lodash';
 import styles from './HourPreferencesGrid.scss';
 import HourPreferencesGridCell from './HourPreferencesGridCell';
-import { getHourLabel } from '../utils/time';
+import { getHourLabel, timeToIndex } from '../utils/time';
 import { SHORT_DAYS } from '../constants/Settings';
 
 export default props => (
@@ -23,10 +23,11 @@ export default props => (
           { _.map(_.range(48), col => (
             <td key={col}>
               <HourPreferencesGridCell
-                {...props}
-                day={i}
-                hour={Math.floor(col / 2)}
-                minute={col % 2 === 0 ? 0 : 30}
+                index={timeToIndex({
+                  day: i,
+                  hour: Math.floor(col / 2),
+                  minute: col % 2 === 0 ? 0 : 30
+                })}
               />
             </td>
           )) }

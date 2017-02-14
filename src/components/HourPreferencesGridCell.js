@@ -3,18 +3,18 @@ import { onCellClick } from '../actions/HourPreferencesActions';
 import { getCellValue } from '../utils/hourPreferences';
 import styles from './HourPreferencesGridCell.scss';
 
-const HourPreferencesGridCell = ({rank, onCellClick}) => (
-  <div className={styles.container + (rank ? ` rank${rank}` : '')} onClick={onCellClick}>
-
-  </div>
+const HourPreferencesGridCell = ({index, rank, onCellClick}) => (
+  <div className={styles.container + (rank ? ` rank${rank}` : '')}
+       onClick={onCellClick}
+  />
 );
 
 const mapStateToProps = (state, ownProps) => ({
-  rank: getCellValue(state.hourPreferences.preferences, ownProps)
+  rank: getCellValue(state.hourPreferences.preferences, ownProps.index)
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCellClick: () => dispatch(onCellClick(_.pick(ownProps, ['day', 'hour', 'minute'])))
+  onCellClick: () => dispatch(onCellClick(ownProps.index))
 });
 
 /*

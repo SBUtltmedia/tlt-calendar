@@ -1,9 +1,5 @@
-import { MINIMUM_ITEM_DURATION } from '../constants/Settings';
-
 export function timeToIndex({day, hour=0, minute=0}) {
-  return day * (24 * 60 / MINIMUM_ITEM_DURATION) +
-    Math.floor(hour * 60 / MINIMUM_ITEM_DURATION) +
-    Math.floor(minute / MINIMUM_ITEM_DURATION);
+  return day * 48 + Math.floor(hour * 2) + Math.floor(minute / 30);
 }
 
 export function getHourLabel(hour) {

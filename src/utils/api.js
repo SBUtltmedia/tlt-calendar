@@ -1,6 +1,5 @@
 import origFetch from 'isomorphic-fetch'
 import { REMOTE_DATA_PATH, LOCAL_DATA_PATH } from '../constants/Settings'
-import { SCHEDULE, SLOTS, HOUR_PREFERENCES } from '../constants/Constants'
 import _ from 'lodash'
 
 const FETCH_PARAMS = {
