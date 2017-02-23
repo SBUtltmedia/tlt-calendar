@@ -1,4 +1,8 @@
-import { SET_EMPLOYEE, HOUR_PREFERENCES_CELL_CLICK, REORDER_GLOBAL_LOCATIONS, CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED, RECEIVE_HOUR_PREFERENCES } from '../constants/ActionTypes';
+import {
+  SET_EMPLOYEE, HOUR_PREFERENCES_CELL_CLICK, REORDER_GLOBAL_LOCATIONS,
+  CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED, RECEIVE_HOUR_PREFERENCES,
+  CLEAR_HOUR_PREFERENCES
+} from '../constants/ActionTypes';
 import { markGravatarLoadFailed } from '../utils/employees';
 import * as utils from '../utils/hourPreferences';
 import { DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
@@ -16,9 +20,19 @@ export default function schedule(state=initialState, action) {
     case SET_EMPLOYEE:
       return {...state, employee: action.employee};
     case RECEIVE_HOUR_PREFERENCES:
-      return {...state, ..._.pick(action, ['preferences', 'numDesiredHours', 'locationOrder', 'employee'])};
+      return {
+        ...state,
+        ..._.pick(action, [
+          'preferences', 'numDesiredHours', 'locationOrder', 'employee'
+        ])
+      };
+    case CLEAR_HOUR_PREFERENCES:
+      return initialState
     case HOUR_PREFERENCES_CELL_CLICK:
-      return {...state, preferences: utils.toggleCell(state.preferences, action.index)};
+      return {
+        ...state,
+        preferences: utils.toggleCell(state.preferences, action.index)
+      };
     case REORDER_GLOBAL_LOCATIONS:
       return {...state, locationOrder: action.order};
     case CHANGE_NUM_DESIRED_HOURS:

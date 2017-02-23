@@ -41,7 +41,7 @@ class HourPreferences extends Component {
 }
 
 const mapStateToProps = state => ({
-	employee: state.hourPreferences.employee,
+	employee: state.user,
   isAdmin: state.user.isAdmin  // user could be null but they should then be redirected to login anyway
 })
 
