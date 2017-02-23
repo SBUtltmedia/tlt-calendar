@@ -1,11 +1,11 @@
 :local(.container) {
-  width: 320px;
-  margin: 100px auto;
-  li {
-    font-size: 20px;
-    line-height: 1.5em;
-    &, a {
-      cursor: pointer;
+  .menu {
+    width: 320px;
+    margin: 100px auto;
+    a {
+      font-size: 18px;
+      margin: 3px 0;
+      color: #333;
     }
   }
 }
