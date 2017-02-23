@@ -10,14 +10,14 @@ import { connect } from 'react-redux'
 class SpreadsheetDashboard extends Component {
   static propTypes = {
     endpoint: PropTypes.string.isRequired,
-    downloadFile: PropTypes.string.isRequired,
+    downloadFilename: PropTypes.string.isRequired,
     mapStateToData: PropTypes.func.isRequired,
     receiveAction: PropTypes.func.isRequired
   }
 
   download() {
     const {data, downloadFilename} = this.props
-    fileDownload(json2csv({data}), downloadFile)
+    fileDownload(json2csv({data}), downloadFilename)
   }
 
   upload(event) {
@@ -41,7 +41,9 @@ class SpreadsheetDashboard extends Component {
       <button onClick={() => this.download()} className="btn btn-success">
         Download spreadsheet
       </button>
-      <input onChange={e => this.upload(e)} type="file" className="btn btn-success" />
+      <span className="btn btn-file btn-success">
+        Upload spreadsheet <input type="file" onChange={e => this.upload(e)} />
+      </span>
     </div>)
   }
 }

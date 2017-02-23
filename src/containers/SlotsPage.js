@@ -20,7 +20,7 @@ class SchedulePage extends Component {
 		const {loc, isAdmin} = this.props
 		return <div className={styles.container}>
       <div className="controls">
-				<SpreadsheetDashboard endpoint='/slots' downloadFile='slots.csv'
+				<SpreadsheetDashboard endpoint='/slots' downloadFilename='slots.csv'
 					mapStateToData={state => state.slots} receiveAction={receiveSlots} />
       </div>
 			<br />

@@ -15,7 +15,7 @@ class SchedulePage extends Component {
 		const {loc, isAdmin, removeItem} = this.props
 		return <div className={styles.container}>
 		<div className="controls">
-			<SpreadsheetDashboard endpoint='/schedule' downloadFile='schedule.csv'
+			<SpreadsheetDashboard endpoint='/schedule' downloadFilename='schedule.csv'
 				mapStateToData={state => state.schedule} receiveAction={receiveSchedule} />
 		</div>
 		<br />
