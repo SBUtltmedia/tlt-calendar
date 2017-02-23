@@ -17,8 +17,6 @@ import SlotsPage from './containers/SlotsPage';
 import SettingsPage from './containers/SettingsPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
-import "babel-polyfill";  // For ES6 Promise support
-
 // Exposes React performance profiling tools for use in console
 if (process.env.NODE_ENV !== 'production') {
   require('expose-loader?Perf!react-addons-perf');

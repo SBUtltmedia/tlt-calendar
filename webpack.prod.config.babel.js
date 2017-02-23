@@ -13,10 +13,12 @@ module.exports = _.merge(base, {
     ...base.plugins,
     /*
     new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
       compressor: {
-        screw_ie8: true,
-        warnings: false
+        warnings: false,
+        screw_ie8: false
+      },
+      output: {
+        screw_ie8: false
       }
     }),
     */
