@@ -19,6 +19,7 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin} = this.props
 		return <div className={styles.container}>
+			<h1>Edit available shift slots</h1>
       <div className="controls">
 				<SpreadsheetDashboard endpoint='/slots' downloadFilename='slots.csv'
 					mapStateToData={state => state.slots} receiveAction={receiveSlots} />

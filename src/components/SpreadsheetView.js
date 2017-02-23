@@ -52,7 +52,7 @@ class SlotsView extends Component {
     return _.isEmpty(items) ? <div></div> :
     (<div>
       <div>
-        {this.renderDropdown(schedules, schedule, 'schedule')}``
+        {this.renderDropdown(schedules, schedule, 'schedule')}
         {this.renderDropdown(locations, location, 'location')}
       </div>
       <div>

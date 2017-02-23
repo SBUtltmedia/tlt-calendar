@@ -14,15 +14,16 @@ class SchedulePage extends Component {
 	render () {
 		const {loc, isAdmin, removeItem} = this.props
 		return <div className={styles.container}>
-		<div className="controls">
-			<SpreadsheetDashboard endpoint='/schedule' downloadFilename='schedule.csv'
-				mapStateToData={state => state.schedule} receiveAction={receiveSchedule} />
-		</div>
-		<br />
-		<div>
-			<SpreadsheetView columns={['Day', 'Start Time', 'End Time', 'Shift Length']}
-				mapStateToData={state => state.schedule} />
-		</div>
+			<h1>Edit schedule</h1>
+			<div className="controls">
+				<SpreadsheetDashboard endpoint='/schedule' downloadFilename='schedule.csv'
+					mapStateToData={state => state.schedule} receiveAction={receiveSchedule} />
+			</div>
+			<br />
+			<div>
+				<SpreadsheetView columns={['Day', 'Start Time', 'End Time', 'Shift Length']}
+					mapStateToData={state => state.schedule} />
+			</div>
 		</div>
 	}
 }
