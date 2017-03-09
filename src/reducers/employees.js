@@ -1,5 +1,4 @@
 import { RECEIVE_EMPLOYEES } from '../constants/ActionTypes';
-import { markGravatarLoadFailedInList } from '../utils/employees';
 
 const initialState = [];
 

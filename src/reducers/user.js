@@ -1,5 +1,4 @@
 import { RECEIVE_USER, CHANGE_SETTINGS, LOGGED_OUT } from '../constants/ActionTypes';
-import { markGravatarLoadFailed } from '../utils/employees';
 
 const initialState = {
   managesSites: []

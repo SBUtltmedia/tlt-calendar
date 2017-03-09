@@ -4,7 +4,6 @@ import styles from './NavBar.scss';
 
 const renderLoggedInMenu = () => (
   <ul className="nav navbar-nav navbar-right">
-    <li><Link to="/settings">Settings</Link></li>
     <li><Link to="/logout">Logout</Link></li>
   </ul>
 );

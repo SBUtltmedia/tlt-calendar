@@ -4,7 +4,6 @@ import HoursSettings from '../components/HoursSettings'
 import LocationOrder from '../components/LocationOrder'
 import EmployeeTitle from '../components/EmployeeTitle'
 import HourPreferencesGrid from '../components/HourPreferencesGrid'
-import EmployeeIcon from '../components/EmployeeIcon'
 import styles from './HourPreferences.scss'
 import {fetchHourPreferences} from '../actions/HourPreferencesActions'
 

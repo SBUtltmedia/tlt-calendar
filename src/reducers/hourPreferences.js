@@ -2,7 +2,6 @@ import {
   HOUR_PREFERENCES_CELL_CLICK, REORDER_GLOBAL_LOCATIONS,
   CHANGE_NUM_DESIRED_HOURS, RECEIVE_HOUR_PREFERENCES, CLEAR_HOUR_PREFERENCES
 } from '../constants/ActionTypes';
-import { markGravatarLoadFailed } from '../utils/employees';
 import * as utils from '../utils/hourPreferences';
 import { DEFAULT_WEEKLY_HOURS } from '../constants/Settings';
 import _ from 'lodash';

@@ -13,7 +13,6 @@ import HourPreferencesList from './containers/HourPreferencesList';
 import Dashboard from './containers/Dashboard';
 import SchedulePage from './containers/SchedulePage';
 import SlotsPage from './containers/SlotsPage';
-import SettingsPage from './containers/SettingsPage';
 import { SHOW_DEV_TOOLS } from './constants/Settings';
 
 // Exposes React performance profiling tools for use in console
@@ -57,7 +56,6 @@ render((
           <Route path="preferences/:netId" component={HourPreferences} />
           <Route path="schedules" component={SchedulePage} />
           <Route path="slots" component={SlotsPage} />
-          <Route path="settings" component={SettingsPage} />
         </Route>
       </Router>
       <DevTools />
