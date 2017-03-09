@@ -1,7 +1,6 @@
 import {
-  SET_EMPLOYEE, HOUR_PREFERENCES_CELL_CLICK, REORDER_GLOBAL_LOCATIONS,
-  CHANGE_NUM_DESIRED_HOURS, GRAVATAR_LOAD_FAILED, RECEIVE_HOUR_PREFERENCES,
-  CLEAR_HOUR_PREFERENCES
+  HOUR_PREFERENCES_CELL_CLICK, REORDER_GLOBAL_LOCATIONS,
+  CHANGE_NUM_DESIRED_HOURS, RECEIVE_HOUR_PREFERENCES, CLEAR_HOUR_PREFERENCES
 } from '../constants/ActionTypes';
 import { markGravatarLoadFailed } from '../utils/employees';
 import * as utils from '../utils/hourPreferences';
@@ -17,8 +16,6 @@ const initialState = {
 
 export default function schedule(state=initialState, action) {
   switch (action.type) {
-    case SET_EMPLOYEE:
-      return {...state, employee: action.employee};
     case RECEIVE_HOUR_PREFERENCES:
       return {
         ...state,

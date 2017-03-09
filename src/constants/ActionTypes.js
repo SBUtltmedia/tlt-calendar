@@ -1,7 +1,6 @@
 export const REORDER_GLOBAL_LOCATIONS = 'reorder-global-locations'
 export const CHANGE_NUM_DESIRED_HOURS = 'change-desired_weekly-hours'
 export const CHANGE_SETTINGS = 'change-settings'
-export const GRAVATAR_LOAD_FAILED = 'gravatar-load-failed'
 export const LOGGED_OUT = 'logged-out'
 
 

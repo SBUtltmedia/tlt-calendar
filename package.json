@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "A calendar for TLT employee hours",
   "scripts": {
+    "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./ --config webpack.dev.config.babel.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --debug-brk --inspect ./node_modules/.bin/jest -i -p 5000",
-    "start": "webpack-dev-server --progress --colors --history-api-fallback --no-info --content-base ./ --config webpack.dev.config.babel.js",
     "build": "webpack --config webpack.prod.config.babel.js --output-path /tmp/sccal/public"
   },
   "repository": {

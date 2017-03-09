@@ -7,8 +7,8 @@ import _ from 'lodash';
 
 const ListItem = ({item}) => <div className="list-item">{item.title}</div>;
 
-const LocationOrder = ({locations, reorderGlobalLocations, disabled}) => (
-  <div className={`${styles.container}${disabled ? ' disabled' : ''}`}>
+const LocationOrder = ({locations, reorderGlobalLocations}) => (
+  <div className={styles.container}>
     <div className="title">Location Preference Order</div>
     <Reorder
       // The key of each object in your list to use as the element key
@@ -25,8 +25,7 @@ const LocationOrder = ({locations, reorderGlobalLocations, disabled}) => (
       callback={reorderGlobalLocations}
       // The key to compare from the selected item object with each item object
       selectedKey='uuid'
-      // Allows reordering to be disabled
-      disableReorder={disabled} />
+    />
   </div>
 )
 

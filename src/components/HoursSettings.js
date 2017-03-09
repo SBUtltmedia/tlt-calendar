@@ -7,12 +7,12 @@ import numberLocalizer from 'react-widgets/lib/localizers/simple-number';
 import 'react-widgets/dist/css/react-widgets.css';
 numberLocalizer();
 
-const HoursSettings = ({numDesiredHours, changeNumDesiredHours, disabled}) => (
+const HoursSettings = ({numDesiredHours, changeNumDesiredHours}) => (
   <form className={styles.container}>
     <div className="weekly-hours-container">
       <label>Weekly hours desired:</label>
       <div className="number-picker">
-        <NumberPicker min={10} max={29} value={numDesiredHours} onChange={changeNumDesiredHours} disabled={disabled} />
+        <NumberPicker min={10} max={29} value={numDesiredHours} onChange={changeNumDesiredHours} />
       </div>
       <span className="star">*</span>
     </div>
