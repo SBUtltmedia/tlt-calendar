@@ -24,7 +24,7 @@ class HourPreferences extends Component {
   render() {
     const {isAdmin, removeItem} = this.props
     return <div className={styles.container}>
-      <Title />
+      <UserTitle />
       <div className='legend' />
       <HourPreferencesGrid disabled={isAdmin} />
       <div className="controls">

@@ -1,6 +1,5 @@
 import { render }  from 'react-dom';
 import { Provider } from 'react-redux';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { createDevTools } from 'redux-devtools'
 import LogMonitor from 'redux-devtools-log-monitor'
@@ -23,8 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const reducer = combineReducers({
-  ...reducers,
-  routing: routerReducer
+  ...reducers
 });
 
 const DevTools = createDevTools(
@@ -49,12 +47,10 @@ if (module.hot) {
   });
 }
 
-const history = syncHistoryWithStore(hashHistory, store);
-
 render((
   <Provider store={store}>
     <div>
-      <Router history={history}>
+      <Router history={hashHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={Dashboard} />
           <Route path="preferences" component={HourPreferencesList} />

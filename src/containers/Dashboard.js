@@ -15,10 +15,10 @@ function menuItem(text, link) {
   )
 }
 
-function renderAdmin(user) {
+function renderAdmin(user) {  
   return <div>
     {menuItem('Edit available shift slots', '/slots')}
-    {menuItem('Edit generated scheddive', '/scheddives')}
+    {menuItem('Edit generated schedule', '/schedules')}
     {menuItem('Employee hour preferences', '/preferences/')}
   </div>
 }
@@ -26,14 +26,14 @@ function renderAdmin(user) {
 function renderSiteManager(user) {
   return <div>
     {menuItem('Update hour preferences', `/preferences/${user.netId}`)}
-    {menuItem('View generated scheddive', '/scheddives')}
+    {menuItem('View generated schedule', '/schedules')}
   </div>
 }
 
 function renderEmployee(user) {
   return <div>
     {menuItem('Update hour preferences', `/preferences/${user.netId}`)}
-    {menuItem('Edit generated scheddive', '/scheddives')}
+    {menuItem('Edit generated schedule', '/schedules')}
   </div>
 }
 
