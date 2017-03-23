@@ -10,7 +10,7 @@ const initialState = {
   numDesiredHours: DEFAULT_WEEKLY_HOURS,
   locationOrder: null,  // default
   employee: null,
-  preferences: utils.initializeCells()
+  items: utils.initializeCells()
 };
 
 export default function schedule(state=initialState, action) {
@@ -19,7 +19,7 @@ export default function schedule(state=initialState, action) {
       return {
         ...state,
         ..._.pick(action, [
-          'preferences', 'numDesiredHours', 'locationOrder', 'employee'
+          'items', 'numDesiredHours', 'locationOrder', 'employee'
         ])
       };
     case CLEAR_HOUR_PREFERENCES:
@@ -27,7 +27,7 @@ export default function schedule(state=initialState, action) {
     case HOUR_PREFERENCES_CELL_CLICK:
       return {
         ...state,
-        preferences: utils.toggleCell(state.preferences, action.index)
+        items: utils.toggleCell(state.items, action.index)
       };
     case REORDER_GLOBAL_LOCATIONS:
       return {...state, locationOrder: action.order};

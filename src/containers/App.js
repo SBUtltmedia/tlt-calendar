@@ -3,16 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './App.scss';
 import NavBar from '../components/NavBar';
-import { fetchEmployees } from '../actions/EmployeesActions';
 import { fetchLocations } from '../actions/LocationsActions';
 import { fetchThisUser } from '../actions/UserActions';
 
 class App extends Component {
 
   componentWillMount() {
-    const { fetchThisUser, fetchEmployees, fetchLocations } = this.props;
+    const { fetchThisUser, fetchLocations } = this.props;
     fetchThisUser();
-    fetchEmployees();
     fetchLocations();
   }
 
@@ -26,5 +24,5 @@ class App extends Component {
 
 export default connect(
   state => ({}),
-  {fetchThisUser, fetchEmployees, fetchLocations}
+  {fetchThisUser, fetchLocations}
 )(App);

@@ -1,6 +1,4 @@
 export hourPreferences from './hourPreferences'
-export employees from './employees'
 export locations from './locations'
 export user from './user'
-export slots from './slots'
-export schedule from './schedule'
+export admin from './admin'

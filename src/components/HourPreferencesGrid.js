@@ -5,7 +5,7 @@ import HourPreferencesGridCell from './HourPreferencesGridCell';
 import { getHourLabel, timeToIndex } from '../utils/time';
 import { SHORT_DAYS } from '../constants/Settings';
 
-export default props => (
+const HourPreferencesGrid = ({items}) => (
   <div className={styles.container}>
     <table className='calendar'>
       <thead>
@@ -26,6 +26,7 @@ export default props => (
             { _.map(_.range(48), col => (
               <td key={col}>
                 <HourPreferencesGridCell
+                  items={items}
                   index={timeToIndex({
                     day: i,
                     hour: Math.floor(col / 2),
@@ -42,4 +43,10 @@ export default props => (
       </tbody>
     </table>
   </div>
-);
+)
+
+HourPreferencesGrid.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.number).isRequired
+}
+
+export default HourPreferencesGrid

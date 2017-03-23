@@ -32,7 +32,7 @@ const HoursSettings = ({numDesiredHours, changeNumDesiredHours}) => (
 )
 
 const mapStateToProps = state => ({
-  numDesiredHours: state.hourPreferences.numDesiredHours
+
 });
 
 export default connect(

@@ -4,8 +4,9 @@ import HoursSettings from '../components/HoursSettings'
 import LocationOrder from '../components/LocationOrder'
 import EmployeeTitle from '../components/EmployeeTitle'
 import HourPreferencesGrid from '../components/HourPreferencesGrid'
-import styles from './HourPreferences.scss'
 import {fetchHourPreferences} from '../actions/HourPreferencesActions'
+import styles from './HourPreferences.scss'
+import * as _ from 'lodash'
 
 class HourPreferences extends Component {
   static propTypes = {
@@ -14,33 +15,49 @@ class HourPreferences extends Component {
   }
 
   componentWillMount() {
-    const {fetchHourPreferences, params:{netId}} = this.props
-    fetchHourPreferences(netId)
+    const {fetchHourPreferences, params:{netId}, isAdmin} = this.props
+    if (isAdmin === false) {
+      fetchHourPreferences(netId)
+    }
   }
 
   render() {
-    const {isAdmin, removeItem, employee} = this.props
-    return (
-      <div className={styles.container}>
-        <EmployeeTitle employee={employee} />
-        <div className='legend' />
-        <HourPreferencesGrid />
-        <div className="controls">
-          <div className="hours-settings">
-            <HoursSettings />
-          </div>
-          <div className="location-order">
-            <LocationOrder />
+    const {isAdmin, removeItem, employee, hourPreferences} = this.props
+    if (hourPreferences) {
+      return (
+        <div className={styles.container}>
+          <EmployeeTitle employee={employee} />
+          <div className='legend' />
+          <HourPreferencesGrid items={hourPreferences.items} />
+          <div className="controls">
+            <div className="hours-settings">
+              <HoursSettings numDesiredHours={hourPreferences.numDesiredHours} />
+            </div>
+            <div className="location-order">
+              <LocationOrder locationOrder={hourPreferences.locationOrder} />
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+    else {
+      return <div></div>
+    }
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  employee: _.find(state.employees, e => e.netId === ownProps.params.netId)
-})
+const mapStateToProps = (state, ownProps) => {
+  const isAdmin = state.user.isAdmin
+  const hourPreferences =
+    isAdmin ?
+      _.find(state.admin.hourPreferences, p => p.employee.netId === ownProps.params.netId) :
+      state.hourPreferences
+  return {
+    isAdmin,
+    hourPreferences,
+    employee: isAdmin ? (hourPreferences ? hourPreferences.employee : null) : state.user
+  }
+}
 
 export default connect(
   mapStateToProps,

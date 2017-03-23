@@ -1,11 +1,1 @@
-[
-  { "id": 1, "title": "Main Library", "coverage": 4 },
-  { "id": 2, "title": "Central Reading Room", "coverage": 1 },
-  { "id": 3, "title": "North Reading Room - 1st Floor", "coverage": 1 },
-  { "id": 4, "title": "North Reading Room - 2nd Floor", "coverage": 1 },
-  { "id": 5, "title": "Student Union", "coverage": 1 },
-  { "id": 6, "title": "Engineering", "coverage": 1 },
-  { "id": 7, "title": "Math/Physics", "coverage": 1 },
-  { "id": 8, "title": "SBS (6th Floor)", "coverage": 1 },
-  { "id": 9, "title": "Sports Center", "coverage": 1 }
-]
+[{"name":"Central Reading Room","id":1,"coverage":1},{"name":"Chemistry 432 Sinc Site","id":2,"coverage":1},{"name":"Chemistry 434 SINC Site","id":3,"coverage":1},{"name":"Computer Science SINC Site","id":4,"coverage":1},{"name":"ESS SINC Site","id":5,"coverage":1},{"name":"Engineering SINC Site","id":6,"coverage":1},{"name":"Fine Arts Hybrid SINC Site","id":7,"coverage":1},{"name":"Fine Arts eMedia SINC Site","id":8,"coverage":1},{"name":"Harriman Hall SINC Site","id":9,"coverage":1},{"name":"Humanities SINC Site","id":10,"coverage":1},{"name":"Life Sciences SINC Site","id":11,"coverage":1},{"name":"Math SINC Site","id":12,"coverage":1},{"name":"Melville Library SINC Site","id":13,"coverage":1},{"name":"North Reading Room","id":14,"coverage":1},{"name":"Physics SINC Site","id":15,"coverage":1},{"name":"Social and Behavioral Sciences SINC Site","id":16,"coverage":1},{"name":"Sports Complex SINC Site","id":17,"coverage":1},{"name":"Tabler Digital Arts Media Lab","id":18,"coverage":1}]

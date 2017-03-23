@@ -7,7 +7,9 @@ import { Link } from 'react-router'
 import UserTitle from '../components/UserTitle'
 import styles from './Dashboard.scss'
 
-function menuItem(text, link) {
+const schedulePage = 'https://apps.tlt.stonybrook.edu/sccal/algorithm/'
+
+function internalMenuItem(text, link) {
   return (
     <LinkContainer to={{ pathname: link}}>
       <Button>{text}</Button>
@@ -15,25 +17,33 @@ function menuItem(text, link) {
   )
 }
 
-function renderAdmin(user) {  
+function externalMenuItem(text, link) {
+  return (
+    <a target='_blank' href={link}>
+      <Button>{text}</Button>
+    </a>
+  )
+}
+
+function renderAdmin(user) {
   return <div>
-    {menuItem('Edit available shift slots', '/slots')}
-    {menuItem('Edit generated schedule', '/schedules')}
-    {menuItem('Employee hour preferences', '/preferences/')}
+    {externalMenuItem('Edit available shift slots', 'https://docs.google.com/spreadsheets/d/1XhlIbiZqh5vMQuM_vM5m6SdAE_8gpTObNtXUEP9_Yk8/edit#gid=581523198')}
+    {externalMenuItem('Edit generated schedule', schedulePage)}
+    {internalMenuItem('Employee hour preferences', '/preferences/')}
   </div>
 }
 
 function renderSiteManager(user) {
   return <div>
-    {menuItem('Update hour preferences', `/preferences/${user.netId}`)}
-    {menuItem('View generated schedule', '/schedules')}
+    {internalMenuItem('Update hour preferences', `/preferences/${user.netId}`)}
+    {externalMenuItem('Edit generated schedule', schedulePage)}
   </div>
 }
 
 function renderEmployee(user) {
   return <div>
-    {menuItem('Update hour preferences', `/preferences/${user.netId}`)}
-    {menuItem('Edit generated schedule', '/schedules')}
+    {internalMenuItem('Update hour preferences', `/preferences/${user.netId}`)}
+    {externalMenuItem('View generated schedule', schedulePage)}
   </div>
 }
 
