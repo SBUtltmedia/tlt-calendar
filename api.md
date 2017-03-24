@@ -20,13 +20,13 @@ Fetches a list of all the employees.
 
 /admins (GET)
 {
-“admins”:[string], //a list of admins netids
-“siteManagers”:{
-[
-{
-“siteId”:[int], “netids”:[string]}  //a list of siteManagers netids
-}
-]
+	“admins”:[string], //a list of admins netids
+	“siteManagers”: {
+	[
+		{
+			“siteId”:[int], “netids”:[string]}  //a list of siteManagers netids
+		}
+	]
 }
 
 Gets admins and site managers
@@ -48,15 +48,15 @@ Fetches a list of all the locations.
 Fetches the schedule for all locations
 [
     {
-             "location”: int,  // the ID of the location
-	  "start_time”: int,  // milliseconds since epoch
-              "end_time”: int,  // milliseconds since epoch
-              "value": [{  // may be an array of objects, a single object, or a string (“RESERVED”)
-      "netId": string,
-   	      "firstName": string,
-    	      “lastName”: string,
-                  "email": string
-    }
+	"location”: int,  // the ID of the location
+	"start_time”: int,  // milliseconds since epoch
+	"end_time”: int,  // milliseconds since epoch
+	"value": [{  // may be an array of objects, a single object, or a string (“RESERVED”)
+		"netId": string,
+   	      	"firstName": string,
+    	      	“lastName”: string,
+                "email": string
+    	}
     }
     ...
 ]
@@ -81,15 +81,6 @@ Fetches the hour preferences for all employees (if admin)
 }
 ...
 ]
-
-
-
-
-
-
-
-
-
 
 /employees/:netid/hour-preferences (GET)
 Fetches the hour preferences for an employee
