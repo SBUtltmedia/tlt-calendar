@@ -1,4 +1,4 @@
-/user (GET)
+<pre>/user (GET)
 Fetches data about the current user.
 {
     "firstName": string,
@@ -140,4 +140,4 @@ For finding the location of the half-hour….
 half-hour%48 tells us the half-hour of THAT DAY
 half-hour// 7 tells us the DAY
 convert half hour to hours and mins.
-
+</pre>
