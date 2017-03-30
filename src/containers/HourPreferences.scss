@@ -22,12 +22,12 @@
     }
 
     &::before {
-      content:"0%";
+      content:"Ehh...";
       @include percentage(left);
 
     }
     &::after {
-      content:"100%";
+      content:"Really want!";
       @include percentage(right);
     }
   }
