@@ -31,9 +31,9 @@ class HourPreferencesList extends Component {
 
 const mapStateToProps = state => ({
   employees: state.admin.hourPreferences.map(p => p.employee)
-});
+})
 
 export default connect(
   mapStateToProps,
   {fetchAllHourPreferences}
-)(HourPreferencesList);
+)(HourPreferencesList)
