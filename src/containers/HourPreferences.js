@@ -41,7 +41,8 @@ class HourPreferences extends Component {
       )
     }
     else {
-      return <div></div>
+      // List not loaded for admin, go back to list page
+      window.location.href = '/#/preferences'
     }
   }
 }
@@ -52,9 +53,6 @@ const mapStateToProps = (state, ownProps) => {
     isAdmin ?
       _.find(state.admin.hourPreferences, p => p.employee.netId === ownProps.params.netId) :
       state.hourPreferences
-
-  console.log(hourPreferences)
-
   return {
     isAdmin,
     hourPreferences,
