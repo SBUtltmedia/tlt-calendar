@@ -31,7 +31,7 @@ const LocationOrder = ({locations, reorderGlobalLocations}) => (
 )
 
 LocationOrder.propTypes = {
-  locationOrder: PropTypes.arrayOf(PropTypes.number).isRequired
+  locationOrder: PropTypes.arrayOf(PropTypes.number)
 }
 
 const getLocationsFromOrder = (locations, locationOrder) =>

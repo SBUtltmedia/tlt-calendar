@@ -6,8 +6,6 @@
     "email": "rong.zou@stonybrook.edu"
   },
   "locationOrder": [8, 5, 4, 7, 6, 3, 1, 2],
-  "items": [
-    {"value": 1, "start_time": 1477670400000, "end_time": 1477699200000}
-  ],
+  "items": [],
   "numDesiredHours": 12
 }

@@ -16,7 +16,7 @@ class HourPreferences extends Component {
 
   componentWillMount() {
     const {fetchHourPreferences, params:{netId}, isAdmin} = this.props
-    if (isAdmin === false) {
+    if (!isAdmin) {
       fetchHourPreferences(netId)
     }
   }
@@ -52,6 +52,9 @@ const mapStateToProps = (state, ownProps) => {
     isAdmin ?
       _.find(state.admin.hourPreferences, p => p.employee.netId === ownProps.params.netId) :
       state.hourPreferences
+
+  console.log(hourPreferences)
+
   return {
     isAdmin,
     hourPreferences,
