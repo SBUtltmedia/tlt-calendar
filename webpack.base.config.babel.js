@@ -3,6 +3,7 @@ var path = require('path');
 
 module.exports = {
    entry: './src/index.js',
+   devtool: 'source-map',
    plugins: [
      new webpack.ProvidePlugin({ 'React': 'react' })
    ],
