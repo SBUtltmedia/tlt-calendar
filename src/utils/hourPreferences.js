@@ -7,8 +7,16 @@ export function initializeCells() {
   return Array.apply(null, Array(n)).map(Number.prototype.valueOf, 0)
 }
 
+export function initializeOrder(numLocations) {
+  return _.shuffle(_.range(1, numLocations + 1))
+}
+
 export function loadCells(cells) {
-  return cells.length === 336 ? cells : initializeCells()
+  return _.isEmpty(cells) ? initializeCells() : cells
+}
+
+export function loadLocationOrder(order, locations) {
+  return _.isEmpty(order) ? initializeOrder(locations.length) : order
 }
 
 export function toggleCell(cells, index) {

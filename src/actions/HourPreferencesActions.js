@@ -13,10 +13,14 @@ const dispatchAndSave = (data, type) => (dispatch, getState) => {
   save(userPath(netId), getState().hourPreferences)
 }
 
-const receiveHourPreferences = (json) => ({
-  type: RECEIVE_HOUR_PREFERENCES,
-  ...json
-})
+const receiveHourPreferences = (json) => (dispatch, getState) => {
+  const state = getState()
+  dispatch({
+    type: RECEIVE_HOUR_PREFERENCES,
+    ...json,
+    locations: state.locations
+  })
+}
 
 const receiveAllHourPreferences = (json) => ({
   type: RECEIVE_ALL_HOUR_PREFERENCES,

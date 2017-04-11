@@ -18,9 +18,8 @@ export default function schedule(state=initialState, action) {
     case RECEIVE_HOUR_PREFERENCES:
       return {
         ...state,
-        ..._.pick(action, [
-          'numDesiredHours', 'locationOrder', 'employee'
-        ]),
+        ..._.pick(action, ['numDesiredHours', 'employee']),
+        locationOrder: utils.loadLocationOrder(action.locationOrder, action.locations),
         items: utils.loadCells(action.items)
       }
     case CLEAR_HOUR_PREFERENCES:
