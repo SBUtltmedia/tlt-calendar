@@ -102,6 +102,17 @@ Replaces the hour preferences for an employee
 Input structure is same as the GET version output
 Output is nothing if successful (status code: 204)
 
+/employees/:netid/status (GET)
+Fetches the status for an employee
+{
+	"group": string,
+	"probation": string,
+	"priority": float
+}
+
+/employees/:netid/status (POST)
+Same structure as the GET version
+
 /slots (GET)
 Fetches the slots for all locations (hours open, shift slots, etc.)
 [
