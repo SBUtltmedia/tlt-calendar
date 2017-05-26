@@ -113,6 +113,21 @@ Fetches the status for an employee
 /employees/:netid/status (POST)
 Same structure as the GET version
 
+/employees/status (GET)
+Fetches the status for all employees
+[
+	{
+		"netid": string,
+		"status": {
+			// same format as /employees/:netid/status		
+		}
+	}
+	...
+]
+
+/employees/status (POST)
+Input structure is same as the GET version output
+
 /slots (GET)
 Fetches the slots for all locations (hours open, shift slots, etc.)
 [
