@@ -18,7 +18,7 @@ Requires [sshfs and Fuse for macOS](https://osxfuse.github.io/)<br>
 <br>or if you need to customize the output path:<br>
 `node_modules/webpack/bin/webpack --config webpack.prod.config.babel.js --output-path <output path>`
 
-Site will be at: [https://apps.tlt.stonybrook.edu/sccal](https://apps.tlt.stonybrook.edu/sccal)
+Site will be at: [https://apps.tlt.stonybrook.edu/tlt-scheduler](https://apps.tlt.stonybrook.edu/tlt-scheduler)
 
 ## Experimental test debugging
 `npm run test:debug` and open [127.0.0.1:5000/?port=5858](http://127.0.0.1:5000/?port=5858) in Chrome to debug tests (requires [node-inspector](https://github.com/node-inspector/node-inspector) to be installed using `npm -g`)
